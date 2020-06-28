@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DCASE," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文资料来源于DCASE 2013以及上面下载的各个参赛组的技术报告（应该就是扩展摘要） 参赛者及其作品：  注意：图中的参考文献[46-56]就是对应的参赛者提交作品的技术报告（也就是扩展摘要）。  （1）Chum et al[1] 简介：这里开发了两种算法：第一种是基于隐马尔可夫模型（HMM）和高斯混合模型（GMM）。 所使用的特征包括短时傅立叶变换，响度和光谱稀疏度。 第二种算法在基于帧">
+<meta name="keywords" content="DCASE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DCASE 2013任务1(声学场景分类)参赛作品相关信息">
+<meta property="og:url" content="http://yoursite.com/2017/09/09/31DCASE-2013参赛作品相关信息/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="本文资料来源于DCASE 2013以及上面下载的各个参赛组的技术报告（应该就是扩展摘要） 参赛者及其作品：  注意：图中的参考文献[46-56]就是对应的参赛者提交作品的技术报告（也就是扩展摘要）。  （1）Chum et al[1] 简介：这里开发了两种算法：第一种是基于隐马尔可夫模型（HMM）和高斯混合模型（GMM）。 所使用的特征包括短时傅立叶变换，响度和光谱稀疏度。 第二种算法在基于帧">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/SceneClassificationsubmitSystem2.png">
+<meta property="og:image" content="http://yoursite.com/images/DCASE_2013Result.jpg">
+<meta property="og:updated_time" content="2017-09-15T06:38:39.170Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DCASE 2013任务1(声学场景分类)参赛作品相关信息">
+<meta name="twitter:description" content="本文资料来源于DCASE 2013以及上面下载的各个参赛组的技术报告（应该就是扩展摘要） 参赛者及其作品：  注意：图中的参考文献[46-56]就是对应的参赛者提交作品的技术报告（也就是扩展摘要）。  （1）Chum et al[1] 简介：这里开发了两种算法：第一种是基于隐马尔可夫模型（HMM）和高斯混合模型（GMM）。 所使用的特征包括短时傅立叶变换，响度和光谱稀疏度。 第二种算法在基于帧">
+<meta name="twitter:image" content="http://yoursite.com/images/SceneClassificationsubmitSystem2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/09/31DCASE-2013参赛作品相关信息/"/>
+
+
+
+
+
+  <title>DCASE 2013任务1(声学场景分类)参赛作品相关信息 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/31DCASE-2013参赛作品相关信息/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DCASE 2013任务1(声学场景分类)参赛作品相关信息</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T16:23:18+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DCASE/" itemprop="url" rel="index">
+                    <span itemprop="name">DCASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　本文资料来源于<a href="http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/" target="_blank" rel="external">DCASE 2013</a>以及上面下载的各个参赛组的技术报告（应该就是扩展摘要）</p>
+<p>参赛者及其作品：</p>
+<p><img src="/images/SceneClassificationsubmitSystem2.png" alt="Table2"></p>
+<p><strong>注意</strong>：图中的参考文献[46-56]就是对应的参赛者提交作品的<strong>技术报告</strong>（也就是扩展摘要）。</p>
+<p><img src="/images/DCASE_2013Result.jpg" alt="DCASE_2013Result"></p>
+<h1 id="（1）Chum-et-al-1"><a href="#（1）Chum-et-al-1" class="headerlink" title="（1）Chum et al[1]"></a>（1）Chum et al[1]</h1><ul>
+<li><p><strong>简介</strong>：这里开发了两种算法：第一种是基于隐马尔可夫模型（HMM）和高斯混合模型（GMM）。 所使用的特征包括短时傅立叶变换，响度和光谱稀疏度。 第二种算法在基于帧的层面上应用支持向量机（SVM）。</p>
+</li>
+<li><p><strong>code</strong>：<a href="https://github.com/csdev/scene-classification-aasp-2013" target="_blank" rel="external">CHR</a></p>
+</li>
+<li><p><strong>方法</strong>：在两个框架的不同的特征，分类：(a)：前框架SVM+多数表决；(b)：HMM</p>
+</li>
+<li><p><strong>开发语言</strong>：matlab</p>
+</li>
+<li><p><strong>相关的文章</strong>：<a href="https://github.com/csdev/scene-classification-aasp-2013/blob/master/chum-habshush-rahman-sang.pdf?raw=true" target="_blank" rel="external">M. Chum, A. Habshush, A. Rahman, and C. Sang, “IEEE AASP scene classification challenge using hidden Markov models and frame based classification,” 2013.</a></p>
+</li>
+<li><p><strong>成员</strong>：</p>
+<ul>
+<li>Dan Stowell（dan.stowell@eecs.qmul.ac.uk），Manager</li>
+<li>Emmanouil Benetos （emmanouil.benetos@qmul.ac.uk），Manager</li>
+<li>Mark Plumbley （m.plumbley@surrey.ac.uk），Manager</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-Geiger-et-al-3"><a href="#2-Geiger-et-al-3" class="headerlink" title="(2)Geiger et al[3]"></a>(2)Geiger et al[3]</h1><ul>
+<li><strong>简介</strong>：这是对声学场景分类的IEEE AASP挑战的贡献。 从30秒长的高可变录音中，提取频谱，倒谱，能量和声音相关的音频特征。 使用滑动窗口方法来获得短段上低级特征的统计学特征。 SVM用于对这些<strong>短段</strong>进行分类，并采用多数投票方案来获得整个记录的决策。 关于挑战的官方发展，实现了73％的准确性。 使用t统计量的特征分析表明，主要的Mel谱是最相关的特征。</li>
+<li><p><strong>code</strong>:GSR</p>
+</li>
+<li><p><strong>方法</strong>：不同的特征，在4秒的窗口中使用SVM进行分类，然后投票表决</p>
+</li>
+<li><p><strong>开发语言</strong>：Weka/HTK</p>
+</li>
+<li><p><strong>相关文章</strong>：</p>
+<ul>
+<li>(1)<a href="http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/abstracts/SC/GSR.pdf" target="_blank" rel="external">J. T. Geiger, B. Schuller, and G. Rigoll, “Recognising acoustic scenes with large-scale audio feature extraction and SVM,” 2013.</a></li>
+<li>(2)<a href="http://www.mmk.ei.tum.de/~gej/waspaa13_geiger_dcase.pdf" target="_blank" rel="external">J. T. Geiger, B. Schuller, and G. Rigoll, “Large-Scale Audio Feature Extraction and SVM for Acoustic Scene Classification,” in WASPAA, 2013, p. 4.</a>(有代码)</li>
+</ul>
+</li>
+<li><p><strong>成员</strong>：</p>
+<ul>
+<li>Dan Stowell （dan.stowell@eecs.qmul.ac.uk），Manager</li>
+<li>Emmanouil Benetos （emmanouil.benetos@qmul.ac.uk），Manager</li>
+<li>Jürgen Geiger （geiger@tum.de），Manager</li>
+<li>Mark Plumbley （m.plumbley@surrey.ac.uk），Manager</li>
+</ul>
+</li>
+</ul>
+<h1 id="Olivetti-8"><a href="#Olivetti-8" class="headerlink" title="Olivetti[8]"></a>Olivetti[8]</h1><ul>
+<li><p><strong>简介</strong>：我们提出一种方法，将一般对象（如音频样本）有效地嵌入到矢量特征空间中，适用于分类问题。从实践的角度来看，采用提出的方法的研究者只需要提供两个成分：这些对象的高效压缩器，以及将两个对象组合成新对象的方式。所提出的方法基于两个主要元素：不相似性表示和归一化压缩距离（NCD）。不相似性表示是欧几里德嵌入算法，即将通用对象映射到向量空间中的过程，其需要在对象之间定义距离函数。所产生的嵌入的质量严格依赖于该距离的选择。 NCD是基于Kolmogorov复杂性概念的对象之间的距离。在实践中，NCD基于两个构建块：压缩函数和将两个对象组合成新对象的方法。我们声称，一旦良好的压缩机和有意义的组合两个对象的方法可用，则可以构建分类算法可以准确的有效特征空间。作为我们向IEEE AASP挑战提交的文件，我们在声场分类的上下文中展示了所提出的方法的实际应用，其中压缩器是自由和开源的Vorbis有损音频压缩器，并且两个音频样本的组合是它们的简单连接。</p>
+</li>
+<li><p><strong>code</strong>:OE</p>
+</li>
+<li><p><strong>方法</strong>：归一化压缩距离（vorbis），欧几里德嵌入，由随机森林分类</p>
+</li>
+<li><p><strong>开发语言</strong>：Phyon</p>
+</li>
+<li><p><strong>相关文章</strong>：</p>
+<ul>
+<li><a href="http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/abstracts/SC/OE.pdf" target="_blank" rel="external">E. Olivetti, “The wonders of the normalized compression dissimilarity representation,” 2013.</a></li>
+</ul>
+</li>
+<li><p><strong>成员</strong>：</p>
+<ul>
+<li>Dan Stowell （dan.stowell@eecs.qmul.ac.uk），Manager</li>
+<li>Emmanouil Benetos （emmanouil.benetos@qmul.ac.uk），Manager</li>
+<li>Mark Plumbley （m.plumbley@surrey.ac.uk），Manager</li>
+</ul>
+</li>
+</ul>
+<h1 id="Roma-et-al-11"><a href="#Roma-et-al-11" class="headerlink" title="Roma et al[11]"></a>Roma et al[11]</h1><ul>
+<li><p><strong>简介</strong>：该代码使用重复量化分析（RQA）功能进行场景分类任务。 这些特征是通过从MFCC特征的窗口计算出的阈值相似度矩阵来计算的。 增加了传统的MFCC统计，它们在使用标准SVM分类器时提高了准确性。</p>
+</li>
+<li><p><strong>code</strong>:RNH</p>
+</li>
+<li><p><strong>方法</strong>：复发定量分析应用于MFCC时间序列，由SVM分类</p>
+</li>
+<li><p><strong>开发语言</strong>：matlab</p>
+</li>
+<li><p><strong>相关文章</strong>：</p>
+<ul>
+<li>(1)<a href="http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/abstracts/SC/RNH.pdf" target="_blank" rel="external">G. Roma, W. Nogueira, and P. Herrera, “Recurrence Quantification Analysis for auditory scene classification,” 2013.</a></li>
+</ul>
+</li>
+<li><p><strong>成员</strong>：</p>
+<ul>
+<li>Dan Stowell （dan.stowell@eecs.qmul.ac.uk），Manager</li>
+<li>Emmanouil Benetos （emmanouil.benetos@qmul.ac.uk），Manager</li>
+<li>Mark Plumbley （m.plumbley@surrey.ac.uk），Manager</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DCASE/" rel="tag"># DCASE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/08/30DCASE三次挑战赛概览/" rel="next" title="DCASE三次挑战赛概览">
+                <i class="fa fa-chevron-left"></i> DCASE三次挑战赛概览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/10/33DCASE-2017数据集及基线系统/" rel="prev" title="DCASE 2017声场分类任务描述——数据集及基线系统">
+                DCASE 2017声场分类任务描述——数据集及基线系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#（1）Chum-et-al-1"><span class="nav-number">1.</span> <span class="nav-text">（1）Chum et al[1]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Geiger-et-al-3"><span class="nav-number">2.</span> <span class="nav-text">(2)Geiger et al[3]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Olivetti-8"><span class="nav-number">3.</span> <span class="nav-text">Olivetti[8]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Roma-et-al-11"><span class="nav-number">4.</span> <span class="nav-text">Roma et al[11]</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

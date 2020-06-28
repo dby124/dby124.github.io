@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SVM," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="环境搭建 平台：  Windows PC MATLAB 软件 libsvm库（SVM工具箱）   安装步骤  准备工作  安装对应的编译器，在网站上查看当前matlab版本支持的编译器版本。本文使用的matlab 2015a版本（支持编译器详情）。 通过查询，发现Microsoft Windows SDK7.1支持matlab 2015a，所以下面安装这个编译器。 根据安装说明，在安装这个Wind">
+<meta name="keywords" content="SVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM学习——在matlab上安装libsvm库（一）">
+<meta property="og:url" content="http://yoursite.com/2017/10/21/在matlab上安装libsvm库/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="环境搭建 平台：  Windows PC MATLAB 软件 libsvm库（SVM工具箱）   安装步骤  准备工作  安装对应的编译器，在网站上查看当前matlab版本支持的编译器版本。本文使用的matlab 2015a版本（支持编译器详情）。 通过查询，发现Microsoft Windows SDK7.1支持matlab 2015a，所以下面安装这个编译器。 根据安装说明，在安装这个Wind">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-19T01:42:17.741Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVM学习——在matlab上安装libsvm库（一）">
+<meta name="twitter:description" content="环境搭建 平台：  Windows PC MATLAB 软件 libsvm库（SVM工具箱）   安装步骤  准备工作  安装对应的编译器，在网站上查看当前matlab版本支持的编译器版本。本文使用的matlab 2015a版本（支持编译器详情）。 通过查询，发现Microsoft Windows SDK7.1支持matlab 2015a，所以下面安装这个编译器。 根据安装说明，在安装这个Wind">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/21/在matlab上安装libsvm库/"/>
+
+
+
+
+
+  <title>SVM学习——在matlab上安装libsvm库（一） | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/21/在matlab上安装libsvm库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SVM学习——在matlab上安装libsvm库（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-21T11:32:53+08:00">
+                2017-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><ul>
+<li><p>平台：</p>
+<ul>
+<li>Windows PC</li>
+<li>MATLAB 软件</li>
+<li>libsvm库（SVM工具箱）</li>
+</ul>
+</li>
+<li><p>安装步骤</p>
+</li>
+<li><p>准备工作</p>
+<ul>
+<li>安装对应的编译器，在网站上查看当前matlab版本支持的编译器版本。本文使用的<code>matlab 2015a</code>版本（<a href="https://cn.mathworks.com/content/dam/mathworks/mathworks-dot-com/support/sysreq/files/SystemRequirements-Release2015a_SupportedCompilers.pdf" target="_blank" rel="external">支持编译器详情</a>）。</li>
+<li>通过查询，发现<code>Microsoft Windows SDK7.1</code>支持<code>matlab 2015a</code>，所以下面安装这个编译器。</li>
+<li>根据安装说明，在安装这个<code>Windows SDK7.1</code>之前，1）首先需要安装最新的<code>Windows service Pack</code>，用于更新（ps：猜测每个电脑都默认安装，所以在安装过程中直接忽视了这条要求）。2）安装<code>Microsoft .NET Framework 4</code>,用于支持安装<code>Microsoft Windows SDK7.1</code>。</li>
+</ul>
+</li>
+<li><p>安装libsvm</p>
+<ul>
+<li>在<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="external">libsvm官网</a>上查找相应的libsvm库，选择<code>MATLAB and OCTAVE</code>语言，下载最新版的<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/#download" target="_blank" rel="external"><code>libsvm-3.22.zip</code></a></li>
+<li>下载后把工具包放在MATLAB安装目录下的toolbox文件夹中，例如， D:\Learn program\matlab2015a\toolbox\libsvm-3.22。</li>
+<li>假设你使用的是64位的操作系统和matlab。打开matlab，在matlab目录中添加（set path）：D:\Learn program\matlab2015a\toolbox\libsvm-3.22\windows。因为windows下包含了matlab可执行的二进制文件libsvmread.mexw64/libsvmwrite.mexw64/svmpredict.mexw64/svmtrain.mexw64</li>
+<li>在matlab中，进入到D:\Learn program\matlab2015a\toolbox\libsvm-3.22\matlab目录下。运行<code>mex –setup</code>，此时按照<a href="http://apinetree.blog.51cto.com/714152/1560254/" target="_blank" rel="external">LIBSVM在matlab下的使用安装</a>文中提到的步骤继续操作。</li>
+<li><p>但是由于接口的问题，又出现警告：</p>
+<p>  MEX 配置为使用 ‘Microsoft Visual C++ 2012 (C)’ 以进行 C 语言编译。</p>
+<p>  警告: MATLAB C 和 Fortran API 已更改，现可支持</p>
+<pre><code>包含 2^32-1 个以上元素的 MATLAB 变量。不久以后，
+ 您需要更新代码以利用
+ 新的 API。您可以在以下网址找到相关详细信息:
+ http://www.mathworks.com/help/ma ... use-64-bit-api.html。
+</code></pre></li>
+<li><p>根据 <a href="http://blog.csdn.net/buaasuozi/article/details/50781615/" target="_blank" rel="external">关于libsvm工具箱在64位matlab下的安装说明</a>文中提到的方法，进行下面关键两步：</p>
+<ul>
+<li>切换matlab运行目录至：D:\Learn program\matlab2015a\toolbox\libsvm-3.22\matlab，在命令行输入make，也就是该目录下的那个make文件。这时候就像以前安装libsvm一样，会自动make出来很多文件，不用管，主要是会看到make出带有mexm64后缀名的文件，这就成功了。</li>
+<li>拷贝第一步中matlab文件夹下所有make出来的文件（.mex64），到libsvm-3.22\windows文件夹下，全部替换。这样就可以了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>测试（此处将libsvm-3.22中文<code>heart_scale</code>拷贝到libsvm-3.22\matlab目录下，运行下面的语句）</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> [heart_scale_label,heart_scale_inst]=libsvmread(<span class="string">'heart_scale'</span>);</div><div class="line">model = svmtrain(heart_scale_label,heart_scale_inst, <span class="string">'-c 1 -g 0.07'</span>);</div><div class="line">[predict_label, accuracy, dec_values] =svmpredict(heart_scale_label, heart_scale_inst, model); % <span class="built_in">test</span> the trainingdata</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试结果，出现如下结果表明安装成功</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">optimization finished, <span class="comment">#iter = 134</span></div><div class="line">nu = 0.433785</div><div class="line">obj = -101.855060, rho = 0.426412</div><div class="line">nSV = 130, nBSV = 107</div><div class="line">Total nSV = 130</div><div class="line">Accuracy = 86.6667% (234/270) (classification)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="SVM参数优化"><a href="#SVM参数优化" class="headerlink" title="SVM参数优化"></a>SVM参数优化</h1><p>MATLAB中三种得到最佳g和c参数的方法：</p>
+<h2 id="遗传算法（GA）选择最佳的SVM参数c-amp-g"><a href="#遗传算法（GA）选择最佳的SVM参数c-amp-g" class="headerlink" title="遗传算法（GA）选择最佳的SVM参数c&amp;g"></a>遗传算法（GA）选择最佳的SVM参数c&amp;g</h2><ul>
+<li>在运行案例时，报错：<code>Undefined function or variable &#39;rep&#39;.</code>，未找到rep函数，此时，需要安装GA的工具箱，下载英国谢菲尔德大学开发的遗传算法工具箱gatbx，<a href="http://www.ilovematlab.cn/thread-202921-1-1.html" target="_blank" rel="external">可从此处下载</a></li>
+</ul>
+<blockquote>
+<p>由于其中的函数扩展名是M，而不是m，需要将其全部改为小写的m，再把文件夹复制到toolbox中，加载至matlab，即可。</p>
+</blockquote>
+<ul>
+<li><p><a href="http://www.matlabsky.com/thread-12412-1-1.html?_dsign=42cd2291" target="_blank" rel="external">函数接口介绍</a></p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">（1）利用GA参数寻优函数(分类问题):gaSVMcgForClass</div><div class="line">[bestCVaccuracy,bestc,bestg,ga_option]= </div><div class="line">gaSVMcgForClass(train_label,train,ga_option)</div><div class="line">输入：</div><div class="line">train_label:训练集的标签，格式要求与svmtrain相同。</div><div class="line">train:训练集，格式要求与svmtrain相同。</div><div class="line">ga_option:GA中的一些参数设置，可不输入，有默认值，详细请看代码的帮助说明。</div><div class="line">输出：</div><div class="line">bestCVaccuracy:最终CV意义下的最佳分类准确率。</div><div class="line">bestc:最佳的参数c。</div><div class="line">bestg:最佳的参数g。</div><div class="line">ga_option:记录GA中的一些参数。</div><div class="line">\==========================================================</div><div class="line">（2）利用GA参数寻优函数(回归问题):gaSVMcgForRegress</div><div class="line">[bestCVmse,bestc,bestg,ga_option]= </div><div class="line">gaSVMcgForRegress(train_label,train,ga_option)</div><div class="line">其输入输出与gaSVMcgForClass类似，这里不再赘述。</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用案例，加入gaSVMcgForClass.m函数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">% GA的参数选项初始化</div><div class="line">ga_option.maxgen = 200;</div><div class="line">ga_option.sizepop = 20; </div><div class="line">ga_option.cbound = [0,100];</div><div class="line">ga_option.gbound = [0,100];</div><div class="line">ga_option.v = 5;</div><div class="line">ga_option.ggap = 0.9;</div><div class="line">% 得到最佳参数</div><div class="line">[bestacc,bestc,bestg] = gaSVMcgForClass(train_wine_labels,train_wine,ga_option);</div><div class="line">% 利用最佳的参数进行SVM网络训练</div><div class="line">cmd = [<span class="string">'-c '</span>,num2str(bestc),<span class="string">' -g '</span>,num2str(bestg)];</div><div class="line">model = svmtrain(train_wine_labels,train_wine,cmd);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="PSO选择最佳的SVM参数c-amp-g"><a href="#PSO选择最佳的SVM参数c-amp-g" class="headerlink" title="PSO选择最佳的SVM参数c&amp;g"></a>PSO选择最佳的SVM参数c&amp;g</h2><ul>
+<li><p>使用案例，加入psoSVMcgForClass.m函数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">% 得到最佳参数</div><div class="line">[bestacc,bestc,bestg] = psoSVMcgForClass(train_wine_labels,train_wine);</div><div class="line">% 利用最佳的参数进行SVM网络训练</div><div class="line">cmd = [<span class="string">'-c '</span>,num2str(bestc),<span class="string">' -g '</span>,num2str(bestg)];</div><div class="line">model = svmtrain(train_wine_labels,train_wine,cmd);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="贪婪算法（Grid）选择最佳的SVM参数c-amp-g"><a href="#贪婪算法（Grid）选择最佳的SVM参数c-amp-g" class="headerlink" title="贪婪算法（Grid）选择最佳的SVM参数c&amp;g"></a>贪婪算法（Grid）选择最佳的SVM参数c&amp;g</h2><ul>
+<li><p>使用案例，加入gridSVMcgForClass.m函数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">% 首先进行粗略选择: c&amp;g 的变化范围是 2^(-10),2^(-9),...,2^(10)</div><div class="line">[bestacc,bestc,bestg] = gridSVMcgForClass(train_wine_labels,train_wine,-10,10,-10,10);</div><div class="line">% 根据粗略选择的结果图再进行精细选择: c 的变化范围是 2^(-2),2^(-1.5),...,2^(4), g 的变化范围是 2^(-4),2^(-3.5),...,2^(4),</div><div class="line">[bestacc,bestc,bestg] = SVMcgForClass(train_wine_labels,train_wine,-2,4,-4,4,3,0.5,0.5,0.9);</div><div class="line">%% 利用最佳的参数进行SVM网络训练</div><div class="line">cmd = [<span class="string">'-c '</span>,num2str(bestc),<span class="string">' -g '</span>,num2str(bestg)];</div><div class="line">model = svmtrain(train_wine_labels,train_wine,cmd);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="http://apinetree.blog.51cto.com/714152/1560254/" target="_blank" rel="external">LIBSVM在matlab下的使用安装</a></li>
+<li><a href="http://blog.csdn.net/buaasuozi/article/details/50781615/" target="_blank" rel="external">关于libsvm工具箱在64位matlab下的安装说明</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SVM/" rel="tag"># SVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/17/机器学习之正则化/" rel="next" title="机器学习之正则化">
+                <i class="fa fa-chevron-left"></i> 机器学习之正则化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/11/如何学习/" rel="prev" title="如何学习">
+                如何学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM参数优化"><span class="nav-number">2.</span> <span class="nav-text">SVM参数优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#遗传算法（GA）选择最佳的SVM参数c-amp-g"><span class="nav-number">2.1.</span> <span class="nav-text">遗传算法（GA）选择最佳的SVM参数c&g</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PSO选择最佳的SVM参数c-amp-g"><span class="nav-number">2.2.</span> <span class="nav-text">PSO选择最佳的SVM参数c&g</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贪婪算法（Grid）选择最佳的SVM参数c-amp-g"><span class="nav-number">2.3.</span> <span class="nav-text">贪婪算法（Grid）选择最佳的SVM参数c&g</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

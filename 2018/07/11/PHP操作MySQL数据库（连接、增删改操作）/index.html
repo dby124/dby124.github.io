@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,MySQL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="MySQL 是跟 PHP 配套使用的最流行的开源数据库系统，我们知道MySQL是PHP的最佳搭档，下面是系统的总结PHP与MySQL联合使用的方法。主要是使用MySQL扩展，下面就通过归纳总结来提升。 MySQL概述MySQL 是一种在 Web 上使用的数据库系统。 MySQL 是一种在服务器上运行的数据库系统。 MySQL 不管在小型还是大型应用程序中，都是理想的选择。 MySQL 是非常快速，">
+<meta name="keywords" content="PHP,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP操作MySQL数据库（连接、增删改操作）">
+<meta property="og:url" content="http://yoursite.com/2018/07/11/PHP操作MySQL数据库（连接、增删改操作）/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="MySQL 是跟 PHP 配套使用的最流行的开源数据库系统，我们知道MySQL是PHP的最佳搭档，下面是系统的总结PHP与MySQL联合使用的方法。主要是使用MySQL扩展，下面就通过归纳总结来提升。 MySQL概述MySQL 是一种在 Web 上使用的数据库系统。 MySQL 是一种在服务器上运行的数据库系统。 MySQL 不管在小型还是大型应用程序中，都是理想的选择。 MySQL 是非常快速，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-11T11:06:41.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP操作MySQL数据库（连接、增删改操作）">
+<meta name="twitter:description" content="MySQL 是跟 PHP 配套使用的最流行的开源数据库系统，我们知道MySQL是PHP的最佳搭档，下面是系统的总结PHP与MySQL联合使用的方法。主要是使用MySQL扩展，下面就通过归纳总结来提升。 MySQL概述MySQL 是一种在 Web 上使用的数据库系统。 MySQL 是一种在服务器上运行的数据库系统。 MySQL 不管在小型还是大型应用程序中，都是理想的选择。 MySQL 是非常快速，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/11/PHP操作MySQL数据库（连接、增删改操作）/"/>
+
+
+
+
+
+  <title>PHP操作MySQL数据库（连接、增删改操作） | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/PHP操作MySQL数据库（连接、增删改操作）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP操作MySQL数据库（连接、增删改操作）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T16:08:38+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>MySQL 是跟 PHP 配套使用的最流行的开源数据库系统，我们知道MySQL是PHP的最佳搭档，下面是系统的总结PHP与MySQL联合使用的方法。主要是使用MySQL扩展，下面就通过归纳总结来提升。</p>
+<h2 id="MySQL概述"><a href="#MySQL概述" class="headerlink" title="MySQL概述"></a><a href="http://www.mysql.com" target="_blank" rel="external">MySQL</a>概述</h2><p>MySQL 是一种在 Web 上使用的数据库系统。</p>
+<p>MySQL 是一种在服务器上运行的数据库系统。</p>
+<p>MySQL 不管在小型还是大型应用程序中，都是理想的选择。</p>
+<p>MySQL 是非常快速，可靠，且易于使用的。</p>
+<p>MySQL 支持标准的 SQL。</p>
+<p>MySQL 在一些平台上编译。</p>
+<p>MySQL 是免费下载使用的。</p>
+<p>MySQL 是由 Oracle 公司开发、发布和支持的。</p>
+<p>MySQL 是以公司创始人 Monty Widenius’s daughter: My 命名的。</p>
+<p>PHP 与 MySQL 结合是跨平台的。（您可以在 Windows 上开发，在 Unix 平台上应用。）</p>
+<h2 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h2><p>PHP 使用 MySQL 数据库前，需要先将它们连接。</p>
+<ul>
+<li><p><strong>PHP连接MySQL的四种方式</strong>：</p>
+<ul>
+<li><strong>MySQL 扩展</strong></li>
+<li><strong>MySQLi 扩展</strong> (“i” 意为 improved)</li>
+<li><strong>PDO</strong> (PHP Data Objects)</li>
+<li><p><strong>PHP 使用 ODBC 连接数据库</strong></p>
+<blockquote>
+<p>PHP 5 及以上版本推荐使用MySQLi 扩展和PDO。在 PHP 早起版本中我们使用 MySQL 扩展。但该扩展在 2012 年开始不建议使用。</p>
+</blockquote>
+<p>MySQLi | PDO<br>—|—<br>只针对 MySQL 数据库 | 应用在 12 种不同数据库中<br>面向对象(还提供API接口) | 面向对象<br>支持预处理语句 | 支持预处理语句</p>
+<blockquote>
+<p>预处理语句可以防止<strong>SQL注入</strong>，对于web项目的安全性是非常重要的。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>PHP的MySQL扩展(优缺点)</strong></p>
+<p>  设计开发允许PHP应用与MySQL数据库交互的早期扩展。mysql扩展提供了一个面向过程 的接口；</p>
+<p>  并且是针对MySQL4.1.3或更早版本设计的。因此，这个扩展虽然可以与MySQL4.1.3或更新的数据库服务端 进行交互，但并不支持后期MySQL服务端提供的一些特性。</p>
+</li>
+<li><p><strong>PHP的mysqli扩展</strong></p>
+<p>  mysqli扩展，我们有时称之为MySQL增强扩展，可以用于使用 MySQL4.1.3或更新版本中新的高级特性；</p>
+<p>  mysqli扩展在PHP 5及以后版本中包含；</p>
+<p>  mysqli扩展有一系列的优势，相对于mysql扩展的提升主要有：面向对象接口、 prepared语句支持、多语句执行支持、事务支持、增强的调试能力、嵌入式服务支持。</p>
+</li>
+<li><p><strong>PHP数据对象(PDO)</strong></p>
+<p>  PHP数据对象，是PHP应用中的一个数据库抽象层规范。PDO提供了一个统一的API接口可以，使得你的PHP应用不去关心具体要 连接的数据库服务器系统类型。也就是说，如果你使用PDO的API，可以在任何需要的时候无缝切换数据库服务器。</p>
+</li>
+<li><p><a href="https://www.w3cschool.cn/php/php-db-odbc.html" target="_blank" rel="external"><strong>PHP 使用 ODBC 连接数据库</strong></a></p>
+<p>  ODBC 是一种应用程序编程接口（Application Programming Interface，API），使我们有能力连接到某个数据源（比如一个 MS Access 数据库）。</p>
+<p>  （1）<strong>创建 ODBC 连接</strong></p>
+<p>  通过一个 ODBC 连接，您可以连接到您的网络中的任何计算机上的任何数据库，只要 ODBC 连接是可用的。</p>
+<p>  （2）<strong>连接到 ODBC</strong></p>
+<p>  <code>odbc_connect()</code> 函数用于连接到 ODBC 数据源。该函数有四个参数：数据源名、用户名、密码以及可选的指针类型。</p>
+<p>  <code>odbc_exec()</code> 函数用于执行 SQL 语句。</p>
+<p>  （3）<strong>取回记录</strong></p>
+<p>  <code>odbc_fetch_row()</code> 函数用于从结果集中返回记录。如果能够返回行，则函数返回 true，否则返回 false。该函数有两个参数：ODBC 结果标识符和可选的行号，如：<code>odbc_fetch_row($rs)</code>。</p>
+<p>  （4）<strong>从记录中取回字段</strong></p>
+<p>  <code>odbc_result()</code> 函数用于从记录中读取字段。该函数有两个参数：ODBC 结果标识符和字段编号或名称。<code>$compname=odbc_result($rs,1);</code>从记录中返回第一个字段的值；<code>compname=odbc_result($rs,&quot;CompanyName&quot;);</code>返回名为 “CompanyName” 的字段的值。</p>
+<p>  （5）<strong>关闭 ODBC 连接</strong></p>
+<p>  <code>odbc_close()</code> 函数用于关闭 ODBC 连接，<code>odbc_close($conn);</code>。</p>
+</li>
+</ul>
+<h3 id="MySQL扩展连接数据库"><a href="#MySQL扩展连接数据库" class="headerlink" title="MySQL扩展连接数据库"></a>MySQL扩展连接数据库</h3><ul>
+<li><p><a href="http://www.w3school.com.cn/php/func_mysql_connect.asp" target="_blank" rel="external"><code>mysql_connect()</code></a> 函数打开非持久的 MySQL 连接</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">  &lt;?php</div><div class="line">$host = &quot;localhost&quot;;     //MySQL服务器名称</div><div class="line">  	$user = &quot;root&quot;;          //用户名</div><div class="line">  	$password = &quot;123456&quot;;      //访问密码</div><div class="line">  	$db_name = &quot;dsplab&quot;;         //数据库名称</div><div class="line">  	$conn = mysql_connect($host,$user,$password) or </div><div class="line"> 		 	die (&quot;连接到MySQL服务器失败。&quot;.mysql_error());   //返回错误信息</div><div class="line">  	mysql_select_db($db_name,$conn)  or</div><div class="line"> 		 	die (&quot;连接数据库失败。&quot;.mysql_error());   //返回错误信息</div><div class="line"> 		</div><div class="line"> 		// 设置数据格式，解决中文乱码</div><div class="line"> 		mysql_query(&apos;set names utf8&apos;);</div><div class="line"> 		</div><div class="line"> 		mysql_close($con);  // 关闭连接</div><div class="line">  ?&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>mysql_close()</code>关闭连接，通常不必要，因为PHP在脚本终止时自动关闭打开的连接；</p>
+</blockquote>
+</li>
+<li><p><a href="http://www.w3school.com.cn/php/func_mysql_pconnect.asp" target="_blank" rel="external"><code>mysql_pconnect()</code></a> 函数打开一个到 MySQL 服务器的持久连接</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    $con = mysql_pconnect(&quot;localhost&quot;,&quot;mysql_user&quot;,&quot;mysql_pwd&quot;);</div><div class="line">    if (!$con)</div><div class="line">      &#123;</div><div class="line">      die(&apos;Could not connect: &apos; . mysql_error());</div><div class="line">      &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>&gt; 不能用`mysql_close()`关闭
+</code></pre><ul>
+<li><p><strong>区别</strong>。<code>mysql_pconnect()</code> 和 <code>mysql_connect()</code> 非常相似，但有两个主要区别：</p>
+<p>  当连接的时候本函数将先尝试寻找一个在同一个主机上用同样的用户名和密码已经打开的（持久）连接，如果找到，则返回此连接标识而不打开新连接。<br>  其次，当脚本执行完毕后到 SQL 服务器的连接不会被关闭，此连接将保持打开以备以后使用（<code>mysql_close()</code> 不会关闭由 <code>mysql_pconnect()</code> 建立的连接）。</p>
+</li>
+</ul>
+<h3 id="MySQLi扩展连接数据库"><a href="#MySQLi扩展连接数据库" class="headerlink" title="MySQLi扩展连接数据库"></a>MySQLi扩展连接数据库</h3><ul>
+<li><p>MySQLi - 面向对象</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">$servername = &quot;localhost&quot;; </div><div class="line">$username = &quot;username&quot;; </div><div class="line">$password = &quot;password&quot;; </div><div class="line"></div><div class="line">// 创建连接 </div><div class="line">$conn = new mysqli($servername, $username, $password); </div><div class="line"></div><div class="line">// 检测连接 </div><div class="line">if ($conn-&gt;connect_error) &#123; </div><div class="line">    die(&quot;Connection failed: &quot; . $conn-&gt;connect_error); </div><div class="line">&#125; </div><div class="line">echo &quot;Connected successfully&quot;; </div><div class="line"></div><div class="line">// 关闭连接</div><div class="line">$conn-&gt;close();</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>MySQLi - 面向过程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">$servername = &quot;localhost&quot;; </div><div class="line">$username = &quot;username&quot;; </div><div class="line">$password = &quot;password&quot;; </div><div class="line"></div><div class="line">// 创建连接 </div><div class="line">$conn = mysqli_connect($servername, $username, $password); </div><div class="line"></div><div class="line">// 检测连接 </div><div class="line">if (!$conn) &#123; </div><div class="line">    die(&quot;Connection failed: &quot; . mysqli_connect_error()); </div><div class="line">&#125; </div><div class="line">echo &quot;Connected successfully&quot;; </div><div class="line"></div><div class="line">// 关闭连接</div><div class="line">mysqli_close($conn);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="PDO连接数据库"><a href="#PDO连接数据库" class="headerlink" title="PDO连接数据库"></a>PDO连接数据库</h3><ul>
+<li><p>PDO</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">$servername = &quot;localhost&quot;; </div><div class="line">$username = &quot;username&quot;; </div><div class="line">$password = &quot;password&quot;; </div><div class="line"></div><div class="line">try &#123; </div><div class="line">    $conn = new PDO(&quot;mysql:host=$servername;dbname=myDB&quot;, $username, $password); </div><div class="line">    echo &quot;Connected successfully&quot;; </div><div class="line">&#125; </div><div class="line">catch(PDOException $e) &#123; </div><div class="line">    echo $e-&gt;getMessage(); </div><div class="line">&#125; </div><div class="line">    </div><div class="line">// 关闭连接    </div><div class="line">$conn = null;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意在以上 PDO 实例中我们已经指定了数据库 (myDB)。PDO 在连接过程需要设置数据库名。如果没有指定，则会抛出异常。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="增删改（创建数据库、数据表，增删改操作-）"><a href="#增删改（创建数据库、数据表，增删改操作-）" class="headerlink" title="增删改（创建数据库、数据表，增删改操作 ）"></a>增删改（创建数据库、数据表，增删改操作 ）</h2><p>这些操作，增删改三种操作除了返回操作成功与否的信息，没有其他结果返回，操作基本相同，只需要记住增删改操作的SQL语句即可。将SQL语句用双引号包含，赋值给变量$sql，之后用PHP代码操作：</p>
+<ul>
+<li><p>面向对象</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if ($conn-&gt;query($sql) === TRUE) &#123;</div><div class="line">    echo &quot;操作成功&quot;;</div><div class="line">&#125; else &#123;</div><div class="line">    echo &quot;存在错误: &quot; . $conn-&gt;error;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>面向过程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (mysqli_query($conn, $sql)) &#123;</div><div class="line">    echo &quot;操作成功&quot;;</div><div class="line">&#125; else &#123;</div><div class="line">    echo &quot;存在错误: &quot; . mysqli_error($conn);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>PHP 中 SQL 查询语句语法规则</strong></p>
+<ul>
+<li>PHP 中 SQL 查询语句必须使用引号</li>
+<li>在 SQL 查询语句中的字符串值必须加引号</li>
+<li>数值的值不需要引号</li>
+<li>NULL 值不需要引号</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建数据库、数据表"><a href="#创建数据库、数据表" class="headerlink" title="创建数据库、数据表"></a><strong>创建数据库、数据表</strong></h3><ul>
+<li><p>面向对象</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// 创建数据库</div><div class="line">$sql = &quot;CREATE DATABASE myDB&quot;;</div><div class="line">if ($conn-&gt;query($sql) === TRUE) &#123;</div><div class="line">    echo &quot;Database created successfully&quot;;</div><div class="line">&#125; else &#123;</div><div class="line">    echo &quot;Error creating database: &quot; . $conn-&gt;error;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 创建数据表</div><div class="line">$sql = &quot;CREATE TABLE MyGuests (</div><div class="line">id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, </div><div class="line">firstname VARCHAR(30) NOT NULL,</div><div class="line">lastname VARCHAR(30) NOT NULL,</div><div class="line">email VARCHAR(50),</div><div class="line">reg_date TIMESTAMP</div><div class="line">)&quot;;</div><div class="line"></div><div class="line">if ($conn-&gt;query($sql) === TRUE) &#123;</div><div class="line">    echo &quot;Table MyGuests created successfully&quot;;</div><div class="line">&#125; else &#123;</div><div class="line">    echo &quot;Error creating table: &quot; . $conn-&gt;error;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>创建一个名为 “MyGuests” 的表，有 5 个列： “id”, “firstname”, “lastname”, “email” 和 “reg_date”</p>
+</blockquote>
+</li>
+<li><p>面向过程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 创建数据库，$sql语句同上</div><div class="line">if (mysqli_query($conn, $sql)) &#123;</div><div class="line">    echo &quot;Database created successfully&quot;;</div><div class="line">&#125; else &#123;</div><div class="line">    echo &quot;Error creating database: &quot; . mysqli_error($conn);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 创建数据表，$sql语句同上</div><div class="line">if (mysqli_query($conn, $sql)) &#123;</div><div class="line">    echo &quot;Table MyGuests created successfully&quot;;</div><div class="line">&#125; else &#123;</div><div class="line">    echo &quot;Error creating table: &quot; . mysqli_error($conn);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="插入记录"><a href="#插入记录" class="headerlink" title="插入记录"></a>插入记录</h3><ul>
+<li><p>INSERT INTO 语句通常用于向 MySQL 表添加新的记录：    </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INSERT INTO table_name (column1, column2, column3,...) VALUES (value1, value2, value3,...)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意： 如果列设置 AUTO_INCREMENT (如 “id” 列) 或 TIMESTAMP (如 “reg_date” 列),，我们就不需要在 SQL 查询语句中指定值； MySQL 会自动为该列添加值。</p>
+</blockquote>
+</li>
+<li><p>插入一条记录，采用下列SQL语句</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 插入一条记录</div><div class="line">// 方法一，按照表字段一一对应添加,缺一不可</div><div class="line">$sql = &quot;INSERT INTO table_name VALUES (&apos;value1&apos;, &apos;value2&apos;, ...)&quot;; </div><div class="line"></div><div class="line">// 方法二，按指定的字段添加数据</div><div class="line">$sql = &quot;INSERT INTO table_name (column1, column2, ...) </div><div class="line">VALUES (&apos;value1&apos;, &apos;value2&apos;, ...)&quot;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>插入多条记录，采用下列SQL语句</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 插入多条记录</div><div class="line">$sql = &quot;INSERT INTO </div><div class="line">MyGuests (firstname, lastname, email) VALUES (&apos;John&apos;, &apos;Doe&apos;, &apos;john@example.com&apos;);&quot;;</div><div class="line"></div><div class="line">$sql .= &quot;INSERT INTO </div><div class="line">MyGuests (firstname, lastname, email) VALUES (&apos;Mary&apos;, &apos;Moe&apos;, &apos;mary@example.com&apos;);&quot;;</div><div class="line"></div><div class="line">$sql .= &quot;INSERT INTO </div><div class="line">MyGuests (firstname, lastname, email) VALUES (&apos;Julie&apos;, &apos;Dooley&apos;, &apos;julie@example.com&apos;)&quot;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li><p>删除数据库、数据表、记录</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">   // 删除数据库</div><div class="line">   $sql = &quot;drop database if exists &lt;database_name&gt;&quot;</div><div class="line">   </div><div class="line">   // 删除数据表</div><div class="line">   $sql = &quot;drop tabel if exists &lt;table_name&gt;&quot;</div><div class="line">   </div><div class="line">   // 删除记录</div><div class="line">$sql = &quot;DELETE FROM table_name&quot;		// 删除所有的数据</div><div class="line">// or</div><div class="line">   $sql = &quot;DELETE FROM table_name WHERE some_column = some_value&quot;		// 删除特定的数据</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="改（修改记录）"><a href="#改（修改记录）" class="headerlink" title="改（修改记录）"></a>改（修改记录）</h3><ul>
+<li><p>修改记录</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 修改表名</div><div class="line">$sql = &quot;alter table old_table_neme rename new_table_neme&quot;</div><div class="line"></div><div class="line">// 修改记录</div><div class="line">   $sql = &quot;UPDATE table_name SET column1=value, column2=value2,... WHERE some_column=some_value&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
+<li><p>查询记录</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 读取所有的数据</div><div class="line">$sql = &quot;SELECT id, column1, column2 FROM table_name&quot;;</div><div class="line"></div><div class="line">// where子句</div><div class="line">$sql = &quot;SELECT field FROM table_name WHERE column_name operator value&quot;;</div><div class="line">$result = mysqli_query($con,&quot;SELECT * FROM Persons WHERE FirstName=&apos;Peter&apos;&quot;);	// 示例</div><div class="line"></div><div class="line">// order by</div><div class="line">   $sql = &quot;UPDATE table_name SET column1=value, column2=value2,... WHERE some_column=some_value&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="扩展——预处理语句及绑定参数"><a href="#扩展——预处理语句及绑定参数" class="headerlink" title="扩展——预处理语句及绑定参数"></a>扩展——<a href="https://www.w3cschool.cn/php/php-mysql-prepared-statements.html" target="_blank" rel="external">预处理语句及绑定参数</a></h2><p>预处理语句用于执行多个相同的 SQL 语句，并且执行效率更高。</p>
+<ul>
+<li><p><strong>预处理语句的工作原理如下</strong>：</p>
+<ul>
+<li><strong>预处理</strong>：创建 SQL 语句模板并发送到数据库。预留的值使用参数 “?” 标记 。例如：<code>INSERT INTO MyGuests (firstname, lastname, email) VALUES(?, ?, ?)</code></li>
+<li><strong>数据库解析，编译</strong>，对SQL语句模板执行查询优化，并存储结果不输出</li>
+<li><strong>执行</strong>：最后，将应用绑定的值传递给参数（”?” 标记），数据库执行语句。应用可以多次执行语句，如果参数的值不一样。</li>
+</ul>
+</li>
+<li><p><strong>相比于直接执行SQL语句，预处理语句有两个主要优点</strong>：</p>
+<ul>
+<li>预处理语句大大减少了分析时间，只做了一次查询（虽然语句多次执行）</li>
+<li>绑定参数减少了服务器带宽，你只需要发送查询的参数，而不是整个语句</li>
+<li>预处理语句针对SQL注入是非常有用的，因为 参数值发送后使用不同的协议，保证了数据的合法性。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>MySQLi预处理</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">// prepare and bind</div><div class="line">// 在 SQL 语句中，我们使用了问号 (?)，在此我们可以将问号替换为整型，字符串，双精度浮点型和布尔值。</div><div class="line">// 该函数绑定了 SQL 的参数(每个参数都需要指定类型)，且告诉数据库参数的值。 &quot;sss&quot; 参数列处理其余参数的数据类型。s 字符告诉数据库该参数为字符串。</div><div class="line">$stmt = $conn-&gt;prepare(&quot;INSERT INTO MyGuests (firstname, lastname, email) VALUES(?, ?, ?)&quot;);</div><div class="line">$stmt-&gt;bind_param(&quot;sss&quot;, $firstname, $lastname, $email);</div><div class="line"></div><div class="line">// 设置参数并执行</div><div class="line">$firstname = &quot;John&quot;;</div><div class="line">$lastname = &quot;Doe&quot;;</div><div class="line">$email = &quot;john@example.com&quot;;</div><div class="line">$stmt-&gt;execute();</div><div class="line"></div><div class="line">$firstname = &quot;Mary&quot;;</div><div class="line">$lastname = &quot;Moe&quot;;</div><div class="line">$email = &quot;mary@example.com&quot;;</div><div class="line">$stmt-&gt;execute();</div><div class="line"></div><div class="line">$firstname = &quot;Julie&quot;;</div><div class="line">$lastname = &quot;Dooley&quot;;</div><div class="line">$email = &quot;julie@example.com&quot;;</div><div class="line">$stmt-&gt;execute();</div><div class="line"></div><div class="line">echo &quot;New records created successfully&quot;;</div><div class="line"></div><div class="line">$stmt-&gt;close();</div><div class="line">$conn-&gt;close();</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>绑定参数（bind_param）有以下四种类型</strong>:</p>
+<ul>
+<li>i - integer（整型）</li>
+<li>d - double（双精度浮点型）</li>
+<li>s - string（字符串）</li>
+<li>b - BLOB（布尔值）</li>
+</ul>
+<p>如果你想插入其他数据（用户输入），对数据的验证是非常重要的。</p>
+</blockquote>
+</li>
+</ul>
+<p>关于查询的返回结果，详见博客<a href="http://dingby.site/2018/06/19/php%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2/" target="_blank" rel="external">《php数据库中数据查询》</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/10/PHP简单功能的实现/" rel="next" title="PHP简单功能的实现">
+                <i class="fa fa-chevron-left"></i> PHP简单功能的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/11/互联网应届生四项职场生存技能/" rel="prev" title="互联网应届生四项职场生存技能">
+                互联网应届生四项职场生存技能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL概述"><span class="nav-number">1.</span> <span class="nav-text">MySQL概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库连接"><span class="nav-number">2.</span> <span class="nav-text">数据库连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL扩展连接数据库"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL扩展连接数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQLi扩展连接数据库"><span class="nav-number">2.2.</span> <span class="nav-text">MySQLi扩展连接数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDO连接数据库"><span class="nav-number">2.3.</span> <span class="nav-text">PDO连接数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增删改（创建数据库、数据表，增删改操作-）"><span class="nav-number">3.</span> <span class="nav-text">增删改（创建数据库、数据表，增删改操作 ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库、数据表"><span class="nav-number">3.1.</span> <span class="nav-text">创建数据库、数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入记录"><span class="nav-number">3.2.</span> <span class="nav-text">插入记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">3.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改（修改记录）"><span class="nav-number">3.4.</span> <span class="nav-text">改（修改记录）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">3.5.</span> <span class="nav-text">查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展——预处理语句及绑定参数"><span class="nav-number">4.</span> <span class="nav-text">扩展——预处理语句及绑定参数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

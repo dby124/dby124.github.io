@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Laravel," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="创建模型首先，创建一个 Eloquent 模型，生成的模型通常放在 app 目录中，但你可以通过 composer.json 随意地将它们放在可被自动加载的地方。所有的 Eloquent 模型都继承了 Illuminate\Database\Eloquent\Model 类。 示例： 123456789101112131415161718192021222324252627282930313233">
+<meta name="keywords" content="Laravel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel 的 Eloquent ORM学习">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/Laravel 的 Eloquent ORM学习/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="创建模型首先，创建一个 Eloquent 模型，生成的模型通常放在 app 目录中，但你可以通过 composer.json 随意地将它们放在可被自动加载的地方。所有的 Eloquent 模型都继承了 Illuminate\Database\Eloquent\Model 类。 示例： 123456789101112131415161718192021222324252627282930313233">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-26T15:18:46.567Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel 的 Eloquent ORM学习">
+<meta name="twitter:description" content="创建模型首先，创建一个 Eloquent 模型，生成的模型通常放在 app 目录中，但你可以通过 composer.json 随意地将它们放在可被自动加载的地方。所有的 Eloquent 模型都继承了 Illuminate\Database\Eloquent\Model 类。 示例： 123456789101112131415161718192021222324252627282930313233">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/14/Laravel 的 Eloquent ORM学习/"/>
+
+
+
+
+
+  <title>Laravel 的 Eloquent ORM学习 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Laravel 的 Eloquent ORM学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Laravel 的 Eloquent ORM学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T20:22:38+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h2><p>首先，创建一个 Eloquent 模型，生成的模型通常放在 app 目录中，但你可以通过 composer.json 随意地将它们放在可被自动加载的地方。所有的 Eloquent 模型都继承了 Illuminate\Database\Eloquent\Model 类。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">namespace DriverTaskEditor\Models\Dao;</div><div class="line"></div><div class="line">use DriverTaskEditor\Core\Dao;</div><div class="line">use DriverTaskEditor\Common\Constant;</div><div class="line"></div><div class="line">class ActivityDao extends Dao</div><div class="line">&#123;</div><div class="line">    /**</div><div class="line">     *（1）数据表名，必填  @var string</div><div class="line">     */</div><div class="line">    protected $table = &apos;activity&apos;;</div><div class="line">    </div><div class="line">    /**</div><div class="line">     *（2）主键，可选  @var int</div><div class="line">     * Eloquent 也会假定每个数据表都有一个名为 id 的主键字段。你可以定义一个受保护的 $primaryKey 属性来覆盖这个约定。</div><div class="line">     * Eloquent 假定主键是一个递增的整数值，这意味着在默认情况下主键会自动转换为 int。 如果使用的是非递增或者非数字的主键，则必须在模型上设置 public $incrementing = false。如果主键不是一个整数，则应该在模型上设置 protected $keyType = string</div><div class="line">     */</div><div class="line">     </div><div class="line">    /**</div><div class="line">     *（3）要连接的数据库(database.php中的key),可选,默认&apos;default&apos;，@var string</div><div class="line">     */ </div><div class="line">    protected $connection = &apos;driver_task&apos;;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * (4)必填:强转主键值类型; 使用toArray方法时,组件会根据主键自增类型,将主键类型转换为int; </div><div class="line">     * 故需要通过$casts再转回string，有些模型有这个变量有些没有，@var array</div><div class="line">     */</div><div class="line">    protected $casts = [</div><div class="line">        &apos;segments&apos;          =&gt; &apos;array&apos;,</div><div class="line">        &apos;segment_conditions&apos;=&gt; &apos;array&apos;,</div><div class="line">        &apos;cities&apos;            =&gt; &apos;array&apos;,</div><div class="line">        &apos;status&apos;            =&gt; &apos;int&apos;,</div><div class="line">        &apos;group_id&apos;          =&gt; &apos;int&apos;,</div><div class="line">        &apos;trigger_type&apos;      =&gt; &apos;int&apos;,</div><div class="line">        &apos;product_id&apos;        =&gt; &apos;int&apos;,</div><div class="line">        &apos;product_line&apos;      =&gt; &apos;array&apos;,</div><div class="line">        &apos;evaluate_info&apos;     =&gt; &apos;array&apos;,</div><div class="line">        &apos;task_ids&apos;          =&gt; &apos;array&apos;,</div><div class="line">        &apos;extra&apos;             =&gt; &apos;array&apos;,</div><div class="line">        &apos;render_info&apos;       =&gt; &apos;array&apos;,</div><div class="line">    ];</div><div class="line">    </div><div class="line"></div><div class="line">    /**</div><div class="line">     * (5)需要被转换成日期的属性。</div><div class="line">     *</div><div class="line">     * @var array</div><div class="line">     */</div><div class="line">    protected $dates = [</div><div class="line">        &apos;create_time&apos;,</div><div class="line">        &apos;modify_time&apos;,</div><div class="line">    ];</div><div class="line"></div><div class="line">    /**</div><div class="line">     * (6)列表中的字段不可被批量赋值(create方法创建时不会写入该字段)</div><div class="line">     * $guarded和$fillable 二选一，一个表示黑名单，一个表示白名单</div><div class="line">     * @var array</div><div class="line">     */</div><div class="line">    protected $guarded = [&apos;id&apos;];</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * (7)该模型是否被自动维护时间戳，可选，@var bool，默认为true</div><div class="line">     * Eloquent 会默认数据表中存在 created_at 和 updated_at这两个字段,如果你不需要这两个字段，则需要在模型内将 $timestamps 属性设置为 false</div><div class="line">     */</div><div class="line"></div><div class="line">    /**</div><div class="line">     * (8)如果需要自定义用于存储时间戳的字段名，可在模型中通过设置 CREATED_AT 和 UPDATED_AT 常量来实现：</div><div class="line">     * 更新时间和修改时间的字段，如果没有则设置public $timestamps = false;</div><div class="line">     */</div><div class="line">    const CREATED_AT = &apos;create_time&apos;;</div><div class="line">    const UPDATED_AT = &apos;modify_time&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="检索多个模型"><a href="#检索多个模型" class="headerlink" title="检索多个模型"></a>检索多个模型</h3><p>Eloquent 的 all 方法会返回模型表中所有的结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">use App\Flight;</div><div class="line"></div><div class="line">$flights = App\Flight::all();</div><div class="line"></div><div class="line">foreach ($flights as $flight) &#123;</div><div class="line">    echo $flight-&gt;name;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于每个 Eloquent 模型都可以当作一个 查询构造器，因此你还可以在查询中添加约束，然后使用 get 方法来获取结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$flights = App\Flight::where(&apos;active&apos;, 1)</div><div class="line">               -&gt;orderBy(&apos;name&apos;, &apos;desc&apos;)</div><div class="line">               -&gt;take(10)</div><div class="line">               -&gt;get();</div></pre></td></tr></table></figure>
+<p>注意： Eloquent 模型是查询构造器，因此你应当去阅读 <a href="https://laravel-china.org/docs/laravel/5.5/queries/1327" target="_blank" rel="external">查询构造器</a> 提供的所有方法，以便你可以在 Eloquent 查询中使用。</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>1、分块结果：如果需要处理数千个 Eloquent 记录，可以使用 chunk 命令。chunk 方法会检索 Eloquent 模型的「分块」，将它们提供给指定的 Closure 进行处理。在处理大型结果集时，使用 chunk 方法可节省内存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Flight::chunk(200, function ($flights) &#123;</div><div class="line">    foreach ($flights as $flight) &#123;</div><div class="line">        //</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>注意：传递到方法的第一个参数是希望每个「分块」接收的数据量。闭包则被作为第二个参数传递，它会在每次执行数据库查询传递每个块时被调用。</p>
+<p>2、使用游标：cursor 允许你使用游标来遍历数据库数据，该游标只执行一个查询。处理大量数据时，可以使用 cursor 方法可以大幅度减少内存的使用量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">foreach (Flight::where(&apos;foo&apos;, &apos;bar&apos;)-&gt;cursor() as $flight) &#123;</div><div class="line">    //</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="检索单个模型／集合"><a href="#检索单个模型／集合" class="headerlink" title="检索单个模型／集合"></a>检索单个模型／集合</h3><p>除了从指定的数据表检索所有记录外，你也可以通过 find 或 first 方法来检索单条记录。这些方法不是返回一组模型，而是返回一个模型实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 通过主键取回一个模型...</div><div class="line">$flight = App\Flight::find(1);</div><div class="line"></div><div class="line">// 取回符合查询限制的第一个模型 ...</div><div class="line">$flight = App\Flight::where(&apos;active&apos;, 1)-&gt;first();</div></pre></td></tr></table></figure>
+<p>你也可以用主键数组为参数调用 find 方法，它将返回匹配记录的集合：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$flights = App\Flight::find([1, 2, 3]);</div></pre></td></tr></table></figure>
+<p>「找不到」异常<br>如果你希望在找不到模型时抛出异常，可以使用 findOrFail 以及 firstOrFail 方法。这些方法会检索查询的第一个结果。如果没有找到相应结果，就会抛出一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Illuminate\Database\Eloquent\ModelNotFoundException：</div><div class="line"></div><div class="line">$model = App\Flight::findOrFail(1);</div><div class="line"></div><div class="line">$model = App\Flight::where(&apos;legs&apos;, &apos;&gt;&apos;, 100)-&gt;firstOrFail();</div></pre></td></tr></table></figure></p>
+<p>如果没有对异常进行捕获，则会自动返回 HTTP 404 响应给用户。也就是说，在使用这些方法时，不需要另外写个检查来返回 404 响应：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Route::get(&apos;/api/flights/&#123;id&#125;&apos;, function ($id) &#123;</div><div class="line">    return App\Flight::findOrFail($id);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>你还可以使用 查询构造器 提供的 count、sum、max 以及其它 聚合函数。这些方法只会返回适当的标量值而不是整个模型实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$count = App\Flight::where(&apos;active&apos;, 1)-&gt;count();</div><div class="line"></div><div class="line">$max = App\Flight::where(&apos;active&apos;, 1)-&gt;max(&apos;price&apos;);</div></pre></td></tr></table></figure>
+<h2 id="插入和更新模型"><a href="#插入和更新模型" class="headerlink" title="插入和更新模型"></a>插入和更新模型</h2><p>1、save方法插入新数据。<br>要在数据库中创建新记录，只需创建一个新的模型实例，并在模型上设置属性，然后调用 save 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">//插入</div><div class="line">$flight = new Flight; </div><div class="line">$flight-&gt;name = $request-&gt;name;</div><div class="line">$flight-&gt;save();</div><div class="line"></div><div class="line"></div><div class="line">$flight = App\Flight::create([&apos;name&apos; =&gt; &apos;Flight 10&apos;]);</div><div class="line"></div><div class="line">//如果你已经有一个模型实例，你可以传递数组给 fill 方法：</div><div class="line">$flight-&gt;fill([&apos;name&apos; =&gt; &apos;Flight 22&apos;]);</div><div class="line"></div><div class="line"></div><div class="line">/*</div><div class="line"> * 其他创建方法</div><div class="line"> */</div><div class="line"></div><div class="line">// 通过 name 属性检索航班，当结果不存在时创建它...</div><div class="line">$flight = App\Flight::firstOrCreate([&apos;name&apos; =&gt; &apos;Flight 10&apos;]);</div><div class="line"></div><div class="line">// 通过 name 属性检索航班，当结果不存在的时候用 name 属性和 delayed 属性去创建它</div><div class="line">$flight = App\Flight::firstOrCreate(</div><div class="line">    [&apos;name&apos; =&gt; &apos;Flight 10&apos;], [&apos;delayed&apos; =&gt; 1]</div><div class="line">);</div><div class="line"></div><div class="line">// 通过 name 属性检索航班，当结果不存在时实例化...</div><div class="line">$flight = App\Flight::firstOrNew([&apos;name&apos; =&gt; &apos;Flight 10&apos;]);</div><div class="line"></div><div class="line">// 通过 name 属性检索航班，当结果不存在的时候用 name 属性和 delayed 属性实例化</div><div class="line">$flight = App\Flight::firstOrNew(</div><div class="line">    [&apos;name&apos; =&gt; &apos;Flight 10&apos;], [&apos;delayed&apos; =&gt; 1]</div><div class="line">);</div><div class="line"></div><div class="line">//updateOrCreate</div><div class="line">// 如果有从奥克兰飞往圣地亚哥的航班，将价格设为 99 美元</div><div class="line">// 如果不存在匹配的模型就创建一个</div><div class="line">$flight = App\Flight::updateOrCreate(</div><div class="line">    [&apos;departure&apos; =&gt; &apos;Oakland&apos;, &apos;destination&apos; =&gt; &apos;San Diego&apos;],</div><div class="line">    [&apos;price&apos; =&gt; 99]</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>2、更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//批量插入，update</div><div class="line">方法需要传入表示要更新的字段的字段的值的键值对数组。</div><div class="line">App\Flight::where(&apos;active&apos;, 1)</div><div class="line">          -&gt;where(&apos;destination&apos;, &apos;San Diego&apos;)</div><div class="line">          -&gt;update([&apos;delayed&apos; =&gt; 1]);</div></pre></td></tr></table></figure>
+<p>3、删除</p>
+<p>可以在模型实例上调用 delete 方法来删除模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//通过主键删除</div><div class="line">$flight = App\Flight::find(1);</div><div class="line">$flight-&gt;delete();</div><div class="line"></div><div class="line">//如果你已知道了这个模型的主键，则可以直接调用 destroy 方法删除它：</div><div class="line">App\Flight::destroy(1);</div><div class="line">App\Flight::destroy([1, 2, 3]);</div><div class="line">App\Flight::destroy(1, 2, 3);</div><div class="line"></div><div class="line">//通过查询删除模型</div><div class="line">$deletedRows = App\Flight::where(&apos;active&apos;, 0)-&gt;delete();</div><div class="line">//注意：使用 Eloquent 执行批量删除语句时，deleting 和 deleted 模型事件不会为已删除的模型触发。因为在执行删除语句时，不会检索模型实例。</div></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="https://laravel-china.org/docs/laravel/5.5/queries/1327" target="_blank" rel="external">Eloquent: 入门</a></p>
+<p>转载请注明：本文档由 Laravel China 社区 laravel-china.org 组织翻译，详见 翻译召集帖。</p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Laravel/" rel="tag"># Laravel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/14/laravel数据库相关操作/" rel="next" title="laravel数据库相关操作">
+                <i class="fa fa-chevron-left"></i> laravel数据库相关操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/25/Prototyping-platform-of-LearningADD-system/" rel="prev" title="Prototyping platform of LearningADD system">
+                Prototyping platform of LearningADD system <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建模型"><span class="nav-number">1.</span> <span class="nav-text">创建模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">2.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检索多个模型"><span class="nav-number">2.1.</span> <span class="nav-text">检索多个模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合"><span class="nav-number">2.2.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检索单个模型／集合"><span class="nav-number">2.3.</span> <span class="nav-text">检索单个模型／集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入和更新模型"><span class="nav-number">3.</span> <span class="nav-text">插入和更新模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

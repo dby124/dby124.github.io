@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="PHP概述PHP定义PHP是Hypertext Preprocessor（超文本预处理器）的缩写，是服务器端的、跨平台的、HTML嵌入式的脚本语言，尤其适合Web开发。 优势PHP是一种很有前景的Web语言，其具有以下优势：  开放源代码。 易于学习。 数据库连接。 面向对象编程。 可扩展性。  发展历史 1994年，PHP最初由Rasmus Lerdorf发起，之后以Personal Home">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP（一）——概述及服务器配置">
+<meta property="og:url" content="http://yoursite.com/2018/04/14/PHP（一）——概述及服务器配置/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="PHP概述PHP定义PHP是Hypertext Preprocessor（超文本预处理器）的缩写，是服务器端的、跨平台的、HTML嵌入式的脚本语言，尤其适合Web开发。 优势PHP是一种很有前景的Web语言，其具有以下优势：  开放源代码。 易于学习。 数据库连接。 面向对象编程。 可扩展性。  发展历史 1994年，PHP最初由Rasmus Lerdorf发起，之后以Personal Home">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-19T14:36:45.164Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP（一）——概述及服务器配置">
+<meta name="twitter:description" content="PHP概述PHP定义PHP是Hypertext Preprocessor（超文本预处理器）的缩写，是服务器端的、跨平台的、HTML嵌入式的脚本语言，尤其适合Web开发。 优势PHP是一种很有前景的Web语言，其具有以下优势：  开放源代码。 易于学习。 数据库连接。 面向对象编程。 可扩展性。  发展历史 1994年，PHP最初由Rasmus Lerdorf发起，之后以Personal Home">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/14/PHP（一）——概述及服务器配置/"/>
+
+
+
+
+
+  <title>PHP（一）——概述及服务器配置 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/PHP（一）——概述及服务器配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP（一）——概述及服务器配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T09:22:38+08:00">
+                2018-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="PHP概述"><a href="#PHP概述" class="headerlink" title="PHP概述"></a>PHP概述</h1><h2 id="PHP定义"><a href="#PHP定义" class="headerlink" title="PHP定义"></a>PHP定义</h2><p>PHP是Hypertext Preprocessor（超文本预处理器）的缩写，是服务器端的、跨平台的、HTML嵌入式的脚本语言，尤其适合Web开发。</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>PHP是一种很有前景的Web语言，其具有以下优势：</p>
+<ul>
+<li>开放源代码。</li>
+<li>易于学习。</li>
+<li>数据库连接。</li>
+<li>面向对象编程。</li>
+<li>可扩展性。</li>
+</ul>
+<h2 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a>发展历史</h2><ul>
+<li>1994年，PHP最初由Rasmus Lerdorf发起，之后以Personal Home Page Tools (PHP Tools)对外发布第一个版本，在早期版本，提供了访客留言、访客计数器等简答功能。</li>
+<li>1995年，<strong>PHP第二个版本</strong>问世，定名为PHP/FI（From Interpret），是一个专为个人主页/表单提供解释程序的程序，它有着Perl样式变量，能自动解释表单变量，加入了对MySQL的支持，并可以嵌入到HTML中，已经包含了今天PHP的一些基本功能。</li>
+<li>1998年6月，正式发布<strong>PHP第三版本</strong>，命名为PHP3，它类似于当今的PHP语法结构的第一个版本，它最强大的功能是其扩展性，能够给最终用户提供数据库、协议和API等基础结构。Zeev Suraski 和 Andi Gutmans 在 PHP 3 发布后开始改写PHP 的核心，这个在1999年发布的剖析器称为 Zend Engine，他们也在以色列的 Ramat Gan 成立了 Zend Technologies 来管理 PHP 的开发。</li>
+<li>2000年5月，<strong>PHP4.0正式版本</strong>发布。PHP4.0除了更高的性能之后，还包含了其他一些功能，比如：支持更多的Web服务器，输出缓存，更安全的处理用户输出的方法等。</li>
+<li>2004年7月，<strong>PHP5</strong>问世。<strong>PHP5是里程碑式的版本，采用ZendII引擎</strong>，完备对象模型，改进了语法设计，最终使得PHP成为设计完备、具有面向对象能力的脚本语言。</li>
+<li>2015年6月，<strong>PHP7</strong>第一版的alpha版本正式公开发布。PHP7是PHP编程语言的一个主要版本，并号称是开发Web应用程序的一次革命，可开发和交付移动企业和云应用。此版本被认为是PHP在2004年发布PHP5后最重要的变化。到2017年已经到了PHP7.1的版本。其中PHP7使用新的 <strong>Zend Engine 3.0</strong> 提高应用程序性能两倍，比PHP5.6 低了 50％ 的内存消耗。 它可以服务于更多的并发用户，无需任何额外的硬件。考虑到当今的工作量 PHP7设计并重构。</li>
+</ul>
+<h2 id="PHP、ASP和JSP对比"><a href="#PHP、ASP和JSP对比" class="headerlink" title="PHP、ASP和JSP对比"></a>PHP、ASP和JSP对比</h2><p>PHP、ASP和JSP是三种常用的网络开发语言，他们之间有着各自的特点。</p>
+<p>ASP、PHP和JSP的共同点：</p>
+<ul>
+<li>都能嵌入到HTML代码中；</li>
+<li>都是面向Web服务器的技术，客户端浏览器不需要任何附加的软件支持；</li>
+<li>HTML代码主要负责信息的显示样式，而程序代码则是描述处理逻辑。</li>
+</ul>
+<p>ASP、PHP和JSP的对比：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>PHP</th>
+<th>ASP</th>
+<th>JSP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提出方</td>
+<td>Rasmus Lerdorf</td>
+<td>微软</td>
+<td>Sun公司</td>
+</tr>
+<tr>
+<td>相似的语言</td>
+<td>perl</td>
+<td>Visual Basic</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>代码解析方式</td>
+<td>语言引擎解释执行</td>
+<td>语言引擎解释执行</td>
+<td><strong>被编译成Servlet并由Java虚拟机执行</strong></td>
+</tr>
+<tr>
+<td>操作系统</td>
+<td>均可</td>
+<td>Win32</td>
+<td>均可</td>
+</tr>
+<tr>
+<td>Web服务器</td>
+<td>多种</td>
+<td>IIS</td>
+<td>多种</td>
+</tr>
+<tr>
+<td>执行效率</td>
+<td>快</td>
+<td>快</td>
+<td>极快</td>
+</tr>
+<tr>
+<td><strong>稳定性</strong></td>
+<td>佳</td>
+<td>中等</td>
+<td>佳</td>
+</tr>
+<tr>
+<td><strong>学习门槛</strong></td>
+<td>低</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>函数支持</td>
+<td>多</td>
+<td>较多</td>
+<td>多</td>
+</tr>
+<tr>
+<td><strong>系统安全</strong></td>
+<td>好</td>
+<td>差</td>
+<td>好</td>
+</tr>
+<tr>
+<td><strong>升级速度</strong></td>
+<td>快</td>
+<td>慢</td>
+<td>中等</td>
+</tr>
+<tr>
+<td><strong>网页结合</strong></td>
+<td>好</td>
+<td>好</td>
+<td>差</td>
+</tr>
+<tr>
+<td>开发时间</td>
+<td>短</td>
+<td>短</td>
+<td>较长</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：JSP代码解析时，编译操作仅在JSP页面的第一次请求时发生。</p>
+</blockquote>
+<h2 id="常用开发工具"><a href="#常用开发工具" class="headerlink" title="常用开发工具"></a>常用开发工具</h2><ul>
+<li>PHP代码开发工具（具有调试功能）<ul>
+<li>Zend studio</li>
+<li>PHP Edit</li>
+</ul>
+</li>
+<li>网页设计工具<ul>
+<li>Frontpage</li>
+<li>Dreamweaver</li>
+</ul>
+</li>
+<li>文本编辑器<ul>
+<li>UItraEdit</li>
+<li>EditPlus</li>
+<li>sublime text</li>
+<li>Windows自带记事本</li>
+</ul>
+</li>
+</ul>
+<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>想要配置一台支持PHP语言的Web服务器，需要从硬件和软件两方面进行需求分析。</p>
+<h3 id="选择硬件"><a href="#选择硬件" class="headerlink" title="选择硬件"></a>选择硬件</h3><p>配置一台Web服务器，从硬件角度可分为两条路线：</p>
+<ul>
+<li>专业级。从构建一台真正的Web服务器出发，按服务器标准卑职专业级硬件。也就是说需要支持24小时/365天的服器级CPU、主板和散热机箱，以及RAID的冗余备份系统，软件和硬件防火墙，标准空调托管环境等标配。</li>
+<li>业余调试级。以目前主流的个人电脑配置就可以满足其硬件要求，即至少256MB内存，奔腾级CPU、10Mb/s网卡。</li>
+</ul>
+<h3 id="选择操作系统"><a href="#选择操作系统" class="headerlink" title="选择操作系统"></a>选择操作系统</h3><p>要配置Web服务器，确定硬件需求后，还需要选取操作系统：</p>
+<ul>
+<li>Windows，需要硬件平台上装有Windows操作系统，这就意味着花费一笔钱想Microsoft购买该软件、</li>
+<li>Linux，开源免费的。<blockquote>
+<p>综合上述比较，一般选用Linux作为服务器的操作系统。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="选择服务器软件"><a href="#选择服务器软件" class="headerlink" title="选择服务器软件"></a>选择服务器软件</h3><p>IIS是Windows XP 系统自带的服务器，但是该服务器只支持ASP语言，对于PHP是不能解析的，需要另外配置才可以。由于IIS不是支持PHP语言的主流，其对于PHP支持的高级功能是大打折扣的。</p>
+<p>目前有很多HHTP Server软件可供使用，目前最流行的是Nginx与Apache。</p>
+<ul>
+<li><p>Apache具有<strong>足够灵活、广泛支持、能力强化、以模块方式集成大多数语言</strong>（如PHP）的优点。因为Apache是在进程内部解析大多数脚本语言的，所以没有软件间通信的开销。</p>
+<blockquote>
+<p>由于每个请求都会由一个进程或者线程处理，所有Apache在处理请求时开销很大。当它应用于<strong>高并发场景</strong>时，其性能低下的问题就凸显出来了。</p>
+</blockquote>
+</li>
+<li><p>Nginx提供的<strong>异步、事件驱动、非阻塞请求处理</strong>。Nginx不必等待每个请求完成，避免了锁住资源。Nginx创建许多工作进程，每个工作进程可以处理数千个链接，因此可以使用很少的进程来<strong>承载高并发流量</strong>。</p>
+<blockquote>
+<p>Nginx没有内置任何解释性语言，这样Nginx就可以专注处理请求的接收和响应，而具体的解析脚本语言的进程则在Nginx之外。</p>
+</blockquote>
+</li>
+</ul>
+<p>通常认为Nginx快于Apache，但是在如静态资源（图片、css、js等文件）场景下，Apache有自己的优势。在构建高性能服务器时，Apache并不是问题所在PHP才是真正的瓶颈。</p>
+<p>在实际的项目开发中,Apache是使用最广泛的服务器软件。</p>
+<h2 id="Apache安装"><a href="#Apache安装" class="headerlink" title="Apache安装"></a>Apache安装</h2><p><a href="http://httpd.apache.org/download.cgi" target="_blank" rel="external">官方下载地址：http://httpd.apache.org/download.cgi</a><br>。关于在不同平台上的安装可以百度获知。</p>
+<p>Apache配置：网站能够解析静态网页之后，所有的程序必须放在Apache的htdocs文件夹下才能被解析，如果用户想自己建立网站根目录，则需要对Apache的http.conf文件进行如下配置，具体步骤为：</p>
+<ul>
+<li>查找DocumentRoot，下面有这样一行<code>DocumentRoot&quot;C:/Program Files/Apache Group/Apache2/htdocs&quot;</code>，这就是网站默认的根目录，可以修改为希望设置的目录。</li>
+<li>查找“This should changed whatever you set DocumentRoot to”，在其下面有这样一行：<code>&lt;Directory &quot;C/Program Files/Apache Group/Apache2/htdocs&quot;&gt;</code>，将C/Program Files/Apache Group/Apache2/htdocs改成要设置的目录，如C:\Web。</li>
+</ul>
+<h2 id="PHP安装"><a href="#PHP安装" class="headerlink" title="PHP安装"></a>PHP安装</h2><p><a href="http://php.net/downloads.php" target="_blank" rel="external">官方下载地址：http://php.net/downloads.php</a><br>。关于在不同平台上的安装可以百度获知。</p>
+<p>PHP配置：对于不同的环境，需根据具体需要进行配置。</p>
+<h2 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h2><p><a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="external">官方下载地址：https://dev.mysql.com/downloads/mysql/</a></p>
+<p>根据不同的需求下载MySQL对应的版本，之后按网上相关教程安装即可。</p>
+<p>对于MySQL数据操作，除了命令行之后，还可以通过图形化操作软件进行操作，如phpMyAdmin、SQLyog和Navicat等。可参考：<a href="https://www.2cto.com/database/201710/693934.html" target="_blank" rel="external">五种常用的MySQL图形化管理工具介绍使用</a></p>
+<h1 id="PHP开源框架"><a href="#PHP开源框架" class="headerlink" title="PHP开源框架"></a>PHP开源框架</h1><ul>
+<li><p><strong>Laravel（较重要）</strong>是一个现代化的PHP开发框架，代码优雅，使用 composer 方式扩展功能，社区活跃，缺点是比较重，比较适合做后台管理或者应用型WEB系统。</p>
+</li>
+<li><p><strong>Zend Framework（较重要）</strong>：是完全基于PHP5的开源PHP开发框架，可用于开发Web程序和服务。</p>
+</li>
+<li><p><strong>ThinkPHP（较重要）</strong>国内使用比较多，优点是文档非常多，各种问题解决方案比较多，缺点是代码不够规范，理念落后。</p>
+</li>
+<li><p><strong>Pop PHP</strong>：一种强壮的框架，而且易于使用的WEB应用开发语言，在PHP框架中排名前十。它提供了一系列可管理的学习曲线，同时又提供了健壮和强大的功能。</p>
+</li>
+<li><p><strong>Kohana</strong>是一款基于MVC模式开发的纯PHP5的框架。 它的特点就是高安全性，轻量级代码，容易使用。</p>
+</li>
+<li><p><strong>PHPixie</strong>是一个性能卓越并且功能丰富的轻量级PHP框架。 PHPixie能使web开发更简单、更快速。</p>
+</li>
+<li><p><strong>Medoo</strong>是一款超轻量级的PHP、SQL数据库开发框架，可提升开发Web应用的效率与性能。</p>
+</li>
+<li><p><strong>Flight</strong>是一个快速、简单、可扩展的微型PHP框架。</p>
+</li>
+<li><p><strong>Phalcon</strong>是高性能PHP应用程序框架。它执行速度快，消耗资源少。根据官方测试，Phalcon是目前世界上速度最快的PHP框架。</p>
+</li>
+<li><p><strong>Yii</strong>是一个基于组件、用于开发大型 Web 应用的高性能PHP框架，是目前最有效率的PHP框架之一。通过一个简单的命令行工具它可以快速创建一个web应用程序的代码框架，开发者可以在生成的代码框架基础上添加业务逻辑，以快速完成应用程序的开发。</p>
+</li>
+<li><p><strong>Webasyst</strong>是一个PHP框架，用来创建时尚多用户的 web 应用和网站。</p>
+</li>
+<li><p><strong>Symfony</strong>是一个完整的框架结构，可用来帮助并加速网络应用的开发。</p>
+</li>
+<li><p><strong>CodeIgniter</strong>是一套给PHP网站开发者使用的应用程序开发框架和工具包。 它为组织提供了足够的自由支持，允许开发人员更迅速地工作。</p>
+</li>
+<li><p><strong>CI</strong>非常轻量级，是一个简单的MVC框架，性能也很快。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/13/PHP-Filter/" rel="next" title="PHP 过滤器（Filter）">
+                <i class="fa fa-chevron-left"></i> PHP 过滤器（Filter）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/14/PHP（二）——HTML基础/" rel="prev" title="PHP（二）——HTML基础">
+                PHP（二）——HTML基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP概述"><span class="nav-number">1.</span> <span class="nav-text">PHP概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP定义"><span class="nav-number">1.1.</span> <span class="nav-text">PHP定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优势"><span class="nav-number">1.2.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发展历史"><span class="nav-number">1.3.</span> <span class="nav-text">发展历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP、ASP和JSP对比"><span class="nav-number">1.4.</span> <span class="nav-text">PHP、ASP和JSP对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用开发工具"><span class="nav-number">1.5.</span> <span class="nav-text">常用开发工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器配置"><span class="nav-number">2.</span> <span class="nav-text">服务器配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择硬件"><span class="nav-number">2.1.1.</span> <span class="nav-text">选择硬件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择操作系统"><span class="nav-number">2.1.2.</span> <span class="nav-text">选择操作系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择服务器软件"><span class="nav-number">2.1.3.</span> <span class="nav-text">选择服务器软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache安装"><span class="nav-number">2.2.</span> <span class="nav-text">Apache安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP安装"><span class="nav-number">2.3.</span> <span class="nav-text">PHP安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装"><span class="nav-number">2.4.</span> <span class="nav-text">MySQL安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP开源框架"><span class="nav-number">3.</span> <span class="nav-text">PHP开源框架</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

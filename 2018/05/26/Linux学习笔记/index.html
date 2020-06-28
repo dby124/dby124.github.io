@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="概述Linux系统是开源软件，其可靠性得到肯定，是发展最快、应用最广的主流软件之一。在服务器平台、嵌入式系统和云计算系统所运行的操作系统中，Linux占很大比重。 Linux是一个真正的多用户、多任务操作系统。与其他操作系统相比，Linux在Internet和intranet的应用中占有明显的优势。在个人机和工作站上使用Linux，能更有效地发挥硬件的功能，是个人计算机能够胜任工作站和服务器的工作">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/05/26/Linux学习笔记/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="概述Linux系统是开源软件，其可靠性得到肯定，是发展最快、应用最广的主流软件之一。在服务器平台、嵌入式系统和云计算系统所运行的操作系统中，Linux占很大比重。 Linux是一个真正的多用户、多任务操作系统。与其他操作系统相比，Linux在Internet和intranet的应用中占有明显的优势。在个人机和工作站上使用Linux，能更有效地发挥硬件的功能，是个人计算机能够胜任工作站和服务器的工作">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/computer.jpg">
+<meta property="og:updated_time" content="2019-03-14T03:43:57.026Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习笔记">
+<meta name="twitter:description" content="概述Linux系统是开源软件，其可靠性得到肯定，是发展最快、应用最广的主流软件之一。在服务器平台、嵌入式系统和云计算系统所运行的操作系统中，Linux占很大比重。 Linux是一个真正的多用户、多任务操作系统。与其他操作系统相比，Linux在Internet和intranet的应用中占有明显的优势。在个人机和工作站上使用Linux，能更有效地发挥硬件的功能，是个人计算机能够胜任工作站和服务器的工作">
+<meta name="twitter:image" content="http://yoursite.com/images/computer.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/26/Linux学习笔记/"/>
+
+
+
+
+
+  <title>Linux学习笔记 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/26/Linux学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-26T20:11:38+08:00">
+                2018-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Linux系统是开源软件，其可靠性得到肯定，是发展最快、应用最广的主流软件之一。在服务器平台、嵌入式系统和云计算系统所运行的操作系统中，Linux占很大比重。</p>
+<p>Linux是一个真正的多用户、多任务操作系统。与其他操作系统相比，Linux在Internet和intranet的应用中占有明显的优势。在<strong>个人机和工作站</strong>上使用Linux，能更有效地发挥硬件的功能，是个人计算机能够胜任工作站和服务器的工作。</p>
+<h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><p>计算机分为<strong>超级计算机</strong>（Supercomputer）、<strong>大型计算机</strong>（Mainframe Computer）、<strong>迷你计算机</strong>（Minicomputer）、<strong>工作站</strong>（Workstation）和<strong>微电脑</strong>（Microcomputer）。</p>
+<p>计算机由主要有CPU、内存、硬盘、主板、接口设备、显卡和电源六大组件。计算机各组件运行图如下：</p>
+<p><img src="/images/computer.jpg" alt="computer"></p>
+<blockquote>
+<p>显卡：又称VGA（Video Graphics Array），它对于图像影像的显示扮演相当关键的角色。一般对于图形影像的显示中重点在于<strong>分辨率和色彩深度</strong>，因为每个图像显示会占用内存，因此显卡上面会有一个内存容量，这个<strong>显卡内存容量将会影像到最终屏幕分辨率和色彩深度</strong>。对于显卡接口，区别在于数据传输的频宽。</p>
+</blockquote>
+<h3 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h3><p>现代计算机的硬件结构包括：</p>
+<ul>
+<li><strong>CPU</strong>（中央处理器）：运算器和控制器的集成，具有从内存（或高速缓存）中取出指令并执行的功能。基本工作过程为提取指令、译码分析和执行指令。</li>
+<li><strong>存储器</strong><ul>
+<li>高速缓存：存取速度最快，但是成本非常高，通常容量小于16M。</li>
+<li>内存：存取速度次于高速缓存，一般容量512~16GB。</li>
+<li>硬盘：存取速度低于内存，容量为512GB~2TB，价格便宜。</li>
+</ul>
+</li>
+<li><strong>I/O设备</strong>：人机交互工具，通常由控制器与设备本身组成。包括<ul>
+<li><strong>输入设备</strong>：键盘、鼠标；</li>
+<li><strong>输出设备</strong>：打印机、显示器、绘图仪；</li>
+<li><strong>存储设备</strong>：磁盘、光盘、U盘和磁盘带等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><p>软件相对于硬件而言，它是与数据处理系统操作有关的计算机程序和相关数据等的总称。</p>
+<p>软件分为：</p>
+<ul>
+<li><strong>系统软件</strong>：操作系统（Windows、Linux、MacOS等），编译程序（C++等）、汇编程序（Intel 8080、8086等）、链接装配程序、数据可以管理系统（SQL Server等）等、</li>
+<li><strong>应用软件</strong>：为解决某一类应用需求或某个特定问题而设计的程序。</li>
+<li><strong>支撑软件</strong>：辅助软件技术人员从事软件开发的软件，包括各种开发工具（Eclipse等）、测试工具等。</li>
+</ul>
+<h2 id="操作系统概述"><a href="#操作系统概述" class="headerlink" title="操作系统概述"></a>操作系统概述</h2><ul>
+<li><p><strong>定义</strong>：操作系统是控制和管理计算机系统内各种硬件和软件资源、有效组织多道程序运行的系统软件（程序集合），是用户与计算机之间的接口。</p>
+</li>
+<li><p><strong>基本功能</strong></p>
+<ul>
+<li><strong>存储管理</strong>：内存分配、地址映射、内存保护和内存扩充；</li>
+<li><strong>进程和处理机管理</strong>：作业与进程调度、进程控制和进程通信；</li>
+<li><strong>文件管理</strong>：文件存储空间的管理、文件操作的一般管理、目录管理和文件的读写管理和存储控制；</li>
+<li><strong>设备管理</strong>：缓冲区管理、设备分配、设备驱动个设备无关性；</li>
+<li><strong>用户接口服务</strong>：图形用户接口（GUI）、命令行接口和程序接口。</li>
+</ul>
+</li>
+<li><p><strong>分类</strong>：批处理系统、分时系统、实时系统、网络操作系统和分布式操作系统。</p>
+</li>
+<li><p><strong>Linux的应用现状</strong>：超级计算机和服务器领域、嵌入式系统和云计算系统等。</p>
+</li>
+<li><p><strong>Linux系统的特点</strong></p>
+<ul>
+<li>与Unix兼容</li>
+<li>开源</li>
+<li>性能高、安全性强（漏洞的快速修补）</li>
+<li>灵活性高，便于定制和再开发</li>
+<li>互操作性强（多任务、多用户）<blockquote>
+<p>存在：没有特定支持厂商、游戏和专业软件支持度不足的问题。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>Linux的发展优势</strong></p>
+<ul>
+<li>开源从本质上就具有其他系统无法比拟的研制开发优势，是全球范围的研制；</li>
+<li>Linux受各国政府的大力支持；</li>
+<li>得到全球各大软硬件公司的支持；</li>
+<li>价格优势</li>
+<li>安全性，Linux操作系统的架构完全沿袭了Unix的系统架构，而Unix系统的安全性已被业界、商家和用户所公认。</li>
+</ul>
+</li>
+<li><p><strong>Linux的用户</strong>：当前流行的软件按照所提供的方式和是否盈利为目的可以划分为：</p>
+<ul>
+<li>商业软件（Commercial Software）</li>
+<li>共享软件（Shareware）</li>
+<li>自由软件（Freeware/ Free Software）</li>
+</ul>
+</li>
+<li><p><strong>Linux常用版本</strong></p>
+<ul>
+<li><strong>内核版本</strong>：主要是Linux内核，Linus等人不断地开发和推出新的内核。Linux内核的官方版本由Linus本人维护。Root用户可以使用命令uname -r来查看所用计算机上发行版使用的内核版本号。</li>
+<li><strong>发行版本</strong>：发行版本是各个公司推出的版本，它们与内核版本是各自独立发展的，发行版本通常内附有一个核心源码，以及很多针对不同硬件设备的核心映像。所以发行版本是一些基于Linux核心的软件包。<strong>常见的国内外Linux发行版本有</strong>：<ul>
+<li>Red Hat</li>
+<li>TurboLinux</li>
+<li>Slackware</li>
+<li>OpenLinux</li>
+<li>Debain</li>
+<li>SUSELinux</li>
+<li>Red Flag Linux（红旗Linux）：中科院软件所下属的中科红旗软件技术有限公司开发研制，主要有服务器版本和桌面版本。</li>
+<li>中标普华Linux</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="常用命令与文件操作"><a href="#常用命令与文件操作" class="headerlink" title="常用命令与文件操作"></a>常用命令与文件操作</h1><p>Linux提供集中不同的用户界面，其中命令行界面是Linux系统下最简单，但也是功能最强的用户界面、Linux系统为用户提供几百条命令，其功能涉及资源管理、信息处理、系统检测、通信服务等方方面面。</p>
+<p>参考书：</p>
+<ol>
+<li>《Linux基础教程》（第2版）孟庆昌等编著</li>
+<li>《鸟哥的Linux私房菜》基础学习篇第三版</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/04/职业生涯直播课笔记/" rel="next" title="职业生涯直播课笔记">
+                <i class="fa fa-chevron-left"></i> 职业生涯直播课笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/26/求职OMG——大学生就业指导与技能/" rel="prev" title="求职OMG——大学生就业指导与技能">
+                求职OMG——大学生就业指导与技能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机基础"><span class="nav-number">1.1.</span> <span class="nav-text">计算机基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件"><span class="nav-number">1.1.1.</span> <span class="nav-text">硬件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件"><span class="nav-number">1.1.2.</span> <span class="nav-text">软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统概述"><span class="nav-number">1.2.</span> <span class="nav-text">操作系统概述</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令与文件操作"><span class="nav-number">2.</span> <span class="nav-text">常用命令与文件操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

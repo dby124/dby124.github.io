@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据库," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="数据库 数据库（DataBase，DB）是长期存储在计算机内，有组织的，可共享的数据集合。是存放数据的仓库，并且有组织，有管理。  数据库管理系统 数据库管理系统（Database Management System，DBMS）位于用户与操作系统之间的一个计算机系统软件，基本功能如下：   数据定义功能（语言：DDL） 数据操作功能（语言：DML） 数据库的运行管理功能（语言：DCL） 数据库的建">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库设计笔记——概述（一）">
+<meta property="og:url" content="http://yoursite.com/2017/08/10/11数据库设计笔记/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="数据库 数据库（DataBase，DB）是长期存储在计算机内，有组织的，可共享的数据集合。是存放数据的仓库，并且有组织，有管理。  数据库管理系统 数据库管理系统（Database Management System，DBMS）位于用户与操作系统之间的一个计算机系统软件，基本功能如下：   数据定义功能（语言：DDL） 数据操作功能（语言：DML） 数据库的运行管理功能（语言：DCL） 数据库的建">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/DB三级模式关系.png">
+<meta property="og:updated_time" content="2018-03-16T12:26:38.726Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库设计笔记——概述（一）">
+<meta name="twitter:description" content="数据库 数据库（DataBase，DB）是长期存储在计算机内，有组织的，可共享的数据集合。是存放数据的仓库，并且有组织，有管理。  数据库管理系统 数据库管理系统（Database Management System，DBMS）位于用户与操作系统之间的一个计算机系统软件，基本功能如下：   数据定义功能（语言：DDL） 数据操作功能（语言：DML） 数据库的运行管理功能（语言：DCL） 数据库的建">
+<meta name="twitter:image" content="http://yoursite.com/images/DB三级模式关系.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/10/11数据库设计笔记/"/>
+
+
+
+
+
+  <title>数据库设计笔记——概述（一） | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/10/11数据库设计笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库设计笔记——概述（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T09:58:01+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li>数据库（DataBase，DB）是长期存储在计算机内，有组织的，可共享的数据集合。是存放数据的仓库，并且有组织，有管理。</li>
+</ul>
+<h2 id="数据库管理系统"><a href="#数据库管理系统" class="headerlink" title="数据库管理系统"></a>数据库管理系统</h2><ul>
+<li><p>数据库管理系统（Database Management System，DBMS）位于用户与操作系统之间的一个计算机系统软件，基本功能如下：</p>
+<blockquote>
+<ul>
+<li>数据定义功能（语言：DDL）</li>
+<li>数据操作功能（语言：DML）</li>
+<li>数据库的运行管理功能（语言：DCL）</li>
+<li>数据库的建立和维护功能</li>
+</ul>
+</blockquote>
+</li>
+<li><p>目前流行的有Oracle、Sybase、SQL Server、Access、MySQL等。</p>
+</li>
+</ul>
+<h2 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a>数据库系统</h2><ul>
+<li>数据库系统（Database System，DBS）包括和数据有关的整个系统，如计算机硬件，操作系统、DBMS以及在他支持下建立起来的数据库、应用程序、用户和维护人员等。<blockquote>
+<p>有时也将人以外的与数据库有关的硬件和软件系统成为DBS。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="数据的发展"><a href="#数据的发展" class="headerlink" title="数据的发展"></a>数据的发展</h2><ul>
+<li><strong>人工管理阶段</strong>：程序与数据一一对应。数据不可共享。</li>
+<li><strong>文件系统阶段</strong>：应用程序通过存取调用数据文件、可共享。 </li>
+<li><strong>数据库系统阶段</strong>：应用程序通过DBMS调用管理DB中的数据。</li>
+<li><strong>分布式数据可以管理阶段</strong> ：逻辑上统一，地域上分布的数据集合。</li>
+</ul>
+<h2 id="数据库的体系结构"><a href="#数据库的体系结构" class="headerlink" title="数据库的体系结构"></a>数据库的体系结构</h2><p>1）<strong>站在最终用户的角度</strong></p>
+<ul>
+<li><p><strong>集中式体系结构</strong></p>
+<blockquote>
+<p>将DBMS软件、所有用户数据和应用程序放在一台计算机（服务器）上，其余计算机作为终端通过通信线路向服务器发出数据应用请求，这种网络数据库应用系统称为集中式数据库体系结构。</p>
+</blockquote>
+</li>
+<li><p><strong>分布式体系结构</strong></p>
+<blockquote>
+<p>将分散存储在计算机网络中的多个节点上的数据库在逻辑上统一管理。</p>
+</blockquote>
+</li>
+<li><p><strong>CLS体系结构</strong></p>
+<blockquote>
+<p>在CLS计算机网络上运行的数据库系统，这个计算机网络中，一部分计算机为Client，一部分为服务器，其关键在于功能分布，一些放在Client机上（前端）上运行，另一些在Server（后端）运行。</p>
+</blockquote>
+</li>
+<li><p><strong>并行体系结构</strong></p>
+<blockquote>
+<p>要求尽可能并行执行所有的数据操作从而在整体上提高数据库系统的性能，是多个<strong>物理</strong>上连接在一起的CPU通过划分的任务以及通过每秒兆位级的告诉网络通信共同完成事务查询。 </p>
+</blockquote>
+</li>
+</ul>
+<p>2） <strong>站在DBMS的角度</strong></p>
+<ul>
+<li><p>一般采用三级模式结构：<strong>外模式</strong>、<strong>模式</strong>和<strong>内模式</strong>。</p>
+<ul>
+<li><strong>外模式</strong>：又称子模式，是用户与数据库的接口，是应用程序可见的数据描述。 </li>
+<li><strong>模式</strong>：分为概念模式和逻辑模式，是由数据可以设计者综合所有用户数据，按照统一的观点构造的全局逻辑结构。</li>
+<li><p><strong>内模式</strong>：物理模式或存储模式，它描述数据在存储介质上的安排与存储方式。</p>
+<blockquote>
+<p> 三级模式是用指针来表示数据之间的关系，数据定义语言和数据操作语言相互独立。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>三级模式之间的关系是<strong>二级映射</strong>，映射用来指定映射双方进行数据转换的规则，实际上转换工作有DBMS来完成,三级模型之间的关系如下图：</p>
+</li>
+</ul>
+<p><img src="/images/DB三级模式关系.png" alt="DB三级模式关系"></p>
+<h2 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h2><ul>
+<li><p>数据模型通常有<strong>数据结构</strong>、<strong>数据操作</strong> 和 <strong>完整性约束</strong>三要素组成，分别表示系统的静态特性、动态特性和数据库的正确性、相容性和有效性。</p>
+</li>
+<li><p>数据模型就是<strong>对客观事物抽象化的表现形式</strong>，具有有三大特点：</p>
+<ul>
+<li>必须真实反映现实世界中的具体应用，否则就是去了意义</li>
+<li>要便于理解，使用者与设计者要去的一致看法</li>
+<li>便于使用计算机来实现处理。</li>
+</ul>
+</li>
+<li><p><strong>数据模型的分类</strong></p>
+<ul>
+<li><strong>层次模型</strong>（传统，较少使用），支持三级模式结构</li>
+<li><strong>网状模</strong>型（传统，较少使用），支持三级模式结构</li>
+<li><strong>关系模型</strong>（占主导地位，具有严格的数学理论）</li>
+<li><strong>对象模型</strong>（近年来得到了一些应用）<blockquote>
+<p> MySQL中，对象模型是后关系数据库技术阶段，包络面向对象数据库技术（ORDBMS）和结构化数据库技术（NOSQL）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据库的类型"><a href="#数据库的类型" class="headerlink" title="数据库的类型"></a>数据库的类型</h2><h3 id="平面文件"><a href="#平面文件" class="headerlink" title="平面文件"></a>平面文件</h3><ul>
+<li><p><strong>定义</strong>：只包含文本的文件，没有粗体，斜体、花体或其他特殊的字体样式，而仅仅是普通文本。可添加结构，如逗号、分隔数值或缩排。  </p>
+</li>
+<li><p><strong>优点</strong>：非常简单并且容易理解，可以任意文本编辑器中打开平面文件并作出更改而不需要编写复杂的用户界面。</p>
+</li>
+<li><p><strong>缺点</strong>：对搜索数据没有帮助，并不提供聚集功能，不能按照常规的方式修改平面稳健，在文件某位添加数据或更改文件内的特殊字符，不能再中间插入或删除数据。</p>
+</li>
+<li><p><strong>适用场合</strong></p>
+<ul>
+<li>数值较小且简单</li>
+<li>数值不经常变化</li>
+<li>希望能够使用</li>
+<li>简单的文本编辑器来更改数值</li>
+<li>希望保存以前数值的简单历史清单</li>
+<li>希望使用工具快速比较两个文件</li>
+</ul>
+</li>
+<li><p><strong>不适用场合</strong></p>
+<ul>
+<li>需要通过数值执行复杂的搜索</li>
+<li>数值经常变化</li>
+<li>不希望其他人能够轻易阅读和修改数值</li>
+<li>数值是分级的</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>常用的存储配置信息的地方是<code>INI文件</code>和<code>Windows系统注册表</code>（一种分级数据库）</p>
+</blockquote>
+<h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><ul>
+<li><p><strong>定义</strong>：包含保存行和列的表</p>
+</li>
+<li><p><strong>适用情况</strong></p>
+<ul>
+<li>需要在不同的表之间执行复杂的查询和连接</li>
+<li>需要执行数据有效性验证，如在其他表中检验相关行的存在</li>
+<li>需要为特定的数据段考虑任意数量的值（如比赛最后的名次）</li>
+<li>希望能够灵活地构建在开始设计项目时本没计划的新查询</li>
+</ul>
+</li>
+</ul>
+<h3 id="电子数据表"><a href="#电子数据表" class="headerlink" title="电子数据表"></a>电子数据表</h3><ul>
+<li><p><strong>定义</strong>：以行和列的形式显示数据（Excel表）</p>
+</li>
+<li><p><strong>优势</strong>：允许用户创建与电子数据表中其他数据相关的公式，生成形象显示数据的图表，大隐书局，以及以文本和其他格式导入和导出数据，此外还支持相对复杂的分析工具。</p>
+<blockquote>
+<p>注意：在大多数作者曾开发的大型项目中，都会设法内建特别的查询工具以便用户能够定义他们自己的报表。</p>
+</blockquote>
+</li>
+<li><p><strong>缺点</strong>：电子数据表不支持复杂的查询，而且不能自动检查数据的完整性，因此可以轻易地录入不正确或不一致的数值。</p>
+</li>
+</ul>
+<blockquote>
+<p>许多应用程序都采用电子表数据作为输出形式，衙门将数据存储在一种关系或其他类型的数据库中，然后将结果转存成电子数据表格式以便用户使用。</p>
+</blockquote>
+<h3 id="分级数据库"><a href="#分级数据库" class="headerlink" title="分级数据库"></a>分级数据库</h3><ul>
+<li>包括按照书性结构很自然地安排的数值，类似于文件夹（分层和分级）</li>
+</ul>
+<h3 id="XML（扩展标记语言）"><a href="#XML（扩展标记语言）" class="headerlink" title="XML（扩展标记语言）"></a>XML（扩展标记语言）</h3><ul>
+<li><p><strong>定义</strong>：一种用于存储分级数据的语言。</p>
+</li>
+<li><p><strong>优点</strong></p>
+<ul>
+<li>对于存储、传输、检索分级数据而言，XML是一个很有用的工具。</li>
+<li>XML文件相对简单，他使用特殊的标记为其包含的数据定义结构。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>： XML自身并不提供任何用于构建、检索、更新、验证或以其他方式操纵数据的工具。</p>
+</li>
+<li><p><strong>适用场合</strong></p>
+<ul>
+<li>数据自然分级的</li>
+<li>可用XML工具提供需要的特性</li>
+<li>希望获得模式文件能够提供各种有效性验证</li>
+<li>希望能够在支持XML产品中导入和导出数据</li>
+</ul>
+</li>
+<li><p><strong>不适用场合</strong></p>
+<ul>
+<li>非分级</li>
+<li>需要的数据有效性验证要比模式文件能够提供的更复杂</li>
+<li>需要执行关系查询而非分级查询</li>
+<li>数据库很庞大，因此重写整个文件来更新其中的少量数据非常麻烦</li>
+<li>需要允许多个用户频繁更新数据库而互不干扰</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络数据库"><a href="#网络数据库" class="headerlink" title="网络数据库"></a>网络数据库</h3><ul>
+<li><p>当使用网络文件来存储数据时，程序将完成所有的工作。文件本身不提供特殊的特性。</p>
+</li>
+<li><p>适用场合</p>
+<ul>
+<li>数据本身就是一种网络形式（或近似为层次结构）</li>
+<li>需对数据执行网络运算，如查找最短路径或计算网络流</li>
+<li>不需要对数据执行复杂的查询</li>
+</ul>
+</li>
+<li><p>不适用的场合</p>
+<ul>
+<li>数据不能表示网络</li>
+<li>需要验证数据</li>
+<li>需对数据执行查询</li>
+<li>需允许多个用户频繁地更新数据而互不干扰</li>
+</ul>
+</li>
+</ul>
+<h3 id="对象数据库"><a href="#对象数据库" class="headerlink" title="对象数据库"></a>对象数据库</h3><ul>
+<li><p>用来管理对象。他提供某种查询语法用于从数据库中检索对象，还提供一些工具来将对象的改动保存到数据库中。</p>
+</li>
+<li><p>适用场合</p>
+<ul>
+<li>编程环境和体系结构支持使用对象</li>
+<li>不需要对数据执行复杂的查询</li>
+</ul>
+</li>
+<li><p>不适用的场合</p>
+<ul>
+<li>程序需要与外部工具交互，再次采用相关数据库此类格式存储数据更为有利。</li>
+<li>需要执行复杂的查询</li>
+<li>没有使用面向对象的语言</li>
+<li>需要执行对象数据库不能提供的数据有效性验证      </li>
+</ul>
+</li>
+</ul>
+<h3 id="对象关系数据库（ORD）"><a href="#对象关系数据库（ORD）" class="headerlink" title="对象关系数据库（ORD）"></a>对象关系数据库（ORD）</h3><ul>
+<li><p>是一种关系数据库，他提供了用于将对象类型集成到数据中的格外特性。</p>
+</li>
+<li><p>与关系数据库类似，她能够相对快速地执行复杂的查询。</p>
+</li>
+<li><p>另一方面又类似于对象数据库，使用某种特殊的语法来简化对象的创建。</p>
+</li>
+</ul>
+<h3 id="特殊类型的数据库"><a href="#特殊类型的数据库" class="headerlink" title="特殊类型的数据库"></a>特殊类型的数据库</h3><ul>
+<li>面向文档的数据库</li>
+<li>演绎数据库</li>
+<li>维度（或空间）数据库</li>
+<li>时态数据库</li>
+</ul>
+<h2 id="数据库设计总结"><a href="#数据库设计总结" class="headerlink" title="数据库设计总结"></a>数据库设计总结</h2><ul>
+<li><p>数据库设计分为：<strong>概念模型设计</strong> 、 <strong>逻辑模型设计</strong> 和 <strong>物理模型设计</strong>。</p>
+</li>
+<li><p>关系数据库适用的情况：</p>
+<ul>
+<li>需要在不同表直接执行复杂的查询</li>
+<li>需要执行数据有效性验证，如在其他表中验证相关行的存在</li>
+<li>需要为特定的数据段考虑任意数量的值</li>
+<li>希望能够灵活的构建在开始设计项目时本设计划的新查询</li>
+</ul>
+</li>
+<li><p>关系数据库设计总结</p>
+<ul>
+<li>符<strong>合三大范式（3NF）</strong></li>
+<li><strong>DB不能处理多对多关系时，应再建关联表</strong>，来表示两表间的关系。若多对多的关系包含额外的关联数据，将字段放于关联表中。</li>
+<li><strong>命名约定</strong>：若表中两字段包含相同的数据，则赋予两个字段相同的名称。</li>
+<li>对于同类型的表，若有相同类型的字段，应使其对应的字段名相同，这样对于编写，调用函数，非常方便</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>php操作数据库总结：<ul>
+<li>关于数据的重复问题，需在代码中验证该数据在DB中是否存在，若已存在，则不能插入</li>
+<li>查询数据时，当访问细分的几个表时，需使用联合查询。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/09/10毫米波雷达和车联网在未来无人驾驶中的应用和比较/" rel="next" title="毫米波雷达和车联网在未来无人驾驶中的应用和比较">
+                <i class="fa fa-chevron-left"></i> 毫米波雷达和车联网在未来无人驾驶中的应用和比较
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/10/12有效设计数据库的目标/" rel="prev" title="数据库设计笔记——有效设计数据库的目标（二）">
+                数据库设计笔记——有效设计数据库的目标（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">1.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库管理系统"><span class="nav-number">2.</span> <span class="nav-text">数据库管理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库系统"><span class="nav-number">3.</span> <span class="nav-text">数据库系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的发展"><span class="nav-number">4.</span> <span class="nav-text">数据的发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的体系结构"><span class="nav-number">5.</span> <span class="nav-text">数据库的体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据模型"><span class="nav-number">6.</span> <span class="nav-text">数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的类型"><span class="nav-number">7.</span> <span class="nav-text">数据库的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#平面文件"><span class="nav-number">7.1.</span> <span class="nav-text">平面文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系型数据库"><span class="nav-number">7.2.</span> <span class="nav-text">关系型数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电子数据表"><span class="nav-number">7.3.</span> <span class="nav-text">电子数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分级数据库"><span class="nav-number">7.4.</span> <span class="nav-text">分级数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML（扩展标记语言）"><span class="nav-number">7.5.</span> <span class="nav-text">XML（扩展标记语言）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络数据库"><span class="nav-number">7.6.</span> <span class="nav-text">网络数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象数据库"><span class="nav-number">7.7.</span> <span class="nav-text">对象数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象关系数据库（ORD）"><span class="nav-number">7.8.</span> <span class="nav-text">对象关系数据库（ORD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊类型的数据库"><span class="nav-number">7.9.</span> <span class="nav-text">特殊类型的数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计总结"><span class="nav-number">8.</span> <span class="nav-text">数据库设计总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

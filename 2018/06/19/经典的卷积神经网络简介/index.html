@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CNN," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言本文主要用于对7个经典卷积神经网络的初识，大致了解各个网络提出的背景，以及各自对卷积神经网络发展的作用（即网络的特点）。  经典的卷积神经网络： LeNet AlexNet ZF Net VGG GoogLeNet ResNet DenseNet    参考： CNN网络架构演进：从LeNet到DenseNet（本文内容来源，强力推荐） LeNet（5层） 提出背景：LeCun在1998年提出">
+<meta name="keywords" content="CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="经典的卷积神经网络简介">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/经典的卷积神经网络简介/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="引言本文主要用于对7个经典卷积神经网络的初识，大致了解各个网络提出的背景，以及各自对卷积神经网络发展的作用（即网络的特点）。  经典的卷积神经网络： LeNet AlexNet ZF Net VGG GoogLeNet ResNet DenseNet    参考： CNN网络架构演进：从LeNet到DenseNet（本文内容来源，强力推荐） LeNet（5层） 提出背景：LeCun在1998年提出">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/machine_learning/LeNet.png">
+<meta property="og:updated_time" content="2018-06-19T07:29:25.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="经典的卷积神经网络简介">
+<meta name="twitter:description" content="引言本文主要用于对7个经典卷积神经网络的初识，大致了解各个网络提出的背景，以及各自对卷积神经网络发展的作用（即网络的特点）。  经典的卷积神经网络： LeNet AlexNet ZF Net VGG GoogLeNet ResNet DenseNet    参考： CNN网络架构演进：从LeNet到DenseNet（本文内容来源，强力推荐） LeNet（5层） 提出背景：LeCun在1998年提出">
+<meta name="twitter:image" content="http://yoursite.com/images/machine_learning/LeNet.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/经典的卷积神经网络简介/"/>
+
+
+
+
+
+  <title>经典的卷积神经网络简介 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/经典的卷积神经网络简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">经典的卷积神经网络简介</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T15:29:00+08:00">
+                2018-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>本文主要用于对7个经典卷积神经网络的初识，大致了解各个网络提出的背景，以及各自对卷积神经网络发展的作用（即网络的特点）。</p>
+<ul>
+<li>经典的卷积神经网络：<ul>
+<li>LeNet</li>
+<li>AlexNet</li>
+<li>ZF Net</li>
+<li>VGG</li>
+<li>GoogLeNet</li>
+<li>ResNet</li>
+<li>DenseNet</li>
+</ul>
+</li>
+</ul>
+<p>参考： <a href="https://www.cnblogs.com/skyfsm/p/8451834.html" target="_blank" rel="external">CNN网络架构演进：从LeNet到DenseNet</a>（本文内容来源，强力推荐）</p>
+<h2 id="LeNet（5层）"><a href="#LeNet（5层）" class="headerlink" title="LeNet（5层）"></a>LeNet（5层）</h2><ul>
+<li><p><strong>提出背景</strong>：LeCun在1998年提出，用于解决手写数字识别的视觉任务。</p>
+</li>
+<li><p><strong>历史意义</strong>：定义了CNN的基本组件，是CNN的鼻祖。自此，<strong>CNN的最基本的架构确定下来：卷积层、池化层、全连接层</strong>。如今各大深度学习框架中所使用的LeNet都是简化改进过的LeNet-5（-5表示具有5个层），和原始的LeNet有些许不同，比如把激活函数改为了现在很常用的ReLu。</p>
+</li>
+<li><p><strong>经典的LeNet-5网络结构</strong>：如下图。</p>
+<p>  <img src="/images/machine_learning/LeNet.png" alt="LetNet"></p>
+</li>
+</ul>
+<ul>
+<li><strong>数据矩阵计算</strong>：<ul>
+<li>输入是单通道的28*28大小矩阵，用矩阵表示就是[1,28,28]；</li>
+<li>cov1：20个5*5的卷积核，滑动步长为1，经过该层后尺寸变为24，28-5+1=24，输出矩阵为[20,24,24]；</li>
+<li>pool1：2*2，步长2，池化操作后，尺寸减半，变为12×12，输出矩阵为[20,12,12]；</li>
+<li>cov2：50个5*5的卷积核，步长1，卷积后尺寸变为8,12-5+1=8，输出矩阵为[50,8,8]；</li>
+<li>pool2：2*2，步长2，池化操作后，尺寸减半，变为4×4，输出矩阵为[50,4,4]；</li>
+<li>fc1：输入为[50,4,4]，神经元数目为500，再接relu激活函数，输出为500；</li>
+<li>fc2：输入为500，神经元个数为10，得到10维的特征向量；</li>
+<li>output：输入为10维的特征向量，送入softmaxt分类，得到分类结果的概率output。<blockquote>
+<p>cov为卷积层，pool为池化层，fc的全连接层。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="AlexNet（8层）"><a href="#AlexNet（8层）" class="headerlink" title="AlexNet（8层）"></a>AlexNet（8层）</h2><ul>
+<li><p><strong>提出背景</strong>：AlexNet<strong>在2012年ImageNet竞赛</strong>中以超过第二名10.9个百分点的绝对优势一举夺冠，从此深度学习和卷积神经网络名声鹊起，深度学习的研究如雨后春笋般出现，AlexNet的出现可谓是卷积神经网络的王者归来。</p>
+</li>
+<li><p><strong>历史意义</strong>：</p>
+<ul>
+<li>更深的网络</li>
+<li>数据增广：数据增广技巧来增加模型泛化能力；</li>
+<li>ReLU：ReLU代替Sigmoid来加快SGD的收敛速度；</li>
+<li>dropout：有效缓解了模型的过拟合；</li>
+<li>LRN：局部响应归一化，减小高激活神经元的使用，后发现这个不起作用，目前已弃用。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Dropout原理类似于浅层学习算法的中集成算法，该方法通过让全连接层的神经元（该模型在前两个全连接层引入Dropout）以一定的概率失去活性（比如0.5）失活的神经元不再参与前向和反向传播，相当于约有一半的神经元不再起作用。在测试的时候，让所有神经元的输出乘0.5。Dropout的引用，有效缓解了模型的过拟合。</p>
+<p>Local Responce Normalization（LRN）：局部响应归一层的基本思路是，假如这是网络的一块，比如是 13×13×256， LRN 要做的就是选取一个位置，比如说这样一个位置，从这个位置穿过整个通道，能得到 256 个数字，并进行归一化。进行局部响应归一化的动机是，对于这张 13×13 的图像中的每个位置来说，我们可能并不需要太多的高激活神经元。但是后来，很多研究者发现 LRN 起不到太大作用，因为并不重要，而且我们现在并不用 LRN 来训练网络。</p>
+</blockquote>
+<h2 id="ZF-Net（8层）"><a href="#ZF-Net（8层）" class="headerlink" title="ZF-Net（8层）"></a>ZF-Net（8层）</h2><ul>
+<li><strong>提出背景</strong>：ZFNet<strong>是2013ImageNet</strong>分类任务的冠军，其网络结构没什么改进，主要是参数的变化，性能较Alex提升了不少。ZF-Net只是将AlexNet第一层卷积核由11变成7，步长由4变为2，第3，4，5卷积层转变为384，384，256。</li>
+</ul>
+<h2 id="VGG-Nets（19层）"><a href="#VGG-Nets（19层）" class="headerlink" title="VGG-Nets（19层）"></a>VGG-Nets（19层）</h2><ul>
+<li><p><strong>提出背景</strong>：VGG-Nets是由牛津大学VGG（Visual Geometry Group）提出，是<strong>2014年ImageNet竞赛</strong>定位任务的第一名和分类任务的第二名的中的基础网络。VGG可以看成是加深版本的AlexNet. 都是conv layer + FC layer，在当时看来这是一个非常深的网络了，因为层数高达十多层，我们从其论文名字就知道了（《Very Deep Convolutional Networks for Large-Scale Visual Recognition》），当然以现在的目光看来VGG真的称不上是一个very deep的网络。</p>
+</li>
+<li><p><strong>历史意义</strong>：</p>
+<ul>
+<li>卷积层使用更小的filter尺寸和间隔：VGG-Nets，用到的卷积核的尺寸无非都是1×1和3×3的小卷积核，可以替代大的filter尺寸；</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>3×3卷积核的优点：</p>
+<ul>
+<li>多个3×3的卷基层比一个大尺寸filter卷基层有更多的非线性，使得判决函数更加具有判决性</li>
+<li>多个3×3的卷积层比一个大尺寸的filter有更少的参数，假设卷基层的输入和输出的特征图大小相同为C，那么三个3×3的卷积层参数个数3×（3×3×C×C）=27CC；一个7×7的卷积层参数为49CC；所以可以把三个3×3的filter看成是一个7×7filter的分解（中间层有非线性的分解）</li>
+</ul>
+<p>1*1卷积核的优点：作用是在不影响输入输出维数的情况下，对输入进行线性形变，然后通过Relu进行非线性处理，增加网络的非线性表达能力。</p>
+</blockquote>
+<h2 id="GoogLeNet（22层）"><a href="#GoogLeNet（22层）" class="headerlink" title="GoogLeNet（22层）"></a>GoogLeNet（22层）</h2><ul>
+<li><strong>提出背景</strong>：GoogLeNet在<strong>2014的ImageNet</strong>分类任务上击败了VGG-Nets夺得冠军，其实力肯定是非常深厚的，GoogLeNet跟AlexNet,VGG-Nets这种单纯依靠加深网络结构进而改进网络性能的思路不一样，它另辟幽径，在加深网络的同时（22层），也在网络结构上做了创新，引入Inception结构代替了单纯的卷积+激活的传统操作（这思路最早由Network in Network提出）。GoogLeNet进一步把对卷积神经网络的研究推上新的高度。</li>
+</ul>
+<ul>
+<li><strong>历史意义</strong>：<ul>
+<li>引入Inception结构；</li>
+<li>中间层的辅助LOSS单元；</li>
+<li>后面的全连接层全部替换为简单的全局平均pooling。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ResNet（152层）"><a href="#ResNet（152层）" class="headerlink" title="ResNet（152层）"></a>ResNet（152层）</h2><ul>
+<li><p><strong>提出背景</strong>：2015年何恺明推出的ResNet在ISLVRC和COCO上横扫所有选手，获得冠军。ResNet在网络结构上做了大创新，而不再是简单的堆积层数，ResNet在卷积神经网络的新思路，绝对是深度学习发展历程上里程碑式的事件。</p>
+</li>
+<li><p><strong>历史意义</strong>：</p>
+<ul>
+<li>层数非常深，已经超过百层；</li>
+<li>引入残差单元来解决退化问题；</li>
+</ul>
+</li>
+<li><p>维度匹配方案：</p>
+<ul>
+<li>zero_padding:对恒等层进行0填充的方式将维度补充完整，这种方法不会增加额外的参数；</li>
+<li>projection:在恒等层采用1x1的卷积核来增加维度。这种方法会增加额外的参数。</li>
+</ul>
+</li>
+</ul>
+<h2 id="DenseNet"><a href="#DenseNet" class="headerlink" title="DenseNet"></a>DenseNet</h2><ul>
+<li><p><strong>提出背景</strong>：自Resnet提出以后，ResNet的变种网络层出不穷，都各有其特点，网络性能也有一定的提升。本文介绍的最后一个网络是<strong>CVPR 2017</strong>最佳论文DenseNet，论文中提出的DenseNet（Dense Convolutional Network）主要还是和ResNet及Inception网络做对比，思想上有借鉴，但却是全新的结构，网络结构并不复杂，却非常有效，在CIFAR指标上全面超越ResNet。可以说DenseNet吸收了ResNet最精华的部分，并在此上做了更加创新的工作，使得网络性能进一步提升。</p>
+</li>
+<li><p><strong>历史意义</strong>：密集连接：缓解梯度消失问题，加强特征传播，鼓励特征复用，极大的减少了参数量</p>
+</li>
+</ul>
+<blockquote>
+<p>在同层深度下获得更好的收敛率，DenseNet具有非常强大的内存占用。</p>
+</blockquote>
+<h2 id="keras代码实现："><a href="#keras代码实现：" class="headerlink" title="keras代码实现："></a>keras代码实现：</h2><ul>
+<li><p>LeNet的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def LeNet():</div><div class="line">    model = Sequential()</div><div class="line">    model.add(Conv2D(32,(5,5),strides=(1,1),input_shape=(28,28,1),padding=&apos;valid&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    model.add(Conv2D(64,(5,5),strides=(1,1),padding=&apos;valid&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    model.add(Flatten())</div><div class="line">    model.add(Dense(100,activation=&apos;relu&apos;))</div><div class="line">    model.add(Dense(10,activation=&apos;softmax&apos;))</div><div class="line">    return model</div></pre></td></tr></table></figure>
+</li>
+<li><p>AlexNet的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">def AlexNet():</div><div class="line"></div><div class="line">    model = Sequential()</div><div class="line">    model.add(Conv2D(96,(11,11),strides=(4,4),input_shape=(227,227,3),padding=&apos;valid&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))</div><div class="line">    model.add(Conv2D(256,(5,5),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))</div><div class="line">    model.add(Conv2D(384,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(384,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(256,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))</div><div class="line">    model.add(Flatten())</div><div class="line">    model.add(Dense(4096,activation=&apos;relu&apos;))</div><div class="line">    model.add(Dropout(0.5))</div><div class="line">    model.add(Dense(4096,activation=&apos;relu&apos;))</div><div class="line">    model.add(Dropout(0.5))</div><div class="line">    model.add(Dense(1000,activation=&apos;softmax&apos;))</div><div class="line">    return model</div></pre></td></tr></table></figure>
+</li>
+<li><p>ZF-Net的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">def ZF_Net():</div><div class="line">    model = Sequential()  </div><div class="line">    model.add(Conv2D(96,(7,7),strides=(2,2),input_shape=(224,224,3),padding=&apos;valid&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))  </div><div class="line">    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))  </div><div class="line">    model.add(Conv2D(256,(5,5),strides=(2,2),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))  </div><div class="line">    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))  </div><div class="line">    model.add(Conv2D(384,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))  </div><div class="line">    model.add(Conv2D(384,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))  </div><div class="line">    model.add(Conv2D(256,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))  </div><div class="line">    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))  </div><div class="line">    model.add(Flatten())  </div><div class="line">    model.add(Dense(4096,activation=&apos;relu&apos;))  </div><div class="line">    model.add(Dropout(0.5))  </div><div class="line">    model.add(Dense(4096,activation=&apos;relu&apos;))  </div><div class="line">    model.add(Dropout(0.5))  </div><div class="line">    model.add(Dense(1000,activation=&apos;softmax&apos;))  </div><div class="line">    return model</div></pre></td></tr></table></figure>
+</li>
+<li><p>VGG-16的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">def VGG_16():   </div><div class="line">    model = Sequential()</div><div class="line">    </div><div class="line">    model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=(224,224,3),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(64,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    </div><div class="line">    model.add(Conv2D(128,(3,2),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(128,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    </div><div class="line">    model.add(Conv2D(256,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(256,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(256,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    </div><div class="line">    model.add(Conv2D(512,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(512,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(512,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    </div><div class="line">    model.add(Conv2D(512,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(512,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(Conv2D(512,(3,3),strides=(1,1),padding=&apos;same&apos;,activation=&apos;relu&apos;,kernel_initializer=&apos;uniform&apos;))</div><div class="line">    model.add(MaxPooling2D(pool_size=(2,2)))</div><div class="line">    </div><div class="line">    model.add(Flatten())</div><div class="line">    model.add(Dense(4096,activation=&apos;relu&apos;))</div><div class="line">    model.add(Dropout(0.5))</div><div class="line">    model.add(Dense(4096,activation=&apos;relu&apos;))</div><div class="line">    model.add(Dropout(0.5))</div><div class="line">    model.add(Dense(1000,activation=&apos;softmax&apos;))</div><div class="line">    </div><div class="line">    return model</div></pre></td></tr></table></figure>
+</li>
+<li><p>GoogLeNet的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">def Conv2d_BN(x, nb_filter,kernel_size, padding=&apos;same&apos;,strides=(1,1),name=None):</div><div class="line">    if name is not None:</div><div class="line">        bn_name = name + &apos;_bn&apos;</div><div class="line">        conv_name = name + &apos;_conv&apos;</div><div class="line">    else:</div><div class="line">        bn_name = None</div><div class="line">        conv_name = None</div><div class="line"></div><div class="line">    x = Conv2D(nb_filter,kernel_size,padding=padding,strides=strides,activation=&apos;relu&apos;,name=conv_name)(x)</div><div class="line">    x = BatchNormalization(axis=3,name=bn_name)(x)</div><div class="line">    return x</div><div class="line"></div><div class="line">def Inception(x,nb_filter):</div><div class="line">    branch1x1 = Conv2d_BN(x,nb_filter,(1,1), padding=&apos;same&apos;,strides=(1,1),name=None)</div><div class="line"></div><div class="line">    branch3x3 = Conv2d_BN(x,nb_filter,(1,1), padding=&apos;same&apos;,strides=(1,1),name=None)</div><div class="line">    branch3x3 = Conv2d_BN(branch3x3,nb_filter,(3,3), padding=&apos;same&apos;,strides=(1,1),name=None)</div><div class="line"></div><div class="line">    branch5x5 = Conv2d_BN(x,nb_filter,(1,1), padding=&apos;same&apos;,strides=(1,1),name=None)</div><div class="line">    branch5x5 = Conv2d_BN(branch5x5,nb_filter,(1,1), padding=&apos;same&apos;,strides=(1,1),name=None)</div><div class="line"></div><div class="line">    branchpool = MaxPooling2D(pool_size=(3,3),strides=(1,1),padding=&apos;same&apos;)(x)</div><div class="line">    branchpool = Conv2d_BN(branchpool,nb_filter,(1,1),padding=&apos;same&apos;,strides=(1,1),name=None)</div><div class="line"></div><div class="line">    x = concatenate([branch1x1,branch3x3,branch5x5,branchpool],axis=3)</div><div class="line"></div><div class="line">    return x</div><div class="line"></div><div class="line">def GoogLeNet():</div><div class="line">    inpt = Input(shape=(224,224,3))</div><div class="line">    #padding = &apos;same&apos;，填充为(步长-1）/2,还可以用ZeroPadding2D((3,3))</div><div class="line">    x = Conv2d_BN(inpt,64,(7,7),strides=(2,2),padding=&apos;same&apos;)</div><div class="line">    x = MaxPooling2D(pool_size=(3,3),strides=(2,2),padding=&apos;same&apos;)(x)</div><div class="line">    x = Conv2d_BN(x,192,(3,3),strides=(1,1),padding=&apos;same&apos;)</div><div class="line">    x = MaxPooling2D(pool_size=(3,3),strides=(2,2),padding=&apos;same&apos;)(x)</div><div class="line">    x = Inception(x,64)#256</div><div class="line">    x = Inception(x,120)#480</div><div class="line">    x = MaxPooling2D(pool_size=(3,3),strides=(2,2),padding=&apos;same&apos;)(x)</div><div class="line">    x = Inception(x,128)#512</div><div class="line">    x = Inception(x,128)</div><div class="line">    x = Inception(x,128)</div><div class="line">    x = Inception(x,132)#528</div><div class="line">    x = Inception(x,208)#832</div><div class="line">    x = MaxPooling2D(pool_size=(3,3),strides=(2,2),padding=&apos;same&apos;)(x)</div><div class="line">    x = Inception(x,208)</div><div class="line">    x = Inception(x,256)#1024</div><div class="line">    x = AveragePooling2D(pool_size=(7,7),strides=(7,7),padding=&apos;same&apos;)(x)</div><div class="line">    x = Dropout(0.4)(x)</div><div class="line">    x = Dense(1000,activation=&apos;relu&apos;)(x)</div><div class="line">    x = Dense(1000,activation=&apos;softmax&apos;)(x)</div><div class="line">    model = Model(inpt,x,name=&apos;inception&apos;)</div><div class="line">    return model</div></pre></td></tr></table></figure>
+</li>
+<li><p>ResNet-50的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">def Conv2d_BN(x, nb_filter,kernel_size, strides=(1,1), padding=&apos;same&apos;,name=None):</div><div class="line">    if name is not None:</div><div class="line">        bn_name = name + &apos;_bn&apos;</div><div class="line">        conv_name = name + &apos;_conv&apos;</div><div class="line">    else:</div><div class="line">        bn_name = None</div><div class="line">        conv_name = None</div><div class="line"></div><div class="line">    x = Conv2D(nb_filter,kernel_size,padding=padding,strides=strides,activation=&apos;relu&apos;,name=conv_name)(x)</div><div class="line">    x = BatchNormalization(axis=3,name=bn_name)(x)</div><div class="line">    return x</div><div class="line"></div><div class="line">def Conv_Block(inpt,nb_filter,kernel_size,strides=(1,1), with_conv_shortcut=False):</div><div class="line">    x = Conv2d_BN(inpt,nb_filter=nb_filter[0],kernel_size=(1,1),strides=strides,padding=&apos;same&apos;)</div><div class="line">    x = Conv2d_BN(x, nb_filter=nb_filter[1], kernel_size=(3,3), padding=&apos;same&apos;)</div><div class="line">    x = Conv2d_BN(x, nb_filter=nb_filter[2], kernel_size=(1,1), padding=&apos;same&apos;)</div><div class="line">    if with_conv_shortcut:</div><div class="line">        shortcut = Conv2d_BN(inpt,nb_filter=nb_filter[2],strides=strides,kernel_size=kernel_size)</div><div class="line">        x = add([x,shortcut])</div><div class="line">        return x</div><div class="line">    else:</div><div class="line">        x = add([x,inpt])</div><div class="line">        return x</div><div class="line"></div><div class="line">def ResNet50():</div><div class="line">    inpt = Input(shape=(224,224,3))</div><div class="line">    x = ZeroPadding2D((3,3))(inpt)</div><div class="line">    x = Conv2d_BN(x,nb_filter=64,kernel_size=(7,7),strides=(2,2),padding=&apos;valid&apos;)</div><div class="line">    x = MaxPooling2D(pool_size=(3,3),strides=(2,2),padding=&apos;same&apos;)(x)</div><div class="line">    </div><div class="line">    x = Conv_Block(x,nb_filter=[64,64,256],kernel_size=(3,3),strides=(1,1),with_conv_shortcut=True)</div><div class="line">    x = Conv_Block(x,nb_filter=[64,64,256],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[64,64,256],kernel_size=(3,3))</div><div class="line">    </div><div class="line">    x = Conv_Block(x,nb_filter=[128,128,512],kernel_size=(3,3),strides=(2,2),with_conv_shortcut=True)</div><div class="line">    x = Conv_Block(x,nb_filter=[128,128,512],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[128,128,512],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[128,128,512],kernel_size=(3,3))</div><div class="line">    </div><div class="line">    x = Conv_Block(x,nb_filter=[256,256,1024],kernel_size=(3,3),strides=(2,2),with_conv_shortcut=True)</div><div class="line">    x = Conv_Block(x,nb_filter=[256,256,1024],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[256,256,1024],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[256,256,1024],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[256,256,1024],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[256,256,1024],kernel_size=(3,3))</div><div class="line">    </div><div class="line">    x = Conv_Block(x,nb_filter=[512,512,2048],kernel_size=(3,3),strides=(2,2),with_conv_shortcut=True)</div><div class="line">    x = Conv_Block(x,nb_filter=[512,512,2048],kernel_size=(3,3))</div><div class="line">    x = Conv_Block(x,nb_filter=[512,512,2048],kernel_size=(3,3))</div><div class="line">    x = AveragePooling2D(pool_size=(7,7))(x)</div><div class="line">    x = Flatten()(x)</div><div class="line">    x = Dense(1000,activation=&apos;softmax&apos;)(x)</div><div class="line">    </div><div class="line">    model = Model(inputs=inpt,outputs=x)</div><div class="line">    return model</div></pre></td></tr></table></figure>
+</li>
+<li><p>DenseNet-121的Keras实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div></pre></td><td class="code"><pre><div class="line">def DenseNet121(nb_dense_block=4, growth_rate=32, nb_filter=64, reduction=0.0, dropout_rate=0.0, weight_decay=1e-4, classes=1000, weights_path=None):</div><div class="line">    &apos;&apos;&apos;Instantiate the DenseNet 121 architecture,</div><div class="line">        # Arguments</div><div class="line">            nb_dense_block: number of dense blocks to add to end</div><div class="line">            growth_rate: number of filters to add per dense block</div><div class="line">            nb_filter: initial number of filters</div><div class="line">            reduction: reduction factor of transition blocks.</div><div class="line">            dropout_rate: dropout rate</div><div class="line">            weight_decay: weight decay factor</div><div class="line">            classes: optional number of classes to classify images</div><div class="line">            weights_path: path to pre-trained weights</div><div class="line">        # Returns</div><div class="line">            A Keras model instance.</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    eps = 1.1e-5</div><div class="line"></div><div class="line">    # compute compression factor</div><div class="line">    compression = 1.0 - reduction</div><div class="line"></div><div class="line">    # Handle Dimension Ordering for different backends</div><div class="line">    global concat_axis</div><div class="line">    if K.image_dim_ordering() == &apos;tf&apos;:</div><div class="line">      concat_axis = 3</div><div class="line">      img_input = Input(shape=(224, 224, 3), name=&apos;data&apos;)</div><div class="line">    else:</div><div class="line">      concat_axis = 1</div><div class="line">      img_input = Input(shape=(3, 224, 224), name=&apos;data&apos;)</div><div class="line"></div><div class="line">    # From architecture for ImageNet (Table 1 in the paper)</div><div class="line">    nb_filter = 64</div><div class="line">    nb_layers = [6,12,24,16] # For DenseNet-121</div><div class="line"></div><div class="line">    # Initial convolution</div><div class="line">    x = ZeroPadding2D((3, 3), name=&apos;conv1_zeropadding&apos;)(img_input)</div><div class="line">    x = Convolution2D(nb_filter, 7, 7, subsample=(2, 2), name=&apos;conv1&apos;, bias=False)(x)</div><div class="line">    x = BatchNormalization(epsilon=eps, axis=concat_axis, name=&apos;conv1_bn&apos;)(x)</div><div class="line">    x = Scale(axis=concat_axis, name=&apos;conv1_scale&apos;)(x)</div><div class="line">    x = Activation(&apos;relu&apos;, name=&apos;relu1&apos;)(x)</div><div class="line">    x = ZeroPadding2D((1, 1), name=&apos;pool1_zeropadding&apos;)(x)</div><div class="line">    x = MaxPooling2D((3, 3), strides=(2, 2), name=&apos;pool1&apos;)(x)</div><div class="line"></div><div class="line">    # Add dense blocks</div><div class="line">    for block_idx in range(nb_dense_block - 1):</div><div class="line">        stage = block_idx+2</div><div class="line">        x, nb_filter = dense_block(x, stage, nb_layers[block_idx], nb_filter, growth_rate, dropout_rate=dropout_rate, weight_decay=weight_decay)</div><div class="line"></div><div class="line">        # Add transition_block</div><div class="line">        x = transition_block(x, stage, nb_filter, compression=compression, dropout_rate=dropout_rate, weight_decay=weight_decay)</div><div class="line">        nb_filter = int(nb_filter * compression)</div><div class="line"></div><div class="line">    final_stage = stage + 1</div><div class="line">    x, nb_filter = dense_block(x, final_stage, nb_layers[-1], nb_filter, growth_rate, dropout_rate=dropout_rate, weight_decay=weight_decay)</div><div class="line"></div><div class="line">    x = BatchNormalization(epsilon=eps, axis=concat_axis, name=&apos;conv&apos;+str(final_stage)+&apos;_blk_bn&apos;)(x)</div><div class="line">    x = Scale(axis=concat_axis, name=&apos;conv&apos;+str(final_stage)+&apos;_blk_scale&apos;)(x)</div><div class="line">    x = Activation(&apos;relu&apos;, name=&apos;relu&apos;+str(final_stage)+&apos;_blk&apos;)(x)</div><div class="line">    x = GlobalAveragePooling2D(name=&apos;pool&apos;+str(final_stage))(x)</div><div class="line"></div><div class="line">    x = Dense(classes, name=&apos;fc6&apos;)(x)</div><div class="line">    x = Activation(&apos;softmax&apos;, name=&apos;prob&apos;)(x)</div><div class="line"></div><div class="line">    model = Model(img_input, x, name=&apos;densenet&apos;)</div><div class="line"></div><div class="line">    if weights_path is not None:</div><div class="line">      model.load_weights(weights_path)</div><div class="line"></div><div class="line">    return model</div><div class="line"></div><div class="line"></div><div class="line">def conv_block(x, stage, branch, nb_filter, dropout_rate=None, weight_decay=1e-4):</div><div class="line">    &apos;&apos;&apos;Apply BatchNorm, Relu, bottleneck 1x1 Conv2D, 3x3 Conv2D, and option dropout</div><div class="line">        # Arguments</div><div class="line">            x: input tensor </div><div class="line">            stage: index for dense block</div><div class="line">            branch: layer index within each dense block</div><div class="line">            nb_filter: number of filters</div><div class="line">            dropout_rate: dropout rate</div><div class="line">            weight_decay: weight decay factor</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    eps = 1.1e-5</div><div class="line">    conv_name_base = &apos;conv&apos; + str(stage) + &apos;_&apos; + str(branch)</div><div class="line">    relu_name_base = &apos;relu&apos; + str(stage) + &apos;_&apos; + str(branch)</div><div class="line"></div><div class="line">    # 1x1 Convolution (Bottleneck layer)</div><div class="line">    inter_channel = nb_filter * 4  </div><div class="line">    x = BatchNormalization(epsilon=eps, axis=concat_axis, name=conv_name_base+&apos;_x1_bn&apos;)(x)</div><div class="line">    x = Scale(axis=concat_axis, name=conv_name_base+&apos;_x1_scale&apos;)(x)</div><div class="line">    x = Activation(&apos;relu&apos;, name=relu_name_base+&apos;_x1&apos;)(x)</div><div class="line">    x = Convolution2D(inter_channel, 1, 1, name=conv_name_base+&apos;_x1&apos;, bias=False)(x)</div><div class="line"></div><div class="line">    if dropout_rate:</div><div class="line">        x = Dropout(dropout_rate)(x)</div><div class="line"></div><div class="line">    # 3x3 Convolution</div><div class="line">    x = BatchNormalization(epsilon=eps, axis=concat_axis, name=conv_name_base+&apos;_x2_bn&apos;)(x)</div><div class="line">    x = Scale(axis=concat_axis, name=conv_name_base+&apos;_x2_scale&apos;)(x)</div><div class="line">    x = Activation(&apos;relu&apos;, name=relu_name_base+&apos;_x2&apos;)(x)</div><div class="line">    x = ZeroPadding2D((1, 1), name=conv_name_base+&apos;_x2_zeropadding&apos;)(x)</div><div class="line">    x = Convolution2D(nb_filter, 3, 3, name=conv_name_base+&apos;_x2&apos;, bias=False)(x)</div><div class="line"></div><div class="line">    if dropout_rate:</div><div class="line">        x = Dropout(dropout_rate)(x)</div><div class="line"></div><div class="line">    return x</div><div class="line"></div><div class="line"></div><div class="line">def transition_block(x, stage, nb_filter, compression=1.0, dropout_rate=None, weight_decay=1E-4):</div><div class="line">    &apos;&apos;&apos; Apply BatchNorm, 1x1 Convolution, averagePooling, optional compression, dropout </div><div class="line">        # Arguments</div><div class="line">            x: input tensor</div><div class="line">            stage: index for dense block</div><div class="line">            nb_filter: number of filters</div><div class="line">            compression: calculated as 1 - reduction. Reduces the number of feature maps in the transition block.</div><div class="line">            dropout_rate: dropout rate</div><div class="line">            weight_decay: weight decay factor</div><div class="line">    &apos;&apos;&apos;</div><div class="line"></div><div class="line">    eps = 1.1e-5</div><div class="line">    conv_name_base = &apos;conv&apos; + str(stage) + &apos;_blk&apos;</div><div class="line">    relu_name_base = &apos;relu&apos; + str(stage) + &apos;_blk&apos;</div><div class="line">    pool_name_base = &apos;pool&apos; + str(stage) </div><div class="line"></div><div class="line">    x = BatchNormalization(epsilon=eps, axis=concat_axis, name=conv_name_base+&apos;_bn&apos;)(x)</div><div class="line">    x = Scale(axis=concat_axis, name=conv_name_base+&apos;_scale&apos;)(x)</div><div class="line">    x = Activation(&apos;relu&apos;, name=relu_name_base)(x)</div><div class="line">    x = Convolution2D(int(nb_filter * compression), 1, 1, name=conv_name_base, bias=False)(x)</div><div class="line"></div><div class="line">    if dropout_rate:</div><div class="line">        x = Dropout(dropout_rate)(x)</div><div class="line"></div><div class="line">    x = AveragePooling2D((2, 2), strides=(2, 2), name=pool_name_base)(x)</div><div class="line"></div><div class="line">    return x</div><div class="line"></div><div class="line"></div><div class="line">def dense_block(x, stage, nb_layers, nb_filter, growth_rate, dropout_rate=None, weight_decay=1e-4, grow_nb_filters=True):</div><div class="line">    &apos;&apos;&apos; Build a dense_block where the output of each conv_block is fed to subsequent ones</div><div class="line">        # Arguments</div><div class="line">            x: input tensor</div><div class="line">            stage: index for dense block</div><div class="line">            nb_layers: the number of layers of conv_block to append to the model.</div><div class="line">            nb_filter: number of filters</div><div class="line">            growth_rate: growth rate</div><div class="line">            dropout_rate: dropout rate</div><div class="line">            weight_decay: weight decay factor</div><div class="line">            grow_nb_filters: flag to decide to allow number of filters to grow</div><div class="line">    &apos;&apos;&apos;</div><div class="line"></div><div class="line">    eps = 1.1e-5</div><div class="line">    concat_feat = x</div><div class="line"></div><div class="line">    for i in range(nb_layers):</div><div class="line">        branch = i+1</div><div class="line">        x = conv_block(concat_feat, stage, branch, growth_rate, dropout_rate, weight_decay)</div><div class="line">        concat_feat = merge([concat_feat, x], mode=&apos;concat&apos;, concat_axis=concat_axis, name=&apos;concat_&apos;+str(stage)+&apos;_&apos;+str(branch))</div><div class="line"></div><div class="line">        if grow_nb_filters:</div><div class="line">            nb_filter += growth_rate</div><div class="line"></div><div class="line">    return concat_feat, nb_filter</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/19/php数据库中数据查询/" rel="next" title="php数据库中数据查询">
+                <i class="fa fa-chevron-left"></i> php数据库中数据查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/19/iOS开发的学习笔记/" rel="prev" title="iOS开发的学习笔记">
+                iOS开发的学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeNet（5层）"><span class="nav-number">2.</span> <span class="nav-text">LeNet（5层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet（8层）"><span class="nav-number">3.</span> <span class="nav-text">AlexNet（8层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZF-Net（8层）"><span class="nav-number">4.</span> <span class="nav-text">ZF-Net（8层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VGG-Nets（19层）"><span class="nav-number">5.</span> <span class="nav-text">VGG-Nets（19层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GoogLeNet（22层）"><span class="nav-number">6.</span> <span class="nav-text">GoogLeNet（22层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet（152层）"><span class="nav-number">7.</span> <span class="nav-text">ResNet（152层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DenseNet"><span class="nav-number">8.</span> <span class="nav-text">DenseNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keras代码实现："><span class="nav-number">9.</span> <span class="nav-text">keras代码实现：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言：分类是数据挖掘三大核心技术( 关联规则、分类、聚类) 之一 ,其实质是产生一个目标函数 f , 该函数将输入数据集的属性集 x 映射到已经定义的类标签 y 上。该目标函数通常也被称为分类模型或分类器 机器学习分为三个阶段：  第一阶段：学习模型。采用学习算法，通过对训练集进行归纳学习得到分类模型；  第二阶段：测试模型。将已经学习得到的分类模型用于测试集，对测试集中未知类别的实例进行分类。">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习性能评估指标">
+<meta property="og:url" content="http://yoursite.com/2018/03/07/机器学习性能评估指标/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="引言：分类是数据挖掘三大核心技术( 关联规则、分类、聚类) 之一 ,其实质是产生一个目标函数 f , 该函数将输入数据集的属性集 x 映射到已经定义的类标签 y 上。该目标函数通常也被称为分类模型或分类器 机器学习分为三个阶段：  第一阶段：学习模型。采用学习算法，通过对训练集进行归纳学习得到分类模型；  第二阶段：测试模型。将已经学习得到的分类模型用于测试集，对测试集中未知类别的实例进行分类。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/machine_learning_performance_evaluation.png">
+<meta property="og:image" content="http://yoursite.com/images/classifier_evaluation1.png">
+<meta property="og:image" content="http://yoursite.com/images/classifier_evaluation2.png">
+<meta property="og:image" content="http://yoursite.com/images/accuracy.png">
+<meta property="og:image" content="http://yoursite.com/images/G-mean.png">
+<meta property="og:image" content="http://yoursite.com/images/MCC.png">
+<meta property="og:image" content="http://yoursite.com/images/宏平均和微平均.png">
+<meta property="og:image" content="http://yoursite.com/images/ROC.png">
+<meta property="og:image" content="http://yoursite.com/images/P-R_figure.png">
+<meta property="og:image" content="http://yoursite.com/images/mae.png">
+<meta property="og:image" content="http://yoursite.com/images/mse.png">
+<meta property="og:updated_time" content="2018-03-22T13:06:20.492Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习性能评估指标">
+<meta name="twitter:description" content="引言：分类是数据挖掘三大核心技术( 关联规则、分类、聚类) 之一 ,其实质是产生一个目标函数 f , 该函数将输入数据集的属性集 x 映射到已经定义的类标签 y 上。该目标函数通常也被称为分类模型或分类器 机器学习分为三个阶段：  第一阶段：学习模型。采用学习算法，通过对训练集进行归纳学习得到分类模型；  第二阶段：测试模型。将已经学习得到的分类模型用于测试集，对测试集中未知类别的实例进行分类。">
+<meta name="twitter:image" content="http://yoursite.com/images/machine_learning_performance_evaluation.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/07/机器学习性能评估指标/"/>
+
+
+
+
+
+  <title>机器学习性能评估指标 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/机器学习性能评估指标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习性能评估指标</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T19:59:53+08:00">
+                2018-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言："><a href="#引言：" class="headerlink" title="引言："></a>引言：</h1><p><strong>分类</strong>是数据挖掘三大核心技术( 关联规则、分类、聚类) 之一 ,其实质是产生一个目标函数 <em>f</em> , 该函数将输入数据集的属性集 <em>x</em> 映射到已经定义的类标签 <em>y</em> 上。该目标函数通常也被称为分类模型或<strong>分类器</strong></p>
+<p><strong>机器学习分为三个阶段</strong>：</p>
+<ul>
+<li><p>第一阶段：<strong>学习模型</strong>。采用学习算法，通过对训练集进行归纳学习得到分类模型；</p>
+</li>
+<li><p>第二阶段：<strong>测试模型</strong>。将已经学习得到的分类模型用于测试集，对测试集中未知类别的实例进行分类。</p>
+</li>
+<li><p>第三阶段：<strong>性能评估</strong>。显然，通过测试集产生的分类未必是最佳的，这就导致对测试集的分类可能产生错误。而人们希望尽量得到信呢个最佳的分类模型，就是的对分类器性能评价至关重要。只有通过优秀的评价标准才能选择出性能更好的分类器。</p>
+</li>
+</ul>
+<p>在机器学习、数据挖掘、推荐系统完成建模之后，需要对模型的效果做评价。业内目前常常采用的评价指标有精确率(Precision)、召回率(Recall)、F值(F-Measure)等，下图是不同机器学习算法的评价指标。下文讲对其中某些指标做简要介绍。</p>
+<p><img src="/images/machine_learning_performance_evaluation.png" alt="machine_learning_performance_evaluation"></p>
+<h1 id="分类器评估准则"><a href="#分类器评估准则" class="headerlink" title="分类器评估准则"></a>分类器评估准则</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p>目前 ,分类器性能评价标准很多,其中比较常用的主要有准确度或错误率、查全率、查准率和F1等。为了清楚地认识这些评价标准, 首先介绍一下混淆矩阵。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>混淆矩阵</strong>(Confusion matrix)就是用于总结有指导分类结果的矩阵。沿着主对角线上的项表示正确分类的总数，其他非主对角线的项表示分类的错误数。</p>
+<h3 id="二分类的混淆矩阵"><a href="#二分类的混淆矩阵" class="headerlink" title="二分类的混淆矩阵"></a>二分类的混淆矩阵</h3><p><img src="/images/classifier_evaluation1.png" alt="classifier_evaluation1"></p>
+<ul>
+<li>True Positive(真正, TP)：将正类预测为正类数.</li>
+<li>True Negative(真负 , TN)：将负类预测为负类数.</li>
+<li>False Positive(假正, FP)：将负类预测为正类数 → 误报 (Type I error).</li>
+<li>False Negative(假负 , FN)：将正类预测为负类数 → 漏报 (Type II error).</li>
+</ul>
+<blockquote>
+<p>注：实际正例数<code>(p)=TP+FN</code>；实际负例数<code>(N)=FP+TN</code>；实例总数<code>(C)=P+N</code>。一个混合矩阵已经能够显示出评价分类器性能的一些必要信息。为了更方便地比较不同分类器的性能，从混合矩阵中总结出准确率、精确率、召回率、F-值（F-measure）等。</p>
+</blockquote>
+<h3 id="多类分类的混淆矩阵"><a href="#多类分类的混淆矩阵" class="headerlink" title="多类分类的混淆矩阵"></a>多类分类的混淆矩阵</h3><p><strong>定义</strong>：对于一个<em>m</em>分的标准分类问题来说，也可以定义如表1所示<em>m</em>×<em>m</em>的<em>m</em>分混淆矩阵和每一个类属的Recall、Precision、F-measure和Accuracy值。</p>
+<p><img src="/images/classifier_evaluation2.png" alt="classifier_evaluation2"></p>
+<p>其相应的整个分类器的准确率表达式如下：</p>
+<p><img src="/images/accuracy.png" alt="accuracy"></p>
+<h2 id="准确率-accuracy"><a href="#准确率-accuracy" class="headerlink" title="准确率(accuracy)"></a>准确率(accuracy)</h2><ul>
+<li><p><strong>定义</strong>：正确分类的测试实例个数占测试实例总数的比例，用于衡量模型正确的预测新的或先前未见过的数据的类标号的能力。</p>
+</li>
+<li><p><strong>计算公式</strong>：<code>Accuracy = (TP+TN)/(TP+TN+FP+FN)</code> 。</p>
+</li>
+</ul>
+<blockquote>
+<p>在<strong>正负样本不平衡</strong>的情况下，准确率这个评价指标有很大的缺陷。比如在互联网广告里面，点击的数量是很少的，一般只有千分之几，如果用Accuracy，即使全部预测成负类（不点击）Accuracy也有 99% 以上，没有意义。</p>
+<p>所谓不平衡分类问题 ,是指训练样本数量在类间分布不平衡的模式分类问题。关于不平衡问题的具体问题可参考：<a href="http://xueshu.baidu.com/s?wd=paperuri%3A%283cf390f69dc06a770d43f916e515997d%29&amp;filter=sc_long_sign&amp;tn=SE_xueshusource_2kduw22v&amp;sc_vurl=http%3A%2F%2Fkns.cnki.net%2FKCMS%2Fdetail%2Fdetail.aspx%3Ffilename%3Dznxt200902015%26dbname%3DCJFD%26dbcode%3DCJFQ&amp;ie=utf-8&amp;sc_us=460617811908092324" target="_blank" rel="external">叶志飞, 文益民, 吕宝粮. 不平衡分类问题研究综述[J]. 智能系统学报, 2009, 4(2):148-156.</a>。对于不平衡数据的评估标准：<a href="https://www.jianshu.com/p/3e8b9f2764c8" target="_blank" rel="external">不平衡数据下的机器学习方法简介</a></p>
+<p><strong>影响分类器准确率的因素有</strong>：训练数据集记录的数目、属性的数目、属性中的信息、测试数据集记录的分布情况等。</p>
+</blockquote>
+<h2 id="误分率"><a href="#误分率" class="headerlink" title="误分率"></a>误分率</h2><ul>
+<li><p><strong>定义</strong>：错误分类的测试实例个数占测试实例总数的比例，表示分类器做出错误分类的概率有多大。</p>
+</li>
+<li><p><strong>计算公式</strong>：<code>Error_rate=1-Accuracy = (FN+FP)/(TP+TN+FP+FN)</code>。</p>
+</li>
+</ul>
+<h2 id="精确率-precision"><a href="#精确率-precision" class="headerlink" title="精确率(precision)"></a>精确率(precision)</h2><ul>
+<li><p><strong>定义</strong>：正确分类的正例个数占分类为正例的实例个数的比例，也称<strong>查准率</strong>。</p>
+</li>
+<li><p><strong>计算公式</strong>：<code>TP/(TP+FP)</code></p>
+</li>
+</ul>
+<h2 id="召回率-recall"><a href="#召回率-recall" class="headerlink" title="召回率(recall)"></a>召回率(recall)</h2><ul>
+<li><p><strong>定义</strong>：正确分类的正例个数占实际正例个数的比例 也称<strong>查全率</strong>。</p>
+</li>
+<li><p><strong>计算公式</strong>：<code>TP/(TP+FN)</code></p>
+</li>
+</ul>
+<h2 id="F-值（F-Measure）"><a href="#F-值（F-Measure）" class="headerlink" title="F-值（F-Measure）"></a>F-值（F-Measure）</h2><ul>
+<li><p><strong>定义</strong>：F-Measure是查全率与查准率<strong>加权调和平均</strong>，又称为<strong>F-Score</strong>。</p>
+</li>
+<li><p><strong>计算公式</strong>：（1）<code>F1 = 2PR/(P+R)=2TP/(2TP+FP+FN)</code><br>（2）<code>F- = (α^2+1)PR/(α^2)P + R)</code></p>
+</li>
+</ul>
+<blockquote>
+<p> 此处α&gt;0用于衡量查全率对查准率的相对重要性[Van Rijsbergen，1979]。α=1时退化为标准的F1(基于P、R的<strong>调和平均</strong>)；α&gt;1时，查全率有更大的影响；α&lt;1时查准率有更大影响。</p>
+<p> 其中α=2和α=0.5是相对F1两个常用的F-measure：（1）当<strong>α=2</strong>，则表示recall的影响要大于precision；（2）当<strong>α=0.5</strong>，则表示precision的影响要大于recall.</p>
+<p>精确率和准确率都高的情况下，F1值也会高。P和R指标有时候会出现的矛盾的情况，这样就需要综合考虑他们。F1值在实际应用中较常用。相比于P、R的算术平均和几何平均（G-mean），F1值更重视较小值（不平衡数据下的稀有类），这也说明F1对于衡量数据更有利。</p>
+</blockquote>
+<h2 id="G-mean"><a href="#G-mean" class="headerlink" title="G-mean"></a>G-mean</h2><ul>
+<li><p><strong>定义</strong>：G-mean是正例准确率与负例准确率的综合指标。</p>
+<blockquote>
+<p>可参考文献：<em>Kubat M, Holte R C, Matwin S. Machine Learning for the Detection of Oil Spills in Satellite Radar Images[J]. Machine Learning, 1998, 30(2-3):195-215.</em></p>
+</blockquote>
+</li>
+<li><p><strong>计算公式</strong>：</p>
+<p>  <img src="/images/G-mean.png" alt="G-mean"></p>
+</li>
+<li><p><strong>与F1的比较</strong>：在数据平衡度不是很大的情况下，F1和G-mean可以作为较好的评测指标，但是当训练样本很不平衡时，F1更好。</p>
+</li>
+</ul>
+<blockquote>
+<p>G-mean评估一个学习算法的综合性能。 根据之前的研究, 为了能够获得尽可能多的关于每个类别对最终性能的贡献大小信息,并且考虑到数据的不平衡率, 很多研究者试图在不平衡领域提出新的度量指标。 如调整G-mean,提出了 <code>Adjusted G-mean</code>。</p>
+<p><strong>上述的评价标准对于类分布的改变较敏感。</strong> </p>
+</blockquote>
+<h2 id="约登指数（Informedness-）"><a href="#约登指数（Informedness-）" class="headerlink" title="约登指数（Informedness ）"></a>约登指数（Informedness ）</h2><p>登指数=灵敏度(召回率)+特异度-1<br><code>(TP/(TP+FN))+(TN/(FP+TN))-1 = R + (TN/(FP+TN)) - 1</code></p>
+<h2 id="MCC-马修斯相关系数"><a href="#MCC-马修斯相关系数" class="headerlink" title="MCC 马修斯相关系数"></a>MCC 马修斯相关系数</h2><p><strong>MCC</strong>（Matthews correlation coefficient）：是应用在机器学习中，用以测量二分类的分类性能的指标[83]。该指标考虑了真阳性、真阴性和假阳性和假阴性，通常认为该指标是一个比较均衡的指标，即使是在两类别的样本含量差别很大时，也可以应用它。MCC本质上是一个描述实际分类与预测分类之间的相关系数，它的取值范围为[-1,1]，取值为1时表示对受试对象的完美预测，取值为0时表示预测的结果还不如随机预测的结果，-1是指预测分类和实际分类完全不一致。</p>
+<p><img src="/images/MCC.png" alt="MCC"></p>
+<blockquote>
+<p>衡量不平衡数据集的指标比较好。</p>
+</blockquote>
+<h2 id="宏平均（macro-average）和微平均（micro-average）"><a href="#宏平均（macro-average）和微平均（micro-average）" class="headerlink" title="宏平均（macro-average）和微平均（micro-average）"></a>宏平均（macro-average）和微平均（micro-average）</h2><p>宏平均和微平均一般用在文本分类器, 如果只有一个二分类混淆矩阵，那么用以上的指标就可以进行评价，但是当我们在n个二分类混淆矩阵上要综合考察评价指标的时候就会用到宏平均和微平均。</p>
+<ul>
+<li><p><strong>宏平均</strong>（Macro-averaging）: 是先对每一个类统计指标值，然后在对<strong>所有类求算术平均值</strong>。宏平均指标相对微平均指标而言受小类别的影响更大。</p>
+</li>
+<li><p><strong>微平均</strong>（Micro-averaging）:是对数据集中的<strong>每一个实例的性能指标的算术平均</strong>。</p>
+<p>  <img src="/images/宏平均和微平均.png" alt="宏平均和微平均"></p>
+</li>
+</ul>
+<blockquote>
+<p><a href="http://www.gooseeker.com/cn/node/Fuller/2010051401" target="_blank" rel="external">宏平均指标相对微平均指标而言受小类别的影响更大</a>。宏平均比微平均更合理，但也不是说微平均一无是处，具体使用哪种评测机制，还是要取决于数据集中样本分布,来自：<a href="http://blog.csdn.net/xiaqian0917/article/details/53445071" target="_blank" rel="external">多类分类(Multi-label classification)性能评价之宏平均(macro-average)与微平均(micro-average)</a>。</p>
+</blockquote>
+<h2 id="ROC曲线（Receiver-Operating-Characteristic）"><a href="#ROC曲线（Receiver-Operating-Characteristic）" class="headerlink" title="ROC曲线（Receiver Operating Characteristic）"></a><strong>ROC曲线</strong>（Receiver Operating Characteristic）</h2><p>比如在逻辑回归里面，我们会设一个阈值，大于这个值的为正类，小于这个值为负类。如果我们减小这个阀值，那么更多的样本会被识别为正类。这会提高正类的识别率，但同时也会使得更多的负类被错误识别为正类。为了形象化这一变化，在此引入 ROC ，ROC 曲线可以用于评价一个分类器好坏。ROC 关注两个指标:</p>
+<p><img src="/images/ROC.png" alt="ROC"></p>
+<ul>
+<li><p>直观上，TPR 代表能将正例分对的概率，FPR 代表将负例错分为正例的概率。在 ROC 空间中，每个点的横坐标是 FPR，纵坐标是 TPR，这也就描绘了分类器在 TP（真正率）和 FP（假正率）间的 trade-off2。</p>
+</li>
+<li><p>ROC曲线是一个二维图形，横轴为FPR，纵轴为TPR，直观的展示FPR与TPR之间的对应关系。</p>
+<ul>
+<li>（FPR=0，TPR=0）意味着将每一个实例都预测为负例</li>
+<li>（FPR=1，TPR=1）意味着将每一个实例都预测为正例</li>
+<li>（FPR=0，TPR=1）为最优分类器点</li>
+</ul>
+</li>
+<li><p>实际上，通过有限实例产生的ROC曲线实际上是一个阶梯函数，该曲线近似于实例数量接近无限时对应的ROC曲线。</p>
+</li>
+<li><p>一个优秀分类器对应的ROC曲线应该尽量靠近单位方形的<strong>左上角</strong>。而如果一条ROC曲线沿着将负分类器点和正分类器点连接构成的对角线，则该分类器的预测效果与随机猜测的同样差。</p>
+</li>
+</ul>
+<blockquote>
+<p>ROC曲线有个很好的特性：当测试集中的正负样本的分布变化的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现类不平衡（class imbalance）现象，即负样本比正样本多很多（或者相反），而且测试数据中的正负样本的分布也可能随着时间变化。</p>
+</blockquote>
+<h2 id="AUC（Area-Under-Curve）"><a href="#AUC（Area-Under-Curve）" class="headerlink" title="AUC（Area Under Curve）"></a>AUC（Area Under Curve）</h2><ul>
+<li><p><strong>提出背景</strong>：用ROC curve来表示分类器的performance很直观好用。可是，人们总是希望能有一个数值来标志分类器的好坏。</p>
+</li>
+<li><p><strong>定义</strong>：AUC为ROC曲线下的面积，显然这个面积的数值不会大于1。随机挑选一个正样本以及一个负样本，分类器判定正样本的值高于负样本的概率就是AUC值。简单说：AUC值越大的分类器，正确率越高</p>
+</li>
+<li><p>AUC=1，完美分类器，采用这个预测模型时，不管设定什么阈值都能得出完美预测。绝大多数预测的场合，不存在完美分类器。</p>
+</li>
+<li>0.5&lt;AUC&lt;1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。</li>
+<li>AUC=0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。</li>
+<li>AUC&lt;0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测，因此不存在 AUC&lt;0.5 的情况。<blockquote>
+<p>既然已经这么多评价标准，为什么还要使用<strong>ROC和AUC</strong>呢？因为ROC曲线有个很好的特性：当测试集中的正负样本的分布变化的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现类不平衡（class imbalance）现象，即负样本比正样本多很多（或者相反）。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>ROC曲线和AUC的优势：<strong>不受类分布的影响，适合与评估、比较类分布不平衡的数据集</strong>。因此ROC曲线与AUC已被广泛用于医疗决策制定、模式识别和数据挖掘等领域。但是<strong>ROC和AUC仅适合于两类问题 ,对多类问题 ,无法直接应用</strong>。</p>
+</blockquote>
+<h2 id="PR曲线（Precision-Recall）曲线"><a href="#PR曲线（Precision-Recall）曲线" class="headerlink" title="PR曲线（Precision-Recall）曲线"></a>PR曲线（Precision-Recall）曲线</h2><p>查准率和查全率是一对矛盾的度量，一般来说，查准率高时，查全率往往偏低，而查全率高时，查准率往往偏低。很多情形下，可以根据学习器的预测结果对样例进行排序，排在前面的学习器认为“最可能”是正例的样本，排在最后的则是学习器认为“最不可能”是正例的样本。按此顺序逐个把样本的作为正例进行预测，则每次可以计算当前的查全率、查准率。以查准率为纵轴、查全率作为横轴作图。就会得到如下图的查准率-查全率曲线，简称“P-R曲线”，显示该曲线的图称为“P-R图”。</p>
+<p>P-R图直观地显示出学习器在样本总体上的查全率、查准率。在进行比较时，如图中A包住C，说明A的查全率、查准率均高于C,A优于C，而对于A、B存在交叉的情况，采用曲线下面积大小衡量性能，面积越大，性能越好，此处A优于B。</p>
+<p>另外一种比较A、B学习器的方法是：<strong>平衡点</strong>（Break-Event Point，简称BEP），它是当查全率等于查准率时的取值，有图可知，此时A的BEP大于B，故A优于B。</p>
+<p><img src="/images/P-R_figure.png" alt="P-R_figure"></p>
+<p>举个例子（例子来自Paper：Learning from eImbalanced Data）：<br>假设N_c&gt;&gt;P_c（即Negative的数量远远大于Positive的数量），若FP很大，即有很多N的sample被预测为P，因为这里写图片描述，因此FP_rate的值仍然很小（如果利用ROC曲线则会判断其性能很好，但是实际上其性能并不好），但是如果利用PR，因为Precision综合考虑了TP和FP的值，因此<strong>在极度不平衡的数据下（Positive的样本较少），PR曲线可能比ROC曲线更实用</strong>。</p>
+<h2 id="其他评估指标"><a href="#其他评估指标" class="headerlink" title="其他评估指标"></a>其他评估指标</h2><ul>
+<li><p><strong>计算复杂度</strong>：决定着算法执行的速度和占用的资源，它依赖于具体的实现细节和软硬件环境。由于数据挖掘的操作对象是海量的数据库，因而空间和时间的复杂度将是非常重要的问题。</p>
+</li>
+<li><p><strong>速度</strong>：这涉及产生和使用模型的时间花费。</p>
+</li>
+<li><p><strong>可解释性</strong>：分类结果只有可解释性好，容易理解，才能更好地用于决策支持。</p>
+</li>
+<li><p><strong>可伸缩性</strong>：一个模型的可伸缩性，使之在给定内存和磁盘空间等可用的系统资源的前提下，算法的运行时间应当随数据库大小线性增加。</p>
+</li>
+<li><p><strong>稳定性</strong>：一个模型是稳定的，是指它没有随着它所针对数据的变换而过于剧烈变化。</p>
+</li>
+<li><p><strong>成本</strong>：这涉及预测错误代价所产生的计算花费。</p>
+</li>
+</ul>
+<p>　　使用这些评价标准可以对分类器进行评估，尤其是其中的准确率或误分率，是比较常用的分类器性能评价标准。</p>
+<p>　　但是，所有浙西诶性能评价标准都只在一个操作点有效，这个操作点即是选择使得错误率概率最小的点。而且，这些评价标准都有一个共同的弱点，即它们对于类分布的改变显然不够强壮。当测试集中正例和负例的比例发生改变时，它们可能不在具有良好的性能，甚至不被接受。</p>
+<h1 id="回归评估"><a href="#回归评估" class="headerlink" title="回归评估"></a>回归评估</h1><ul>
+<li><p>平均绝对误差（Mean Absolute Error，MAE）又被称为 l1 范数损失（l1-norm loss）</p>
+<p>  <img src="/images/mae.png" alt="mae"></p>
+</li>
+<li><p>平均平方误差（Mean Squared Error，MSE）又被称为 l2 范数损失（l2-norm loss）</p>
+<p>  <img src="/images/mse.png" alt="mse"></p>
+</li>
+</ul>
+<p>参考资料：</p>
+<ol>
+<li>周志华《机器学习》第2章：模型评估与选择</li>
+<li><a href="http://blog.csdn.net/quiet_girl/article/details/70830796" target="_blank" rel="external"> 机器学习：准确率(Precision)、召回率(Recall)、F值(F-Measure)、ROC曲线、PR曲线</a></li>
+<li><a href="http://charleshm.github.io/2016/03/Model-Performance/" target="_blank" rel="external">机器学习性能评估指标</a></li>
+<li><a href="https://wenku.baidu.com/view/ce4f70efaf1ffc4ffe47acfe.html" target="_blank" rel="external">第三章4-分类器性能评价-20140925</a></li>
+<li><a href="http://kns.cnki.net/KXReader/Detail?dbcode=CJFD&amp;filename=GWDZ201108006&amp;UID=WEEvREcwSlJHSldRa1FhdXNXa0hHRXZVTE5rcHBSVE1yMlFBSCtUZ21yTT0%3d%249A4hF_YAuvQ5obgVAqNKPCYcEjKensW4ggI8Fm4gTkoUKaID8j8gFw!!&amp;autoLogin=0" target="_blank" rel="external">分类器的分类性能评价指标</a></li>
+<li><a href="https://www.jianshu.com/p/498ea0d8017d" target="_blank" rel="external">机器学习-浅谈模型评估的方法和指标</a>  (介绍比较全)</li>
+<li><a href="http://alexkong.net/2013/06/introduction-to-auc-and-roc/" target="_blank" rel="external">ROC和AUC介绍以及如何计算AUC</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/01/整理广州夏令营/" rel="next" title="整理广州夏令营">
+                <i class="fa fa-chevron-left"></i> 整理广州夏令营
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/13/数据库相关的职业/" rel="prev" title="数据库相关的职业">
+                数据库相关的职业 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言："><span class="nav-number">1.</span> <span class="nav-text">引言：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类器评估准则"><span class="nav-number">2.</span> <span class="nav-text">分类器评估准则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#混淆矩阵"><span class="nav-number">2.1.</span> <span class="nav-text">混淆矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二分类的混淆矩阵"><span class="nav-number">2.1.2.</span> <span class="nav-text">二分类的混淆矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多类分类的混淆矩阵"><span class="nav-number">2.1.3.</span> <span class="nav-text">多类分类的混淆矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准确率-accuracy"><span class="nav-number">2.2.</span> <span class="nav-text">准确率(accuracy)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#误分率"><span class="nav-number">2.3.</span> <span class="nav-text">误分率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精确率-precision"><span class="nav-number">2.4.</span> <span class="nav-text">精确率(precision)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#召回率-recall"><span class="nav-number">2.5.</span> <span class="nav-text">召回率(recall)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F-值（F-Measure）"><span class="nav-number">2.6.</span> <span class="nav-text">F-值（F-Measure）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G-mean"><span class="nav-number">2.7.</span> <span class="nav-text">G-mean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约登指数（Informedness-）"><span class="nav-number">2.8.</span> <span class="nav-text">约登指数（Informedness ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MCC-马修斯相关系数"><span class="nav-number">2.9.</span> <span class="nav-text">MCC 马修斯相关系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏平均（macro-average）和微平均（micro-average）"><span class="nav-number">2.10.</span> <span class="nav-text">宏平均（macro-average）和微平均（micro-average）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROC曲线（Receiver-Operating-Characteristic）"><span class="nav-number">2.11.</span> <span class="nav-text">ROC曲线（Receiver Operating Characteristic）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AUC（Area-Under-Curve）"><span class="nav-number">2.12.</span> <span class="nav-text">AUC（Area Under Curve）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PR曲线（Precision-Recall）曲线"><span class="nav-number">2.13.</span> <span class="nav-text">PR曲线（Precision-Recall）曲线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他评估指标"><span class="nav-number">2.14.</span> <span class="nav-text">其他评估指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归评估"><span class="nav-number">3.</span> <span class="nav-text">回归评估</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

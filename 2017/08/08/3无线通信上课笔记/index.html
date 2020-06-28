@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="上课笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="无线通信课上笔记无线通信的概念 无线通信（Wireless Comminication）是利用电磁波信号可以在自由空间中传输的特性进行信息交换的一种通信方式，无线通信与有线通信相对。 特点：新、快、····· 移动通信：在移动中实现无线通信，二者合称为无线移动通信  第一代到第五代网络技术：1G：第一代模拟信号技术，不具有数据传输功能。 采用频分多址（Frequency Division Mult">
+<meta name="keywords" content="上课笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无线通信上课笔记">
+<meta property="og:url" content="http://yoursite.com/2017/08/08/3无线通信上课笔记/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="无线通信课上笔记无线通信的概念 无线通信（Wireless Comminication）是利用电磁波信号可以在自由空间中传输的特性进行信息交换的一种通信方式，无线通信与有线通信相对。 特点：新、快、····· 移动通信：在移动中实现无线通信，二者合称为无线移动通信  第一代到第五代网络技术：1G：第一代模拟信号技术，不具有数据传输功能。 采用频分多址（Frequency Division Mult">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-04T03:38:35.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无线通信上课笔记">
+<meta name="twitter:description" content="无线通信课上笔记无线通信的概念 无线通信（Wireless Comminication）是利用电磁波信号可以在自由空间中传输的特性进行信息交换的一种通信方式，无线通信与有线通信相对。 特点：新、快、····· 移动通信：在移动中实现无线通信，二者合称为无线移动通信  第一代到第五代网络技术：1G：第一代模拟信号技术，不具有数据传输功能。 采用频分多址（Frequency Division Mult">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/08/3无线通信上课笔记/"/>
+
+
+
+
+
+  <title>无线通信上课笔记 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/08/3无线通信上课笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">无线通信上课笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T22:55:44+08:00">
+                2017-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="无线通信课上笔记"><a href="#无线通信课上笔记" class="headerlink" title="无线通信课上笔记"></a>无线通信课上笔记</h2><h3 id="无线通信的概念"><a href="#无线通信的概念" class="headerlink" title="无线通信的概念"></a>无线通信的概念</h3><ul>
+<li><strong>无线通信</strong>（Wireless Comminication）是利用电磁波信号可以在自由空间中传输的特性进行信息交换的一种通信方式，无线通信与有线通信相对。</li>
+<li><strong>特点</strong>：新、快、·····</li>
+<li><strong>移动通信</strong>：在移动中实现无线通信，二者合称为无线移动通信</li>
+</ul>
+<h3 id="第一代到第五代网络技术："><a href="#第一代到第五代网络技术：" class="headerlink" title="第一代到第五代网络技术："></a>第一代到第五代网络技术：</h3><h5 id="1G：第一代模拟信号技术，不具有数据传输功能。"><a href="#1G：第一代模拟信号技术，不具有数据传输功能。" class="headerlink" title="1G：第一代模拟信号技术，不具有数据传输功能。"></a>1G：第一代模拟信号技术，不具有数据传输功能。</h5><ul>
+<li><strong>采用频分多址</strong>（Frequency Division Multiple Access）技术组建的模拟蜂窝网也被称为第一代（First Generation，下称1G）无线通信系统。由于采用模拟调制，很容易被第三方窃听。1G的主要蜂窝系统包括AMPS、NMT、Hicap、CDPD、Mobitex、DataTac、TACS和ETACS。</li>
+<li><strong>FDMA</strong>技术是1G系统广泛采用的多址接入技术，每个用户被分配了一个独一无二的频带或信道。这些信道按需分配，且不能被其他用户共享。</li>
+</ul>
+<h5 id="2G：数字信号技术；GSM-全球移动通信技术-TDMA-时分多址"><a href="#2G：数字信号技术；GSM-全球移动通信技术-TDMA-时分多址" class="headerlink" title="2G：数字信号技术；GSM(全球移动通信技术)\TDMA(时分多址)"></a>2G：数字信号技术；GSM(全球移动通信技术)\TDMA(时分多址)</h5><ul>
+<li>2G标准包括GSM、iDEN、USDC（D-AMPS）、IS-95、PDC、CSD、PHS、GPRS、HSCSD和WiDEN。TDMA是2G系统中的几个应用最广泛的系统，包括USDC和GSM，所采用的多址接入技术。</li>
+<li>2.5G：GSM结合GPRS，包括HSCSD、GPRS、WAP、EDGE、蓝牙、EPOC等技术。</li>
+<li>2.75G：增加了比GPRS更快的EDGE技术</li>
+</ul>
+<h5 id="3G：-中国移动：TD-SCDMA；中国联通：WCDMA（最成熟）；中国电信：CDMA2000-1XEV-DO"><a href="#3G：-中国移动：TD-SCDMA；中国联通：WCDMA（最成熟）；中国电信：CDMA2000-1XEV-DO" class="headerlink" title="3G： 中国移动：TD-SCDMA；中国联通：WCDMA（最成熟）；中国电信：CDMA2000-1XEV-DO"></a>3G： 中国移动：TD-SCDMA；中国联通：WCDMA（最成熟）；中国电信：CDMA2000-1XEV-DO</h5><ul>
+<li>3G系统基本上是2G的线性扩展，它们基于两种不同的骨干架构，一种基于电路交换，另一种则基于包交换。 </li>
+<li>为了满足不断增长的网络容量需求，数据速率亟待提高到能提供高速数据传输和多媒体应用的水平上来，于是3G标准出现了。3G系统基本上是2G的线性扩展，它们基于两种不同的骨干架构，一种基于电路交换，另一种则基于包交换。</li>
+<li><strong>码分多址</strong>（Code Division Multiple Access，CDMA）技术实际上是扩频多址（Spread Spectrum Multiple Access）的一种，广泛应用于3G系统中。不过，美国的IS-95这个2G系统中就已经率先采用了CDMA。</li>
+</ul>
+<h5 id="4G：OFDM"><a href="#4G：OFDM" class="headerlink" title="4G：OFDM"></a>4G：OFDM</h5><ul>
+<li>采用了<strong>正交频分复用技术</strong>（OFDM）和多天线等新技术。</li>
+</ul>
+<h5 id="5G"><a href="#5G" class="headerlink" title="5G"></a>5G</h5><ul>
+<li>从技术层面上看，未来移动通信中的关键技术包括：智能天线、空时编码（Space Time Coding）、多输入多输出（Multiple-Input and Multiple-Output）和软件无线电。</li>
+<li>4G主要解决了视频技术问题，那么，5G就要在更真实的虚拟体验中有所突破,从功能上，5G应该具有超高的频谱利用率和超低的功耗。5G将与其他无线移动通信技术密切结合，构成新一代无所不在的移动信息网络，满足未来10年移动互联网流量增加1000倍的发展需求。</li>
+</ul>
+<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><ul>
+<li>无线传感网络（WSN）</li>
+<li>无线Mesh</li>
+<li>WIFI </li>
+<li>WiMAX（城域网）</li>
+<li>Ad Hoc网络：点对点连接网络； Ad hoc网是一种多跳的、无中心的、自组织无线网络，又称为多跳网（Multi-hop Network）、无基础设施网（Infrastructureless Network）或自组织网（Self-organizing Network）。整个网络没有固定的基础设施，每个节点都是移动的，并且都能以任意方式动态地保持与其它节点的联系。在这种网络中，由于终端无线覆盖取值范围的有限性，两个无法直接进行通信的用户终端可以借助其它节点进行分组转发。每一个节点同时是一个路由器，它们能完成发现以及维持到其它节点路由的功能。</li>
+</ul>
+<h3 id="标准："><a href="#标准：" class="headerlink" title="标准："></a>标准：</h3><ul>
+<li>IEEE 802.11——无线局域网（WLAN）（分为;11a,11b,11g；其中WIFI 是11b的扩展）</li>
+<li>IEEE 802.15——蓝牙局域网</li>
+<li>IEEE 802.16——宽带低速城域网 &lt;——WiMAX无线城域网</li>
+<li>IEEE 802.20——宽带高速城域网</li>
+<li>IEEE 802.20——宽带高速城域网</li>
+</ul>
+<h3 id="网络相关的标准化组织"><a href="#网络相关的标准化组织" class="headerlink" title="网络相关的标准化组织"></a>网络相关的标准化组织</h3><ul>
+<li>ITU（国际电信联盟）</li>
+<li>ISO（国际标准化组织）</li>
+<li>IEEE（电子电器工程师协会）</li>
+<li>IAB（Internet体系结构委员会）</li>
+<li>IEIF（Internet 工程任务组）</li>
+<li>IRTF（Internet 研究任务组）</li>
+</ul>
+<h3 id="无线通信发展的状况"><a href="#无线通信发展的状况" class="headerlink" title="无线通信发展的状况"></a>无线通信发展的状况</h3><ul>
+<li>4G与WIMAX、WLAN等宽带网络的融合</li>
+<li>4G与BF</li>
+<li>IMS</li>
+</ul>
+<h2 id="无线通信在音频中的应用结课论文笔记"><a href="#无线通信在音频中的应用结课论文笔记" class="headerlink" title="无线通信在音频中的应用结课论文笔记"></a>无线通信在音频中的应用结课论文笔记</h2><h3 id="音频传输系统常见的形式与特点"><a href="#音频传输系统常见的形式与特点" class="headerlink" title="音频传输系统常见的形式与特点"></a>音频传输系统常见的形式与特点</h3><ul>
+<li><p>有线传输：电话传输、ISDN（窄带综合业务数字网，常用于直播）、光纤</p>
+</li>
+<li><p>无线传输：<br> 1）调频发射<br> 2）卫星<br> 3）微波<br> 4）基于Internet的传输形式</p>
+</li>
+</ul>
+<h3 id="常用的无线技术："><a href="#常用的无线技术：" class="headerlink" title="常用的无线技术："></a>常用的无线技术：</h3><ul>
+<li>WHDI-4.9</li>
+<li>2.4G</li>
+<li>Bluetooth</li>
+<li>WiFi</li>
+<li>Zigbee</li>
+<li>IEEE 802.15.14</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/上课笔记/" rel="tag"># 上课笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/08/2learning-net/" rel="next" title="学习网址汇总">
+                <i class="fa fa-chevron-left"></i> 学习网址汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/4国家标准GB7665-87传感器/" rel="prev" title="国家标准GB7665-87传感器">
+                国家标准GB7665-87传感器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#无线通信课上笔记"><span class="nav-number">1.</span> <span class="nav-text">无线通信课上笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无线通信的概念"><span class="nav-number">1.1.</span> <span class="nav-text">无线通信的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一代到第五代网络技术："><span class="nav-number">1.2.</span> <span class="nav-text">第一代到第五代网络技术：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1G：第一代模拟信号技术，不具有数据传输功能。"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1G：第一代模拟信号技术，不具有数据传输功能。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2G：数字信号技术；GSM-全球移动通信技术-TDMA-时分多址"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2G：数字信号技术；GSM(全球移动通信技术)\TDMA(时分多址)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3G：-中国移动：TD-SCDMA；中国联通：WCDMA（最成熟）；中国电信：CDMA2000-1XEV-DO"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3G： 中国移动：TD-SCDMA；中国联通：WCDMA（最成熟）；中国电信：CDMA2000-1XEV-DO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4G：OFDM"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">4G：OFDM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5G"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">5G</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络"><span class="nav-number">1.3.</span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准："><span class="nav-number">1.4.</span> <span class="nav-text">标准：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络相关的标准化组织"><span class="nav-number">1.5.</span> <span class="nav-text">网络相关的标准化组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无线通信发展的状况"><span class="nav-number">1.6.</span> <span class="nav-text">无线通信发展的状况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无线通信在音频中的应用结课论文笔记"><span class="nav-number">2.</span> <span class="nav-text">无线通信在音频中的应用结课论文笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#音频传输系统常见的形式与特点"><span class="nav-number">2.1.</span> <span class="nav-text">音频传输系统常见的形式与特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的无线技术："><span class="nav-number">2.2.</span> <span class="nav-text">常用的无线技术：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

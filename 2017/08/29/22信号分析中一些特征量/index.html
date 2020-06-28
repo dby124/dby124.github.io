@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="信号处理," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="时域 均值  有效值（RMS，对时间的均值：）  时域峰值  方差  协方差  短时能量  短时过零率  子频带能量比   频域 概要：信号频谱是在频率域对原信号分布情况的描述，能够提供比时域波形更加直观的特征信息。频谱分析是机械故障诊断中最常使用的方法。频谱分析中常用的有幅值谱和功率谱。功率谱表示振动功率的分布情况。幅值谱表示对应于各频率的谐波振动分量所具有的振幅，应用时显得比较直观，幅值谱上谱">
+<meta name="keywords" content="信号处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信号分析中一些特征量">
+<meta property="og:url" content="http://yoursite.com/2017/08/29/22信号分析中一些特征量/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="时域 均值  有效值（RMS，对时间的均值：）  时域峰值  方差  协方差  短时能量  短时过零率  子频带能量比   频域 概要：信号频谱是在频率域对原信号分布情况的描述，能够提供比时域波形更加直观的特征信息。频谱分析是机械故障诊断中最常使用的方法。频谱分析中常用的有幅值谱和功率谱。功率谱表示振动功率的分布情况。幅值谱表示对应于各频率的谐波振动分量所具有的振幅，应用时显得比较直观，幅值谱上谱">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/频谱特征.png">
+<meta property="og:image" content="http://yoursite.com/images/kurtosis峭度公式.png">
+<meta property="og:image" content="http://yoursite.com/images/负熵公式.png">
+<meta property="og:updated_time" content="2018-06-04T03:35:28.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="信号分析中一些特征量">
+<meta name="twitter:description" content="时域 均值  有效值（RMS，对时间的均值：）  时域峰值  方差  协方差  短时能量  短时过零率  子频带能量比   频域 概要：信号频谱是在频率域对原信号分布情况的描述，能够提供比时域波形更加直观的特征信息。频谱分析是机械故障诊断中最常使用的方法。频谱分析中常用的有幅值谱和功率谱。功率谱表示振动功率的分布情况。幅值谱表示对应于各频率的谐波振动分量所具有的振幅，应用时显得比较直观，幅值谱上谱">
+<meta name="twitter:image" content="http://yoursite.com/images/频谱特征.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/29/22信号分析中一些特征量/"/>
+
+
+
+
+
+  <title>信号分析中一些特征量 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/29/22信号分析中一些特征量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">信号分析中一些特征量</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-29T09:29:58+08:00">
+                2017-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="时域"><a href="#时域" class="headerlink" title="时域"></a>时域</h2><ul>
+<li><p>均值</p>
+</li>
+<li><p>有效值（RMS，对时间的均值：）</p>
+</li>
+<li><p>时域峰值</p>
+</li>
+<li><p>方差</p>
+</li>
+<li><p>协方差</p>
+</li>
+<li><p>短时能量</p>
+</li>
+<li><p>短时过零率</p>
+</li>
+<li><p>子频带能量比</p>
+</li>
+</ul>
+<h2 id="频域"><a href="#频域" class="headerlink" title="频域"></a>频域</h2><ul>
+<li><p>概要：信号频谱是在频率域对原信号分布情况的描述，能够提供比时域波形更加直观的特征信息。频谱分析是机械故障诊断中最常使用的方法。频谱分析中常用的有幅值谱和功率谱。功率谱表示振动功率的分布情况。幅值谱表示对应于各频率的谐波振动分量所具有的振幅，应用时显得比较直观，幅值谱上谱线高度就是该频率分量的振幅大小。</p>
+</li>
+<li><p>频域常用的特征</p>
+</li>
+</ul>
+<p><img src="/images/频谱特征.png" alt="频谱特征"></p>
+<h2 id="倒谱域"><a href="#倒谱域" class="headerlink" title="倒谱域"></a>倒谱域</h2><ul>
+<li><p>概要：倒频谱分析也被称为二次频谱分析，是近代信号处理中的一项非常重要的新技术，是检测复杂谱图中的周期分量的有用工具。通过对信号的功率谱进行倒频谱分析，使得较低的幅值有较高的加权，从而可以清楚地识别信号的组成，突出信号中的周期成分。因此，对信号进行倒频谱分析可以检测和分离频谱中存在的周期性成分的能力，会使得原来谱图上的边频谱线转化为在倒频谱上的单根谱线，从而使得频谱中的复杂周期成分变得清晰易辨，有利于机械故障诊断。机械中齿轮、滚动轴承等出现故障时，信号的频谱上会出现难以识别的多簇调制边频带，釆用倒频谱分析可分解和识别故障频率、故障的原因和部位。</p>
+</li>
+<li><p>MFCC</p>
+</li>
+<li><p>HCC</p>
+</li>
+</ul>
+<h2 id="时频域"><a href="#时频域" class="headerlink" title="时频域"></a>时频域</h2><ul>
+<li><p>短时傅里叶变换</p>
+</li>
+<li><p>Gabor变换</p>
+</li>
+<li><p>小波变换</p>
+</li>
+<li><p>HHT变换</p>
+</li>
+</ul>
+<h2 id="波形相关的特征"><a href="#波形相关的特征" class="headerlink" title="波形相关的特征"></a>波形相关的特征</h2><ul>
+<li><p>非高斯（non-Gaussianity）常用的两种度量方法</p>
+<ul>
+<li>Kurtosis（峭度）：经典的测量非高斯方法，或称四阶累积量。y的Kurtosis定义为：<br>   <img src="/images/kurtosis峭度公式.png" alt="kurtosis峭度公式"></li>
+<li>Negentropy（负熵）:基于信息理论上熵的概念。随机变量的熵可以理解为给定观察变量的信息度，越随机，熵越大。随机向量y的密度f(y)的微熵H被定义为：<br>  <img src="/images/负熵公式.png" alt="负熵公式"></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>关于非高斯性，根据<strong>中心极限定理</strong>，在某些条件下，独立随机变量的和在一定条件下是趋近与高斯分布。即独立随机变量的和比原始独立随机变量的任何一个更接近高斯分布。可以认为<strong>越具有高斯性，独立性越差，反之，非高斯性越强，独立性越强。</strong></p>
+<p>思考：关于这个，是否可以将其应用于EMD中，通过各个IMF分量的与原始信号的非高斯性的对比，观察IMF分量的独立性。</p>
+</blockquote>
+<ul>
+<li><p>波形因子</p>
+</li>
+<li><p>峰值因子：反应波形的形状</p>
+</li>
+<li><p>脉冲因子</p>
+</li>
+<li><p>裕度因子</p>
+</li>
+<li><p>峭度因子</p>
+</li>
+</ul>
+<p>参考资料：</p>
+<p>[1]<a href="https://wenku.baidu.com/view/fb50f8e93c1ec5da51e2701c.html" target="_blank" rel="external">ICA 讲课PPT</a>——P22-26(非高斯度量)</p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信号处理/" rel="tag"># 信号处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/21网上看的几点人生建议/" rel="next" title="网上看的几点人生建议">
+                <i class="fa fa-chevron-left"></i> 网上看的几点人生建议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/30/23《现代语音信号处理》-胡航著-第1-6章简介/" rel="prev" title="《现代语音信号处理》(胡航著)第1-6章简介">
+                《现代语音信号处理》(胡航著)第1-6章简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时域"><span class="nav-number">1.</span> <span class="nav-text">时域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#频域"><span class="nav-number">2.</span> <span class="nav-text">频域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倒谱域"><span class="nav-number">3.</span> <span class="nav-text">倒谱域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时频域"><span class="nav-number">4.</span> <span class="nav-text">时频域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#波形相关的特征"><span class="nav-number">5.</span> <span class="nav-text">波形相关的特征</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

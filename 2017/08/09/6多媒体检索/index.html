@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="上课笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="时间：2016.10.11-2016. 11.3 注意关注会议  机构 ITU（国际电信联盟）  MPEG： Moving Picture Experts Group，动态图像专家组,  是ISO（International Standardization Organization，国际标准化组织）与IEC（International Electrotechnical Commission，国际">
+<meta name="keywords" content="上课笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多媒体表示、描述、编码以及通信的相关规定和标准课程总结">
+<meta property="og:url" content="http://yoursite.com/2017/08/09/6多媒体检索/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="时间：2016.10.11-2016. 11.3 注意关注会议  机构 ITU（国际电信联盟）  MPEG： Moving Picture Experts Group，动态图像专家组,  是ISO（International Standardization Organization，国际标准化组织）与IEC（International Electrotechnical Commission，国际">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-04T03:40:04.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多媒体表示、描述、编码以及通信的相关规定和标准课程总结">
+<meta name="twitter:description" content="时间：2016.10.11-2016. 11.3 注意关注会议  机构 ITU（国际电信联盟）  MPEG： Moving Picture Experts Group，动态图像专家组,  是ISO（International Standardization Organization，国际标准化组织）与IEC（International Electrotechnical Commission，国际">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/09/6多媒体检索/"/>
+
+
+
+
+
+  <title>多媒体表示、描述、编码以及通信的相关规定和标准课程总结 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/6多媒体检索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多媒体表示、描述、编码以及通信的相关规定和标准课程总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T09:24:19+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>时间：2016.10.11-2016. 11.3</li>
+<li>注意关注会议</li>
+</ul>
+<h2 id="机构"><a href="#机构" class="headerlink" title="机构"></a>机构</h2><ul>
+<li><p><strong>ITU</strong>（国际电信联盟）</p>
+</li>
+<li><p><strong>MPEG</strong>： Moving Picture Experts Group，动态图像专家组,  是ISO（International Standardization Organization，国际标准化组织）与IEC（International Electrotechnical Commission，国际电工委员会）于1988年成立的专门针对运动图像和语音压缩制定国际标准的组织。每年举办三次会议。</p>
+</li>
+<li><p><strong>3GPP</strong>： 3GPP的目标是实现由2G网络到3G网络的平滑过渡，保证未来技术的后向兼容性，支持轻松建网及系统间的漫游和兼容性。 其职能： 3GPP主要是制订以GSM核心网为基础，UTRA(FDD为W-CDMA技术，TDD为TD-CDMA技术)为无线接口的第三代技术规范。</p>
+</li>
+</ul>
+<h2 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h2><h3 id="MPEG标准："><a href="#MPEG标准：" class="headerlink" title="MPEG标准："></a>MPEG标准：</h3><ul>
+<li>MPEG-1/1993：11172，VCD</li>
+<li>MPEG-2/1995：13818，DVD</li>
+<li>MPEG-4/1999：.mp4格式的视频，目前仍在使用</li>
+<li>MPEG-4 AAC/2003  /H.264</li>
+<li>MPEG-7/2001：15938，检索标准，较老了</li>
+<li>HEVC（2013）/H.265</li>
+<li>MPEG-21</li>
+</ul>
+<h3 id="Dolby-AC3标准"><a href="#Dolby-AC3标准" class="headerlink" title="Dolby AC3标准"></a>Dolby AC3标准</h3><h3 id="AVS标准"><a href="#AVS标准" class="headerlink" title="AVS标准"></a>AVS标准</h3><h2 id="两种向量差值的表示："><a href="#两种向量差值的表示：" class="headerlink" title="两种向量差值的表示："></a>两种向量差值的表示：</h2><ul>
+<li><p><strong>欧氏距离</strong>：|F1-F2|^2； 欧几里得度量（euclidean metric）（也称欧氏距离）是一个通常采用的距离定义，指在m维空间中两个点之间的真实距离，或者向量的自然长度（即该点到原点的距离）。在二维和三维空间中的欧氏距离就是两点之间的实际距离。</p>
+</li>
+<li><p><strong>马氏距离</strong>： 马氏距离(Mahalanobis distance)是由印度统计学家马哈拉诺比斯(P. C. Mahalanobis)提出的，表示数据的协方差距离。它是一种有效的计算两个未知样本集的相似度的方法。与欧氏距离不同的是它考虑到各种特性之间的联系（例如：一条关于身高的信息会带来一条关于体重的信息，因为两者是有关联的）并且是尺度无关的(scale-invariant)，即独立于测量尺度。对于一个均值为μ，协方差矩阵为Σ的多变量向量，其马氏距离为(x-μ)’Σ^(-1)(x-μ)。</p>
+</li>
+</ul>
+<h2 id="JPEG2000-图像检索"><a href="#JPEG2000-图像检索" class="headerlink" title="JPEG2000 图像检索"></a>JPEG2000 图像检索</h2><p>问题：描述、匹配、视角问题、手机搜索</p>
+<p>拍照过程（信息有损失）：</p>
+<ul>
+<li><p>3D——&gt;2D；</p>
+</li>
+<li><p>成像输入——&gt;摄像头——&gt;去噪——&gt;对应RGB不同的通道对图像采样——&gt;DSP处理——&gt;输出</p>
+</li>
+</ul>
+<h3 id="描述："><a href="#描述：" class="headerlink" title="描述："></a>描述：</h3><h4 id="Globle-Feature："><a href="#Globle-Feature：" class="headerlink" title="Globle Feature："></a>Globle Feature：</h4><ul>
+<li>颜色</li>
+<li>结构</li>
+<li>轮廓</li>
+</ul>
+<h4 id="Local-Feature-："><a href="#Local-Feature-：" class="headerlink" title="Local Feature  ："></a>Local Feature  ：</h4><ul>
+<li>keypoint（特征点、关键点）</li>
+<li>Interesting content</li>
+<li>precise localization</li>
+<li>repeatable detection under variations of scale rotation（旋转、尺度等变换可重复检测）</li>
+</ul>
+<h2 id="SIFT"><a href="#SIFT" class="headerlink" title="SIFT"></a>SIFT</h2><h3 id="SIFT概念："><a href="#SIFT概念：" class="headerlink" title="SIFT概念："></a>SIFT概念：</h3><ul>
+<li><p><strong>尺度不变特征变换</strong>（Scale-invariant feature transform，SIFT），是用于图像处理领域的一种描述。</p>
+</li>
+<li><p>这种描述具有尺度不变性，可在图像中检测出关键点，是一种局部特征描述子。</p>
+<ul>
+<li>keypoint（特征点、关键点）</li>
+<li>Interesting content</li>
+<li>precise localization</li>
+<li>repeatable detection under variations of scale rotation（旋转、尺度等变换可重复检测）</li>
+</ul>
+</li>
+<li><p>该方法于1999年由David Lowe首先发表于计算机视觉国际会议（International Conference on Computer Vision，ICCV），2004年再次经David Lowe整理完善后发表于International journal of computer vision（IJCV）。截止2014年8月，该论文单篇被引次数达25000余次。</p>
+</li>
+</ul>
+<h3 id="SIFT实现方法："><a href="#SIFT实现方法：" class="headerlink" title="SIFT实现方法："></a>SIFT实现方法：</h3><ul>
+<li><p>金字塔形状分解（pyramids）；逐级检测</p>
+</li>
+<li><p>尺度空间（scale space）;DOG method</p>
+</li>
+</ul>
+<h2 id="仿射（Affin-Transform-AT）"><a href="#仿射（Affin-Transform-AT）" class="headerlink" title="仿射（Affin Transform, AT）"></a>仿射（Affin Transform, AT）</h2><p>包括：旋转、倾斜、平移、缩放</p>
+<h2 id="第二课"><a href="#第二课" class="headerlink" title="第二课"></a>第二课</h2><h3 id="MPEG-1"><a href="#MPEG-1" class="headerlink" title="MPEG-1"></a>MPEG-1</h3><ul>
+<li><p>CD11172-1，音频（A、B、C、D、E、F、G）</p>
+</li>
+<li><p>帧同步：CD11172-2，视频。</p>
+</li>
+<li><p>注意：encoder issue编码器问题，只要编码后的码流符合标准即可，对编解码器并没有规定，其中涉及优化问题。</p>
+</li>
+</ul>
+<h3 id="MPEG-1-：13818（视频标准）"><a href="#MPEG-1-：13818（视频标准）" class="headerlink" title="MPEG-1 ：13818（视频标准）"></a>MPEG-1 ：13818（视频标准）</h3><p>帧内编码：</p>
+<h4 id="audio（听觉）"><a href="#audio（听觉）" class="headerlink" title="audio（听觉）"></a>audio（听觉）</h4><ul>
+<li>Bn=20KHZ，Fs=44.1KHZ，或是48KHZ Bps=16bit</li>
+</ul>
+<h4 id="voice（语音）"><a href="#voice（语音）" class="headerlink" title="voice（语音）"></a>voice（语音）</h4><ul>
+<li>Bn=3.4KHZ-&gt;4KHZ ，Fs=8KHZ Bps=8bit</li>
+</ul>
+<h3 id="MPEG-Audio"><a href="#MPEG-Audio" class="headerlink" title="MPEG Audio"></a>MPEG Audio</h3><ul>
+<li><p>Audio layout2  ——MP2：时域上编码</p>
+</li>
+<li><p>Audio layout3  ——MP2：滤波器组，切割成32个子带</p>
+</li>
+<li><p>AAC MP3有更大的采样率：8-96KHZ，更大的比特数和更长的帧长</p>
+</li>
+</ul>
+<h3 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h3><ul>
+<li>CELP：较有名的编码器， 基于模型的编码</li>
+<li>MIDI</li>
+</ul>
+<h3 id="三基色：RGB"><a href="#三基色：RGB" class="headerlink" title="三基色：RGB"></a>三基色：RGB</h3><ul>
+<li><p>16777216种颜色</p>
+</li>
+<li><p>4096/2048 量化，取最大值</p>
+</li>
+</ul>
+<h3 id="描述图像，用于检索的指标有"><a href="#描述图像，用于检索的指标有" class="headerlink" title="描述图像，用于检索的指标有"></a>描述图像，用于检索的指标有</h3><ul>
+<li>PBC</li>
+<li>SRC</li>
+<li>Edge histogram<br>注意：旋转不变性，解决的是角度问题。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/上课笔记/" rel="tag"># 上课笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/09/5商务英语老师给的6个建议/" rel="next" title="商务英语老师给的6个建议">
+                <i class="fa fa-chevron-left"></i> 商务英语老师给的6个建议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/7AD制图注意问题/" rel="prev" title="AD制图相关问题总结">
+                AD制图相关问题总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#机构"><span class="nav-number">1.</span> <span class="nav-text">机构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准"><span class="nav-number">2.</span> <span class="nav-text">标准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MPEG标准："><span class="nav-number">2.1.</span> <span class="nav-text">MPEG标准：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dolby-AC3标准"><span class="nav-number">2.2.</span> <span class="nav-text">Dolby AC3标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVS标准"><span class="nav-number">2.3.</span> <span class="nav-text">AVS标准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种向量差值的表示："><span class="nav-number">3.</span> <span class="nav-text">两种向量差值的表示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JPEG2000-图像检索"><span class="nav-number">4.</span> <span class="nav-text">JPEG2000 图像检索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述："><span class="nav-number">4.1.</span> <span class="nav-text">描述：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Globle-Feature："><span class="nav-number">4.1.1.</span> <span class="nav-text">Globle Feature：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Local-Feature-："><span class="nav-number">4.1.2.</span> <span class="nav-text">Local Feature  ：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIFT"><span class="nav-number">5.</span> <span class="nav-text">SIFT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT概念："><span class="nav-number">5.1.</span> <span class="nav-text">SIFT概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT实现方法："><span class="nav-number">5.2.</span> <span class="nav-text">SIFT实现方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仿射（Affin-Transform-AT）"><span class="nav-number">6.</span> <span class="nav-text">仿射（Affin Transform, AT）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二课"><span class="nav-number">7.</span> <span class="nav-text">第二课</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MPEG-1"><span class="nav-number">7.1.</span> <span class="nav-text">MPEG-1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MPEG-1-：13818（视频标准）"><span class="nav-number">7.2.</span> <span class="nav-text">MPEG-1 ：13818（视频标准）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#audio（听觉）"><span class="nav-number">7.2.1.</span> <span class="nav-text">audio（听觉）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#voice（语音）"><span class="nav-number">7.2.2.</span> <span class="nav-text">voice（语音）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MPEG-Audio"><span class="nav-number">7.3.</span> <span class="nav-text">MPEG Audio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码器"><span class="nav-number">7.4.</span> <span class="nav-text">编码器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三基色：RGB"><span class="nav-number">7.5.</span> <span class="nav-text">三基色：RGB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述图像，用于检索的指标有"><span class="nav-number">7.6.</span> <span class="nav-text">描述图像，用于检索的指标有</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

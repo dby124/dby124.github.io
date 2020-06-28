@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP7," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言PHP7与PHP5版本相比有非常大的变化，尤其是在Zend引擎方面。为了提升性能，PHP7对Zend进行了深度优化，使得PHP的运行速度大大提高，比PHP5.0-5.6快了近5倍，同时还降低了PHP对系统资源的占用。 PHP7比较大的变化有： 抽象语法树PHP是一种解释性语言，通过解析器来执行。 那么首先来看一下编译器与解释器的区别：读入源语言后，解释器和编译器都要进行词法分析、语法分析和语义">
+<meta name="keywords" content="PHP7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP7的变化">
+<meta property="og:url" content="http://yoursite.com/2018/04/24/PHP7的变化/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="引言PHP7与PHP5版本相比有非常大的变化，尤其是在Zend引擎方面。为了提升性能，PHP7对Zend进行了深度优化，使得PHP的运行速度大大提高，比PHP5.0-5.6快了近5倍，同时还降低了PHP对系统资源的占用。 PHP7比较大的变化有： 抽象语法树PHP是一种解释性语言，通过解析器来执行。 那么首先来看一下编译器与解释器的区别：读入源语言后，解释器和编译器都要进行词法分析、语法分析和语义">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/PHP/解释器与编译器的区别.jpg">
+<meta property="og:image" content="http://yoursite.com/images/PHP/编译器PHP5.png">
+<meta property="og:image" content="http://yoursite.com/images/PHP/编译器PHP7.png">
+<meta property="og:updated_time" content="2018-04-27T01:45:28.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP7的变化">
+<meta name="twitter:description" content="引言PHP7与PHP5版本相比有非常大的变化，尤其是在Zend引擎方面。为了提升性能，PHP7对Zend进行了深度优化，使得PHP的运行速度大大提高，比PHP5.0-5.6快了近5倍，同时还降低了PHP对系统资源的占用。 PHP7比较大的变化有： 抽象语法树PHP是一种解释性语言，通过解析器来执行。 那么首先来看一下编译器与解释器的区别：读入源语言后，解释器和编译器都要进行词法分析、语法分析和语义">
+<meta name="twitter:image" content="http://yoursite.com/images/PHP/解释器与编译器的区别.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/24/PHP7的变化/"/>
+
+
+
+
+
+  <title>PHP7的变化 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/24/PHP7的变化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP7的变化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-24T21:19:38+08:00">
+                2018-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>PHP7与PHP5版本相比有非常大的变化，尤其是在Zend引擎方面。为了提升性能，PHP7对Zend进行了深度优化，使得PHP的运行速度大大提高，比PHP5.0-5.6快了近5倍，同时还降低了PHP对系统资源的占用。</p>
+<p>PHP7比较大的变化有：</p>
+<h3 id="抽象语法树"><a href="#抽象语法树" class="headerlink" title="抽象语法树"></a>抽象语法树</h3><p>PHP是一种解释性语言，通过解析器来执行。</p>
+<p>那么首先来看一下编译器与解释器的区别：读入源语言后，解释器和编译器都要进行<strong>词法分析、语法分析和语义分析</strong>，之后，二者开始有所分别。</p>
+<ul>
+<li><p><a href="https://blog.csdn.net/touzani/article/details/1625760" target="_blank" rel="external">解析器与编译器的区别</a>：</p>
+<ul>
+<li>解释器在语义分析后选择了直接执行语句；</li>
+<li><p>编译器在语义分析后选择将将语义存储成某一种中间语言，之后通过不同的后端翻译成不同的机器语言（可执行程序）。其存在一个预编译的过程。如下图所示：</p>
+<p>  <img src="/images/PHP/解释器与编译器的区别.jpg" alt="解释器与编译器的区别"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>PHP7之前</strong>的版本，代码解释过程：</p>
+<ul>
+<li>PHP代码在语法解析阶段直接生成ZendVM指令，即在<code>zend_language_parser.y</code>中直接生成opline指令，使得编译器与执行器耦合在一起。</li>
+<li><p>编译生成的指令再供执行引擎使用，该指令是在语法指令直接生成的，若要更换执行引擎，怎需要修改语法解析规则；若PHP语法变化，但没有修改执行引擎，仍需要修改语法解析规则。其代码解析过程如下图：</p>
+<p><img src="/images/PHP/编译器PHP5.png" alt="编译器PHP5"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>PHP7</strong>的代码解析过程：</p>
+<p>  <img src="/images/PHP/编译器PHP7.png" alt="编译器PHP7"></p>
+</li>
+</ul>
+<h3 id="Native-TLS"><a href="#Native-TLS" class="headerlink" title="Native TLS"></a>Native TLS</h3><p>PHP5.x版本扩展中，有<code>TSRM_CC</code>、<code>TSRM_DC</code>宏，用于线程安全。</p>
+<p>PHP中有很多变量需要在不同函数间共享，多线程的环境下不能简单地通过全局变量来实现，为了适应线程的应用环境，PHP提供了一个线程安全资源管理器，将全局资源进行线程隔离，不同的线程之间互不干扰。</p>
+<p>使用全局资源需要先获取本线程的资源池，这个过程比较占用时间，因此，PHP5.x通过参数传递的方式将本线程的资源池传递给其他函数，避免重复查找。这种方式需要所有函数接受资源池的参数（<code>TSRM_DC</code>宏所加的参数）<strong>，这些参数传递不仅易遗漏参数，还是得代码不优雅</strong>。</p>
+<p>PHP7使用Native TLS（线程局部存储）来保存线程的资源池，简单来说就是通过<code>__thread</code>标识一个全局变量，这样这个全局变量就是线程独享的了，不同线程的修改不会相互影响。</p>
+<h3 id="指定函数参数、返回值类型"><a href="#指定函数参数、返回值类型" class="headerlink" title="指定函数参数、返回值类型"></a>指定函数参数、返回值类型</h3><p>输入和输出参数必须是指定的数据类型，示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function foo(string $name): array &#123;</div><div class="line">    return [];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="zval结构的变化"><a href="#zval结构的变化" class="headerlink" title="zval结构的变化"></a>zval结构的变化</h3><p>Zval是PHP中最重要的数据结构之一（另一个比较重要的数据结构是hash table），它包含了PHP中的变量值和类型的相关信息。它是一个struct，在PHP5.x中，基本结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">struct _zval_struct &#123;</div><div class="line">    zvalue_value value;     /* value，变量的具体值 */</div><div class="line">    zend_uint refcount__gc;  /* variable ref count，记录变量的引用计数（自动回收的基础） */</div><div class="line">    zend_uchar type;          /* active type ，类型*/</div><div class="line">    zend_uchar is_ref__gc;    /* if it is a ref variable，标识变量是否为引用 */</div><div class="line">&#125;;</div><div class="line">typedef struct _zval_struct zval;</div></pre></td></tr></table></figure>
+<p>变量的实际值，具体来说是一个zvalue_value的联合体（union），用来适配不同的变量类型:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">typedef union _zvalue_value &#123;</div><div class="line">    long lval;                  /* long value */</div><div class="line">    double dval;                /* double value */</div><div class="line">    struct &#123;                    /* string */</div><div class="line">        char *val;</div><div class="line">        int len;</div><div class="line">    &#125; str;</div><div class="line">    HashTable *ht;              /* hash table value,used for array */</div><div class="line">    zend_object_value obj;      /* object */</div><div class="line">&#125; zvalue_value;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/ohmygirl/article/details/41542445" target="_blank" rel="external">PHP内核探索之变量（1）变量的容器-Zval</a></p>
+</blockquote>
+<p>PHP5.x中引用计数是在zval中，而不是在具体的value中，这样一来，导致变量复制时需要复制两个结构，zval，zvalue_value始终是绑定在一起的。</p>
+<ul>
+<li>变化1：<strong>PHP7中将引用计数转移到具体的value中</strong>，这样更合理，因为zval只是变量的一个载体，可以简单地认为是变量名，而value才是真正的值，这个改变<strong>使得PHP变量之间的复制、传递更加简洁、易懂</strong>。</li>
+<li>变化2：<strong>zval结构的大小由24byte减少到16byte，这PHP7能够降低系统的资源占用。</strong></li>
+</ul>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>PHP5.x中很多操作会直接抛出error错误，PHP7中将多数错误改为了异常抛出，这样就可以通过try catch捕捉到异常。这种新的异常处理方式使得错误处理更加可控。</p>
+<h3 id="HashTable的变化"><a href="#HashTable的变化" class="headerlink" title="HashTable的变化"></a>HashTable的变化</h3><p>HashTable，即哈希表，也称为散列表，它是PHP强大的array()类型的内部实现结构，也是内核中使用非常频繁的一个结构，函数符号表、类符号表、常量符号表等都是通过HashTable实现的。</p>
+<p>PHP7中，HashTable结构的大小由72byte减小到56byte，同时，数组元素Bucket结构也由72byte减小到32byte。</p>
+<h3 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h3><p>execute_data、opline采用寄存器变量存储，执行器的调度函数为<code>execute_ex()</code>，这个函数复制执行PHP代码编译生成ZendVM指令。在执行期间会频繁地用到execute_data、opline两个变量。</p>
+<p>PHP5.x中，这两个变量是由<code>execute_ex()</code>通过参数传递给各指令handle的。</p>
+<p>PHP7中不再采用传参的方式，而是将execute_data、opline通过寄存器来存储，避免传参导致的频繁出入栈操作，同时寄存器相比于内存的访问速度更快。这个优化使得PHP的性能有了5%左右的提升。</p>
+<h3 id="新的参数解析"><a href="#新的参数解析" class="headerlink" title="新的参数解析"></a>新的参数解析</h3><p>PHP5.x通过<code>zend_parse_parameters()</code>解析函数的参数，PHP7提供另外一种方式，同时保留原来方式，但是新的解析方式速度更快。</p>
+<p>参考：秦朋 《PHP7内核剖析》第1.3节</p>
+<p>推荐文章——关于PHP内部实现的文章：</p>
+<ol>
+<li><a href="http://blog.jobbole.com/102175/" target="_blank" rel="external">给PHP开发者的PHP源码（1）：源码结构</a></li>
+<li><a href="http://blog.jobbole.com/102235/" target="_blank" rel="external">理解 PHP 内部函数的定义</a></li>
+<li><a href="http://blog.jobbole.com/102433/" target="_blank" rel="external">PHP 的变量实现</a></li>
+<li><a href="http://blog.jobbole.com/102494/" target="_blank" rel="external">理解数组在PHP内部的实现</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP7/" rel="tag"># PHP7</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/24/PHP的构成及工作原理/" rel="next" title="PHP的构成及工作原理">
+                <i class="fa fa-chevron-left"></i> PHP的构成及工作原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/25/PHP内核——内存管理/" rel="prev" title="PHP内核——内存管理">
+                PHP内核——内存管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象语法树"><span class="nav-number">2.</span> <span class="nav-text">抽象语法树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native-TLS"><span class="nav-number">3.</span> <span class="nav-text">Native TLS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定函数参数、返回值类型"><span class="nav-number">4.</span> <span class="nav-text">指定函数参数、返回值类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zval结构的变化"><span class="nav-number">5.</span> <span class="nav-text">zval结构的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">6.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashTable的变化"><span class="nav-number">7.</span> <span class="nav-text">HashTable的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行器"><span class="nav-number">8.</span> <span class="nav-text">执行器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新的参数解析"><span class="nav-number">9.</span> <span class="nav-text">新的参数解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

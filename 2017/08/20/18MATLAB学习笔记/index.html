@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MATLAB," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="简介 MATLAB 是一种用于算法开发、数据可视化、数据分析以及数值计算的高级技术计算语言和交互式环境。使用 MATLAB，可以较使用传统的编程语言（如 C、C++ 和 Fortran）更快地解决技术计算问题。  应用范围：包括信号和图像处理、通讯、控制系统设计、测试和测量、财务建模和分析以及计算生物学等众多应用领域。附加的工具箱（单独提供的专用 MATLAB 函数集）扩展了 MATLAB 环境，">
+<meta name="keywords" content="MATLAB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MATLAB工具常用函数">
+<meta property="og:url" content="http://yoursite.com/2017/08/20/18MATLAB学习笔记/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="简介 MATLAB 是一种用于算法开发、数据可视化、数据分析以及数值计算的高级技术计算语言和交互式环境。使用 MATLAB，可以较使用传统的编程语言（如 C、C++ 和 Fortran）更快地解决技术计算问题。  应用范围：包括信号和图像处理、通讯、控制系统设计、测试和测量、财务建模和分析以及计算生物学等众多应用领域。附加的工具箱（单独提供的专用 MATLAB 函数集）扩展了 MATLAB 环境，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/08/20/18MATLAB学习笔记/image/get_juzhen_num.png">
+<meta property="og:image" content="http://yoursite.com/images/logsig.png">
+<meta property="og:updated_time" content="2018-06-27T12:57:17.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MATLAB工具常用函数">
+<meta name="twitter:description" content="简介 MATLAB 是一种用于算法开发、数据可视化、数据分析以及数值计算的高级技术计算语言和交互式环境。使用 MATLAB，可以较使用传统的编程语言（如 C、C++ 和 Fortran）更快地解决技术计算问题。  应用范围：包括信号和图像处理、通讯、控制系统设计、测试和测量、财务建模和分析以及计算生物学等众多应用领域。附加的工具箱（单独提供的专用 MATLAB 函数集）扩展了 MATLAB 环境，">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/20/18MATLAB学习笔记/image/get_juzhen_num.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/20/18MATLAB学习笔记/"/>
+
+
+
+
+
+  <title>MATLAB工具常用函数 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/20/18MATLAB学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MATLAB工具常用函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T15:16:26+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li><p>MATLAB 是一种用于<strong>算法开发、数据可视化、数据分析以及数值计算的高级技术计算语言和交互式环境</strong>。使用 MATLAB，可以较使用传统的编程语言（如 C、C++ 和 Fortran）更快地解决技术计算问题。</p>
+</li>
+<li><p><strong>应用范围</strong>：包括信号和图像处理、通讯、控制系统设计、测试和测量、财务建模和分析以及计算生物学等众多应用领域。附加的工具箱（单独提供的专用 MATLAB 函数集）扩展了 MATLAB 环境，以解决这些应用领域内特定类型的问题。MATLAB 提供了很多用于记录和分享工作成果的功能。可以将您的 MATLAB 代码与其他语言和应用程序集成，来分发您的 MATLAB 算法和应用。</p>
+</li>
+<li><p>主要功能：</p>
+<ul>
+<li><p>此高级语言可用于技术计算</p>
+<ul>
+<li><p>此开发环境可对代码、文件和数据进行管理</p>
+</li>
+<li><p>交互式工具可以按迭代的方式探查、设计及求解问题</p>
+</li>
+<li><p>数学函数可用于线性代数、统计、傅立叶分析、筛选、优化以及数值积分等</p>
+</li>
+<li><p>二维和三维图形函数可用于可视化数据</p>
+</li>
+<li><p>各种工具可用于构建自定义的图形用户界面</p>
+</li>
+</ul>
+</li>
+<li><p>各种函数可将基于 MATLAB 的算法与外部应用程序和语言（如 C、C++、Fortran、Java、COM 以及 Microsoft Excel）集成。 </p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>版本说明</p>
+<ul>
+<li><p>从MATLAB 4.2c开始，每个版本增加了一个建造编号；</p>
+</li>
+<li><p>例如MATLAB7.6的建造标号是R2008a。说明MATLAB7.6与MATLAB2008a是等同的；</p>
+</li>
+<li><p>对于建造编号，愈来愈正规化以后，每年出两个版本，例如2011a和2011b。一般来说。a是测试版，b是正式版。从出版时间上看，a是前半年出，b是后半年出。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="安装工具包"><a href="#安装工具包" class="headerlink" title="安装工具包"></a>安装工具包</h1><ul>
+<li><p>MATLAB安装voicebox的步骤</p>
+<ul>
+<li><p>下载安装包</p>
+<ul>
+<li><p><a href="http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.html" target="_blank" rel="external">官方主页</a></p>
+</li>
+<li><p><a href="http://www.ee.ic.ac.uk/hp/staff/dmb/voicebox/voicebox.zip" target="_blank" rel="external">官方下载</a></p>
+</li>
+</ul>
+</li>
+<li><p>解压voicebox.zip，将整个目录voicebox复制到MATLAB的安装目录的TOOLBOX目录下，如D:\MATLAB7\toolbox\</p>
+</li>
+<li><p>打开Matlab，在MATLAB命令窗口中输入以下命令：</p>
+<ul>
+<li><p>将TOOLBOX下新加的voicebox工具箱加到MATLAB的搜索路径中去：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> D:\MATLAB7\toolbox\voicebox</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加voicebox工具箱的MATLAB的搜索路径也可采用如下指令：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> &gt;&gt; addpath(genpath(<span class="string">'D:\MATLAB7\toolbox\voicebox'</span>)) </div><div class="line">% 或者</div><div class="line"> &gt;&gt;path(<span class="string">'D:\MATLAB7\toolbox\voicebox'</span>,path)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>检验是否成功设置的方法：</p>
+<ul>
+<li><p>在命令窗口中输入以下命令：which activlev.m（可以为所加工具箱的任一个M<br>文件名称），如果显示正确，就说明上面的设置成功。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; <span class="built_in">which</span> activlev.m</div></pre></td></tr></table></figure>
+</li>
+<li><p>结果：<br>  <code>D:\MATLAB7\toolbox\voicebox\activlev.m</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>添加工具包：</p>
+<ul>
+<li><p>将下载的安装包复制matlab安装目录下面的<code>toolbox</code>文件夹中；</p>
+</li>
+<li><p>打开软件；file -&gt; setpath -&gt; Add with subfolders；</p>
+</li>
+<li><p>将要导入的工具箱所在的文件夹（该文件夹必须在MATLAB的toolbox文件夹中）添加；保存即可。</p>
+</li>
+<li><p>验证：在命令行中输入改行代码：’ which [此处为该工具箱中任意一个函数]’；输出结果若不报错，则说明导入成功。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="matlab调试注意点"><a href="#matlab调试注意点" class="headerlink" title="matlab调试注意点"></a>matlab调试注意点</h1><ul>
+<li><p>注释一段代码，使用如下方式：</p>
+<pre><code>Ctrl+R     注释选定的整段代码；相当于text-&gt;Comment；
+Ctrl+T     取消注释的整段代码；相当于text-&gt;Uncomment；
+</code></pre></li>
+<li><p>报错</p>
+<pre><code>Subscripted assignment dimension mismatch.
+表示矩阵的下标不匹配，可能是给矩阵赋值的过程中没有对齐下标
+</code></pre></li>
+<li><p>代码调试</p>
+<pre><code>Ctrl+C    停止运行代码
+F5     运行代码
+</code></pre></li>
+<li><p>乘和点乘的区别：</p>
+<pre><code>a*b就是矩阵乘法
+a.*b就是a,b的对应元素相乘
+</code></pre></li>
+<li><p>MATLAB查看小波基,在命令窗口输入：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wavemngr(<span class="string">'read'</span>,1)</div></pre></td></tr></table></figure>
+</li>
+<li><p>运行程序时，想要在在命令窗口显示程序中一个变量的值：</p>
+<ul>
+<li><p>只需要在求取这个变量时，后面不加分号，就表示将这个变量在命令行窗口中显示其值</p>
+</li>
+<li><p>只需要在求取这个变量时，后面不加分号，就表示将这个变量在命令行窗口中显示其值</p>
+</li>
+<li><p>例如：<code>[easy_a,easy_p,easy_r,easy_f] = mea_badsig(easy_out)</code></p>
+</li>
+</ul>
+</li>
+<li><p>计算程序的运行时间</p>
+<ul>
+<li>在开头加上<code>tic</code>，结尾加上<code>t=toc</code>；t就是代码运行时间。(不用加分号)</li>
+</ul>
+</li>
+<li><p>转义符：</p>
+<pre><code>&apos;&apos;单引号
+%%字符百分比
+\\反斜杠
+\ a报警
+\ b退格
+\ f换页
+\ n新行
+\ r回车
+\ t水平制表符
+\ v垂直选项卡
+\ xN十六进制数，
+N\ N八进制数，
+</code></pre></li>
+<li><p>代码运行计时</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tic</div><div class="line">% 运行主函数代码</div><div class="line">toc</div></pre></td></tr></table></figure>
+<p>  之后在command window下面会显示：<code>Elapsed time is xxx seconds.</code>的信息</p>
+</li>
+</ul>
+<h1 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h1><h2 id="MATLAB中一些判断函数"><a href="#MATLAB中一些判断函数" class="headerlink" title="MATLAB中一些判断函数"></a>MATLAB中一些判断函数</h2><ul>
+<li><code>isscalar</code>：判断A是否是标量，即一行一列的矩阵。</li>
+<li><code>isnumeric</code>：判断输入参数是否是数字类型（包括浮点型和整型）。</li>
+<li><code>isnan</code>：判断数组中的元素是否为无穷大。</li>
+<li><code>iscell</code>：判断给定数组是否是元胞数组。</li>
+<li><code>isfield</code>：判断输入是否是结构体数组的域（成员）。</li>
+<li><code>isvector</code>:判断是否为单行或者单列（也可以是单个元素），若是二维及以上的数据，则返回0。<blockquote>
+<p>如果为真，则返回1（true，否则0（false）。 </p>
+</blockquote>
+</li>
+</ul>
+<h2 id="取整"><a href="#取整" class="headerlink" title="取整"></a>取整</h2><ul>
+<li><p><code>fix(x)</code> : 截尾取整.</p>
+<pre><code>fix( [3.12 -3.12])
+结果 3 -3
+</code></pre></li>
+<li><p><code>floor(x)</code>:不超过x 的最大整数.(高斯取整)</p>
+<pre><code>floor( [3.12 -3.12])
+结果 3 -4
+</code></pre></li>
+<li><p><code>ceil(x)</code> : 大于x 的最小整数</p>
+<pre><code>ceil( [3.12 -3.12])
+结果 4 -3
+</code></pre></li>
+<li><p><code>round(x)</code>：取最近的整数，相当于四舍五入取整</p>
+<pre><code>round([3.12 -3.12])
+结果 3 -3
+</code></pre></li>
+</ul>
+<h2 id="取余数"><a href="#取余数" class="headerlink" title="取余数"></a>取余数</h2><ul>
+<li><p><code>rem(n,m)</code>或<code>mod(n,m)</code></p>
+<ul>
+<li><p>mod 模数求余</p>
+</li>
+<li><p>rem 求余数</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="求平方根"><a href="#求平方根" class="headerlink" title="求平方根"></a>求平方根</h2><p><code>sqrt(a)</code></p>
+<h2 id="取FFT变换："><a href="#取FFT变换：" class="headerlink" title="取FFT变换："></a>取FFT变换：</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Y = fft(S,N); %做FFT变换，S为信号的序列，N变换的点数</div></pre></td></tr></table></figure>
+<h2 id="取均值"><a href="#取均值" class="headerlink" title="取均值 :"></a>取均值 :</h2><ul>
+<li>mean函数的作用主要是求列或行的平均数：</li>
+</ul>
+<blockquote>
+<p>% 下面参数说明：A是矩阵、函数原型：mean(A , dim)，若dim缺省，则默认dim=1，求列平均</p>
+</blockquote>
+<ul>
+<li><p>对列求平均数：<code>mean(A , 1)  = mean(A)    % dim = 1可以简写</code></p>
+</li>
+<li><p>对行求平均数：<code>mean(A , 2)</code></p>
+</li>
+<li><p>mean2():相当于对整一个矩阵求像素平均值:相当于<code>mean( mean( A ) )</code></p>
+</li>
+</ul>
+<h2 id="标准偏差函数std"><a href="#标准偏差函数std" class="headerlink" title="标准偏差函数std"></a>标准偏差函数std</h2><ul>
+<li><p>s = <code>std(X)</code></p>
+<blockquote>
+<p>此处X是一个矢量，该函数返回标准偏差（注意其分母为n-1，而不是n） 。结果s是一个X各样本偏差无偏估计的平方根(X包含独立的、同分布样本)。如果X是一个矩阵，该函数返回一个行矢量，它包含了X每列元素的标准偏差。</p>
+</blockquote>
+</li>
+<li><p>s =<code>std(X,flag)</code></p>
+<blockquote>
+<p>若flag = 0,该函数与std(X)相同；若flag = 1, std(X,1) 返回的标准偏差其分母为n而不是n-1。</p>
+</blockquote>
+</li>
+<li><p>s = <code>std(X,flag,dim)</code></p>
+<blockquote>
+<p>该函数计算沿着dim指定的维度计算标准偏差。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="求一维曲线以下面积"><a href="#求一维曲线以下面积" class="headerlink" title="求一维曲线以下面积"></a>求一维曲线以下面积</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">area = polyarea(1:length(x),x);       %求曲线以下的面积</div></pre></td></tr></table></figure>
+<h2 id="反转"><a href="#反转" class="headerlink" title="反转"></a>反转</h2><ul>
+<li><code>fliplr(x)</code>：将时间序列x反转，使得x的顺序与原来的完全相反。</li>
+</ul>
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><ul>
+<li><p>空矩阵定义：    a=[ ];</p>
+</li>
+<li><p>矩阵的初始化：</p>
+<ul>
+<li><p><code>zeros(m,n)</code>     产生m*n的全0矩阵</p>
+</li>
+<li><p><code>ones(m,n)</code>      产生m*n的全1矩阵</p>
+</li>
+<li><p><code>rand(m,n)</code>      产生均匀分布的随机矩阵，元素取值范围：0.0-1.0</p>
+</li>
+<li><p><code>randn(m,n)</code>     产生正态分布的随机矩阵</p>
+</li>
+<li><p><code>magic(N)</code>       产生N阶魔方矩阵（矩阵的行、列和对角线上元素的和相等）</p>
+</li>
+<li><p><code>eye(m,n)</code>       产生m*n的单位矩阵</p>
+</li>
+</ul>
+</li>
+<li><p>矩阵的合并：</p>
+<ul>
+<li><p>按行合并（即行数相同）：用将要合并的矩阵放在中括号中，以空格或者逗号隔开</p>
+</li>
+<li><p>按列合并（即列数相同）：用将要合并的矩阵放在中括号中，以分号隔开</p>
+</li>
+</ul>
+</li>
+<li><p>获得矩阵行数或列数的函数如下：</p>
+<ul>
+<li><p><code>ndims(A)</code>：          返回A的维数</p>
+</li>
+<li><p><code>size(A)</code>：           返回A各个维的最大元素个数</p>
+</li>
+<li><p><code>length(A)</code>：         返回max(size(A))</p>
+</li>
+<li><p><code>[m,n]=size(A)</code>：     如果A是二维数组，返回行数和列数</p>
+</li>
+<li><p><code>size(A,1)</code>：            返回矩阵的行数</p>
+</li>
+<li><p><code>size(A,2)</code>：            返回矩阵的列数</p>
+</li>
+<li><p><code>nnz(A)</code>：            返回A中非0元素的个数</p>
+</li>
+</ul>
+</li>
+<li><p>对矩阵行和列的操作<br>  (A,2)表示对行操作，(A,1)表示对列操作</p>
+<p>  <img src="image/get_juzhen_num.png" alt="求行和列的操作示例"></p>
+</li>
+</ul>
+<ul>
+<li><p>matlab中求矩阵的平方和：<code>sumsqr</code>函数 </p>
+<ul>
+<li><code>nnz(A)</code>：            返回A中非0元素的个数</li>
+</ul>
+</li>
+<li><p>matlab中求矩阵的平方和：<code>sumsqr</code>函数 </p>
+</li>
+<li><p>矩阵转置函数，<code>transpose</code> 函数，示例：<code>A = transpose(B);</code></p>
+</li>
+<li><p>通过复制小矩阵得到较大的矩阵：<code>repmat</code>函数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">% 语法：</div><div class="line">B = repmat(A,M,N)</div><div class="line">% 示例，初始是2*2的矩阵</div><div class="line">A = [1,3;4,2]</div><div class="line">B = repmat(A,1,3)</div><div class="line">% 得到的结果，生成2*6的矩阵 B = [1,3,1,3,1,3;4,2,4,2,4,2]</div></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵数据叠加求和——accumarray</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">A = accumarray(subs,val,sz,fun,fillval)	</div><div class="line">	sub：提供累计信息的指示向量，指示的是计算值在生成矩阵A中的位置，同时指示的是val中需要累加值的位置。	</div><div class="line">	val：提供累计数值的向量	</div><div class="line">	sz：控制输出向量A的size	</div><div class="line">	fun：用于计算累计后向量的函数，默认为@sum，即累加	</div><div class="line">	fillval：填补A中的空缺项，默认为0</div></pre></td></tr></table></figure>
+<blockquote>
+<p>理解：首先，函数根据参数中sz（若无，根据subs最大的值确定维度），生成一个维度为sz的中间矩阵B，然后函数根据subs中的指示，将val中的数值摆放到B中，对于同一个位置的值进行fun的运算（默认为求和），对于空去的位置填0，最后B计算后得到矩阵A。<a href="https://jingyan.baidu.com/article/414eccf6ab5a9a6b431f0ad0.html" target="_blank" rel="external">计算示例</a></p>
+<p>参考：<a href="http://www.mathworks.com/help/matlab/ref/accumarray.html;jsessionid=5c613a99e059f864d28c882a757d#responsive_offcanvas" target="_blank" rel="external">accumarray</a></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>返回位置信息min函数，输入为一个矩阵，则反馈回来的是每列的最小值和对应的位置。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[minx, ind] = min(x);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="求距离"><a href="#求距离" class="headerlink" title="求距离"></a>求距离</h2><ul>
+<li>求欧氏距离<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   b = sqrt(norm(A-B)^2);</div><div class="line">或：</div><div class="line">   <span class="keyword">for</span> i = 1: 4       % 数组的长度</div><div class="line">   	dist_temp(i) = sqrt(sum((A(i)-B(i)).*(A(i)-B(i))));  %欧氏距离的函数。</div><div class="line">   end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="判断元素与数组的从属关系"><a href="#判断元素与数组的从属关系" class="headerlink" title="判断元素与数组的从属关系"></a>判断元素与数组的从属关系</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sum(ismember(a,X))          % 如果a在数组X中，则返回为1，否则返回0</div><div class="line">a = (ismember(m:n,indzer));         % 返回的是一个元素为0或1的一个数组，对应每个元素是否在数组中</div><div class="line">all(ismember(indmax(1):indmin(1),indzer));          % 对判断的结果做或运算</div></pre></td></tr></table></figure>
+<h2 id="两个集合-数组-的运算"><a href="#两个集合-数组-的运算" class="headerlink" title="两个集合(数组)的运算"></a>两个集合(数组)的运算</h2><ul>
+<li><p>取交集</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[c, ia, ib] = intersect(A, B);   %这个函数是c返回A B的交集，ia，ib返回的是交集所在数组的指标(索引)</div></pre></td></tr></table></figure>
+<p>  比如A=[2 3 4];   B=[3]; 则[c, ia, ib] = intersect(A, B);得到 c=[3]    c在数组A的指标为ia=2  同理 c在数组B的指标为ib=1。</p>
+</li>
+<li><p>取差集</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">c=setxor(A,B);   % 取两个集合交集的非（异或），c返回A与B的异或，即属于A且不属于B的元素和属于B且不属于A的元素。</div><div class="line">setdiff(A,B);  % 这个的意思就是A里面有的元素,而B里面没有,没有的数据顺序:从大到小(重复的数据不重复出现)</div><div class="line">[c ia]= setdiff(A,B);  %  ia 的意思是 A里面的第几个元素B里面没有 这里面值得注意的是：如果A里面相同的元素B里面都没有 那么就显示最后一次的出现位置</div><div class="line">[C,ia] = setdiff(A,B,<span class="string">'rows'</span>);  %这里是第几行不同，C表示出不同行的各个数，ia写出第几行是不同（而且特别注意的地方也是和上面那个一样）</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>&gt; [参考文档](https://wenku.baidu.com/view/9adcff6f10a6f524ccbf85ab.html)
+</code></pre><h2 id="求序列的自相关和互相关。"><a href="#求序列的自相关和互相关。" class="headerlink" title="求序列的自相关和互相关。"></a>求序列的自相关和互相关。</h2><ul>
+<li><p><code>c = xcorr(x,y)</code> 返回矢量长度为2*N-1互相关函数序列，其中x和y的矢量长度均为N，如果x和y的长度不一样，则在短的序列后补零直到两者长度相等。</p>
+</li>
+<li><p>求取代码</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">c = xcorr(x)  %为矢量x的自相关估计。</div><div class="line">c = xcorr(x,y,<span class="string">'option'</span>)  %为有正规化选项的互相关计算；</div></pre></td></tr></table></figure>
+</li>
+<li><p>其他相关函数</p>
+<ul>
+<li>“biased”为有偏的互相关函数估计；</li>
+<li>“unbiased”为无偏的互相关函数估计；</li>
+<li>“coeff”为0延时的正规化序列的自相关计算；</li>
+<li><p>“none”为原始的互相关计算。</p>
+<blockquote>
+<p>在Matalb中，求解xcorr的过程事实上是利用Fourier变换中的卷积定理进行的。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>相关程度与相关函数的之间的联系</p>
+<blockquote>
+<ul>
+<li><p>在概率论和统计学中，相关（Correlation，或称相关系数或关联系数），显示两个随机变量之间线性关系的强度和方向。在统计学中，相关的意义是用来衡量两个变量相对于其相互独立的距离。最常用的是皮尔逊积矩相关系数。其定义是两个变量协方差除以两个变量的标准差（方差的平方根）。</p>
+</li>
+<li><p>在概率论和统计学中，相关（Correlation，或称相关系数或关联系数），显示两个随机变量之间线性关系的强度和方向。在统计学中，相关的意义是用来衡量两个变量相对于其相互独立的距离。最常用的是皮尔逊积矩相关系数。其定义是两个变量协方差除以两个变量的标准差（方差的平方根）。</p>
+</li>
+<li><p>相关系数只是一个比率，不是等单位量度，无什么单位名称，也不是相关的百分数，一般取小数点后两位来表示。相关系数的正负号只表示相关的方向，绝对值表示相关的程度。因为不是等单位的度量，因而不能说相关系数0.7是0.35两倍，只能说相关系数为0.7的二列变量相关程度比相关系数为0.35的二列变量相关程度更为密切和更高。也不能说相关系数从0.70到0.80与相关系数从0.30到0.40增加的程度一样大。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>相关系数就用命令corrcoef</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">z = min(min(corrcoef(x1, x2)))    % 就是x1,x2之间的相关系数。</div><div class="line">z = abs(z);                       % 取绝对值</div></pre></td></tr></table></figure>
+<blockquote>
+<p>取绝对值后，0-0.09为没有相关性，0.3-弱，0.1-0.3为弱相关，0.3-0.5为中等相关，0.5-1.0为强相关</p>
+</blockquote>
+<ul>
+<li><p>这个函数等价于：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = sum((x1-mean(x1)).*(x2-mean(x2)))/(sqrt(sum((x1-mean(x1)).^2)*sum((x2-mean(x2)).^2)));</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="产生随机数"><a href="#产生随机数" class="headerlink" title="产生随机数"></a>产生随机数</h2><ul>
+<li><p><code>linspace(x1,x2,N)</code></p>
+</li>
+<li><p>功能：linspace是Matlab中的一个指令，用于产生x1,x2之间的N点行矢量。其中x1、x2、N分别为起始值、中止值、元素个数。若缺省N，默认点数为100。在matlab的命令窗口下输入help linspace或者doc linspace可以获得该函数的帮助信息。</p>
+</li>
+<li><p>例一，在matlab的命令窗口输入：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">X=linspace(1,100)</div></pre></td></tr></table></figure>
+</li>
+<li><p>将产生从1到100步长为1的数组。类似于在命令窗口中输入：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">X=[1:1:100];</div></pre></td></tr></table></figure>
+</li>
+<li><p>随机打乱一个数字序列</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">y = randperm(n);	%y是把1到n这些数随机打乱得到的一个数字序列。</div><div class="line">rowrank = randperm(size(A, 1)); % 随机打乱矩阵的行数</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="用户输入"><a href="#用户输入" class="headerlink" title="用户输入"></a>用户输入</h2><ul>
+<li>在代码运行过程中，需要用户手动输入某个变量的值通过input函数来实现。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">格式：A=input（提示信息，选项）;</div><div class="line">例如：</div><div class="line">input_value = input (<span class="string">'请输入初始特征集个数m：'</span>);</div></pre></td></tr></table></figure>
+<h2 id="MATLAB求峭度"><a href="#MATLAB求峭度" class="headerlink" title="MATLAB求峭度"></a>MATLAB求峭度</h2><ul>
+<li>函数法：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];</div><div class="line">y=kurtosis(x)    %峭度</div></pre></td></tr></table></figure>
+<ul>
+<li>公式法：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a=mean(x);</div><div class="line">b=(x<span class="_">-a</span>).*(x<span class="_">-a</span>).*(x<span class="_">-a</span>).*(x<span class="_">-a</span>);</div><div class="line">f=sum(b);</div><div class="line">c=f/32;</div><div class="line">e=std(x,1).*std(x,1).*std(x,1).*std(x,1);</div><div class="line">d=c/e          %峭度</div></pre></td></tr></table></figure>
+<blockquote>
+<p>实验证明，两种方式获取的结果是相等的　　</p>
+</blockquote>
+<h2 id="利用feedforwardnet函数创建神经网络"><a href="#利用feedforwardnet函数创建神经网络" class="headerlink" title="利用feedforwardnet函数创建神经网络"></a>利用feedforwardnet函数创建神经网络</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">hide_ele_num = 2*rowNum+1;% 隐藏层神经元个数</div><div class="line">%% 建网</div><div class="line">net = feedforwardnet(hide_ele_num,<span class="string">'traingdm'</span>);     % traingdm为训练函数的设置，此处表示动量梯度下降算法</div><div class="line">%% 训练参数设置</div><div class="line">net.trainParam.epochs = 10000;     % 最多训练多少次，默认为1000</div><div class="line">net.trainParam.goal = 0.001;     % 训练到什么程度才算成功</div><div class="line">net.trainParam.lr=0.01;     %学习率设置,应设置为较少值，太大虽然会在开始加快收敛速度，但临近最佳点时，会产生动荡，而致使无法收敛</div><div class="line">net.layers&#123;1&#125;.transferFcn = <span class="string">'tansig'</span>;     % 第一层网络的传递函数设置为S函数</div><div class="line">net.layers&#123;2&#125;.transferFcn = <span class="string">'purelin'</span>;</div><div class="line">%% 开始训练</div><div class="line">[net,tr] = train(net,v,p);</div></pre></td></tr></table></figure>
+<h2 id="Logsig-传递函数为S型的对数函数。"><a href="#Logsig-传递函数为S型的对数函数。" class="headerlink" title="Logsig  传递函数为S型的对数函数。"></a>Logsig  传递函数为S型的对数函数。</h2><ul>
+<li><p>调用格式为： A=logsig（N）  </p>
+<ul>
+<li>N：Q个S维的输入列向量；</li>
+<li>A：函数返回值，位于区间(0,1) 中</li>
+</ul>
+</li>
+<li><p>波形</p>
+</li>
+</ul>
+<p><img src="/images/logsig.png" alt="logsig"></p>
+<h1 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h1><ul>
+<li><p>plot画图</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(x,y); %x y 为相应点集</div></pre></td></tr></table></figure>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(x,y1,x,y2); % 在一个窗口下绘制多条曲线之方法一</div></pre></td></tr></table></figure>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hold on  %在一个窗口下绘制多条曲线之方法二</div><div class="line">plot(x,y1);</div><div class="line">plot(x,y2);</div><div class="line">hold off</div></pre></td></tr></table></figure>
+</li>
+<li><p>plot后的相关设置</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span>(gca,<span class="string">'yscale'</span>,<span class="string">'log'</span>); %画对数坐标的,将y轴的尺度设置为对数，如果要设置横坐标，改为“xscale”即可.</div><div class="line">axis([0 N -2 2]); %设置x，y轴的取值范围，前面两个是x轴的，后面两个是y轴的</div><div class="line">xlabel(<span class="string">'x_axis_name'</span>); %设置x y轴名称</div><div class="line">ylabel(<span class="string">'x_axis_name'</span>); </div><div class="line">title(<span class="string">'name'</span>); %设置图名称</div><div class="line">legend(<span class="string">'曲线1'</span>,<span class="string">'曲线2'</span>);  %加图例（就是加了线型后，右上角的注释）</div><div class="line">grid on;  %加网格</div></pre></td></tr></table></figure>
+</li>
+<li><p>线型和颜色</p>
+<ul>
+<li>线型（线方式）： - 实线 :点线 -. 虚点线 - - 波折线</li>
+<li>线型（点方式）：. 圆点 +加号 * 星号 x x形 o 小圆</li>
+<li>线条粗细：plot(x,y,’r’,’linewidth’,4); </li>
+<li>参数为数据点的形状：’.’为实心黑点；’*‘为八线符；’&lt;’为左三角；’d’为菱形；’o’为空心圆圈；’s’为方块符；’+’为十字符号；’^’为上三角符；’&gt;’为右三角符；’h’为六角星；’p’为五角星；’x’为叉字符。</li>
+<li>颜色： r红； g绿； b蓝； c青  m紫； k黑； w白；y黄；</li>
+<li><p>例子：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(x,y1,’b:+’,x,y2,’g-.*’);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>加图例legend</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">legend(字符串1，字符串2，字符串3，…，参数);  %其中字符串为画图顺序依次标注</div></pre></td></tr></table></figure>
+<ul>
+<li>参数说明如下：</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数字符串</th>
+<th>含  义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>尽量不与数据冲突，自动放置在最佳位置 </td>
+</tr>
+<tr>
+<td>1</td>
+<td>放置在图形的右上角</td>
+</tr>
+<tr>
+<td>2</td>
+<td>放置在图形的左上角</td>
+</tr>
+<tr>
+<td>3</td>
+<td>放置在图形的左下角</td>
+</tr>
+<tr>
+<td>4</td>
+<td>放置在图形的右下角</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>图形窗外</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>设置背景色</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span>(gcf,<span class="string">'color'</span>,<span class="string">'none'</span>); %无背景</div><div class="line"><span class="built_in">set</span>(gcf,<span class="string">'color'</span>,[0,0,0]); %背景色为黑</div><div class="line"><span class="built_in">set</span>(gcf,<span class="string">'color'</span>,[1,1,1]); %背景色为白</div></pre></td></tr></table></figure>
+</li>
+<li><p>subplot</p>
+<ul>
+<li>功能:分割figure，创建子坐标系</li>
+<li><p>语法</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">figure</div><div class="line">h = subplot(m,n,p) or subplot(mnp)</div><div class="line">      subplot(m,n,p,<span class="string">'replace'</span>)</div><div class="line">      subplot(m,n,P)</div><div class="line">      subplot(h)</div><div class="line">      subplot(<span class="string">'Position'</span>,[left bottom width height])</div><div class="line">      subplot(..., prop1, value1, prop2, value2, ...)</div><div class="line">      h = subplot(...)</div></pre></td></tr></table></figure>
+</li>
+<li><p>描述：<code>h = subplot(m,n,p)</code>或者<code>subplot(mnp)</code>将figure划分为<code>m×n</code>块，在第p块创建坐标系，并返回它的句柄。当m,n,p&lt;10时，可以简化为subplot(mnp)或者subplot mnp </p>
+<blockquote>
+<p>（注：subplot（m,n,p）或者subplot（mnp）此函数最常用：subplot是将多个图画到一个平面上的工具。其中，m表示是图排成m行，n表示图排成n列，也就是整个figure中有n个图是排成一行的，一共m行，如果第一个数字是2就是表示2行图。p是指你现在要把曲线画到figure中哪个图上，最后一个如果是1表示是从左到右第一个位置。 ），<a href="http://blog.csdn.net/steelbasalt/article/details/48918001" target="_blank" rel="external">参考博客</a>。</p>
+</blockquote>
+</li>
+<li><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">figure</div><div class="line">subplot(2,2,1)</div><div class="line">plot(s,&apos;k&apos;)</div><div class="line">ylabel(&apos;signal&apos;)</div><div class="line"></div><div class="line">subplot(2,2,,2)</div><div class="line">plot(imp(1,:),&apos;k&apos;)</div><div class="line">ylabel(&apos;imf1&apos;)</div><div class="line"></div><div class="line">subplot(2,2,,3)</div><div class="line">plot(imp(2,:),&apos;k&apos;)</div><div class="line">ylabel(&apos;imf2&apos;)</div><div class="line"></div><div class="line">subplot(2,2,,4)</div><div class="line">plot(imp(3,:),&apos;k&apos;)</div><div class="line">ylabel(&apos;imf3&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="matlab文件操作"><a href="#matlab文件操作" class="headerlink" title="matlab文件操作"></a>matlab文件操作</h1><h2 id="wavread读取音频文件"><a href="#wavread读取音频文件" class="headerlink" title="wavread读取音频文件"></a>wavread读取音频文件</h2><ul>
+<li>示例代码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">filedir = [];			% 设置路径</div><div class="line">filename = &apos;bluesky3.wav&apos;;	% 设置文件名</div><div class="line">fle = [filedir filename];</div><div class="line">[x,fs] = wavread(fle);		% 读入数据文件</div><div class="line">x = x(2000:4048,:);</div><div class="line">% 采用上面的方法得到的</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>在matlab R2015a版本中运行wavread()函数，出现警告：Warning: WAVREAD will be removed in a future release. Use AUDIOREAD instead. </p>
+</blockquote>
+<h2 id="audioread读取音频文件"><a href="#audioread读取音频文件" class="headerlink" title="audioread读取音频文件"></a>audioread读取音频文件</h2><ul>
+<li><p><strong>语法</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[y,Fs] = audioread(filename) % 从名为 filename 的文件中读取数据，并返回样本数据 y 以及该数据的采样率 Fs。</div><div class="line"></div><div class="line">[y,Fs] = audioread(filename,samples) % 读取文件中所选范围的音频样本，其中 samples 是 [start,finish] 格式的向量。</div><div class="line"></div><div class="line">[y,Fs] = audioread(___,dataType) % 返回数据范围内与 dataType（&apos;native&apos; 或 &apos;double&apos;）对应的采样数据，可以包含先前语法中的任何输入参数</div></pre></td></tr></table></figure>
+</li>
+<li><p>示例：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[x,fs] = audioread(&apos;data\a001_0_10.wav&apos;);</div><div class="line">[M,N] = size(x);</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>局限性</strong></p>
+<ul>
+<li>对于 Windows 7 或更高版本和 Linux 平台上的 MP3、MPEG-4 AAC 和 AVI 音频文件，<strong>audioread 读取的样本数量可能比预期的少</strong>。在 Windows 7 平台上，这是由于基础 Media Foundation 框架所致。在 Linux 平台上，这是由于基础 GStreamer 框架的局限性所致。如果需要精确的样本读取，请使用 WAV 或 FLAC 文件。</li>
+<li>在 Linux 平台上，<strong>audioread 读取包含用作立体声数据的单通道数据的 MPEG-4 AAC 文件</strong>。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>audioread在 R2012b 中推出。</p>
+</blockquote>
+<p>参考：<a href="https://ww2.mathworks.cn/help/matlab/index.html" target="_blank" rel="external">matlab文档</a>（里面包括matlab比较系统的介绍）</p>
+<h2 id="将数组数据存入txt文件"><a href="#将数组数据存入txt文件" class="headerlink" title="将数组数据存入txt文件"></a>将数组数据存入txt文件</h2><ul>
+<li><p>自定义一维数组的数据转存txt函数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">%% 将数据写入txt文件</div><div class="line">function save2txt(arr, path)</div><div class="line">% 一维数组的数据存入到path路径对应的txt文件</div><div class="line">fid=fopen(path,&apos;wt&apos;); %新建文件,你要保存到的文件路径,该路径的最后为&apos;\变量名.txt&apos;路径,该路径的最后为&apos;\变量名.txt&apos;</div><div class="line"></div><div class="line">for i=1:length(arr)</div><div class="line">    fprintf(fid,&apos;%g &apos;,arr(i)&apos;); %一行一行的写入数据，以空格隔开，到该行的最后一个数据，回车</div><div class="line">end</div><div class="line">fclose(fid);</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+<li><p>自定义二维数组的数据转存txt函数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function save2txt_2dim(arr, path)</div><div class="line">% 将二维数组arr保存到txt文件中，并以空格隔开</div><div class="line">fid=fopen(path,&apos;wt&apos;); %新建文件,你要保存到的文件路径,该路径的最后为&apos;\变量名.txt&apos;路径,该路径的最后为&apos;\变量名.txt&apos;</div><div class="line"></div><div class="line">for i=1:length(arr(:,1))</div><div class="line">    for j = 1:length(arr(1,:))</div><div class="line">        fprintf(fid,&apos;%g &apos;,arr(i,j)&apos;); %一行一行的写入数据，以空格隔开，到该行的最后一个数据，回车</div><div class="line">    end</div><div class="line">end</div><div class="line">fclose(fid);</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="批量操作文件夹中的文件"><a href="#批量操作文件夹中的文件" class="headerlink" title="批量操作文件夹中的文件"></a>批量操作文件夹中的文件</h2><ul>
+<li><p>读取文件夹里所有的音频文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">root_path = &apos;D:\py_code\second_py\ASC\datasets\TUT-urban-acoustic-scenes-2018-development\audio&apos;;	% 此处可以写相对路径</div><div class="line"></div><div class="line">fileFolder=fullfile(root_path);	% 文件夹名audio，此处将相对路径转为绝对路径</div><div class="line">dirOutput=dir(fullfile(fileFolder,&apos;*&apos;));	%如果存在不同类型的文件，用‘*’读取所有，如果读取特定类型文件，&apos;.&apos;加上文件类型，例如用‘.wav’，但是在实验时，改为&apos;.wav&apos;发现这种方法不可行</div><div class="line">fileNames=&#123;dirOutput.name&#125;&apos;;</div><div class="line">% 读取文件，取文件名：fileNames&#123;i&#125;</div><div class="line">for i=3:length(fileNames)</div><div class="line">	[x,fs] = audioread([root_path,&apos;\&apos; , fileNames&#123;i&#125;]);</div><div class="line">end</div></pre></td></tr></table></figure>
+<blockquote>
+<p>存在的一个问题是发现fileNames前两个分别是‘.’‘..’，从第3个开始才是文件夹下面的文件名，这个在实际的使用中可以设置断点查看fileNames的值。</p>
+</blockquote>
+</li>
+<li><p>加载文件中所有的txt文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">root_path = &apos;testdata&apos;;</div><div class="line"></div><div class="line">fileFolder=fullfile(root_path);	%文件夹名的全局地址</div><div class="line">dirOutput=dir(fullfile(fileFolder,&apos;*&apos;));	%如果存在不同类型的文件，用‘*’读取所有</div><div class="line">fileNames=&#123;dirOutput.name&#125;&apos;;</div><div class="line"></div><div class="line">feature = [];</div><div class="line"></div><div class="line">for i = 3:length(fileNames)</div><div class="line">    path = [&apos;testdata\&apos;, fileNames&#123;i&#125;];    </div><div class="line">    temp = load(path);</div><div class="line">    feature = [feature; temp];</div><div class="line">end</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MATLAB/" rel="tag"># MATLAB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/17音频特征域方法/" rel="next" title="音频特征域方法">
+                <i class="fa fa-chevron-left"></i> 音频特征域方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/20/19MATLAB求音频信号特征的自定义函数/" rel="prev" title="MATLAB求音频信号特征的自定义函数.md">
+                MATLAB求音频信号特征的自定义函数.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装工具包"><span class="nav-number">2.</span> <span class="nav-text">安装工具包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#matlab调试注意点"><span class="nav-number">3.</span> <span class="nav-text">matlab调试注意点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用函数"><span class="nav-number">4.</span> <span class="nav-text">常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MATLAB中一些判断函数"><span class="nav-number">4.1.</span> <span class="nav-text">MATLAB中一些判断函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取整"><span class="nav-number">4.2.</span> <span class="nav-text">取整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取余数"><span class="nav-number">4.3.</span> <span class="nav-text">取余数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求平方根"><span class="nav-number">4.4.</span> <span class="nav-text">求平方根</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取FFT变换："><span class="nav-number">4.5.</span> <span class="nav-text">取FFT变换：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取均值"><span class="nav-number">4.6.</span> <span class="nav-text">取均值 :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准偏差函数std"><span class="nav-number">4.7.</span> <span class="nav-text">标准偏差函数std</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求一维曲线以下面积"><span class="nav-number">4.8.</span> <span class="nav-text">求一维曲线以下面积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反转"><span class="nav-number">4.9.</span> <span class="nav-text">反转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵"><span class="nav-number">4.10.</span> <span class="nav-text">矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求距离"><span class="nav-number">4.11.</span> <span class="nav-text">求距离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断元素与数组的从属关系"><span class="nav-number">4.12.</span> <span class="nav-text">判断元素与数组的从属关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两个集合-数组-的运算"><span class="nav-number">4.13.</span> <span class="nav-text">两个集合(数组)的运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求序列的自相关和互相关。"><span class="nav-number">4.14.</span> <span class="nav-text">求序列的自相关和互相关。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#产生随机数"><span class="nav-number">4.15.</span> <span class="nav-text">产生随机数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户输入"><span class="nav-number">4.16.</span> <span class="nav-text">用户输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MATLAB求峭度"><span class="nav-number">4.17.</span> <span class="nav-text">MATLAB求峭度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用feedforwardnet函数创建神经网络"><span class="nav-number">4.18.</span> <span class="nav-text">利用feedforwardnet函数创建神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logsig-传递函数为S型的对数函数。"><span class="nav-number">4.19.</span> <span class="nav-text">Logsig  传递函数为S型的对数函数。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#画图"><span class="nav-number">5.</span> <span class="nav-text">画图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#matlab文件操作"><span class="nav-number">6.</span> <span class="nav-text">matlab文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wavread读取音频文件"><span class="nav-number">6.1.</span> <span class="nav-text">wavread读取音频文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#audioread读取音频文件"><span class="nav-number">6.2.</span> <span class="nav-text">audioread读取音频文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将数组数据存入txt文件"><span class="nav-number">6.3.</span> <span class="nav-text">将数组数据存入txt文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量操作文件夹中的文件"><span class="nav-number">6.4.</span> <span class="nav-text">批量操作文件夹中的文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

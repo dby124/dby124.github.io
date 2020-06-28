@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="优化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前基于PHP开发的过程中，一直没有涉及到PHP性能优化的问题，但是一般来说PHP性能问题占整个项目性能问题一般占30%-50%部分，所以说，这部分内容是非常重要的。下面是最近自己PHP性能优化学习的资料整理。 引言[1] PHP存在性能问题的情景？  PHP语法使用不恰当 使用了PHP语言他不擅长做的事情 用PHP语言连接的服务不给力 PHP自身的短板 未知的问题   PHP性能问题解决方向">
+<meta name="keywords" content="优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP（四）——性能优化">
+<meta property="og:url" content="http://yoursite.com/2018/07/05/PHP（四）——性能优化/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="之前基于PHP开发的过程中，一直没有涉及到PHP性能优化的问题，但是一般来说PHP性能问题占整个项目性能问题一般占30%-50%部分，所以说，这部分内容是非常重要的。下面是最近自己PHP性能优化学习的资料整理。 引言[1] PHP存在性能问题的情景？  PHP语法使用不恰当 使用了PHP语言他不擅长做的事情 用PHP语言连接的服务不给力 PHP自身的短板 未知的问题   PHP性能问题解决方向">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/PHP/PHP_process.png">
+<meta property="og:updated_time" content="2018-07-09T04:00:13.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP（四）——性能优化">
+<meta name="twitter:description" content="之前基于PHP开发的过程中，一直没有涉及到PHP性能优化的问题，但是一般来说PHP性能问题占整个项目性能问题一般占30%-50%部分，所以说，这部分内容是非常重要的。下面是最近自己PHP性能优化学习的资料整理。 引言[1] PHP存在性能问题的情景？  PHP语法使用不恰当 使用了PHP语言他不擅长做的事情 用PHP语言连接的服务不给力 PHP自身的短板 未知的问题   PHP性能问题解决方向">
+<meta name="twitter:image" content="http://yoursite.com/images/PHP/PHP_process.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/05/PHP（四）——性能优化/"/>
+
+
+
+
+
+  <title>PHP（四）——性能优化 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/PHP（四）——性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP（四）——性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T15:08:38+08:00">
+                2018-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前基于PHP开发的过程中，一直没有涉及到PHP性能优化的问题，但是一般来说PHP性能问题占整个项目性能问题一般占30%-50%部分，所以说，这部分内容是非常重要的。下面是最近自己PHP性能优化学习的资料整理。</p>
+<h2 id="引言-1"><a href="#引言-1" class="headerlink" title="引言[1]"></a>引言[1]</h2><ul>
+<li><p><strong>PHP存在性能问题的情景</strong>？</p>
+<ul>
+<li>PHP语法使用不恰当</li>
+<li>使用了PHP语言他不擅长做的事情</li>
+<li>用PHP语言连接的服务不给力</li>
+<li>PHP自身的短板</li>
+<li>未知的问题</li>
+</ul>
+</li>
+<li><p><strong>PHP性能问题解决方向</strong></p>
+<ul>
+<li>PHP语言级的性能优化：日常语法方法的优化。特点：简单高效很快见到效果。</li>
+<li>PHP周边问题的性能优化 ：webserver，mysql。</li>
+<li>PHP语言自身的分析和优化 ：PHP底层C语言逻辑的优化。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>从1~5的顺序，按照操作简单，见效快的指标进行的解决方案的排序。</p>
+</blockquote>
+<ul>
+<li><p><strong>Apache压力测试软件</strong></p>
+<ul>
+<li><p><strong>Apache Benchmark</strong>，简称ab，是由Apache提供的压力测试软件，安装apache服务器时会自带压测软件。</p>
+</li>
+<li><p>使用<code>./ab -n100 -c10 http://www.baidu.com</code>。<br>其中<code>-n</code>请求数，<code>-c</code>并发数，<code>url</code>目标。</p>
+</li>
+<li><p><strong>ab 返回结果的参数</strong> </p>
+<ul>
+<li>Requests per second 每秒请求数 （优化目标 每秒的请求数尽可能多）</li>
+<li>Time per request 响应一个请求耗时 （优化目标 响应一个请求尽可能少）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="PHP语言级性能优化"><a href="#PHP语言级性能优化" class="headerlink" title="PHP语言级性能优化"></a>PHP语言级性能优化</h2><ul>
+<li><p><strong>基本原则</strong>：少写php代码，多使用PHP内置的变量、常量、函数。</p>
+</li>
+<li><p><strong>性能问题</strong>：自写代码冗余较多，可读性不佳，并且性能低。php代码写的越长长执行效果就会越差，多用php自身的函数等</p>
+<blockquote>
+<p>因为PHP代码需要编译为C语言，C语言又会编译成汇编语言（机器语言），这里每一个过程都会请求一遍，开销很大。尤其是访问量大的时候，每次都会编译一遍。所以要尽量减少代码。</p>
+</blockquote>
+</li>
+<li><p><strong>PHP代码如何再linux解析的流程</strong></p>
+<ul>
+<li><strong>逐行扫描</strong>。*.php 通过zend引擎逐行扫描分析(Scanner)</li>
+<li><strong>转码</strong>。保存成zend引擎自己能识别的语法(Exprs)</li>
+<li><strong>解析为Opcodes</strong>。这些zend引擎能识别的语法，再解析(Parser)成Opcodes（最终要拿去执行的机器代码）。</li>
+<li><p><strong>输出</strong>。执行Opcodes，然后输出。</p>
+<blockquote>
+<p>缓存服务都是缓存的Opcodes，不需要扫描和解析，</p>
+</blockquote>
+<p><img src="/images/PHP/PHP_process.png" alt="PHP_process"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>PHP语言级性能优化建议</strong>    </p>
+<ul>
+<li><strong>PHP内置函数的性能优劣</strong><ul>
+<li><strong>尽量使用更快内置函数</strong>，不同函数依然存在快慢差异。</li>
+<li><strong>尽量少用魔法函数，魔法函数性能低</strong>。为了给程序员省事，php语言为你做了很多linux time函数 可以直接测试程序的耗时情况 魔法函数举例：__get();可以不用尽量不用，如果必须要用的时候再用。</li>
+<li><strong>不使用@错误抑制符，改用try throw</strong></li>
+</ul>
+</li>
+<li><strong>合理使用内存</strong><ul>
+<li>情况描述：php有内存回收机制保底，但也要小心使用内存</li>
+<li>建议：利用unset()及时释放不使用的内存（注：unset出现注销不掉的情况，自己查资料） </li>
+</ul>
+</li>
+<li><strong>尽量少的使用正则表达式</strong><ul>
+<li>情况描述：正则表达式性能低，因为正则表达式回溯开销较大</li>
+<li>好的建议：利用字符串处理函数，实现相同的逻辑</li>
+</ul>
+</li>
+<li><strong>避免循环内做运算</strong><ul>
+<li>情况描述：循环内的计算式会被重复计算</li>
+<li>例 for($i=0;$i&lt;strlen($str);$i++) 每一次for循环都会进行计算strlen</li>
+</ul>
+</li>
+<li><strong>减少计算密集型业务</strong><ul>
+<li>情况描述：PHP不适合密集型运算场景</li>
+<li>原因：<ul>
+<li>比如不适合大批量日志分析，或者大批量数据处理。</li>
+<li>php语言特性决定了PHP不适合做大数据运算</li>
+<li>php所有处理都需要转换成C语言，与C相比，C更好。</li>
+<li>php还有环境问题，还有语言特性。额外开销比C大很多。变量寄存等。</li>
+</ul>
+</li>
+<li><strong>PHP适合处理场景</strong>：适合衔接webserver与后端服务、UI呈现。（就是接口，简单数据处理，和套页面）</li>
+</ul>
+</li>
+<li><strong>务必使用带引号字符串做键值</strong>：php会将没有引号的键值检查一遍是不是常量，产生查询常量的开销</li>
+</ul>
+<h2 id="PHP周边问题的性能优化"><a href="#PHP周边问题的性能优化" class="headerlink" title="PHP周边问题的性能优化"></a>PHP周边问题的性能优化</h2><ul>
+<li><p><strong>PHP周边</strong></p>
+<ul>
+<li>linux环境</li>
+<li>硬盘，文件存储，php读写</li>
+<li>数据库</li>
+<li>缓存：缓存是基于内存的</li>
+<li>网络</li>
+</ul>
+</li>
+<li><p><strong>PHP部署环境优化</strong></p>
+<p>  单台服务器常用<strong>apache+php</strong>和<strong>nginx+php-fpm</strong>方式部署，据说现在用<strong>nginx+php-fpm</strong>部署方式性能比<strong>apache+php</strong>性能好，可考虑一试。另外如<strong>nginx+swoole</strong>等，也是可选项。</p>
+<p>  集群是在此基础上，使用<strong>nginx/lvs/云上lbs等反向代理作为负载均衡前端</strong>。PHP集群部署在可靠性的基础上，PHP集群处理性能比单台服务器有N倍提高（但作为服务的整体性能并不一定有N倍提升）。所以简单地可以认为，通过集群扩展服务器，可以使PHP服务性能得到提升。</p>
+</li>
+</ul>
+<p><strong>性能优化推荐</strong></p>
+<ul>
+<li><strong>减少文件类操作</strong>。常见PHP场景的开销次序：读写内存 &lt; 读写数据库 &lt; 读写磁盘 &lt; 读写网络数据</li>
+<li><p><strong>减少php发起网络请求，优化网络请求</strong></p>
+<ul>
+<li>网络请求的坑：1对方接口的不确定因素 2 网络稳定性</li>
+<li><p>优化网络请求方法</p>
+<ul>
+<li><p>设置超时时间（建议值）</p>
+<ul>
+<li>连接超时 200ms 这是上限，最多也不能超过这个时间</li>
+<li>读超时 800ms 这个看具体情况</li>
+<li>写超时 500ms 建议不要超过500ms</li>
+</ul>
+</li>
+<li><p>将串行请求并行化</p>
+<ul>
+<li>使用<code>curl_multi_*()</code> 返回时间是看用时最长的那个请求</li>
+<li>使用swoole扩展，通过C来进行并行化。（推荐使用）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>压缩PHP接口输出</strong>：如果用php做接口可通过使用<strong>Gzip压缩</strong>实现更高效的输出。压缩输出的利弊：<ul>
+<li>利：利于数据输出，client能更快获取数据</li>
+<li>弊：额外的CPU开销。如果请求大，可能会有问题<blockquote>
+<p>gzip如果数据量小于几十K的时候效果并不理想。如果大于100k，压缩就有效果。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>缓存重复计算内容</strong>：固定重复请求的数据做缓存。</li>
+<li><strong>重叠时间窗口思想</strong>：串行变并行。如果后一个请求不强依赖于前一个返回值。就可以变成并行，降低总体时间消耗</li>
+</ul>
+<h2 id="PHP语言自身的分析和优化"><a href="#PHP语言自身的分析和优化" class="headerlink" title="PHP语言自身的分析和优化"></a>PHP语言自身的分析和优化</h2><ul>
+<li><p><strong>PHP扩展使用</strong>[2]，PHP扩展除了使用方便，还是提升性能的亲密伙伴。主要应用有三点：</p>
+<ul>
+<li><p><strong>开启opcode的缓存，来避免重复的编译</strong>。可以使用APC,eAccelerator,XCache等PHP扩展，我们使用xcache。这种只要安装即可。</p>
+</li>
+<li><p><strong>使用扩展提供的方法</strong>（或PHP标准库的方法）。通过PHP扩展代替原PHP代码中高频的逻辑，扩展实现的效率比PHP代码中的高。但实际上满足我们项目的扩展方法有限，很多基础方法需要时一步封装，除非有能力自己开发扩展。可考虑使用扩展实现的PHP框架，如phalcon、yaf。</p>
+</li>
+<li><p><strong>本地缓存</strong>，也常用扩展来支持，比如xcache。本地可使用缓存扩展，缓存一些配置数据、元数据或主数据，不用每次都从数据库或文件中读取。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>另外，PHP版本上，可以考虑升到PHP7，PHP7在性能上有很大的提升。</p>
+</blockquote>
+<ul>
+<li><strong>Runtime优化：HHVM</strong>[3]（phpng也许更优于HHVM）</li>
+</ul>
+<h2 id="具体的PHP语言级的优化建议-4"><a href="#具体的PHP语言级的优化建议-4" class="headerlink" title="具体的PHP语言级的优化建议[4]"></a>具体的PHP语言级的优化建议[4]</h2><ol>
+<li><p>用单引号替代双引号引用字符串，这样做会更快一些。因为PHP会在双引号包围的字符串中搜寻变量，单引号则不会。</p>
+</li>
+<li><p>如果能将类的方法定义成static，就尽量定义成static，它的速度会提升将近4倍。</p>
+</li>
+<li><p>$row[‘id’] 的速度是$row[id]的7倍。</p>
+</li>
+<li><p>echo 比 print 快，并且使用echo的多重参数(译注：指用‘,’号而不是‘.’)代替字符串连接，比如echo $str1,$str2。区别用‘.’,先拼接，在整个输出；用‘,’,是挨个把三个变量输出。</p>
+</li>
+<li><p>在执行for循环之前先确定最大循环数，不要每循环一次都计算最大值。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 不合理，每次循环都要计算</div><div class="line">for($i=0;$i&lt;strlen($str);$i++)</div></pre></td></tr></table></figure>
+</li>
+<li><p>foreach效率更高，尽量用foreach代替while和for循环，如果考虑到<code>foreach($array as $var)</code>每次拷贝的消耗，可以使用<code>foreach($array as &amp;$var)</code>这样的引用。</p>
+</li>
+<li><p>尽量避免使用魔术变量，如<code>__get</code>，<code>__set</code>，<code>__autoload</code>。</p>
+</li>
+<li><p><code>require_once()</code>代价昂贵。<code>require_once</code>和<code>include_once</code>需要判重，因此效率上要低，但是5.2版本后效率问题已经基本解决。</p>
+</li>
+<li><p>include文件时尽量使用绝对路径，因为它避免了PHP去<code>include_path</code>里查找文件的速度，解析操作系统路径所需的时间会更少。尽量少用<code>iniset()</code>来设置<code>include_path</code>。</p>
+</li>
+<li><p>返回脚本开始执行(即服务器端收到客户端请求)的时刻，使用<code>$_SERVER[&#39;REQUEST_TIME&#39;]</code>要好于<code>time()</code>。因为<code>$_SERVER[&#39;REQUEST_TIME&#39;]</code>保存了发起该请求时刻的时间戳，而<code>time()</code>则返回当前时刻的Unix时间戳。</p>
+</li>
+<li><p>函数代替正则表达式完成相同功能，字符串操作比正则替换要快。如<code>strtok</code>、<code>strstr</code>、<code>strpos</code>、<code>str_replace</code>、<code>substr</code>、<code>explode</code>、<code>implode</code>等等。注意不同的函数快慢也不同，<code>str_replace</code>函数比<code>preg_replace</code>函数快，但<code>strtr</code>函数的效率是<code>str_replace</code>函数的四倍。</p>
+</li>
+<li>使用选择分支语句(译注：即switch case)好于使用多个if，else if语句。因为php中switch支持数值和字符串变量，比C的switch要好用，建议使用。</li>
+</ol>
+<ol>
+<li><p>数据库连接当使用完毕时应关掉，不要用长连接。建议在连接之前，最好设置一下相应的超时机制，例如链接超时、读写超时、等待超时等。</p>
+</li>
+<li><p>错误消息代价昂贵。所以说在代码测试完成，上线之前删除错误信息报告代码。</p>
+</li>
+<li><p>在方法中递增局部变量，速度是最快的。几乎与在函数中调用局部变量的速度相当。递增一个全局变量要比递增一个局部变量慢2倍。递增一个对象属性(如：$this-&gt;prop++)要比递增一个局部变量慢3倍。递增一个未预定义的局部变量要比递增一个预定义的局部变量慢9至10倍。仅定义一个局部变量而没在函数中调用它，同样会减慢速度(其程度相当于递增一个局部变量)。</p>
+</li>
+<li><p>派生类中的方法运行起来要快于在基类中定义的同样的方法。</p>
+</li>
+<li><p>Apache解析一个PHP脚本的时间要比解析一个静态HTML页面慢2至10倍。尽量多用静态HTML页面，少用脚本。</p>
+</li>
+<li><p>除非脚本可以缓存，否则每次调用时都会重新编译一次。引入一套PHP缓存机制通常可以提升25%至100%的性能，以免除编译开销。</p>
+</li>
+<li><p>尽量可使用memcached等做缓存。memcached是一款高性能的内存对象缓存系统，可用来加速动态Web应用程序，减轻数据库负载。对运算码(OPcode)的缓存很有用，使得脚本不必为每个请求做重新编译。</p>
+</li>
+<li><p>当执行变量$i的递增或递减时，<code>$i++</code>会比<code>++$i</code>慢一些。这种差异是PHP特有的，并不适用于其他语言。<code>++$i</code>更快是因为它只需要3条指令(opcodes)，<code>$i++</code>则需要4条指令。后置递增实际上会产生一个临时变量，这个临时变量随后被递增。而前置递增直接在原值上递增。这是最优化处理的一种，正如Zend的PHP优化器所作的那样。</p>
+</li>
+<li><p>面向对象(OOP)是非必要的，因为面向对象往往开销很大，每个方法和对象调用都会消耗很多内存。并非要用类实现所有的数据结构，数组也很有用。</p>
+</li>
+<li><p>不要把方法细分得过多，仔细想想你真正打算重用的是哪些代码?不要过分迷恋各种设计模式，如上一条描述，过分的封装会带来性能的下降。需要考虑两者的权衡。Php有自己的特点，切不可东施效颦，过分效仿java的模式。</p>
+</li>
+<li><p>分解成方法要适当，行数少使用频率高的方法尽量用直接写代码，可以减少函数堆栈开销；且方法嵌套不宜过深，否则大大影响PHP的运行效率。</p>
+</li>
+<li><p>尽量采用大量的PHP内置函数，除去空函数调用的影响，内置函数和同样功能的C函数性能基本差不多。</p>
+</li>
+<li><p>如果在代码中存在大量耗时的函数，你可以考虑用C扩展的方式实现它们。</p>
+</li>
+<li><p>打开apache的<code>mod_deflate</code>模块，可以提高网页的浏览速度。<code>mod_zip</code>可作为Apache模块，用来即时压缩你的数据，并可让数据传输量降低80%。</p>
+</li>
+<li><p>在可以用<code>file_get_contents</code>替代file、fopen、feof、fgets等系列方法的情况下，尽量用<code>file_get_contents</code>，因为他的效率高得多!但是要注意<code>file_get_contents</code>在打开一个URL文件时候的PHP版本问题。这个要记住，尽量使用<code>file_get_contents</code>和<code>file_put_contents</code>，不需要自己判断文件句柄打开是否成功。</p>
+</li>
+<li><p>尽量的少进行文件操作，虽然PHP的文件操作效率也不低的;</p>
+</li>
+<li><p>优化Select SQL语句，在可能的情况下尽量少的进行Insert、Update操作(在update上，我被恶批过);</p>
+</li>
+<li><p>循环内部不要声明变量，尤其是大变量：对象(这好像不只是PHP里面要注意的问题吧?)。这个必须的，变量过多或者过大时，每次重分配的开销就无法忽略。</p>
+</li>
+<li><p>多维数组尽量不要循环嵌套赋值;</p>
+</li>
+<li><p>对global变量，应该用完就unset()释放掉;</p>
+</li>
+<li><p>当操作字符串并需要检验其长度是否满足某种要求时，使用<code>isset()</code>替代<code>strlen()</code>函数。<strong>isset()作为一种语言结构</strong>，它的执行不需要函数查找和字母小写化。此函数执行起来相当快，只返回在zval结构(C的内置数据结构，用于存储PHP变量)中存储的已知字符串长度。但是，由于strlen()是函数更慢，因为函数调用会经过诸多步骤，如字母小写化(指函数名小写化，PHP不区分函数名大小写)、哈希查找，会跟随被调用的函数一起执行。在某些情况下，你可以使用isset() 技巧加速执行你的代码。
+　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// (举例如下)</div><div class="line">if (strlen($foo) &lt; 5) &#123; echo “Foo is too short”$$ &#125;</div><div class="line">// (与下面的技巧做比较)</div><div class="line">if (!isset($foo&#123;5&#125;)) &#123; echo “Foo is too short”$$ &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>评估检验(profile)你的代码。检验器会告诉你，代码的哪些部分消耗了多少时间。Xdebug调试器包含了检验程序，评估检验总体上可以显示出代码的瓶颈。</p>
+</li>
+<li><p>函数相关信息保存在一个大的hash_table中，每次调用时通过函数名在hash表中查找，因此函数名长度对性能也有一定影响。</p>
+</li>
+<li><p>函数不宜嵌套过深，递归使用要谨慎。</p>
+</li>
+<li><p>如不是特殊需要，参数传递都建议使用传值而不是传引用。当然，如果参数是很大的数组且需要修改时可以考虑引用传递。</p>
+</li>
+<li><p>使用NoSQL、Memchached或者Redis缓存。这些是高性能的分布式内存对象缓存系统，能提高动态网络应用程序性能，减轻数据库的负担。这对运算码 （OPcode）的缓存也很有用，使得脚本不必为每个请求重新编译。</p>
+</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a href="https://www.cnblogs.com/zhaoyang-1989/p/6066564.html" target="_blank" rel="external">慕课网 – 性能优化之PHP优化总结笔记</a>，<a href="http://www.imooc.com/learn/205" target="_blank" rel="external">视频地址</a></p>
+<p>[2] <a href="https://blog.csdn.net/chajinglong/article/details/52293814" target="_blank" rel="external">PHP 性能优化</a></p>
+<p>[3] <a href="https://blog.csdn.net/rariki/article/details/52071915" target="_blank" rel="external">关于 PHP 性能优化</a></p>
+<p>[4] <a href="https://www.cnblogs.com/chunguang/p/5892073.html" target="_blank" rel="external">一些PHP性能的优化</a></p>
+<p>[5] <a href="https://www.awaimai.com/1050.html" target="_blank" rel="external">48条高效率的PHP优化写法</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/优化/" rel="tag"># 优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/02/数据结构与算法（一）——排序/" rel="next" title="数据结构与算法（一）——排序">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法（一）——排序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/06/kaggle使用笔记/" rel="prev" title="kaggle使用笔记">
+                kaggle使用笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言-1"><span class="nav-number">1.</span> <span class="nav-text">引言[1]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP语言级性能优化"><span class="nav-number">2.</span> <span class="nav-text">PHP语言级性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP周边问题的性能优化"><span class="nav-number">3.</span> <span class="nav-text">PHP周边问题的性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP语言自身的分析和优化"><span class="nav-number">4.</span> <span class="nav-text">PHP语言自身的分析和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体的PHP语言级的优化建议-4"><span class="nav-number">5.</span> <span class="nav-text">具体的PHP语言级的优化建议[4]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

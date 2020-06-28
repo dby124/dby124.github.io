@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="http," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="hhtp请求流程首先http是一个应用层的协议，在这个层的协议，只是一种通讯规范，也就是因为双方要进行通讯，大家要事先约定一个规范。 http请求与响应的步骤如下：  URL解析、域名解析  输入URL的时候，首先浏览器会去请求DNS服务器，通过DNS获取相应的域名对应的IP。如果url里不包含端口号，则会使用协议的默认端口号。   浏览器根据访问的域名找到其IP地址。DNS查找过程如下：   1">
+<meta name="keywords" content="http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http请求流程">
+<meta property="og:url" content="http://yoursite.com/2018/08/19/http请求流程/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="hhtp请求流程首先http是一个应用层的协议，在这个层的协议，只是一种通讯规范，也就是因为双方要进行通讯，大家要事先约定一个规范。 http请求与响应的步骤如下：  URL解析、域名解析  输入URL的时候，首先浏览器会去请求DNS服务器，通过DNS获取相应的域名对应的IP。如果url里不包含端口号，则会使用协议的默认端口号。   浏览器根据访问的域名找到其IP地址。DNS查找过程如下：   1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-26T15:20:20.743Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http请求流程">
+<meta name="twitter:description" content="hhtp请求流程首先http是一个应用层的协议，在这个层的协议，只是一种通讯规范，也就是因为双方要进行通讯，大家要事先约定一个规范。 http请求与响应的步骤如下：  URL解析、域名解析  输入URL的时候，首先浏览器会去请求DNS服务器，通过DNS获取相应的域名对应的IP。如果url里不包含端口号，则会使用协议的默认端口号。   浏览器根据访问的域名找到其IP地址。DNS查找过程如下：   1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/19/http请求流程/"/>
+
+
+
+
+
+  <title>http请求流程 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/http请求流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http请求流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-19T20:22:38+08:00">
+                2018-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="hhtp请求流程"><a href="#hhtp请求流程" class="headerlink" title="hhtp请求流程"></a>hhtp请求流程</h2><p>首先http是一个<strong>应用层的协议</strong>，在这个层的协议，只是一种通讯规范，也就是因为双方要进行通讯，大家要事先约定一个规范。</p>
+<p>http请求与响应的步骤如下：</p>
+<ul>
+<li><p><strong>URL解析、域名解析</strong><br>  输入URL的时候，首先浏览器会去请求DNS服务器，通过DNS获取相应的域名对应的IP。如果url里不包含端口号，则会使用协议的默认端口号。</p>
+<p>  浏览器根据访问的域名找到其IP地址。DNS查找过程如下：</p>
+<p>  1）浏览器缓存：浏览器会缓存DNS记录一段时间。 但操作系统没有告诉浏览器储存DNS记录的时间，这样不同浏览器会储存个自固定的一个时间（2分钟到30分钟不等）。</p>
+<p>  2）系统缓存：如果在浏览器缓存里没有找到需要的域名，浏览器会做一个系统调用（windows里是gethostbyname），这样便可获得系统缓存中的记录。</p>
+<p>  3）路由器缓存：如果系统缓存也没找到需要的域名，则会向路由器发送查询请求，它一般会有自己的DNS缓存。</p>
+<p>  4）ISP DNS缓存：如果依然没找到需要的域名，则最后要查的就是ISP缓存DNS的服务器。在这里一般都能找到相应的缓存记录。</p>
+</li>
+<li><p><strong>产生请求数据</strong></p>
+<p>  根据返回的IP和URL解析得到的参数，结合应用层的协议，确定发送的数据内容，将这些数据放到一个缓冲区内，然后形成了应用层的报文data。</p>
+<p>  此时，将应用层的报文data发送到传输层。经过传输层处理，如报文打上了传输头的包头（主要包含端口号，以及tcp的各种信息），得到tcp的数据传送单位segment。</p>
+</li>
+<li><p><strong>建立网络连接并发送请求包</strong> </p>
+<p>  拿到域名对应的IP地址之后，User-Agent（一般是指浏览器）会以一个随机端口（1024&lt; 端口 &lt; 65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。</p>
+<p>  采用<strong>ip地址＋协议＋端口号</strong>唯一标示网络中的一个进程，利用socket进行通信。基于socket进行TCP三次握手，建立TCP连接。然后浏览器发起了http的请求。</p>
+<p>  将传输层的数据段送到网络层，在网络层被打包，这样封装上了网络层的包头，包头内部含有源及目的的ip地址，该层数据发送单位被称为packet。网络层开始负责将这样的数据包在网络上传输，如何穿过路由器，最终到达目的地址。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>返回响应数据</strong></p>
+</li>
+<li><p>浏览器解析html代码，并请求html代码中的资源（如js、css、图片等）</p>
+</li>
+<li><p>浏览器对页面进行渲染呈现给用户</p>
+</li>
+<li><p><strong>断开网络连接</strong></p>
+<p> 若connection 模式为close，则服务器主动关闭TCP 连接，客户端被动关闭连接，释放TCP 连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</p>
+</li>
+</ul>
+<h2 id="HTTP请求格式和返回格式"><a href="#HTTP请求格式和返回格式" class="headerlink" title="HTTP请求格式和返回格式"></a>HTTP请求格式和返回格式</h2><ul>
+<li><p><strong>请求格式</strong></p>
+<p>  HTTP请求格式主要有四部分组成，分别是：<strong>请求行、请求头、空行、消息体</strong>，每部分内容占一行</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;request-line&gt;</div><div class="line">&lt;general-headers&gt;</div><div class="line">&lt;request-headers&gt;</div><div class="line">&lt;entity-headers&gt;</div><div class="line">&lt;empty-line&gt;    // (用于分割请求头和消息体)</div><div class="line">[&lt;message-body&gt;]</div></pre></td></tr></table></figure>
+<ul>
+<li><p>请求行中包含的请求方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">GET: 完整请求一个资源 （常用）</div><div class="line">HEAD: 仅请求响应首部</div><div class="line">POST：提交表单 （常用）</div><div class="line">PUT: 上传</div><div class="line">DELETE：删除</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>响应格式</strong></p>
+<p>  为了告知浏览器，Web服务器首先传送一些HTTP头信息，然后传送具体内容（即HTTP体信息），HTTP头信息和HTTP体信息之间用一个空行分开</p>
+<p>  HTTP响应格式<br>服务器接收处理完请求后返回一个HTTP相应消息给客户端。HTTP响应消息的格式包括：<strong>状态行、响应头、空行、消息体</strong>。每部分内容占一行。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;status-line&gt;</div><div class="line">&lt;general-headers&gt;</div><div class="line">&lt;response-headers&gt;</div><div class="line">&lt;entity-headers&gt;</div><div class="line">&lt;empty-line&gt;</div><div class="line">[&lt;message-body&gt;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>常用的HTTP头信息有（[一个http请求的详细过程](https://www.jianshu.com/p/aa97810e5fa4)）：
+
+① HTTP 1.0 200 OK 　这是Web服务器应答的第一行，列出服务器正在运行的HTTP版本号和应答代码。代码&quot;200 OK&quot;表示请求完成。
+
+② MIME_Version:1.0　它指示MIME类型的版本。
+
+③ content_type:类型　这个头信息非常重要，它指示HTTP体信息的MIME类型。如：content_type:text/html指示传送的数据是HTML文档。
+
+④ content_length:长度值　它指示HTTP体信息的长度（字节）。
+</code></pre><h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p>WEB Server都是基于Socket编程，又称之为网络编程，网络协议通过一个叫做socket的对象抽象出来，<strong>socket可以建立网络连接，读数据，写数据</strong>。socket模块定义了一些常量参数，用来指定socket的的地址族、socket的类型、以及支持的TCP/IP协议。</p>
+<p>利用<strong>ip地址＋协议＋端口号</strong>唯一标示网络中的进程，然后利用socket进行通信。</p>
+<p>socket是在应用层和传输层之间的一个抽象层，它把TCP/IP层复杂的操作抽象为几个简单的接口供应用层调用已实现进程在网络中通信。</p>
+<p>通常传输层的服务通过系统调用的方式提供，以socket的方式。对于客户端，要想建立一个socket连接，需要调用这样一些函数socket() bind() connect(),然后就可以通过send()进行数据发送。</p>
+<p>参考：</p>
+<ol>
+<li><a href="https://foofish.net/http-request-process.html" target="_blank" rel="external">一次完整的HTTP请求过程</a></li>
+<li><a href="https://www.jianshu.com/p/aa97810e5fa4" target="_blank" rel="external">一个http请求的详细过程</a></li>
+<li><a href="https://blog.csdn.net/lvyuan30276/article/details/50458572" target="_blank" rel="external">TCP与SOCKET的三次握手的对应关系</a></li>
+<li><a href="https://www.cnblogs.com/suntp/p/6434644.html" target="_blank" rel="external">三次握手 四次握手 与socket函数的关系</a></li>
+<li><a href="https://blog.csdn.net/lzghxjt/article/details/51458540" target="_blank" rel="external">http请求与响应全过程</a></li>
+<li><a href="https://jackchan1999.github.io/2017/04/30/java/%E5%86%99%E7%BB%99%E9%82%A3%E4%BA%9B%E8%AE%A9%E6%88%91%E7%B3%8A%E9%87%8C%E7%B3%8A%E6%B6%82%E7%9A%84HTTP%E3%80%81TCP%E3%80%81UDP%E3%80%81Socket/" target="_blank" rel="external">写给那些让我糊里糊涂的HTTP、TCP、UDP、Socket</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/http/" rel="tag"># http</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/17/PHP自动加载机制/" rel="next" title="PHP自动加载机制">
+                <i class="fa fa-chevron-left"></i> PHP自动加载机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/20/C++输入函数的应用/" rel="prev" title="C++输入函数的应用">
+                C++输入函数的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hhtp请求流程"><span class="nav-number">1.</span> <span class="nav-text">hhtp请求流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP请求格式和返回格式"><span class="nav-number">2.</span> <span class="nav-text">HTTP请求格式和返回格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket"><span class="nav-number">3.</span> <span class="nav-text">Socket</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

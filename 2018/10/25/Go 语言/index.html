@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Go," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="概述 Go 语言特色  简洁、快速、安全 并行、有趣、开源 内存管理、数组安全、编译迅速   应用   Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。   对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。  Go 语言最主要的特性  自动垃圾回收 更">
+<meta name="keywords" content="Go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/Go 语言/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="概述 Go 语言特色  简洁、快速、安全 并行、有趣、开源 内存管理、数组安全、编译迅速   应用   Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。   对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。  Go 语言最主要的特性  自动垃圾回收 更">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-26T15:14:39.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go语言">
+<meta name="twitter:description" content="概述 Go 语言特色  简洁、快速、安全 并行、有趣、开源 内存管理、数组安全、编译迅速   应用   Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。   对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。  Go 语言最主要的特性  自动垃圾回收 更">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/25/Go 语言/"/>
+
+
+
+
+
+  <title>Go语言 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/Go 语言/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Go语言</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T13:18:38+08:00">
+                2018-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li><p><strong>Go 语言特色</strong></p>
+<ul>
+<li>简洁、快速、安全</li>
+<li>并行、有趣、开源</li>
+<li>内存管理、数组安全、编译迅速</li>
+</ul>
+</li>
+<li><p><strong>应用</strong></p>
+<p>  Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。</p>
+<p>  对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</p>
+</li>
+<li><p><strong>Go 语言最主要的特性</strong></p>
+<ul>
+<li>自动垃圾回收</li>
+<li>更丰富的内置类型</li>
+<li>函数多返回值</li>
+<li>错误处理</li>
+<li>匿名函数和闭包</li>
+<li>类型和接口</li>
+<li>并发编程</li>
+<li>反射</li>
+<li>语言交互性</li>
+</ul>
+</li>
+</ul>
+<h2 id="mac-os安装与环境配置"><a href="#mac-os安装与环境配置" class="headerlink" title="mac os安装与环境配置"></a>mac os安装与环境配置</h2><p><a href="https://golang.org/dl/" target="_blank" rel="external">安装包下载地址为</a></p>
+<p>安装步骤：</p>
+<ol>
+<li><p>首先下载安装包（go1.11.darwin-amd64.pkg）。</p>
+</li>
+<li><p>双击已下载的安装包，按照提示安装Go。</p>
+<p> 在Mac上的安装路径是：/usr/local/go<br>。</p>
+<blockquote>
+<p>可以通过<code>Contrl+shift+G</code>输入<code>/usr/local/go</code>进入这个路径。</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>将安装目录加入到环境变量，命令如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/usr/local/go/bin</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>通过上面的步骤就完成了Go的安装。Go语言常用的编辑器是Goland。</p>
+<p><strong>环境配置</strong></p>
+<p>完成安装后，接下来是配置mac下的环境变量。这是最关键的。环境配置步骤如下：</p>
+<ol>
+<li><p>打开终端（Terminal），敲入一下代码：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd ~    #进入当前用户下的根目录</div><div class="line"></div><div class="line">ls -a    # -a可将隐藏文件显示，可能会看到.bash_profile文件，若没有就自己创建</div><div class="line"></div><div class="line">vim .bash_profile   #创建很简单</div></pre></td></tr></table></figure>
+</li>
+<li><p>进入vim后，按下a才能编辑，输入一下代码：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export GOROOT=/usr/local/go</div><div class="line"></div><div class="line">export PATH=/usr/local/go/bin:$PATH</div><div class="line"></div><div class="line">export GOPATH=go代码默认存放路径</div></pre></td></tr></table></figure>
+<p> 解释一下含义：</p>
+<p> GOROOT就是pkg包默认安装到的地方，从官网上也可以看到，Go的pkg默认安装路径是/usr/local/go</p>
+<p> PATH很重要，系统自带的源码要运行必须有这个路径，默认安装路径时，在/usr/local/go/bin</p>
+<p> GOPATH可以是用户任意喜欢的地方，放置自己写的go程序</p>
+<blockquote>
+<p>此时，.bash_profile文件编写完毕，按esc，敲入:wq，回车，搞定。</p>
+</blockquote>
+</li>
+<li><p>退回到终端后，敲入source  .bash_profile 使编辑生效</p>
+<p> 验证一下路径配置是否成功：echo  $GOROOT ，就能看到/usr/local/go了。</p>
+<p> 如果没有看到，再重启一下ternimal吧。</p>
+</li>
+<li><p>环境变量配置完成。</p>
+</li>
+</ol>
+<h2 id="Go语言结构"><a href="#Go语言结构" class="headerlink" title="Go语言结构"></a>Go语言结构</h2><ul>
+<li><p>Go 语言的基础组成有以下几个部分：</p>
+<ul>
+<li>包声明</li>
+<li>引入包</li>
+<li>函数</li>
+<li>变量</li>
+<li>语句 &amp; 表达式</li>
+<li>注释</li>
+</ul>
+</li>
+<li><p>编写有一个简单的go程序：main.go。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import &quot;fmt&quot;</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">   /* 这是我的第一个简单的程序 */</div><div class="line">   fmt.Println(&quot;Hello, World!&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在terminal下列输入命令，运行上述的代码。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ go run main.go</div><div class="line">// 输出：Hello, World!</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>程序解析：</p>
+<ol>
+<li><p>第一行代码 package main 定义了包名。你必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main。package main表示一个可独立执行的程序，每个 Go 应用程序都包含一个名为 main 的包。</p>
+</li>
+<li><p>下一行 import “fmt” 告诉 Go 编译器这个程序需要使用 fmt 包（的函数，或其他元素）。通过 import 关键字来导入其他非 main 包。</p>
+<p> 可以通过 import 关键字单个导入:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import &quot;fmt&quot;</div><div class="line">import &quot;io&quot;</div></pre></td></tr></table></figure>
+<p> 也可以同时导入多个:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import &#123;</div><div class="line">    &quot;fmt&quot;,</div><div class="line">    &quot;io&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 使用 <packagename>.<functionname> 调用:</functionname></packagename></p>
+<p> package 别名：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 为fmt起别名为fmt2</div><div class="line">import fmt2 &quot;fmt&quot;</div></pre></td></tr></table></figure>
+<p> 省略调用(不建议使用):</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 调用的时候只需要Println()，而不需要fmt.Println()</div><div class="line">import . &quot;fmt&quot;</div></pre></td></tr></table></figure>
+<p> 前面加个点表示省略调用，那么调用该模块里面的函数，可以不用写模块名称了:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import . &quot;fmt&quot;</div><div class="line">func main ()&#123;</div><div class="line">    Println(&quot;hello,world&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>下一行 func main() 是程序开始执行的函数。Go 程序是通过 package 来组织的。<br>只有 package 名称为 main 的包可以包含 main 函数。main 函数是每一个可执行程序所必须包含的，一般来说都是在启动后第一个执行的函数（如果有 init() 函数则会先执行该函数）。<strong>一个可执行程序有且仅有一个 main 包</strong>。</p>
+</li>
+<li><p>注释，在程序执行时将被忽略。主要分为单行注释和多行注释。其中多行注释也叫块注释，不可以嵌套使用，一般用于包的文档描述或注释成块的代码片段。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 单行注释</div><div class="line">/*</div><div class="line"> Author by 菜鸟教程</div><div class="line"> 我是多行注释</div><div class="line"> */</div></pre></td></tr></table></figure>
+</li>
+<li><p>下一行 fmt.Println(…) 可以将字符串输出到控制台，并在最后自动增加换行字符 \n。fmt 包是实现了格式化 IO（输入/输出）的函数。<br>使用 fmt.Print(“hello, world\n”) 可以得到相同的结果。<br>Print 和 Println 这两个函数也支持使用变量，如：fmt.Println(arr)。如果没有特别指定，它们会以默认的打印格式将变量 arr 输出到控制台。</p>
+</li>
+<li><p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以开头字母的大小写来决定其是否能被外部包调用，具体如下：。</p>
+<p> 函数名首字母小写即为 private ／protected（此部分的内容有待商榷，发现网上的一些资料是不一致的）:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">func getId() &#123;&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>函数名首字母大写即为 public :
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">func Printf() &#123;&#125;</div></pre></td></tr></table></figure>
+</code></pre><h2 id="编辑器——Goland"><a href="#编辑器——Goland" class="headerlink" title="编辑器——Goland"></a>编辑器——Goland</h2><p>Go常用的一个编辑器是Goland</p>
+<h2 id="Go框架-——Gin"><a href="#Go框架-——Gin" class="headerlink" title="Go框架 ——Gin"></a>Go框架 ——Gin</h2><p>Gin是一个<a href="https://www.jianshu.com/p/a31e4ee25305" target="_blank" rel="external">Golang 微框架</a>，封装比较优雅，API友好，源码注释比较明确，已经发布了1.0版本。具有快速灵活，容错方便等特点。其实对于golang而言，web框架的依赖要远比Python，Java之类的要小。</p>
+<p>参考：</p>
+<ol>
+<li><p>参考：</p>
+</li>
+<li><p><a href="http://www.runoob.com/go/go-tutorial.html" target="_blank" rel="external">Go 语言教程</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go/" rel="tag"># Go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/01/PHP执行外部程序的方法/" rel="next" title="PHP执行外部程序的方法">
+                <i class="fa fa-chevron-left"></i> PHP执行外部程序的方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/25/Go简单开始/" rel="prev" title="Go简单开始">
+                Go简单开始 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-os安装与环境配置"><span class="nav-number">2.</span> <span class="nav-text">mac os安装与环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go语言结构"><span class="nav-number">3.</span> <span class="nav-text">Go语言结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑器——Goland"><span class="nav-number">4.</span> <span class="nav-text">编辑器——Goland</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go框架-——Gin"><span class="nav-number">5.</span> <span class="nav-text">Go框架 ——Gin</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

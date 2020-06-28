@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="keras," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="简介Keras是一个高层神经网络API，Keras由纯Python编写而成并基于Tensorflow、Theano和CNTK后端。Keras 支持快速实验，能够把你的idea迅速转换为结果，适用场景：  简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性） 支持CNN和RNN，或二者的结合 无缝CPU和GPU切换   Keras适用的Python版本是：Python 2.7-3.6">
+<meta name="keywords" content="keras">
+<meta property="og:type" content="article">
+<meta property="og:title" content="keras的学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/04/20/keras的学习笔记/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="简介Keras是一个高层神经网络API，Keras由纯Python编写而成并基于Tensorflow、Theano和CNTK后端。Keras 支持快速实验，能够把你的idea迅速转换为结果，适用场景：  简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性） 支持CNN和RNN，或二者的结合 无缝CPU和GPU切换   Keras适用的Python版本是：Python 2.7-3.6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-20T04:14:54.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="keras的学习笔记">
+<meta name="twitter:description" content="简介Keras是一个高层神经网络API，Keras由纯Python编写而成并基于Tensorflow、Theano和CNTK后端。Keras 支持快速实验，能够把你的idea迅速转换为结果，适用场景：  简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性） 支持CNN和RNN，或二者的结合 无缝CPU和GPU切换   Keras适用的Python版本是：Python 2.7-3.6">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/20/keras的学习笔记/"/>
+
+
+
+
+
+  <title>keras的学习笔记 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/keras的学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">keras的学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T10:32:38+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DCASE/" itemprop="url" rel="index">
+                    <span itemprop="name">DCASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Keras是一个高层神经网络API，Keras由纯Python编写而成并基于<strong>Tensorflow、Theano和CNTK</strong>后端。Keras 支持快速实验，能够把你的idea迅速转换为结果，适用场景：</p>
+<ul>
+<li>简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性）</li>
+<li>支持CNN和RNN，或二者的结合</li>
+<li>无缝CPU和GPU切换</li>
+</ul>
+<blockquote>
+<p>Keras适用的Python版本是：Python 2.7-3.6</p>
+</blockquote>
+<h2 id="keras的使用"><a href="#keras的使用" class="headerlink" title="keras的使用"></a>keras的使用</h2><p>Keras的核心数据结构是“模型”，模型是一种组织网络层的方式。Keras中主要的模型是Sequential模型，Sequential是一系列网络层按顺序构成的栈。</p>
+<p>Sequential模型如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from keras.models import Sequential  </div><div class="line">from keras.layers import Dense, Activation  </div><div class="line">  </div><div class="line">model = Sequential()</div><div class="line"></div><div class="line">model.add(Dense(units=64, input_dim=100))</div><div class="line">model.add(Activation(&quot;relu&quot;))</div><div class="line">model.add(Dense(units=10))</div><div class="line">model.add(Activation(&quot;softmax&quot;))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在Keras 0.x中，模型其实有两种，一种叫Sequential，称为序贯模型，也就是单输入单输出，一条路通到底，层与层之间只有相邻关系，跨层连接统统没有。这种模型编译速度快，操作上也比较简单。第二种模型称为Graph，即图模型，这个模型支持多输入多输出，层与层之间想怎么连怎么连，但是编译速度慢。在Keras1和Keras2中，图模型被移除，而增加了了“functional model API”，这个东西，更加强调了Sequential是特殊情况这一点。一般的模型就称为Model，然后如果你要用简单的Sequential，OK，那还有一个快捷方式Sequential。</p>
+</blockquote>
+<p>另外还可以通过将一个层列表传递到构建器的方式创建Sequential：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">model = Sequential([  </div><div class="line">    Dense(32, input_shape=(784,)),  </div><div class="line">    Activation(&apos;relu&apos;),  </div><div class="line">    Dense(10),  </div><div class="line">    Activation(&apos;softmax&apos;),  </div><div class="line">])</div></pre></td></tr></table></figure>
+<blockquote>
+<p>模型需要知道预期的输入形状，因此Sequential模型的第一层（只需第一层，因为后面的层能自动计算形状）需要收到输入形状的信息。有几种方式可以实现：</p>
+<p>*将input_shape申明传入第一层。这是一个形状元组（整数或None，None意味可能是任意正整数），这里不包含批次维度。</p>
+<p>*一些2D层如Dense，通过申明input_dim支持指明输入形状，一些3D的时序层支持申明input_dim和input_length。</p>
+<p>*如果需要指明固定的输入批次规模（对状态循环网络有用），可以将batch_size申明传入一个层。如果传入batch_size=32和input_shape(6, 8)至一个层，它将期望所有输入批次形状为（32，6，8）。</p>
+</blockquote>
+<p>完成模型的搭建后，我们需要使用.compile()方法来编译模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.compile(loss=&apos;categorical_crossentropy&apos;, optimizer=&apos;sgd&apos;, metrics=[&apos;accuracy&apos;])</div></pre></td></tr></table></figure>
+<blockquote>
+<p>编译，训练模型前应设置学习进程，通过compile方法实现，它接受3个申明：</p>
+<ul>
+<li><p><strong>优化器</strong>，可以是现成的优化器如rmsprop或者adagrad，或者是自定义Optimizer类的实例。</p>
+</li>
+<li><p><strong>损失函数</strong>，模型要最小化的对象，可以是现成的如categorical_crossentropy或者mse，或者自定义。</p>
+</li>
+<li><p><strong>度量列表</strong>，对于分类问题我们使用metrics=[‘accuracy’]，可以是其它现成度量或自定义。</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 自定义模型的相关参数</div><div class="line">from keras.optimizers import SGD</div><div class="line">model.compile(loss=&apos;categorical_crossentropy&apos;, optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>lr表示学习速率,momentum表示动量项，decay是学习速率的衰减系数(每个epoch衰减一次),Nesterov的值是False或者True，表示使不使用Nesterov momentum。</p>
+</blockquote>
+<p>完成模型编译后，我们在训练数据上按batch进行一定次数的迭代来训练网络</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.fit(x_train, y_train, epochs=5, batch_size=32)</div></pre></td></tr></table></figure>
+<p>当然，我们也可以手动将一个个batch的数据送入网络中训练，这时候需要使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.train_on_batch(x_batch, y_batch)</div></pre></td></tr></table></figure>
+<p>随后，我们可以使用一行代码对我们的模型进行评估，看看模型的指标是否满足我们的要求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loss_and_metrics = model.evaluate(x_test, y_test, batch_size=128)</div></pre></td></tr></table></figure>
+<p>或者，我们可以使用我们的模型，对新的数据进行预测：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">classes = model.predict(x_test, batch_size=128)</div></pre></td></tr></table></figure>
+<p>Keras提供了三种后端引擎Theano/Tensorflow/CNTK，并将其函数统一封装，使得用户可以以同一个接口调用不同后端引擎的函数。</p>
+<ul>
+<li>Theano是一个开源的符号主义张量操作框架，由蒙特利尔大学LISA/MILA实验室开发。</li>
+<li>TensorFlow是一个符号主义的张量操作框架，由Google开发。</li>
+<li>CNTK是一个由微软开发的商业级工具包。</li>
+</ul>
+<blockquote>
+<p>将<code>backend</code>字段的值改写为你需要使用的后端：<code>theano</code>或<code>tensorflow</code>或者<code>CNTK</code>，即可完成后端的切换。我们也可以通过定义环境变量KERAS_BACKEND来覆盖上面配置文件中定义的后端：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">KERAS_BACKEND=tensorflow python -c &quot;from keras import backend;&quot;</div><div class="line">Using TensorFlow backend</div></pre></td></tr></table></figure>
+<blockquote>
+<p>张量可以看作是向量、矩阵的自然推广，我们用张量来表示广泛的数据类型。</p>
+</blockquote>
+<p>参考：</p>
+<ol>
+<li><a href="https://blog.csdn.net/wangli0519/article/details/72910303" target="_blank" rel="external">keras —— 常用模型构建</a></li>
+<li><a href="http://keras-cn.readthedocs.io/en/latest/" target="_blank" rel="external">快速开始：30s上手Keras</a></li>
+<li><a href="https://blog.csdn.net/u012162613/article/details/45397033" target="_blank" rel="external">DeepLearning tutorial（6）易用的深度学习框架Keras简介</a>——具有构建CNN的代码</li>
+<li><a href="https://blog.csdn.net/u012458963/article/details/72230729" target="_blank" rel="external">利用keras搭建神经卷积网络（CNN）</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/keras/" rel="tag"># keras</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/16/计算机启动流程/" rel="next" title="计算机启动流程">
+                <i class="fa fa-chevron-left"></i> 计算机启动流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/21/PHP设计模式/" rel="prev" title="PHP设计模式">
+                PHP设计模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keras的使用"><span class="nav-number">2.</span> <span class="nav-text">keras的使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

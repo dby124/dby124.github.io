@@ -1,0 +1,4625 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="接着上一篇教程，继续的有各个UTILITIES的介绍。网址 1. Container数据容器的类。这些数据的目的是为了包装数据，使用有用的方法来访问和操作数据，以及加载和存储数据。 这些容器是从标准的Python容器（例如对象，列表和字典）继承的，以使它们可以与其他工具和库一起使用。 1.1 Basic containers ObjectContainer  dcase_util.containe">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dcase_util教程（二）——各单元介绍">
+<meta property="og:url" content="http://yoursite.com/2018/03/26/dcase_util(2)/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="接着上一篇教程，继续的有各个UTILITIES的介绍。网址 1. Container数据容器的类。这些数据的目的是为了包装数据，使用有用的方法来访问和操作数据，以及加载和存储数据。 这些容器是从标准的Python容器（例如对象，列表和字典）继承的，以使它们可以与其他工具和库一起使用。 1.1 Basic containers ObjectContainer  dcase_util.containe">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-18T01:45:39.487Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dcase_util教程（二）——各单元介绍">
+<meta name="twitter:description" content="接着上一篇教程，继续的有各个UTILITIES的介绍。网址 1. Container数据容器的类。这些数据的目的是为了包装数据，使用有用的方法来访问和操作数据，以及加载和存储数据。 这些容器是从标准的Python容器（例如对象，列表和字典）继承的，以使它们可以与其他工具和库一起使用。 1.1 Basic containers ObjectContainer  dcase_util.containe">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/26/dcase_util(2)/"/>
+
+
+
+
+
+  <title>dcase_util教程（二）——各单元介绍 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/26/dcase_util(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dcase_util教程（二）——各单元介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T18:16:38+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DCASE/" itemprop="url" rel="index">
+                    <span itemprop="name">DCASE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>接着上一篇教程，继续的有各个UTILITIES的介绍。<a href="https://dcase-repo.github.io/dcase_util/index.html" target="_blank" rel="external">网址</a></p>
+<h2 id="1-Container"><a href="#1-Container" class="headerlink" title="1. Container"></a>1. Container</h2><p>数据容器的类。这些数据的目的是为了包装数据，使用有用的方法来访问和操作数据，以及加载和存储数据。</p>
+<p>这些容器是从标准的Python容器（例如对象，列表和字典）继承的，以使它们可以与其他工具和库一起使用。</p>
+<h3 id="1-1-Basic-containers"><a href="#1-1-Basic-containers" class="headerlink" title="1.1 Basic containers"></a>1.1 Basic containers</h3><ul>
+<li>ObjectContainer</li>
+</ul>
+<p><code>dcase_util.containers.ObjectContainer</code>，从标准对象类继承的对象的容器类。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ObjectContainer(\*args, \*\*kwargs)</code></td>
+<td>从标准对象类继承的对象的容器类。</td>
+</tr>
+<tr>
+<td><code>ObjectContainer.load([filename])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>ObjectContainer.save([filename])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>ObjectContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>ObjectContainer.log([level])</code></td>
+<td>日志容器内容</td>
+</tr>
+</tbody>
+</table>
+<p>示例如何从ObjectContainer继承类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">class Multiplier(dcase_util.containers.ObjectContainer):</div><div class="line">    def __init__(self, multiplier=None, **kwargs):</div><div class="line">        super(Multiplier, self).__init__(**kwargs)</div><div class="line">        self.multiplier = multiplier</div><div class="line"></div><div class="line">    def __str__(self):</div><div class="line">        ui = dcase_util.ui.FancyStringifier()</div><div class="line">        output = super(Multiplier, self).__str__()</div><div class="line">        output+= ui.data(field=&apos;multiplier&apos;, value=self.multiplier)</div><div class="line">        return output</div><div class="line"></div><div class="line">    def multiply(self, data):</div><div class="line">        return self.multiplier * data</div><div class="line"></div><div class="line">m = Multiplier(10)</div><div class="line">m.show()</div><div class="line"># Multiplier :: Class</div><div class="line">#   multiplier                        : 10</div><div class="line"></div><div class="line">print(m.multiply(5))</div><div class="line"># 50</div><div class="line"></div><div class="line"># Save object</div><div class="line">m.save(&apos;test.cpickle&apos;)</div><div class="line"></div><div class="line"># Load object</div><div class="line">m2 = Multiplier().load(&apos;test.cpickle&apos;)</div><div class="line"></div><div class="line">print(m2.multiply(5))</div><div class="line"># 50</div><div class="line"></div><div class="line">m2.show()</div><div class="line"># Multiplier :: Class</div><div class="line">#   filename                          : test.cpickle</div><div class="line">#   multiplier                        : 10</div></pre></td></tr></table></figure>
+<h4 id="1-1-1-DictContainer"><a href="#1-1-1-DictContainer" class="headerlink" title="1.1.1 DictContainer"></a>1.1.1 DictContainer</h4><p><code>dcase_util.containers.DictContainer</code>字典容器类继承自标准的字典类。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DictContainer(\*args, \*\*kwargs)</code></td>
+<td>字典从标准dict类继承的容器类。</td>
+</tr>
+<tr>
+<td><code>DictContainer.load([filename])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>DictContainer.save([filename])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>DictContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>DictContainer.log([level])</code></td>
+<td>日志容器内容</td>
+</tr>
+<tr>
+<td><code>DictContainer.get_path(path[, default, data])</code></td>
+<td>从带嵌入字典的路径中获取值</td>
+</tr>
+<tr>
+<td><code>DictContainer.set_path(path, new_value[, data])</code></td>
+<td>使用点路径（dotted path）在嵌套字典中设置值</td>
+</tr>
+<tr>
+<td><code>DictContainer.get_leaf_path_list([...])</code></td>
+<td>获取路径列表到嵌套字典中的所有叶节点。</td>
+</tr>
+<tr>
+<td><code>DictContainer.merge(override[, target])</code></td>
+<td>递归字典合并</td>
+</tr>
+<tr>
+<td><code>DictContainer.get_hash_for_path([dotted_path])</code></td>
+<td>在给定路径下获取数据的唯一哈希字符串。</td>
+</tr>
+<tr>
+<td><code>DictContainer.get_hash([data])</code></td>
+<td>获取给定参数字典的唯一哈希字符串（md5）。</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">import dcase_util</div><div class="line"></div><div class="line">d = dcase_util.containers.DictContainer(</div><div class="line">    &#123;</div><div class="line">        &apos;test&apos;: &#123;</div><div class="line">            &apos;field1&apos;: 1,</div><div class="line">            &apos;field2&apos;: 2,</div><div class="line">        &#125;,</div><div class="line">        &apos;test2&apos;: 100</div><div class="line">    &#125;</div><div class="line">)</div><div class="line">d.show()</div><div class="line"># DictContainer</div><div class="line">#   test</div><div class="line">#     field1                          : 1</div><div class="line">#     field2                          : 2</div><div class="line">#   test2                             : 100</div><div class="line"></div><div class="line">print(d.get_path(&apos;test.field1&apos;))</div><div class="line"># 1</div><div class="line"></div><div class="line">print(d.get_path([&apos;test&apos;, &apos;field1&apos;]))</div><div class="line"># 1</div><div class="line"></div><div class="line">print(d.get_path(&apos;test2&apos;))</div><div class="line"># 100</div><div class="line"></div><div class="line">d.set_path(&apos;test.field2&apos;, 200)</div><div class="line">print(d.get_path(&apos;test.field2&apos;))</div><div class="line"># 200</div><div class="line"></div><div class="line">print(d.get_leaf_path_list())</div><div class="line"># [&apos;test.field1&apos;, &apos;test.field2&apos;, &apos;test2&apos;]</div><div class="line"></div><div class="line">print(d.get_leaf_path_list(target_field_startswith=&apos;field&apos;))</div><div class="line"># [&apos;test.field1&apos;, &apos;test.field2&apos;]</div><div class="line"></div><div class="line">d.show()</div><div class="line"># DictContainer</div><div class="line">#   test</div><div class="line">#     field1                          : 1</div><div class="line">#     field2                          : 200</div><div class="line">#   test2                             : 100</div></pre></td></tr></table></figure>
+<h4 id="1-1-2-ListContainer"><a href="#1-1-2-ListContainer" class="headerlink" title="1.1.2 ListContainer"></a>1.1.2 ListContainer</h4><p><code>dcase_util.containers.ListContainer</code>，列表容器从标准列表类继承的容器类。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ListContainer(\*args, \*\*kwargs)</code></td>
+<td>字典从标准dict类继承的容器类。</td>
+</tr>
+<tr>
+<td><code>ListContainer.load([filename, headers])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>ListContainer.save([filename])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>ListContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>ListContainer.log([level])</code></td>
+<td>日志容器内容</td>
+</tr>
+<tr>
+<td><code>ListContainer.update(data)</code></td>
+<td>用给定列表替换内容</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-1-3-ListDictContainer"><a href="#1-1-3-ListDictContainer" class="headerlink" title="1.1.3 ListDictContainer"></a>1.1.3 ListDictContainer</h4><p><code>dcase_util.containers.ListDictContainer</code>，从标准列表类继承的字典列表容器类。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ListDictContainer(\*args, \*\*kwargs)</code></td>
+<td>字典列表从标准dict类继承的容器类。</td>
+</tr>
+<tr>
+<td><code>ListDictContainer.load([filename, fields, ...])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>ListDictContainer.save([filename, fields, ...])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>ListDictContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>ListDictContainer.log([level])</code></td>
+<td>日志容器内容</td>
+</tr>
+<tr>
+<td><code>ListDictContainer.search(key, value)</code></td>
+<td>在字典列表中搜索</td>
+</tr>
+<tr>
+<td><code>ListDictContainer.get_field(field_name[, ...])</code></td>
+<td>从字段获取所有数据</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">import dcase_util</div><div class="line">ld = dcase_util.containers.ListDictContainer(</div><div class="line">    [</div><div class="line">        &#123;</div><div class="line">            &apos;field1&apos;: 1,</div><div class="line">            &apos;field2&apos;: 2,</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &apos;field1&apos;: 3,</div><div class="line">            &apos;field2&apos;: 4,</div><div class="line">        &#125;,</div><div class="line">    ]</div><div class="line">)</div><div class="line">ld.show()</div><div class="line"># ListDictContainer</div><div class="line"># [0] =======================================</div><div class="line">#    DictContainer</div><div class="line">#      field1                            : 1</div><div class="line">#      field2                            : 2</div><div class="line">#</div><div class="line"># [1] =======================================</div><div class="line">#    DictContainer</div><div class="line">#      field1                            : 3</div><div class="line">#      field2                            : 4</div><div class="line"></div><div class="line">print(ld.search(key=&apos;field1&apos;, value=3))</div><div class="line"># DictContainer</div><div class="line">#   field1                            : 3</div><div class="line">#   field2                            : 4</div><div class="line"></div><div class="line">print(ld.get_field(field_name=&apos;field2&apos;))</div><div class="line"># [2, 4]</div></pre></td></tr></table></figure>
+<h4 id="1-1-4-RepositoryContainer"><a href="#1-1-4-RepositoryContainer" class="headerlink" title="1.1.4 RepositoryContainer"></a>1.1.4 RepositoryContainer</h4><p><code>dcase_util.containers.RepositoryContainer</code>，存储库的容器类，从<code>dcase_util.containers.DictContainer</code>继承。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RepositoryContainer(\*args, \*\*kwargs)</code></td>
+<td>从DictContainer继承的存储库的容器类。</td>
+</tr>
+<tr>
+<td><code>RepositoryContainer.load([filename])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>RepositoryContainer.save([filename])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>RepositoryContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>RepositoryContainer.log([level])</code></td>
+<td>日志容器内容</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-1-5-TextContainer"><a href="#1-1-5-TextContainer" class="headerlink" title="1.1.5 TextContainer"></a>1.1.5 TextContainer</h4><p><code>dcase_util.containers.TextContainer</code>文本的容器类，从<code>dcase_util.containers.ListContainer</code>继承。</p>
+<p>TextContainer（\ <em> args，\ </em> \ * kwargs）继承自ListContainer的文本的容器类。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TextContainer(\*args, \*\*kwargs)</code></td>
+<td>继承自ListContainer的文本的容器类。</td>
+</tr>
+<tr>
+<td><code>TextContainer.load([filename, headers])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>TextContainer.save([filename])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>TextContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>TextContainer.log([level])</code></td>
+<td>日志容器内容</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-2-Data-containers"><a href="#1-2-Data-containers" class="headerlink" title="1.2 Data containers"></a>1.2 Data containers</h3><h4 id="1-2-1-DataContainer"><a href="#1-2-1-DataContainer" class="headerlink" title="1.2.1 DataContainer"></a>1.2.1 DataContainer</h4><p><code>dcase_util.containers.DataContainer</code>，数据的容器类，从<code>dcase_util.containers.ObjectContainer</code>继承。</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataContainer([data, stats, metadata, ...])</code></td>
+<td>数据的容器类，从ObjectContainer继承</td>
+</tr>
+<tr>
+<td><code>DataContainer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>DataContainer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>DataContainer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>DataContainer.log([level])</code></td>
+<td>记录容器内容</td>
+</tr>
+<tr>
+<td><code>DataContainer.data</code></td>
+<td>数据矩阵</td>
+</tr>
+<tr>
+<td><code>DataContainer.shape</code></td>
+<td>数据矩阵的形状</td>
+</tr>
+<tr>
+<td><code>DataContainer.length</code></td>
+<td>数据列的数量</td>
+</tr>
+<tr>
+<td><code>DataContainer.frames</code></td>
+<td>数据帧的数量</td>
+</tr>
+<tr>
+<td><code>DataContainer.push_processing_chain_item(...)</code></td>
+<td>加工链项目入栈</td>
+</tr>
+<tr>
+<td><code>DataContainer.focus_start</code></td>
+<td>聚焦段开始</td>
+</tr>
+<tr>
+<td><code>DataContainer.focus_stop</code></td>
+<td>聚焦段结束</td>
+</tr>
+<tr>
+<td><code>DataContainer.stats</code></td>
+<td>数据矩阵的基本统计</td>
+</tr>
+<tr>
+<td><code>DataContainer.reset_focus()</code></td>
+<td>重置聚焦段（Focus segment）</td>
+</tr>
+<tr>
+<td><code>DataContainer.get_focused()</code></td>
+<td>从数据数组获取聚焦段</td>
+</tr>
+<tr>
+<td><code>DataContainer.freeze()</code></td>
+<td>冻结聚焦段（Freeze focus segment），并复制为容器数据。</td>
+</tr>
+<tr>
+<td><code>DataContainer.get_frames([frame_ids, frame_hop])</code></td>
+<td>从数据数组中获取帧。</td>
+</tr>
+<tr>
+<td><code>DataContainer.plot()</code></td>
+<td>可视化数据数组。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-2-2-DataArrayContainer"><a href="#1-2-2-DataArrayContainer" class="headerlink" title="1.2.2 DataArrayContainer"></a>1.2.2 DataArrayContainer</h4><pre><code>`dcase_util.containers.DataArrayContainer`
+</code></pre><p>Container class for data, inherited from dcase_util.containers.DataContainer.</p>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataArrayContainer([data, stats, metadata, ...])</code></td>
+<td>Array data container <code>DataArrayContainer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.show(</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.data</code></td>
+<td>Data matrix</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.shape</code></td>
+<td>Shape of data matrix</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.length</code></td>
+<td>Number of data columns</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.frames</code></td>
+<td>Number of data frames</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.push_processing_chain_item(...)</code></td>
+<td>Push processing chain item</td>
+</tr>
+<tr>
+<td><code>ataArrayContainer.focus_start</code></td>
+<td>Focus segment start</td>
+</tr>
+<tr>
+<td><code>ataArrayContainer.focus_stop</code></td>
+<td>Focus segment stop</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.stats</code></td>
+<td>Basic statistics of data matrix.</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.reset_focus()</code></td>
+<td>Reset focus segment</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.get_focused()</code></td>
+<td>Get focus segment from data array.</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.freeze()</code></td>
+<td>Freeze focus segment, copy segment to be container’s data.</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.get_frames([frame_ids, ...])</code></td>
+<td>Get frames from data array.</td>
+</tr>
+<tr>
+<td><code>DataArrayContainer.plot()</code></td>
+<td>Visualize data array.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-2-3-DataMatrix2DContainer"><a href="#1-2-3-DataMatrix2DContainer" class="headerlink" title="1.2.3 DataMatrix2DContainer"></a>1.2.3 DataMatrix2DContainer</h4><pre><code>`dcase_util.containers.DataMatrix2DContainer`
+</code></pre><p><code>DataMatrix2DContainer</code>是二维数据矩阵（<code>numpy.ndarray</code>）的数据容器。</p>
+<p>基本用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># Initialize container with random matrix 10x100, and set time resolution to 20ms</div><div class="line">data_container = dcase_util.containers.DataMatrix2DContainer(</div><div class="line">  data=numpy.random.rand(10,100),</div><div class="line">  time_resolution=0.02</div><div class="line">)</div><div class="line"></div><div class="line"># When storing, e.g., acoustic features, time resolution corresponds to feature extraction frame hop length.</div><div class="line"></div><div class="line"># Access data matrix directly</div><div class="line">print(data_container.data.shape)</div><div class="line"># (10, 100)</div><div class="line"></div><div class="line"># Show container information</div><div class="line">data_container.show()</div><div class="line"># DataMatrix2DContainer :: Class</div><div class="line">#   Data</div><div class="line">#     data                            : matrix (10,100)</div><div class="line">#     Dimensions</div><div class="line">#       time_axis                     : 1</div><div class="line">#       data_axis                     : 0</div><div class="line">#     Timing information</div><div class="line">#       time_resolution               : 0.02 sec</div><div class="line">#   Meta</div><div class="line">#     stats                           : Calculated</div><div class="line">#     metadata                        : -</div><div class="line">#     processing_chain                : -</div><div class="line">#   Duration</div><div class="line">#       Frames                        : 100</div><div class="line">#       Seconds                       : 2.00 sec</div></pre></td></tr></table></figure>
+<p>该容器具有聚焦机制，可灵活定位数据矩阵的一部分。 可以根据时间进行对焦（如果时间分辨率已定义，则以秒为单位），或基于帧ID。</p>
+<p>使用焦点机制（ focus mechanism），访问数据和可视化数据的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"># Using focus to get part data between 0.5 sec and 1.0 sec</div><div class="line">print(data_container.set_focus(start_seconds=0.5, stop_seconds=1.0).get_focused().shape)</div><div class="line"># (10, 25)</div><div class="line"></div><div class="line"># Using focus to get part data between frame 10 and 50</div><div class="line">print(data_container.set_focus(start=10, stop=50).get_focused().shape)</div><div class="line"># (10, 40)</div><div class="line"></div><div class="line"># Resetting focus and accessing full data matrix</div><div class="line">data_container.reset_focus()</div><div class="line">print(data_container.get_focused().shape)</div><div class="line"># (10, 100)</div><div class="line"></div><div class="line"># Access frames 1, 2, 10, and 30</div><div class="line">data_container.get_frames(frame_ids=[1,2,10,30])</div><div class="line"></div><div class="line"># Access frames 1-5, and only first value per column</div><div class="line">data_container.get_frames(frame_ids=[1,2,3,4,5], vector_ids=[0])</div><div class="line"></div><div class="line"># Transpose matrix</div><div class="line">transposed_data = data_container.T</div><div class="line">print(transposed_data.shape)</div><div class="line"># (100, 10)</div><div class="line"></div><div class="line"># Plot data</div><div class="line">data_container.plot()</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataMatrix2DContainer([data, stats, ...])</code></td>
+<td>Two-dimensional data matrix container class, inherited from DataContainer.</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.data</code></td>
+<td>Data matrix</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.shape</code></td>
+<td>Shape of data matrix</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.length</code></td>
+<td>Number of data columns</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.frames</code></td>
+<td>Number of data frames</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.vector_length</code></td>
+<td>Data vector length</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.push_processing_chain_item(...)</code></td>
+<td>Push processing chain item</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.focus_start</code></td>
+<td>Focus segment start</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.focus_stop</code></td>
+<td>Focus segment stop</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.T</code></td>
+<td>Transposed data in a data container</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.stats</code></td>
+<td>Basic statistics of data matrix.</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.reset_focus()</code></td>
+<td>Reset focus segment</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.get_focused()</code></td>
+<td>Get focus segment from data matrix.</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.freeze()</code></td>
+<td>Freeze focus segment, copy segment to be container’s data.</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.get_frames([...])</code></td>
+<td>Get frames from data matrix.</td>
+</tr>
+<tr>
+<td><code>DataMatrix2DContainer.plot()</code></td>
+<td>Visualize data matrix.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-2-4-DataMatrix3DContainer"><a href="#1-2-4-DataMatrix3DContainer" class="headerlink" title="1.2.4 DataMatrix3DContainer"></a>1.2.4 DataMatrix3DContainer</h4><pre><code>`dcase_util.containers.DataMatrix3DContainer`
+</code></pre><table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataMatrix3DContainer([data, stats, ...])</code></td>
+<td>三位数据矩阵容器, 从<code>DataMatrix2DContainer</code>继承.</td>
+</tr>
+<tr>
+<td><code>DataMatrix3DContainer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>DataMatrix3DContainer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>DataMatrix3DContainer.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>`DataMatrix3DContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>DataMatrix3DContainer.data</code></td>
+<td>Data matrix</td>
+</tr>
+<tr>
+<td><code>DataMatrix3DContainer.length</code></td>
+<td>Number of data columns</td>
+</tr>
+<tr>
+<td><code>DataMatrix3DContainer.frames</code></td>
+<td>Number of data frames</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-2-5-BinaryMatrix3DContainer"><a href="#1-2-5-BinaryMatrix3DContainer" class="headerlink" title="1.2.5 BinaryMatrix3DContainer"></a>1.2.5 BinaryMatrix3DContainer</h4><pre><code>`dcase_util.containers.BinaryMatrix2DContainer`
+</code></pre><table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BinaryMatrix2DContainer([data, ...])</code></td>
+<td>Two-dimensional data matrix container class, inherited from DataContainer.</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.data</code></td>
+<td>Data matrix</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.length</code></td>
+<td>Number of data columns</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.frames</code></td>
+<td>Number of data frames</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.pad(length[, ...])</code></td>
+<td>Pad binary matrix along time axis</td>
+</tr>
+<tr>
+<td><code>BinaryMatrix2DContainer.plot([...])</code></td>
+<td>Visualize binary matrix, and optionally synced data matrix.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-2-4-DataRepository"><a href="#1-2-4-DataRepository" class="headerlink" title="1.2.4 DataRepository"></a>1.2.4 DataRepository</h4><pre><code>dcase_util.containers.DataRepository
+</code></pre><p>DataRepository是可用于存储多个其他数据容器的容器。存储库存储具有两个级别信息的数据：标签和流。 标签是更高级别的密钥，流是第二级。 例如，可以使用储存库来储存与相同音频信号有关的多个不同声学特征。 流ID可用于存储从不同音频通道提取的特征。 后面的功能可以使用提取器标签和流ID进行访问。</p>
+<p>用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"># Initialize container with data</div><div class="line">data_repository = dcase_util.containers.DataRepository(</div><div class="line">    data=&#123;</div><div class="line">        &apos;label1&apos;: &#123;</div><div class="line">            &apos;stream0&apos;: &#123;</div><div class="line">                &apos;data&apos;: 100</div><div class="line">            &#125;,</div><div class="line">            &apos;stream1&apos;: &#123;</div><div class="line">                &apos;data&apos;: 200</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        &apos;label2&apos;: &#123;</div><div class="line">            &apos;stream0&apos;: &#123;</div><div class="line">                &apos;data&apos;: 300</div><div class="line">            &#125;,</div><div class="line">            &apos;stream1&apos;: &#123;</div><div class="line">                &apos;data&apos;: 400</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">)</div><div class="line"># Show container information::</div><div class="line">data_repository. show()</div><div class="line"># DataRepository :: Class</div><div class="line">#     Repository info</div><div class="line">#       Item class                    : DataMatrix2DContainer</div><div class="line">#       Item count                    : 2</div><div class="line">#       Labels                        : [&apos;label1&apos;, &apos;label2&apos;]</div><div class="line">#     Content</div><div class="line">#       [label1][stream1]             : &#123;&apos;data&apos;: 200&#125;</div><div class="line">#       [label1][stream0]             : &#123;&apos;data&apos;: 100&#125;</div><div class="line">#       [label2][stream1]             : &#123;&apos;data&apos;: 400&#125;</div><div class="line">#       [label2][stream0]             : &#123;&apos;data&apos;: 300&#125;</div><div class="line"></div><div class="line"># Accessing data inside repository</div><div class="line">data_repository.get_container(label=&apos;label1&apos;,stream_id=&apos;stream1&apos;)</div><div class="line"># &#123;&apos;data&apos;: 200&#125;</div><div class="line"></div><div class="line"># Setting data</div><div class="line">data_repository.set_container(label=&apos;label3&apos;,stream_id=&apos;stream0&apos;, container=&#123;&apos;data&apos;:500&#125;)</div><div class="line">data_repository. show()</div><div class="line"># DataRepository :: Class</div><div class="line">#     Repository info</div><div class="line">#       Item class                    : DataMatrix2DContainer</div><div class="line">#       Item count                    : 3</div><div class="line">#       Labels                        : [&apos;label1&apos;, &apos;label2&apos;, &apos;label3&apos;]</div><div class="line">#     Content</div><div class="line">#       [label1][stream1]             : &#123;&apos;data&apos;: 200&#125;</div><div class="line">#       [label1][stream0]             : &#123;&apos;data&apos;: 100&#125;</div><div class="line">#       [label2][stream1]             : &#123;&apos;data&apos;: 400&#125;</div><div class="line">#       [label2][stream0]             : &#123;&apos;data&apos;: 300&#125;</div><div class="line">#       [label3][stream0]             : &#123;&apos;data&apos;: 500&#125;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>调用格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataRepository([data, filename_dict, ...])</code></td>
+<td>数据存储库容器类将多个DataContainer一起存储</td>
+</tr>
+<tr>
+<td><code>DataRepository.load([filename_dict])</code></td>
+<td>Load file list</td>
+</tr>
+<tr>
+<td><code>DataRepository.get_container(label[, stream_id])</code></td>
+<td>Get container from repository</td>
+</tr>
+<tr>
+<td><code>DataRepository.set_container(container, label)</code></td>
+<td>Store container to repository</td>
+</tr>
+<tr>
+<td><code>DataRepository.push_processing_chain_item(...)</code></td>
+<td>Push processing chain item</td>
+</tr>
+<tr>
+<td><code>DataRepository.plot()</code></td>
+<td>可视化存储在存储库中的数据。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-3-Audio-containers"><a href="#1-3-Audio-containers" class="headerlink" title="1.3 Audio containers"></a>1.3 Audio containers</h3><pre><code>dcase_util.containers.AudioContainer
+</code></pre><p>AudioContainer是用于多声道音频的数据容器。 它读取多种格式（WAV，FLAC，M4A，WEBM）并写入WAV和FLAC文件。 直接从Youtube下载音频内容也受支持。</p>
+<p>基本用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"># Generating two-channel audio</div><div class="line">audio_container = dcase_util.containers.AudioContainer(fs=44100)</div><div class="line">t = numpy.linspace(0, 2, 2 * audio_container.fs, endpoint=False)</div><div class="line">x1 = numpy.sin(220 * 2 * numpy.pi * t)</div><div class="line">x2 = numpy.sin(440 * 2 * numpy.pi * t)</div><div class="line">audio_container.data = numpy.vstack([x1, x2])</div><div class="line"></div><div class="line">audio_container.show()</div><div class="line"># AudioContainer :: Class</div><div class="line">#  Sampling rate                     : 44100</div><div class="line">#     Channels                        : 2</div><div class="line">#   Duration</div><div class="line">#     Seconds                         : 2.00 sec</div><div class="line">#     Milliseconds                    : 2000.00 ms</div><div class="line">#     Samples                         : 88200 samples</div><div class="line"></div><div class="line"># Loading audio file</div><div class="line">audio_container = dcase_util.containers.AudioContainer().load(</div><div class="line">  filename=dcase_util.utils.Example.audio_filename()</div><div class="line">)</div><div class="line"></div><div class="line"># Loading audio content from Youtube</div><div class="line">audio_container = dcase_util.containers.AudioContainer().load_from_youtube(</div><div class="line">  query_id=&apos;2ceUOv8A3FE&apos;,</div><div class="line">  start=1,</div><div class="line">  stop=5</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>该容器具有聚焦机制，可灵活捕捉部分音频数据，同时保持完整的音频信号不变。 可以根据时间进行聚焦（如果时间分辨率已定义，则以秒为单位），或基于样本ID。 可以对单声道或混音（单声道）频道进行聚焦。 音频容器内容可以通过冻结来替代焦点细分。</p>
+<p>使用焦点细分机制的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"># Using focus to get part data between 0.5 sec and 1.0 sec</div><div class="line">print(audio_container.set_focus(start_seconds=0.5, stop_seconds=1.0).get_focused().shape)</div><div class="line"># (2, 22050)</div><div class="line"></div><div class="line"># Using focus to get part data starting 5 sec with 2 sec duration</div><div class="line">print(audio_container.set_focus(start_seconds=5, duration_seconds=2.0).get_focused().shape)</div><div class="line"># (2, 88200)</div><div class="line"></div><div class="line"># Using focus to get part data starting 5 sec with 2 sec duration, mixdown of two stereo channels</div><div class="line">print(audio_container.set_focus(start_seconds=5, duration_seconds=2.0, channel=&apos;mixdown&apos;).get_focused().shape)</div><div class="line"># (88200,)</div><div class="line"></div><div class="line"># Using focus to get part data starting 5 sec with 2 sec duration, left of two stereo channels</div><div class="line">print(audio_container.set_focus(start_seconds=5, duration_seconds=2.0, channel=&apos;left&apos;).get_focused().shape)</div><div class="line"># (88200,)</div><div class="line"></div><div class="line"># Using focus to get part data starting 5 sec with 2 sec duration, seconds audio channel (indexing starts from 0)</div><div class="line">print(audio_container.set_focus(start_seconds=5, duration_seconds=2.0, channel=1).get_focused().shape)</div><div class="line"># (88200,)</div><div class="line"></div><div class="line"># Using focus to get part data between samples 44100 and 88200</div><div class="line">print(audio_container.set_focus(start=44100, stop=88200).get_focused().shape)</div><div class="line"># (2, 44100)</div><div class="line"></div><div class="line"># Resetting focus and accessing full data matrix::</div><div class="line">audio_container.reset_focus()</div><div class="line">print(audio_container.get_focused().shape)</div><div class="line"># (2, 441001)</div><div class="line"></div><div class="line"># Using focus to get part data starting 5 sec with 2 sec duration, and freeze this segment ::</div><div class="line">audio_container.set_focus(start_seconds=5, duration_seconds=2.0).freeze()</div><div class="line">print(audio_container.shape)</div><div class="line"># (2, 88200)</div></pre></td></tr></table></figure>
+<p>Processing examples:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Normalizing audio</div><div class="line">audio_container.normalize()</div><div class="line"></div><div class="line"># Resampling audio to target sampling rate</div><div class="line">audio_container.resample(target_fs=16000)</div></pre></td></tr></table></figure>
+<p>Visualizations examples:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Plotting waveform</div><div class="line">audio_container.plot_wave()</div><div class="line"></div><div class="line"># Plotting spectrogram</div><div class="line">audio_container.plot_spec()</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AudioContainer([data, fs, ...])</code></td>
+<td>Audio container class.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.load([filename, fs, mono, ...])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>AudioContainer.load_from_youtube(query_id[, ...])</code></td>
+<td>Load audio data from youtube</td>
+</tr>
+<tr>
+<td>AudioContainer.save([filename, bit_depth])`</td>
+<td>Save audio</td>
+</tr>
+<tr>
+<td><code>AudioContainer.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>AudioContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>AudioContainer.data</code></td>
+<td>Audio data</td>
+</tr>
+<tr>
+<td><code>AudioContainer.focus_start_samples</code></td>
+<td>Focus segment start in samples.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.focus_start_seconds</code></td>
+<td>Focus segment start in seconds.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.focus_stop_samples</code></td>
+<td>Focus segment stop in samples.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.focus_stop_seconds</code></td>
+<td>Focus segment stop in seconds.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.focus_channel</code></td>
+<td>Focus channel</td>
+</tr>
+<tr>
+<td><code>AudioContainer.loaded</code></td>
+<td>Audio load status.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.shape</code></td>
+<td>Audio data shape.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.length</code></td>
+<td>Length of audio data in samples.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.duration_samples</code></td>
+<td>Duration of audio data in samples.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.duration_ms</code></td>
+<td>Duration of audio data in milliseconds.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.duration_sec</code></td>
+<td>Duration of audio data in seconds.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.streams</code></td>
+<td>Rename channels for compatibility.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.empt</code></td>
+<td>Check if audio data is empty.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.reset_focus()</code></td>
+<td>Reset focus segment.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.set_focus([start, stop, ...])</code></td>
+<td>Set focus segment</td>
+</tr>
+<tr>
+<td><code>AudioContainer.get_focused()</code></td>
+<td>Get focus segment from audio data.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.freeze()</code></td>
+<td>Freeze focus segment, copy segment to be container’s data.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.frames([frame_length, ...])</code></td>
+<td>Slice audio into overlapping frames.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.normalize([headroom])</code></td>
+<td>Normalize audio data.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.resample(target_fs[, scale, ...])</code></td>
+<td>Resample audio data.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.mixdown()</code></td>
+<td>Mix all audio channels into single channel.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.plot([plot_type])</code></td>
+<td>Visualize audio data</td>
+</tr>
+<tr>
+<td><code>AudioContainer.plot_wave([x_axis, ...])</code></td>
+<td>Visualize audio data as waveform.</td>
+</tr>
+<tr>
+<td><code>AudioContainer.plot_spec([spec_type, ...])</code></td>
+<td>Visualize audio data as spectrogram.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-Feature-containers"><a href="#1-4-Feature-containers" class="headerlink" title="1.4 Feature containers"></a>1.4 Feature containers</h3><ul>
+<li><p><strong>FeatureContainer</strong></p>
+<p>  <code>dcase_util.containers.FeatureContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FeatureContainer([data, stats, metadata, ...])</code></td>
+<td>从DataContainer继承的单个特征矩阵的特征容器类。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>FeatureRepository</strong></p>
+<p>  <code>dcase_util.containers.FeatureRepository</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FeatureRepository([filename_dict, ...])</code></td>
+<td>Feature repository container class to store multiple FeatureContainers together.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-5-Mapping-containers"><a href="#1-5-Mapping-containers" class="headerlink" title="1.5 Mapping containers"></a>1.5 Mapping containers</h3><p><strong>OneToOneMappingContainer</strong>，<code>dcase_util.containers.OneToOneMappingContainer</code></p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OneToOneMappingContainer(\*args, \*\*kwargs)</code></td>
+<td>Mapping container class for 1:1 data mapping, inherited from DictContainer class.</td>
+</tr>
+<tr>
+<td><code>OneToOneMappingContainer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>OneToOneMappingContainer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>OneToOneMappingContainer.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>OneToOneMappingContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>OneToOneMappingContainer.map(key[, default])</code></td>
+<td>Map with a key.</td>
+</tr>
+<tr>
+<td><code>OneToOneMappingContainer.flipped</code></td>
+<td>Exchange map key and value pairs.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-6-Metadata-containers"><a href="#1-6-Metadata-containers" class="headerlink" title="1.6 Metadata containers"></a>1.6 Metadata containers</h3><ul>
+<li><p><strong>MetaDataItem</strong></p>
+<p>  <code>dcase_util.containers.MetaDataItem</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MetaDataItem(\*args, \*\*kwargs)</code></td>
+<td>Meta data item class, inherited from standard dict class.</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.id</code></td>
+<td>Unique item identifier</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.get_list()</code></td>
+<td>Return item values in a list with specified order.</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.filename</code></td>
+<td>Filename</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.filename_original</code></td>
+<td>Filename</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.scene_label</code></td>
+<td>Scene label</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.event_label</code></td>
+<td>Event label</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.onset</code></td>
+<td>Onset</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.offset</code></td>
+<td>Offset</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.identifier</code></td>
+<td>Identifier</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.source_label</code></td>
+<td>Source label</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.tags</code></td>
+<td>Tags</td>
+</tr>
+<tr>
+<td><code>MetaDataItem.active_within_segment(start, stop)</code></td>
+<td>Item active withing given segment.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>MetaDataContainer</strong></p>
+<p>  <code>dcase_util.containers.MetaDataContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MetaDataContainer(\*args, \*\*kwargs)</code></td>
+<td>Meta data container class, inherited from ListDictContainer.</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.log([level, show_data, ...])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.log_all([level])</code></td>
+<td>Log container content with all meta data items.</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.show([show_data, show_stats])</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.show_all()</code></td>
+<td>Print container content with all meta data items.</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.load([filename, fields, ...])</code></td>
+<td>Load event list from delimited text file (csv-formatted)</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.save([filename, fields, ...])</code></td>
+<td>Save content to csv file</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.append(item)</code></td>
+<td>Append item to the meta data list</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.file_count</code></td>
+<td>Number of files</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.event_count</code></td>
+<td>Number of events</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.scene_label_count</code></td>
+<td>Number of unique scene labels</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.event_label_count</code></td>
+<td>Number of unique event labels</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.identifier_count</code></td>
+<td>Number of unique identifiers</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.tag_count</code></td>
+<td>Number of unique tags</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.unique_files</code></td>
+<td>Unique files</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.unique_event_labels</code></td>
+<td>Unique event labels</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.unique_scene_labels</code></td>
+<td>Unique scene labels</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.unique_tags</code></td>
+<td>Unique tags</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.unique_identifiers</code></td>
+<td>Unique identifiers</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.max_offset</code></td>
+<td>Find the offset (end-time) of last event</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.get_string([show_data, ...])</code></td>
+<td>Get content in string format</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.filter([filename, ...])</code></td>
+<td>Filter content</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.filter_time_segment([...])</code></td>
+<td>Filter time segment</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.process_events([...])</code></td>
+<td>Process event content</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.add_time(time)</code></td>
+<td>Add time offset to event onset and offset timestamps</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.stats([event_label_list, ...])</code></td>
+<td>Statistics of the container content</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.scene_stat_counts()</code></td>
+<td>Scene count statistics</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.event_stat_counts()</code></td>
+<td>Event count statistics</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.tag_stat_counts()</code></td>
+<td>Tag count statistics</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.to_event_roll([...])</code></td>
+<td>Event roll</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.intersection(second_metadata)</code></td>
+<td>Intersection of two meta containers</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.intersection_report(...)</code></td>
+<td>Intersection report for two meta containers</td>
+</tr>
+<tr>
+<td><code>MetaDataContainer.difference(second_metadata)</code></td>
+<td>Difference of two meta containers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-7-Parameter-containers"><a href="#1-7-Parameter-containers" class="headerlink" title="1.7 Parameter containers"></a>1.7 Parameter containers</h3><ul>
+<li><p><strong>ParameterContainer</strong></p>
+<p>  <code>dcase_util.containers.ParameterContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ParameterContainer(\*args, \*\*kwargs)</code></td>
+<td>参数容器类，用于继承自<code>DictContainer</code>类的参数。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>AppParameterContainer</strong></p>
+<p>  <code>dcase_util.containers.AppParameterContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AppParameterContainer([data, app_base, ...])</code></td>
+<td>应用程序参数的参数容器类，继承自<code>ParameterContainer</code>。</td>
+</tr>
+<tr>
+<td><code>AppParameterContainer.reset([field_labels, ...])</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>AppParameterContainer.process([...])</code></td>
+<td>Process parameters</td>
+</tr>
+<tr>
+<td><code>AppParameterContainer.override(override)</code></td>
+<td>递归地覆盖容器内容。</td>
+</tr>
+<tr>
+<td><code>AppParameterContainer.get_path_translated(path)</code></td>
+<td>用路径获取数据，路径可以包含将被翻译的字符串常量。</td>
+</tr>
+<tr>
+<td><code>AppParameterContainer.set_path_translated(...)</code></td>
+<td>用路径设置数据，路径可以包含将被翻译的字符串常量。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>DCASEAppParameterContainer</strong></p>
+<p>  <code>dcase_util.containers.DCASEAppParameterContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DCASEAppParameterContainer(\*args, \*\*kwargs)</code></td>
+<td>DCASE应用程序参数文件的参数容器类，从<code>AppParameterContainer</code>继承。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>ParameterListContainer</strong></p>
+<p>  <code>dcase_util.containers.ParameterListContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ParameterListContainer(\*args, \*\*kwargs)</code></td>
+<td>参数列表容器，继承自<code>ListDictContaine</code>r。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-8-Probability-containers"><a href="#1-8-Probability-containers" class="headerlink" title="1.8 Probability containers"></a>1.8 Probability containers</h3><ul>
+<li><p><strong>ProbabilityItem</strong></p>
+<p> <code>dcase_util.containers.ProbabilityItem</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProbabilityItem(\*args, \*\*kwargs)</code></td>
+<td>概率数据项类，继承自标准字典类。</td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.filename</code></td>
+<td>Filename</td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.label</code></td>
+<td>Label</td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.probability</code></td>
+<td>Returns:    </td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.id</code></td>
+<td>唯一的项目（item）标识</td>
+</tr>
+<tr>
+<td><code>ProbabilityItem.get_list()</code></td>
+<td>以指定顺序返回列表中的项目（item）值。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>ProbabilityContainer</strong></p>
+<p>  <code>dcase_util.containers.ProbabilityContainer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProbabilityContainer(\*args, \*\*kwargs)</code></td>
+<td>概率数据容器类，继承自ListDictContainer。</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.load([filename])</code></td>
+<td>来自分隔文本文件的加载概率列表（csv格式）</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.save([filename, delimiter])</code></td>
+<td>Save content to csv file</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.append(item)</code></td>
+<td>Append item to the meta data list</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.unique_files</code></td>
+<td>Unique files</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.unique_labels</code></td>
+<td>Unique labels</td>
+</tr>
+<tr>
+<td><code>ProbabilityContainer.filter([filename, ...])</code></td>
+<td>Filter content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-9-MIxins"><a href="#1-9-MIxins" class="headerlink" title="1.9 MIxins"></a>1.9 MIxins</h3><ul>
+<li><p>ContainerMixin</p>
+<p>  <code>dcase_util.containers.ContainerMixin</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ContainerMixin(\*args, \*\*kwargs)</code></td>
+<td>Container mixin to give class basic container methods.</td>
+</tr>
+<tr>
+<td><code>ContainerMixin.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>ContainerMixin.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>FileMixin</p>
+<p>  <code>dcase_util.containers.FileMixin</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileMixin(\*args, \*\*kwargs)</code></td>
+<td>File mixin to give class methods to load and store content.</td>
+</tr>
+<tr>
+<td><code>FileMixin.get_file_information()</code></td>
+<td>Get file information, filename</td>
+</tr>
+<tr>
+<td><code>FileMixin.detect_file_format([filename])</code></td>
+<td>Detect file format from extension</td>
+</tr>
+<tr>
+<td><code>FileMixin.validate_format()</code></td>
+<td>Validate file format</td>
+</tr>
+<tr>
+<td><code>FileMixin.exists()</code></td>
+<td>Checks that file exists</td>
+</tr>
+<tr>
+<td><code>FileMixin.empty()</code></td>
+<td>Check if file is empty</td>
+</tr>
+<tr>
+<td><code>FileMixin.delimiter([exclude_delimiters])</code></td>
+<td>Use csv.sniffer to guess delimiter for CSV file</td>
+</tr>
+<tr>
+<td><code>FileMixin.is_package([filename])</code></td>
+<td>Determine if the file is compressed package.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>PackageMixin</p>
+<p>  <code>dcase_util.containers.PackageMixin</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PackageMixin(\*args, \*\*kwargs)</code></td>
+<td>打包mixin以提供处理压缩文件包的类基本方法。</td>
+</tr>
+<tr>
+<td><code>PackageMixin.package_password</code></td>
+<td>Package password</td>
+</tr>
+<tr>
+<td><code>PackageMixin.extract([overwrite, ...])</code></td>
+<td>解压缩包</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-Data"><a href="#2-Data" class="headerlink" title="2. Data"></a>2. Data</h2><p>数据处理的类</p>
+<h3 id="2-1-Buffers"><a href="#2-1-Buffers" class="headerlink" title="2.1 Buffers"></a>2.1 Buffers</h3><p><code>dcase_util.data.DataBuffer</code></p>
+<p>数据缓冲类，可用于存储与项目关联的数据和元数据。 项目数据通过项目键进行访问。当内部缓冲区被填满时，最旧的项目被替换。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataBuffer([size])</code></td>
+<td>数据缓冲区（先进先出）</td>
+</tr>
+<tr>
+<td><code>DataBuffer.set(key[, data, meta])</code></td>
+<td>将项目（item）插入缓冲区</td>
+</tr>
+<tr>
+<td><code>DataBuffer.get(key)</code></td>
+<td>根据键获取项目（item）</td>
+</tr>
+<tr>
+<td><code>DataBuffer.clear()</code></td>
+<td>清空缓冲区</td>
+</tr>
+<tr>
+<td><code>DataBuffer.count</code></td>
+<td>缓冲区使用情况</td>
+</tr>
+<tr>
+<td><code>DataBuffer.full</code></td>
+<td>缓冲区已满</td>
+</tr>
+<tr>
+<td><code>DataBuffer.key_exists(key)</code></td>
+<td>检查键（key）是否存在于缓冲区中</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-Encoders"><a href="#2-2-Encoders" class="headerlink" title="2.2 Encoders"></a>2.2 Encoders</h3><ul>
+<li><p>BinaryMatrixEncoder</p>
+<p>  <code>dcase_util.data.BinaryMatrixEncoder</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BinaryMatrixEncoder([label_list，...])</code></td>
+<td>二进制矩阵编码器基类</td>
+</tr>
+<tr>
+<td><code>BinaryMatrixEncoder.pad(length [，binary_matrix])</code></td>
+<td>沿时间轴填充二进制矩阵</td>
+</tr>
+<tr>
+<td><code>BinaryMatrixEncoder.plot([binary_matrix，...])</code></td>
+<td>可视化二进制矩阵和可选的同步数据矩阵。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>OneHotEncoder</p>
+<p>  <code>dcase_util.data.OneHotEncoder</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OneHotEncoder([label_list, time_resolution, ...])</code></td>
+<td>One hot encoder class</td>
+</tr>
+<tr>
+<td><code>OneHotEncoder.encode(label[, length_frames, ...])</code></td>
+<td>Generate one hot binary matrix</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>ManyHotEncoder</p>
+<p>  <code>dcase_util.data.ManyHotEncoder</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ManyHotEncoder([label_list, ...])</code></td>
+<td>Many hot encoder class</td>
+</tr>
+<tr>
+<td><code>ManyHotEncoder.encode(label_list[, ...])</code></td>
+<td>Generate one hot binary matrix</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>EventRollEncoder</p>
+<p>  <code>dcase_util.data.EventRollEncoder</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EventRollEncoder([label_list, ...])</code></td>
+<td>Event list encoder class</td>
+</tr>
+<tr>
+<td><code>EventRollEncoder.encode(metadata_container)</code></td>
+<td>Generate event roll from MetaDataContainer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-3-Data-manipulators"><a href="#2-3-Data-manipulators" class="headerlink" title="2.3 Data manipulators"></a>2.3 Data manipulators</h3><ul>
+<li><p>Normalizer</p>
+<p>  <code>dcase_util.data.Normalizer</code>    </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Normalizer([n, s1, s2, mean, std])</code></td>
+<td>数据归一化器来累积数据统计</td>
+</tr>
+<tr>
+<td><code>Normalizer.log([level])</code></td>
+<td>记录容器内容</td>
+</tr>
+<tr>
+<td><code>Normalizer.show()</code></td>
+<td>打印容器内容</td>
+</tr>
+<tr>
+<td><code>Normalizer.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>Normalizer.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>Normalizer.mean</code></td>
+<td>Mean vector</td>
+</tr>
+<tr>
+<td><code>Normalizer.std</code></td>
+<td>标准差矢量</td>
+</tr>
+<tr>
+<td><code>Normalizer.reset()</code></td>
+<td>充值内部变量</td>
+</tr>
+<tr>
+<td><code>Normalizer.accumulate(data[, time_axis])</code></td>
+<td>计算统计量</td>
+</tr>
+<tr>
+<td><code>Normalizer.finalize()</code></td>
+<td>完成统计计算</td>
+</tr>
+<tr>
+<td><code>Normalizer.normalize(data)</code></td>
+<td>使用该类的内部统计量标准化特征矩阵</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>RepositoryNormalizer</p>
+<p>  <code>dcase_util.data.RepositoryNormalizer</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RepositoryNormalizer([normalizer_dict, ...])</code></td>
+<td>Data repository normalizer</td>
+</tr>
+<tr>
+<td><code>RepositoryNormalizer.load(filename_dict)</code></td>
+<td>Load normalizers from disk.</td>
+</tr>
+<tr>
+<td><code>RepositoryNormalizer.normalize(data_repository)</code></td>
+<td>Normalize data repository</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Aggregator（聚合）<br><code>dcase_util.data.Aggregator</code></li>
+</ul>
+<p>数据聚合器可用于处理窗口中的数据矩阵。 这个处理阶段可以用来通过计算它们的平均值和标准差来在特定的窗口长度内折叠数据，或者将该矩阵平坦化为单个向量。</p>
+<p>支持的处理方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">data_aggregator = dcase_util.data.Aggregator(</div><div class="line">    recipe=[&apos;mean&apos;, &apos;std&apos;],</div><div class="line">    win_length_frames=10,</div><div class="line">    hop_length_frames=1,</div><div class="line">)</div><div class="line"></div><div class="line">data_stacker = dcase_util.data.Stacker(recipe=&apos;mfcc&apos;)</div><div class="line">data_repository = dcase_util.utils.Example.feature_repository()</div><div class="line">data_matrix = data_stacker.stack(data_repository)</div><div class="line">data_matrix = data_aggregator.aggregate(data_matrix)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Aggregator([win_length_frames, ...])</code></td>
+<td>Data aggregator</td>
+</tr>
+<tr>
+<td><code>Aggregator.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>Aggregator.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>Aggregator.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>Aggregator.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>Aggregator.aggregate([data])</code></td>
+<td>Aggregate data</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Sequencer</p>
+<p>  <code>dcase_util.data.Sequencer</code></p>
+<p>  Sequencer类将数据矩阵处理成序列（图像）。 序列可以重叠，并且可以在调用之间改变排序网格（移位）。</p>
+<p>  类名 | 功能<br>  —|—<br>  <code>Sequencer([frames, hop_length_frames, ...])</code> | Data sequencer<br>  <code>Sequencer.log([level])</code> | Log container content<br>  <code>Sequencer.show()</code> | Print container content<br>  <code>Sequencer.load([filename])</code> | Load file<br>  <code>Sequencer.save([filename])</code> | Save file<br>  <code>Sequencer.sequence([data])</code> | Make sequences<br>  <code>Sequencer.increase_shifting([shift_step])</code> | Increase temporal shifting</p>
+</li>
+</ul>
+<ul>
+<li><p>Stacker</p>
+<p>  <code>dcase_util.data.Stacker</code></p>
+</li>
+</ul>
+<p>数据堆叠类。 Class使用矢量配方和DataRepository，并创建适当的数据矩阵。</p>
+<p>矢量方法（Vector recipe）</p>
+<p>使用recipe，您可以选择全矩阵，只选择开始和结束索引的一部分，或从中选择单个行。</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line"> &#123;</div><div class="line">    &apos;method&apos;: &apos;mfcc&apos;,</div><div class="line"> &#125;,</div><div class="line"> &#123;</div><div class="line">    &apos;method&apos;: &apos;mfcc_delta&apos;</div><div class="line">    &apos;vector-index: &#123;</div><div class="line">        &apos;channel&apos;: 0,</div><div class="line">        &apos;start&apos;: 1,</div><div class="line">        &apos;end&apos;: 17,</div><div class="line">        &apos;full&apos;: False,</div><div class="line">        &apos;selection&apos;: False,</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line"> &#123;</div><div class="line">    &apos;method&apos;: &apos;mfcc_acceleration&apos;,</div><div class="line">    &apos;vector-index: &#123;</div><div class="line">        &apos;channel&apos;: 0,</div><div class="line">        &apos;full&apos;: False,</div><div class="line">        &apos;selection&apos;: True,</div><div class="line">        &apos;vector&apos;: [2, 4, 6]</div><div class="line">    &#125;</div><div class="line"> &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>请参阅dcase_util.utils.VectorRecipeParser如何方便地使用配方字符串来生成上述数据结构。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Stacker([recipe, hop])</code></td>
+<td>Data stacker</td>
+</tr>
+<tr>
+<td><code>Stacker.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>Stacker.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>Stacker.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>Stacker.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>Stacker.stack(repository)</code></td>
+<td>Vector creation based on recipe</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Selector</p>
+<p> <code>dcase_util.data.Selector</code>，数据选择类</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Selector(\*\*kwargs)</code></td>
+<td>Data selector</td>
+</tr>
+<tr>
+<td><code>Selector.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>Selector.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>Selector.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>Selector.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>Selector.select(data[, selection_events])</code></td>
+<td>Selecting feature repository with given events</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Masker</p>
+<p>  <code>dcase_util.data.Masker</code>，数据屏蔽（筛选）类。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Masker(\*\*kwargs)</code></td>
+<td>Data masker</td>
+</tr>
+<tr>
+<td><code>Masker.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>Masker.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>Masker.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>Masker.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>Masker.mask(data[, mask_events])</code></td>
+<td>Masking feature repository with given events</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-4-Probability"><a href="#2-4-Probability" class="headerlink" title="2.4 Probability"></a>2.4 Probability</h3><p><strong>ProbabilityEncoder</strong>，<code>dcase_util.data.ProbabilityEncoder</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProbabilityEncoder([label_list])</code></td>
+<td>Constructor</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.collapse_probabilities(...)</code></td>
+<td>Collapse probabilities</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.collapse_probabilities_windowed(...)</code></td>
+<td>Collapse probabilities in windows</td>
+</tr>
+<tr>
+<td><code>ProbabilityEncoder.binarization(probabilities)</code></td>
+<td>Binarization</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-5-Eecisions"><a href="#2-5-Eecisions" class="headerlink" title="2.5 Eecisions"></a>2.5 Eecisions</h3><p><strong>DecisionEncoder</strong>，<code>dcase_util.data.DecisionEncoder</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DecisionEncoder([label_list])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.log([level])</code></td>
+<td>Log container content</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.show()</code></td>
+<td>Print container content</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.load([filename])</code></td>
+<td>Load file</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.save([filename])</code></td>
+<td>Save file</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.majority_vote(frame_decisions)</code></td>
+<td>多票制</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.find_contiguous_regions(...)</code></td>
+<td>从具有布尔值的numpy.array找到连续区域。</td>
+</tr>
+<tr>
+<td><code>DecisionEncoder.process_activity(...[, operator])</code></td>
+<td>处理动态数组（二进制）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-Datasets"><a href="#3-Datasets" class="headerlink" title="3. Datasets"></a>3. Datasets</h2><h3 id="3-1-Dataset"><a href="#3-1-Dataset" class="headerlink" title="3.1 Dataset"></a>3.1 Dataset</h3><p><code>dcase_util.datasets.Dataset</code>这是基类，所有专用数据集都是从它继承而来的。基类本身不能使用。</p>
+<p>用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># Create class</div><div class="line">dataset = dcase_util.datasets.TUTAcousticScenes_2017_DevelopmentSet(data_path=&apos;data&apos;)</div><div class="line"># Initialize dataset, this will make sure dataset is downloaded, packages are extracted,</div><div class="line"># and needed meta files are created</div><div class="line">dataset.initialize()</div><div class="line"># Show meta data</div><div class="line">dataset.meta.show()</div><div class="line"># Get all evaluation setup folds</div><div class="line">folds = dataset.folds()</div><div class="line"># Get all evaluation setup folds</div><div class="line">train_data_fold1 = dataset.train(fold=folds[0])</div><div class="line">test_data_fold1 = dataset.test(fold=folds[0])</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>语法格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Dataset([name, storage_name, data_path, ...])</code></td>
+<td>数据集基类</td>
+</tr>
+<tr>
+<td><code>Dataset.initialize()</code></td>
+<td>数据集基类</td>
+</tr>
+<tr>
+<td><code>Dataset.download_packages()</code></td>
+<td>通过互联网将数据集包下载到本地路径</td>
+</tr>
+<tr>
+<td><code>Dataset.extract_packages()</code></td>
+<td>提取数据集包</td>
+</tr>
+<tr>
+<td><code>Dataset.prepare()</code></td>
+<td>为使用准备数据集</td>
+</tr>
+<tr>
+<td><code>Dataset.process_meta_item(item[, absolute_path])</code></td>
+<td>处理单个元数据项目</td>
+</tr>
+<tr>
+<td><code>Dataset.check_filelist()</code></td>
+<td>从文件列表生成哈希，并检查它是否与保存在filelist.hash中的哈希匹配</td>
+</tr>
+<tr>
+<td><code>Dataset.show()</code></td>
+<td>打印数据集信息</td>
+</tr>
+<tr>
+<td><code>Dataset.log()</code></td>
+<td>记录数据集信息</td>
+</tr>
+<tr>
+<td><code>Dataset.load()</code></td>
+<td>将数据集元数据和交叉验证集加载到容器中</td>
+</tr>
+<tr>
+<td><code>Dataset.load_meta()</code></td>
+<td>将元数据添加到容器中</td>
+</tr>
+<tr>
+<td><code>Dataset.load_crossvalidation_data()</code></td>
+<td>将交叉验证加载到容器中</td>
+</tr>
+<tr>
+<td><code>Dataset.audio_files</code></td>
+<td>获取数据集中的所有音频文件</td>
+</tr>
+<tr>
+<td><code>Dataset.audio_file_count</code></td>
+<td>获取数据集中音频文件的数量</td>
+</tr>
+<tr>
+<td><code>Dataset.meta</code></td>
+<td>获取数据集的元数据。</td>
+</tr>
+<tr>
+<td><code>Dataset.meta_count</code></td>
+<td>元数据项的数量</td>
+</tr>
+<tr>
+<td><code>Dataset.error_meta</code></td>
+<td>获取数据集的音频错误元数据</td>
+</tr>
+<tr>
+<td><code>Dataset.error_meta_count</code></td>
+<td>错误元数据项的数量</td>
+</tr>
+<tr>
+<td><code>Dataset.folds([mode])</code></td>
+<td>fold ID列表</td>
+</tr>
+<tr>
+<td><code>Dataset.fold_count</code></td>
+<td>评估设置中的fold次数</td>
+</tr>
+<tr>
+<td><code>Dataset.evaluation_setup_filename([...])</code></td>
+<td>评估设置文件名生成</td>
+</tr>
+<tr>
+<td><code>Dataset.train([fold, absolute_paths])</code></td>
+<td>训练列表</td>
+</tr>
+<tr>
+<td><code>Dataset.test([fold, absolute_paths])</code></td>
+<td>测试列表</td>
+</tr>
+<tr>
+<td><code>Dataset.eval([fold, absolute_paths])</code></td>
+<td>评估列表</td>
+</tr>
+<tr>
+<td><code>Dataset.train_files([fold, absolute_paths])</code></td>
+<td>训练文件列表</td>
+</tr>
+<tr>
+<td><code>Dataset.test_files([fold, absolute_paths])</code></td>
+<td>测试文件列表</td>
+</tr>
+<tr>
+<td><code>Dataset.eval_files([fold, absolute_paths])</code></td>
+<td>评估文件列表</td>
+</tr>
+<tr>
+<td><code>Dataset.validation_split([fold, split_type, ...])</code></td>
+<td>验证文件列表</td>
+</tr>
+<tr>
+<td><code>Dataset.validation_files_dataset([fold, verbose])</code></td>
+<td>由数据集提供的验证文件列表</td>
+</tr>
+<tr>
+<td><code>Dataset.validation_files_random([fold, ...])</code></td>
+<td>从训练集中随机选择的验证文件列表。</td>
+</tr>
+<tr>
+<td><code>Dataset.validation_files_balanced([fold, ...])</code></td>
+<td>在保持数据平衡的同时随机选择验证文件列表</td>
+</tr>
+<tr>
+<td><code>Dataset.scene_labels()</code></td>
+<td>元数据中唯一场景标签的列表</td>
+</tr>
+<tr>
+<td><code>Dataset.scene_label_count()</code></td>
+<td>元数据中唯一场景标签的数量</td>
+</tr>
+<tr>
+<td><code>Dataset.event_labels(\*\*kwargs)</code></td>
+<td>元数据中的唯一事件标签列表</td>
+</tr>
+<tr>
+<td><code>Dataset.event_label_count(\*\*kwargs)</code></td>
+<td>元数据中的唯一事件标签列表</td>
+</tr>
+<tr>
+<td><code>Dataset.tags()</code></td>
+<td>元数据中唯一音频标签的列表</td>
+</tr>
+<tr>
+<td><code>Dataset.tag_count()</code></td>
+<td>元数据中唯一音频标签的数量</td>
+</tr>
+<tr>
+<td><code>Dataset.file_meta(filename)</code></td>
+<td>给定文件的元数据</td>
+</tr>
+<tr>
+<td><code>Dataset.file_error_meta(filename)</code></td>
+<td>给定文件的错误元数据</td>
+</tr>
+<tr>
+<td><code>Dataset.file_features(filename)</code></td>
+<td>预先计算给定文件的声学特征</td>
+</tr>
+<tr>
+<td><code>Dataset.relative_to_absolute_path(path)</code></td>
+<td>将相对路径转换为绝对路径</td>
+</tr>
+<tr>
+<td><code>Dataset.absolute_to_relative_path(path)</code></td>
+<td>将绝对路径转换为相对路径</td>
+</tr>
+<tr>
+<td><code>Dataset.dataset_bytes()</code></td>
+<td>数据集的总下载大小（以字节为单位）</td>
+</tr>
+<tr>
+<td><code>Dataset.dataset_size_string()</code></td>
+<td>字符串中数据集的总下载大小</td>
+</tr>
+<tr>
+<td><code>Dataset.dataset_size_on_disk()</code></td>
+<td>当前存储在本地的数据集的总大小</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-2-AcousticScenesDataset"><a href="#3-2-AcousticScenesDataset" class="headerlink" title="3.2 AcousticScenesDataset"></a>3.2 AcousticScenesDataset</h3><p><code>dcase_util.datasets.AcousticSceneDataset</code>，格式如下：</p>
+<p><code>AcousticSceneDataset(\*args, \*\*kwargs)</code></p>
+<p>继承自<code>AcousticSceneDataset</code>的几个类：</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TUTAcousticScenes_2017_DevelopmentSet([...])</code></td>
+<td>TUT Acoustic scenes 2017 开发数据集</td>
+</tr>
+<tr>
+<td><code>TUTAcousticScenes_2017_EvaluationSet([...])</code></td>
+<td>TUT Acoustic scenes 2017 评估数据集</td>
+</tr>
+<tr>
+<td><code>TUTAcousticScenes_2016_DevelopmentSet([...])</code></td>
+<td>TUT Acoustic scenes 2016 开发数据集</td>
+</tr>
+<tr>
+<td><code>TUTAcousticScenes_2016_EvaluationSet([...])</code></td>
+<td>TUT Acoustic scenes 2016 评估数据集</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-3-SoundEventDataset"><a href="#3-3-SoundEventDataset" class="headerlink" title="3.3 SoundEventDataset"></a>3.3 SoundEventDataset</h3><p><code>dcase_util.datasets.SoundEventDataset</code></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SoundEventDataset(\*args, \*\*kwargs)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SoundEventDataset.event_label_count([...])</code></td>
+<td>Number of unique scene labels in the meta data.</td>
+</tr>
+<tr>
+<td><code>SoundEventDataset.event_labels([scene_label])</code></td>
+<td>List of unique event labels in the meta data.</td>
+</tr>
+<tr>
+<td><code>SoundEventDataset.train([fold, ...])</code></td>
+<td>List of training items.</td>
+</tr>
+<tr>
+<td><code>SoundEventDataset.test([fold, ...])</code></td>
+<td>List of testing items.</td>
+</tr>
+</tbody>
+</table>
+<p>继承自<code>SoundEventDataset</code>的几个类：</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TUTRareSoundEvents_2017_DevelopmentSet([...])</code></td>
+<td>TUT Acoustic scenes 2017 development dataset</td>
+</tr>
+<tr>
+<td><code>TUTRareSoundEvents_2017_EvaluationSet([...])</code></td>
+<td>TUT Acoustic scenes 2017 evaluation dataset</td>
+</tr>
+<tr>
+<td><code>TUTSoundEvents_2017_DevelopmentSet([...])</code></td>
+<td>TUT Sound events 2017 development dataset</td>
+</tr>
+<tr>
+<td><code>TUTSoundEvents_2017_EvaluationSet([...])</code></td>
+<td>TUT Sound events 2017 evaluation dataset</td>
+</tr>
+<tr>
+<td><code>TUTSoundEvents_2016_DevelopmentSet([...])</code></td>
+<td>TUT Sound events 2016 development dataset</td>
+</tr>
+<tr>
+<td><code>TUTSoundEvents_2016_EvaluationSet([...])</code></td>
+<td>TUT Sound events 2016 evaluation dataset</td>
+</tr>
+<tr>
+<td><code>TUT_SED_Synthetic_2016([storage_name, ...])</code></td>
+<td>TUT SED Synthetic 2016</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-4-AudioTaggingDataset"><a href="#3-4-AudioTaggingDataset" class="headerlink" title="3.4 AudioTaggingDataset"></a>3.4 AudioTaggingDataset</h3><p><code>dcase_util.datasets.AudioTaggingDataset</code></p>
+<p>语法格式：<code>AudioTaggingDataset(\*args, \*\*kwargs)</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DCASE2017_Task4tagging_DevelopmentSet([...])</code></td>
+<td>DCASE 2017 Large-scale weakly supervised sound event detection for smart cars</td>
+</tr>
+<tr>
+<td><code>DCASE2017_Task4tagging_EvaluationSet([...])</code></td>
+<td>DCASE 2017 Large-scale weakly supervised sound event detection for smart cars</td>
+</tr>
+<tr>
+<td><code>CHiMEHome_DomesticAudioTag_DevelopmentSet([...])</code></td>
+<td>Constructor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-Decorators（修饰符）"><a href="#4-Decorators（修饰符）" class="headerlink" title="4. Decorators（修饰符）"></a>4. Decorators（修饰符）</h2><p>用于修饰函数的辅助类</p>
+<h3 id="RunOnce"><a href="#RunOnce" class="headerlink" title="RunOnce"></a>RunOnce</h3><p><code>dcase_util.decorators.RunOnce</code></p>
+<p><code>RunOnce(f)    Decorator</code> 类只允许执行一次</p>
+<h2 id="5-Features"><a href="#5-Features" class="headerlink" title="5. Features"></a>5. Features</h2><p>提取特征的类</p>
+<ul>
+<li>FeatureExtractor（基本特征提取）</li>
+</ul>
+<p><code>dcase_util.features.FeatureExtractor</code>，特征提取基本类，语法格式：<code>FeatureExtractor([fs, win_length_samples, ...])</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class dcase_util.features.FeatureExtractor(fs=44100, win_length_samples=None, hop_length_samples=None, win_length_seconds=0.04, hop_length_seconds=0.02, **kwargs)</div></pre></td></tr></table></figure>
+<ul>
+<li>SpectralFeatureExtractor<br><code>dcase_util.features.SpectralFeatureExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SpectralFeatureExtractor([spectrogram_type, ...])</code></td>
+<td>特殊特征提取基础类</td>
+</tr>
+<tr>
+<td><code>SpectralFeatureExtractor.get_window_function(n)</code></td>
+<td>窗函数</td>
+</tr>
+<tr>
+<td><code>SpectralFeatureExtractor.get_spectrogram(y)</code></td>
+<td>谱图</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MelExtractor（Mel）<br><code>dcase_util.features.MelExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MelExtractor([fs, win_length_samples, ...])</code></td>
+<td>梅尔带能量特征提取类</td>
+</tr>
+<tr>
+<td><code>MelExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MfccStaticExtractor（MFCC）<br><code>dcase_util.features.MfccStaticExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MfccStaticExtractor([fs, ...])</code></td>
+<td>用于提取静态MFCC功能的特征提取器类</td>
+</tr>
+<tr>
+<td><code>MfccStaticExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MfccDeltaExtractor（MFCC一阶导）</li>
+</ul>
+<p><code>dcase_util.features.MfccDeltaExtractor</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MfccDeltaExtractor([fs, win_length_samples, ...])</code></td>
+<td>MFCC一阶导</td>
+</tr>
+<tr>
+<td><code>MfccDeltaExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MfccAccelerationExtractor（MFCC二阶导）<br><code>dcase_util.features.MfccAccelerationExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MfccAccelerationExtractor([fs, ...])</code></td>
+<td>（MFCC二阶导 MFCC acceleration features</td>
+</tr>
+<tr>
+<td><code>MfccAccelerationExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ZeroCrossingRateExtractor（过零率）<br><code>dcase_util.features.ZeroCrossingRateExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZeroCrossingRateExtractor([fs, ...])</code></td>
+<td>过零率</td>
+</tr>
+<tr>
+<td><code>ZeroCrossingRateExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>RMSEnergyExtractor（均方根能量特征）<br><code>dcase_util.features.RMSEnergyExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RMSEnergyExtractor([fs, win_length_samples, ...])</code></td>
+<td>均方根能量特征</td>
+</tr>
+<tr>
+<td><code>RMSEnergyExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>SpectralCentroidExtractor（光谱质心）<br><code>dcase_util.features.SpectralCentroidExtractor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SpectralCentroidExtractor([fs, ...])</code></td>
+<td>光谱质心</td>
+</tr>
+<tr>
+<td><code>SpectralCentroidExtractor.extract(y)</code></td>
+<td>提取音频信号的特征</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-Files"><a href="#6-Files" class="headerlink" title="6. Files"></a>6. Files</h2><h3 id="6-1-File"><a href="#6-1-File" class="headerlink" title="6.1 File"></a>6.1 File</h3><p><code>dcase_util.files.File</code>，通用的文件类：</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>File(\*args, \*\*kwargs)</code></td>
+<td>通用类</td>
+</tr>
+<tr>
+<td><code>File.load([filename])</code></td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td><code>File.save(data[, filename])</code></td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td><code>File.get_file_information()</code></td>
+<td>得到文件信息、文件名</td>
+</tr>
+<tr>
+<td><code>File.detect_file_format([filename])</code></td>
+<td>根据扩展检测文件格式</td>
+</tr>
+<tr>
+<td><code>File.validate_format()</code></td>
+<td>验证文件格式有效性</td>
+</tr>
+<tr>
+<td><code>File.exists()</code></td>
+<td>检查文件是否存在</td>
+</tr>
+<tr>
+<td><code>File.empty()</code></td>
+<td>检查文件是否为空</td>
+</tr>
+<tr>
+<td><code>File.delimiter([exclude_delimiters])</code></td>
+<td>使用csv.sniffer猜测CSV文件的分隔符</td>
+</tr>
+<tr>
+<td><code>File.is_package([filename])</code></td>
+<td>确定文件是否为压缩包</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-2-FileLock"><a href="#6-2-FileLock" class="headerlink" title="6.2 FileLock"></a>6.2 FileLock</h3><p><code>dcase_util.files.FileLock</code>，简单的基于文件的锁定类。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileLock(filename[, timeout, ...])</code></td>
+<td>简单的基于文件的锁定类</td>
+</tr>
+<tr>
+<td><code>FileLock.lock()</code></td>
+<td>锁定文件</td>
+</tr>
+<tr>
+<td><code>FileLock.release()</code></td>
+<td>释放文件锁</td>
+</tr>
+<tr>
+<td><code>FileLock.expired</code></td>
+<td>检查比指定超时更早的锁定文件</td>
+</tr>
+<tr>
+<td><code>FileLock.is_locked</code></td>
+<td>检查锁定文件是否存在</td>
+</tr>
+<tr>
+<td><code>FileLock.touch()</code></td>
+<td>使用当前时间戳创建锁定文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-3-remotefile"><a href="#6-3-remotefile" class="headerlink" title="6.3 remotefile"></a>6.3 remotefile</h3><p><code>dcase_util.files.RemoteFile</code>远程文件处理类。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RemoteFile([filename，content_type，...])</code></td>
+<td>远程文件类</td>
+</tr>
+<tr>
+<td><code>RemoteFile.download()</code></td>
+<td>下载远程文件并将其保存为本地文件。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.is_content_type(content_type)</code></td>
+<td>检查该文件是否包含给定类型的内容</td>
+</tr>
+<tr>
+<td><code>RemoteFile.local_md5</code></td>
+<td>本地文件的校验和。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.local_modified</code></td>
+<td>修改本地文件的时间戳。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.local_bytes</code></td>
+<td>本地文件的文件大小(以字节为单位)。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.local_size_string()</code></td>
+<td>以可读形式存在的本地文件的文件大小。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.local_exists()</code></td>
+<td>检查本地文件是否存在。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.local_changed()</code></td>
+<td>检查本地文件是否对应于远程文件(基于校验和或修改时间和文件大小)。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_file</code></td>
+<td>指向远程文件的URL</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_modified</code></td>
+<td>远程文件的最后修改时间。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_bytes</code></td>
+<td>远程文件的文件大小。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_status</code></td>
+<td>远程文件的状态。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_size_string()</code></td>
+<td>以人类可读形式的远程文件的文件大小。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_info()</code></td>
+<td>获取有关删除文件(状态，大小，校验和，上次修改时间)的信息。</td>
+</tr>
+<tr>
+<td><code>RemoteFile.remote_exists()</code></td>
+<td>检查远程文件是否存在(基于HTTP状态码)。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-4-RemotePackage"><a href="#6-4-RemotePackage" class="headerlink" title="6.4 RemotePackage"></a>6.4 RemotePackage</h3><p><code>dcase_util.files.RemotePackage</code>，远程包处理类。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RemotePackage([filename，content_type，...])</code></td>
+<td>远程软件包类</td>
+</tr>
+<tr>
+<td><code>RemotePackage.download()</code></td>
+<td>下载远程文件并将其保存为本地文件。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.extract([覆盖，...])</code></td>
+<td>解压缩包</td>
+</tr>
+<tr>
+<td><code>RemotePackage.package_password</code></td>
+<td>包密码</td>
+</tr>
+<tr>
+<td><code>RemotePackage.is_content_type(content_type)</code></td>
+<td>检查该文件是否包含给定类型的内容</td>
+</tr>
+<tr>
+<td><code>RemotePackage.local_md5</code></td>
+<td>本地文件的校验和。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.local_modified</code></td>
+<td>修改本地文件的时间戳。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.local_bytes</code></td>
+<td>本地文件的文件大小(以字节为单位)。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.local_size_string()</code></td>
+<td>以可读形式存储本地文件的文件大小。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.local_exists()</code></td>
+<td>检查本地文件是否存在。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.local_changed()</code></td>
+<td>检查本地文件是否对应于远程文件(基于校验和或修改时间和文件大小)。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_file</code></td>
+<td>指向远程文件的URL</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_modified</code></td>
+<td>远程文件的最后修改时间。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_bytes</code></td>
+<td>远程文件的文件大小。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_status</code></td>
+<td>远程文件的状态。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_size_string()</code></td>
+<td>以可读形式显示远程文件的文件大小。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_info()</code></td>
+<td>获取有关删除文件(状态，大小，校验和，上次修改时间)的信息。</td>
+</tr>
+<tr>
+<td><code>RemotePackage.remote_exists()</code></td>
+<td>检查远程文件是否存在(基于HTTP状态码)。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-5-Serializer"><a href="#6-5-Serializer" class="headerlink" title="6.5 Serializer"></a>6.5 Serializer</h3><p><code>dcase_utils.files.Serializer</code>，数据序列化类</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Serializer</code></td>
+<td>数据序列化类</td>
+</tr>
+<tr>
+<td><code>Serializer.load_yaml(filename)</code></td>
+<td>加载YAML文件</td>
+</tr>
+<tr>
+<td><code>Serializer.load_cpickle(filename)</code></td>
+<td>加载CPICKLE文件</td>
+</tr>
+<tr>
+<td><code>Serializer.load_json(filename)</code></td>
+<td>加载JSON文件</td>
+</tr>
+<tr>
+<td><code>Serializer.load_msgpack(filename)</code></td>
+<td>Load MSGPACK file</td>
+</tr>
+<tr>
+<td><code>Serializer.load_marshal(filename)</code></td>
+<td>Load MARSHAL file</td>
+</tr>
+<tr>
+<td><code>Serializer.save_yaml(filename, data)</code></td>
+<td>Save data into YAML file</td>
+</tr>
+<tr>
+<td><code>Serializer.save_cpickle(filename, data)</code></td>
+<td>Save data into CPICKLE file</td>
+</tr>
+<tr>
+<td><code>Serializer.save_json(filename, data)</code></td>
+<td>Save data into JSON file</td>
+</tr>
+<tr>
+<td><code>Serializer.save_msgpack(filename, data)</code></td>
+<td>Save data into MSGPACK file</td>
+</tr>
+<tr>
+<td><code>Serializer.save_marshal(filename, data)</code></td>
+<td>Save data into MARSHAL file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-Keras-utilities"><a href="#7-Keras-utilities" class="headerlink" title="7. Keras utilities"></a>7. Keras utilities</h2><p>使用Keras深度学习库的单元。</p>
+<h3 id="7-1-Model"><a href="#7-1-Model" class="headerlink" title="7.1 Model"></a>7.1 Model</h3><p><code>dcase_util.keras.model</code>。*</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create_sequential_model(model_parameter_list)</code></td>
+<td>创建顺序Keras模型</td>
+</tr>
+<tr>
+<td><code>model_summary_string(keras_model)</code></td>
+<td>字符串中的模型摘要，类似于Keras模型摘要函数。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-2-Callbacks"><a href="#7-2-Callbacks" class="headerlink" title="7.2 Callbacks"></a>7.2 Callbacks</h3><p>用法示例如何将外部度量与dcase_util提供的Callback类一起使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">epochs = 100</div><div class="line">batch_size = 256</div><div class="line">loss = &apos;categorical_crossentropy&apos;</div><div class="line">metrics =  [&apos;categorical_accuracy&apos;]</div><div class="line">processing_interval = 1</div><div class="line">manual_update = True</div><div class="line">external_metric_labels=&#123;&apos;ER&apos;: &apos;Error rate&apos;&#125;</div><div class="line"></div><div class="line">callback_list = [</div><div class="line">        dcase_util.keras.ProgressLoggerCallback(</div><div class="line">            epochs=epochs,</div><div class="line">            metric=metrics,</div><div class="line">            loss=loss,</div><div class="line">            manual_update=manual_update,</div><div class="line">            manual_update_interval=processing_interval,</div><div class="line">            external_metric_labels=external_metric_labels</div><div class="line">        ),</div><div class="line">        dcase_util.keras.ProgressPlotterCallback(</div><div class="line">            epochs=epochs,</div><div class="line">            metric=metrics,</div><div class="line">            save=False,</div><div class="line">            manual_update=manual_update,</div><div class="line">            manual_update_interval=processing_interval,</div><div class="line">            external_metric_labels=external_metric_labels</div><div class="line">        ),</div><div class="line">        dcase_util.keras.StopperCallback(</div><div class="line">            epochs=epochs,</div><div class="line">            monitor=metric[0],</div><div class="line">            manual_update=manual_update,</div><div class="line">        ),</div><div class="line">        dcase_util.keras.StasherCallback(</div><div class="line">            epochs=epochs,</div><div class="line">            monitor=metric[0],</div><div class="line">            manual_update=manual_update,</div><div class="line">        )</div><div class="line">    ]</div><div class="line"></div><div class="line">for epoch_start in range(0, epochs, processing_interval):</div><div class="line">    epoch_end = epoch_start + processing_interval</div><div class="line"></div><div class="line">    # Make sure we have only specified amount of epochs</div><div class="line">    if epoch_end &gt; epochs:</div><div class="line">        epoch_end = epochs</div><div class="line"></div><div class="line">    # Train model</div><div class="line">    keras_model.fit(</div><div class="line">        x=training_X,</div><div class="line">        y=training_Y,</div><div class="line">        validation_data=(validation_X, validation_Y),</div><div class="line">        callbacks=callback_list,</div><div class="line">        verbose=0,</div><div class="line">        initial_epoch=epoch_start,</div><div class="line">        epochs=epoch_end,</div><div class="line">        batch_size=batch_size,</div><div class="line">        shuffle=True</div><div class="line">    )</div><div class="line">    # Calculate external metrics</div><div class="line">    ER = 0.0</div><div class="line"></div><div class="line">    # Inject external metric values to the callbacks</div><div class="line">    for callback in callback_list:</div><div class="line">        if hasattr(callback, &apos;set_external_metric_value&apos;):</div><div class="line">            callback.set_external_metric_value(</div><div class="line">                metric_label=&apos;ER&apos;,</div><div class="line">                metric_value=ER</div><div class="line">            )</div><div class="line"></div><div class="line">    # Manually update callbacks</div><div class="line">    for callback in callback_list:</div><div class="line">        if hasattr(callback, &apos;update&apos;):</div><div class="line">            callback.update()</div><div class="line"></div><div class="line">    # Check we need to stop training</div><div class="line">    stop_training = False</div><div class="line">    for callback in callback_list:</div><div class="line">        if hasattr(callback, &apos;stop&apos;):</div><div class="line">            if callback.stop():</div><div class="line">                stop_training = True</div><div class="line"></div><div class="line">    if stop_training:</div><div class="line">        # Stop the training loop</div><div class="line">        break</div></pre></td></tr></table></figure>
+<ul>
+<li><p>ProgressLoggerCallback<br><code>dcase_util.keras.ProgressLoggerCallback</code>，Keras回调用于存储tqdm进度条或日志记录界面的指标。 实现Keras回调API。</p>
+<p>  此回调与标准的ProgbarLogger Keras回调非常相似，但它增加了对日志接口和外部度量（在Keras训练过程之外计算的度量）的支持。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProgressLoggerCallback([manual_update，...])</code></td>
+<td>Keras回调在日志界面中显示指标。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ProgressPlotterCallback<br><code>dcase_util.keras.ProgressPlotterCallback</code>,keras回调在培训过程中计划进度并将最终进展保存到数字中。 实现Keras回调API。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProgressPlotterCallback([epochs，...])</code></td>
+<td>Keras回调在训练过程中绘制进度并将最终进度保存到图中。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>StopperCallback<br><code>dcase_util.keras.StopperCallback</code>，keras回调停止训练时，改善没有在规定数量的时代看到。 实现Keras回调API。</p>
+<p>  此回调与标准的<code>EarlyStopping</code> Keras回调非常相似，但它增加了对外部度量标准（在Keras培训过程之外计算的度量）的支持。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StopperCallback([epochs，manual_update，...])</code></td>
+<td>Keras回调在特定时间段内没有发现改进时停止训练。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>StasherCallback</li>
+</ul>
+<p><code>dcase_util.keras.StasherCallback</code>，keras回调监测训练过程并存储最佳模型。实现Keras回调API。</p>
+<p>该回调与标准的ModelCheckpoint Keras回调非常相似，但它增加了对外部度量（在Keras培训过程之外计算的度量）的支持。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StasherCallback([epochs，manual_update，...])</code></td>
+<td>Keras回调监视训练过程并存储最佳模型。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>BaseCallback</li>
+</ul>
+<p><code>dcase_util.keras.BaseCallback</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BaseCallback([epochs, manual_update, ...])</code></td>
+<td>回调基础类</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-3-Utils"><a href="#7-3-Utils" class="headerlink" title="7.3 Utils"></a>7.3 Utils</h3><p><code>dcase_util.keras.utils</code>. *</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setup_keras</code></td>
+<td>仅执行一次的修饰类</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-Processors（数据处理器类）"><a href="#8-Processors（数据处理器类）" class="headerlink" title="8. Processors（数据处理器类）"></a>8. Processors（数据处理器类）</h2><h3 id="8-1-Processing-chain"><a href="#8-1-Processing-chain" class="headerlink" title="8.1 Processing chain"></a>8.1 Processing chain</h3><ul>
+<li>ProcessingChainItem<br><code>dcase_util.processors.ProcessingChainItem</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProcessingChainItem(\*args, \*\*kwargs)</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ProcessingChain<br><code>dcase_util.processors.ProcessingChain</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProcessingChain(\*args, \*\*kwargs)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ProcessingChain.show_chain()</code></td>
+<td>显示链信息</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.log_chain([level])</code></td>
+<td>记录链信息</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.push_processor(processor_name)</code></td>
+<td>将处理器项目推送到链中。</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.process([data])</code></td>
+<td>用处理链处理数据</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.call_method(method_name[, ...])</code></td>
+<td>调用处理链项目中的类方法</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.processor_exists(processor_name)</code></td>
+<td>检查处理器是否存在于链中</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.processor_class_reference(...)</code></td>
+<td>处理器类的引用</td>
+</tr>
+<tr>
+<td><code>ProcessingChain.processor_class(...)</code></td>
+<td>初始化处理器类</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-2-Audio"><a href="#8-2-Audio" class="headerlink" title="8.2 Audio"></a>8.2 Audio</h3><ul>
+<li>AudioReadingProcessor<br><code>dcase_util.processors.AudioReadingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AudioReadingProcessor([data, fs, ...])</code></td>
+<td>构造函数</td>
+</tr>
+<tr>
+<td><code>AudioReadingProcessor.process([data, ...])</code></td>
+<td>音频读取</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MonoAudioReadingProcessor<br><code>dcase_util.processors.MonoAudioReadingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MonoAudioReadingProcessor([data, fs, …])</td>
+<td>构造函数</td>
+</tr>
+<tr>
+<td>MonoAudioReadingProcessor.process([data, …])</td>
+<td>音频读取</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-3-Data"><a href="#8-3-Data" class="headerlink" title="8.3 Data"></a>8.3 Data</h3><ul>
+<li>AggregationProcessor<br><code>dcase_util.processors.AggregationProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AggregationProcessor([win_length_frames, ...])</code></td>
+<td>Data aggregation processor</td>
+</tr>
+<tr>
+<td><code>AggregationProcessor.process([data])</code></td>
+<td>Process features</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>SequencingProcessor<br><code>dcase_util.processors.SequencingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SequencingProcessor([frames, ...])</code></td>
+<td>Data sequencing processor</td>
+</tr>
+<tr>
+<td><code>SequencingProcessor.process([data])</code></td>
+<td>Process</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>NormalizationProcessor<br><code>dcase_util.processors.NormalizationProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NormalizationProcessor([n, s1, s2, mean, std])</code></td>
+<td>Data normalizer to accumulate data statistics</td>
+</tr>
+<tr>
+<td><code>NormalizationProcessor.process([data])</code></td>
+<td>Normalize feature matrix with internal statistics of the class</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>RepositoryNormalizationProcessor<br><code>dcase_util.processors.RepositoryNormalizationProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RepositoryNormalizationProcessor([parameters])</code></td>
+<td>Data normalizer to accumulate data statistics inside repository</td>
+</tr>
+<tr>
+<td><code>RepositoryNormalizationProcessor.process([data])</code></td>
+<td>Normalize data repository with internal statistics</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>StackingProcessor<br><code>dcase_util.processors.StackingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StackingProcessor([recipe, hop])</code></td>
+<td>Data stacking processor</td>
+</tr>
+<tr>
+<td><code>StackingProcessor.process([data])</code></td>
+<td>Vector creation based on recipe</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>OneHotEncodingProcessor<br><code>dcase_util.processors.OneHotEncodingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OneHotEncodingProcessor([label_list, ...])</code></td>
+<td>Event roll encoding processor</td>
+</tr>
+<tr>
+<td><code>OneHotEncodingProcessor.process([data, ...])</code></td>
+<td>Encode metadata</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ManyHotEncodingProcessor<br><code>dcase_util.processors.ManyHotEncodingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ManyHotEncodingProcessor([label_list, ...])</code></td>
+<td>Event roll encoding processor</td>
+</tr>
+<tr>
+<td><code>ManyHotEncodingProcessor.process([data, ...])</code></td>
+<td>Encode metadata</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>EventRollEncodingProcessor<br><code>dcase_util.processors.EventRollEncodingProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EventRollEncodingProcessor([label_list, ...])</code></td>
+<td>Event roll encoding processor</td>
+</tr>
+<tr>
+<td><code>EventRollEncodingProcessor.process([data])</code></td>
+<td>Encode metadata</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-4-Features"><a href="#8-4-Features" class="headerlink" title="8.4 Features"></a>8.4 Features</h3><ul>
+<li><strong>RepositoryFeatureExtractorProcessor</strong><br><code>dcase_util.processors.RepositoryFeatureExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RepositoryFeatureExtractorProcessor([parameters])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>RepositoryFeatureExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>FeatureExtractorProcessor</strong><br><code>dcase_util.processors.FeatureExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FeatureExtractorProcessor(\*args, \*\*kwargs)</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>FeatureExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>MelExtractorProcessor（Mel能量）</strong><br><code>dcase_util.processors.MelExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MelExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>MelExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>MfccStaticExtractorProcessor（MFCC）</strong><br><code>dcase_util.processors.MfccStaticExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MfccStaticExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>MfccStaticExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>MfccDeltaExtractorProcessor（MFCC一阶导）</strong><br><code>dcase_util.processors.MfccDeltaExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MfccDeltaExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>MfccDeltaExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>MfccAccelerationExtractorProcessor（MFCC二阶导）</strong><br><code>dcase_util.processors.MfccAccelerationExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MfccAccelerationExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>MfccAccelerationExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>ZeroCrossingRateExtractorProcessor（过零率）</strong><br><code>dcase_util.processors.ZeroCrossingRateExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZeroCrossingRateExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>ZeroCrossingRateExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>RMSEnergyExtractorProcessor（均方根能量）</strong><br><code>dcase_util.processors.RMSEnergyExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RMSEnergyExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>RMSEnergyExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>SpectralCentroidExtractorProcessor（光谱质心）</strong><br><code>dcase_util.processors.SpectralCentroidExtractorProcessor</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SpectralCentroidExtractorProcessor([fs, ...])</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>SpectralCentroidExtractorProcessor.process([data])</code></td>
+<td>提取特征</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-5-Metadata"><a href="#8-5-Metadata" class="headerlink" title="8.5 Metadata"></a>8.5 Metadata</h3><p><strong>MetadataReadingProcessor</strong>，<code>dcase_util.processors.MetadataReadingProcessor</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MetadataReadingProcessor(\*args, \*\*kwargs)</code></td>
+<td>构造器</td>
+</tr>
+<tr>
+<td><code>MetadataReadingProcessor.process([data, ...])</code></td>
+<td>读取元数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-6-Mixin"><a href="#8-6-Mixin" class="headerlink" title="8.6 Mixin"></a>8.6 Mixin</h3><p><strong>ProcessorMixin</strong>，<code>dcase_util.processors.ProcessorMixin</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProcessorMixin(\*args, \*\*kwargs)</code></td>
+<td>数据处理链单元混合</td>
+</tr>
+<tr>
+<td><code>ProcessorMixin.process([data])</code></td>
+<td>处理数据</td>
+</tr>
+<tr>
+<td><code>ProcessorMixin.get_processing_chain_item()</code></td>
+<td>使用当前处理器数据获取处理链项目</td>
+</tr>
+<tr>
+<td><code>ProcessorMixin.push_processing_chain_item(...)</code></td>
+<td>推送加工链项目</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-User-interfacing"><a href="#9-User-interfacing" class="headerlink" title="9. User interfacing"></a>9. User interfacing</h2><p>用于轻型用户界面的实用程序类。</p>
+<p>FancyLogger和FancyPrinter提供相同的API，唯一不同的是FancyLogger将输出到日志系统，FancyPrinter使用标准打印功能将输出打印到sys.stdout。 当需要以字符串形式输出时，FancyStringifier可用于一般情况。</p>
+<h3 id="9-1-FancyLogger"><a href="#9-1-FancyLogger" class="headerlink" title="9.1 FancyLogger"></a>9.1 FancyLogger</h3><p><code>dcase_util.ui.FancyLogger</code></p>
+<p>使用日志记录时，此类提供额外的格式。 如果在调用<code>FancyLogger时Python</code>日志记录尚未初始化，则首先调用<code>dcase_util.utils.setup_logging</code>。</p>
+<p>用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">ui = dcase_util.ui.FancyLogger()</div><div class="line">ui.title(&apos;title&apos;)</div><div class="line">ui.section_header(&apos;section_header&apos;)</div><div class="line">ui.sub_header(&apos;sub_header&apos;)</div><div class="line">ui.foot(&apos;foot&apos;)</div><div class="line">ui.line(&apos;line&apos;, indent=2)</div><div class="line">ui.line(&apos;line&apos;, indent=4)</div><div class="line">ui.line(&apos;line&apos;, indent=6)</div><div class="line"></div><div class="line"># Data row with field and value</div><div class="line">ui.data(&apos;data field&apos;, &apos;value&apos;, &apos;unit&apos;)</div><div class="line"></div><div class="line"># Horizontal separator</div><div class="line">ui.sep()</div><div class="line"></div><div class="line"># Table</div><div class="line">ui.table(cell_data=[[1, 2, 3], [1, 2, 3]])</div><div class="line"></div><div class="line"># Faster way to create output tables without collecting data into one data structure.</div><div class="line">ui.row(&apos;Header1&apos;, &apos;Header2&apos;, widths=[10,20], types=[&apos;float2&apos;,&apos;str20&apos;])</div><div class="line">ui.row(&apos;-&apos;,&apos;-&apos;)</div><div class="line">ui.row(10.21231, &apos;String text&apos;)</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">[I] title</div><div class="line">[I] section_header</div><div class="line">[I] ========================================</div><div class="line">[I] === sub_header ===</div><div class="line">[I]   foot</div><div class="line">[I]</div><div class="line">[I]   line</div><div class="line">[I]     line</div><div class="line">[I]       line</div><div class="line">[I]   data field                        : value unit</div><div class="line">[I] ========================================</div><div class="line">[I] Col #0   Col #1</div><div class="line">[I] ------   ------</div><div class="line">[I]      1        1</div><div class="line">[I]      2        2</div><div class="line">[I]      3        3</div><div class="line">[I]</div><div class="line">[I]   Header1 | Header2           |</div><div class="line">[I]   ------- | ----------------- |</div><div class="line">[I]    10.21  | String text       |</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FancyLogger()</code></td>
+<td>Logger class</td>
+</tr>
+<tr>
+<td><code>FancyLogger.line([data, indent, level])</code></td>
+<td>Generic line logger</td>
+</tr>
+<tr>
+<td><code>FancyLogger.row(\*args, \*\*kwargs)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FancyLogger.title(text[, level])</code></td>
+<td>Title, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyLogger.section_header(text[, indent, level])</code></td>
+<td>Section header, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyLogger.sub_header([text, indent, level])</code></td>
+<td>Sub header</td>
+</tr>
+<tr>
+<td><code>FancyLogger.foot([text, time, item_count, ...])</code></td>
+<td>Footer, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyLogger.data([field, value, unit, ...])</code></td>
+<td>Data line logger</td>
+</tr>
+<tr>
+<td><code>FancyLogger.sep([level, length, indent])</code></td>
+<td>Horizontal separator, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyLogger.table([cell_data, ...])</code></td>
+<td>Data table</td>
+</tr>
+<tr>
+<td><code>FancyLogger.info([text, indent])</code></td>
+<td>Info line logger</td>
+</tr>
+<tr>
+<td><code>FancyLogger.debug([text, indent])</code></td>
+<td>Debug line logger</td>
+</tr>
+<tr>
+<td><code>FancyLogger.error([text, indent])</code></td>
+<td>Error line logger</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-2-FancyPrinter"><a href="#9-2-FancyPrinter" class="headerlink" title="9.2 FancyPrinter"></a>9.2 FancyPrinter</h3><p><code>dcase_util.processors.FancyPrinter</code></p>
+<p>该类向控制台提供统一格式的状态打印。</p>
+<p>用例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">ui = dcase_util.ui.FancyPrinter()</div><div class="line">ui.title(&apos;title&apos;)</div><div class="line">ui.section_header(&apos;section_header&apos;)</div><div class="line">ui.sub_header(&apos;sub_header&apos;)</div><div class="line">ui.foot(&apos;foot&apos;)</div><div class="line">ui.line(&apos;line&apos;, indent=2)</div><div class="line">ui.line(&apos;line&apos;, indent=4)</div><div class="line">ui.line(&apos;line&apos;, indent=6)</div><div class="line"></div><div class="line"># Data row with field and value</div><div class="line">ui.data(&apos;data field&apos;, &apos;value&apos;, &apos;unit&apos;)</div><div class="line"></div><div class="line"># Horizontal separator</div><div class="line">ui.sep()</div><div class="line"></div><div class="line"># Table</div><div class="line">ui.table(cell_data=[[1, 2, 3], [1, 2, 3]])</div><div class="line"></div><div class="line"># Faster way to create output tables without collecting data into one data structure.</div><div class="line">ui.row(&apos;Header1&apos;, &apos;Header2&apos;, widths=[10,20], types=[&apos;float2&apos;,&apos;str20&apos;])</div><div class="line">ui.row(&apos;-&apos;,&apos;-&apos;)</div><div class="line">ui.row(10.21231, &apos;String text&apos;)</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">title</div><div class="line">section_header</div><div class="line">========================================</div><div class="line">=== sub_header ===</div><div class="line">  foot</div><div class="line"></div><div class="line">  line</div><div class="line">    line</div><div class="line">      line</div><div class="line">  data field                        : value unit</div><div class="line">========================================</div><div class="line">Col #0   Col #1</div><div class="line">------   ------</div><div class="line">     1        1</div><div class="line">     2        2</div><div class="line">     3        3</div><div class="line"></div><div class="line">  Header1 | Header2           |</div><div class="line">  ------- | ----------------- |</div><div class="line">   10.21  | String text       |</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FancyPrinter([colors])</code></td>
+<td>Printer class</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.line([data, indent, level])</code></td>
+<td>Generic line logger</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.row(\*args, \*\*kwargs)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FancyPrinter.title(text[, level])</code></td>
+<td>Title, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.section_header(text[, indent, ...])</code></td>
+<td>Section header, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.sub_header([text, indent, level])</code></td>
+<td>Sub header</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.foot([text, time, item_count, ...])</code></td>
+<td>Footer, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.data([field, value, unit, ...])</code></td>
+<td>Data line logger</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.sep([level, length, indent])</code></td>
+<td>Horizontal separator, logged at info level</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.table([cell_data, ...])</code></td>
+<td>Data table</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.info([text, indent])</code></td>
+<td>Info line logger</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.debug([text, indent])</code></td>
+<td>Debug line logger</td>
+</tr>
+<tr>
+<td><code>FancyPrinter.error([text, indent])</code></td>
+<td>Error line logger</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-3-FancyStringifier"><a href="#9-3-FancyStringifier" class="headerlink" title="9.3 FancyStringifier"></a>9.3 FancyStringifier</h3><p><code>dcase_util.processors.FancyStringifier</code></p>
+<p>这个类可以用来产生统一格式的输出字符串。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FancyStringifier()</code></td>
+<td>Fancy UI</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.title(text)</code></td>
+<td>Title</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.section_header(text[, indent])</code></td>
+<td>Section header</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.sub_header([text, indent])</code></td>
+<td>Sub header</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.foot([text, time, ...])</code></td>
+<td>Footer</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.line([field, indent])</code></td>
+<td>Line</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.formatted_value(value[, ...])</code></td>
+<td>Format value into string.</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.data([field, value, unit, ...])</code></td>
+<td>Data line</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.sep([length, indent])</code></td>
+<td>Horizontal separator</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.table([cell_data, ...])</code></td>
+<td>Data table</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.row(\*args, \*\*kwargs)</code></td>
+<td>Table row</td>
+</tr>
+<tr>
+<td><code>FancyStringifier.class_name(class_name)</code></td>
+<td>Class name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-Units（单元函数与类）"><a href="#10-Units（单元函数与类）" class="headerlink" title="10. Units（单元函数与类）"></a>10. Units（单元函数与类）</h2><h3 id="10-1-General-function"><a href="#10-1-General-function" class="headerlink" title="10.1 General function"></a>10.1 General function</h3><p><code>dcase_util.utils</code>. *</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_class_inheritors(klass)</code></td>
+<td>得到从给定的类中继承的所有类</td>
+</tr>
+<tr>
+<td><code>get_byte_string(num_bytes[, show_bytes])</code></td>
+<td>根据语言环境和IEC二进制前缀输出字节数</td>
+</tr>
+<tr>
+<td><code>check_pkg_resources(package_requirement[, ...])</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>is_int(value)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>is_float(value)</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>SuppressStdoutAndStderr<br><code>dcase_util.utils.SuppressStdoutAndStderr</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SuppressStdoutAndStderr()</code></td>
+<td>Context manager to suppress STDOUT and STDERR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>VectorRecipeParser<br><code>dcase_util.utils.VectorRecipeParser</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VectorRecipeParser([delimiters, default_stream])</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-2-File"><a href="#10-2-File" class="headerlink" title="10.2 File"></a>10.2 File</h3><p><code>dcase_util.utils</code>. *</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>argument_file_exists(filename)</code></td>
+<td>参数文件检查器</td>
+</tr>
+<tr>
+<td><code>filelist_exists(filelist)</code></td>
+<td>检查列表中的所有文件是否存在</td>
+</tr>
+<tr>
+<td><code>posix_path(path)</code></td>
+<td>检查列表中的所有文件是否存在</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Path<br><code>dcase_util.utils.Path</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Path([path])</code></td>
+<td>路径的单元</td>
+</tr>
+<tr>
+<td><code>Path.posix([path])</code></td>
+<td>将路径转换为POSIX格式</td>
+</tr>
+<tr>
+<td><code>Path.posix_to_nt([path])</code></td>
+<td>将posix格式的路径转换为nt</td>
+</tr>
+<tr>
+<td><code>Path.file_list([path, recursive, ...])</code></td>
+<td>获取文件列表</td>
+</tr>
+<tr>
+<td><code>Path.exists([path])</code></td>
+<td>检查路径是否存在</td>
+</tr>
+<tr>
+<td><code>Path.file_count([path])</code></td>
+<td>给定路径下的文件数量包括子目录</td>
+</tr>
+<tr>
+<td><code>Path.size_bytes([path])</code></td>
+<td>给定路径下所有文件的总字节数</td>
+</tr>
+<tr>
+<td><code>Path.size_string([path, show_bytes])</code></td>
+<td>给定路径下的所有文件的总数据大小以可读形式返回</td>
+</tr>
+<tr>
+<td><code>Path.makedirs([path])</code></td>
+<td>创建给定的路径</td>
+</tr>
+<tr>
+<td><code>Path.create(paths)</code></td>
+<td>创建给定的路径</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ApplicationPaths<br><code>dcase_util.utils.ApplicationPaths</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ApplicationPaths([parameter_container])</code></td>
+<td>应用程序路径的实用工具类，根据参数散列自动生成路径</td>
+</tr>
+<tr>
+<td><code>ApplicationPaths.generate(path_base, structure)</code></td>
+<td>生成应用程序路径并将参数散列包含到路径中</td>
+</tr>
+<tr>
+<td><code>ApplicationPaths.directory_name(prefix, ...)</code></td>
+<td>生成目录名称</td>
+</tr>
+<tr>
+<td><code>ApplicationPaths.save_parameters_to_path(...)</code></td>
+<td>将参数保存到每个应用程序子目录</td>
+</tr>
+<tr>
+<td><code>ApplicationPaths.construct_path(path_parts)</code></td>
+<td>基于路径部分生成所有组合</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>FileFormat<br><code>dcase_util.utils.FileFormat</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileFormat</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FileFormat.detect(filename[, ...])</code></td>
+<td>检测文件格式</td>
+</tr>
+<tr>
+<td><code>FileFormat.detect_based_on_filename(filename)</code></td>
+<td>基于文件名检测文件格式</td>
+</tr>
+<tr>
+<td><code>FileFormat.detect_based_on_content(filename)</code></td>
+<td>使用python-magic检测基于内容的文件格式。</td>
+</tr>
+<tr>
+<td><code>FileFormat.validate_label(label)</code></td>
+<td>根据此类已知的标签验证文件格式标签</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-3-Hash"><a href="#10-3-Hash" class="headerlink" title="10.3 Hash"></a>10.3 Hash</h3><table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_parameter_hash(params)</code></td>
+<td>获取给定参数字典的唯一哈希字符串（md5）</td>
+</tr>
+<tr>
+<td><code>get_file_hash(filename)</code></td>
+<td>获取给定文件的唯一哈希字符串（md5）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-4-Logging"><a href="#10-4-Logging" class="headerlink" title="10.4 Logging"></a>10.4 Logging</h3><table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setup_logging</code></td>
+<td>修饰器类只允许执行一次</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>DisableLogger<br><code>dcase_util.utils.DisableLogger</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DisableLogger</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-5-Math"><a href="#10-5-Math" class="headerlink" title="10.5 Math"></a>10.5 Math</h3><p><code>dcase_util.utils.SimpleMathStringEvaluator</code></p>
+<ul>
+<li>SimpleMathStringEvaluator</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SimpleMathStringEvaluator()</code></td>
+<td>简单的数学字符串评估器</td>
+</tr>
+<tr>
+<td><code>SimpleMathStringEvaluator.eval(string)</code></td>
+<td>评估字符串中的数学</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-6-Timer"><a href="#10-6-Timer" class="headerlink" title="10.6 Timer"></a>10.6 Timer</h3><p><code>dcase_util.utils.Timer</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Timer()</code></td>
+<td>定时器类</td>
+</tr>
+<tr>
+<td><code>Timer.start()</code></td>
+<td>启动计时器</td>
+</tr>
+<tr>
+<td><code>Timer.stop()</code></td>
+<td>停止计时器</td>
+</tr>
+<tr>
+<td><code>Timer.elapsed()</code></td>
+<td>返回自启动计时器以来的经过时间，以秒为单位</td>
+</tr>
+<tr>
+<td><code>Timer.get_string([elapsed])</code></td>
+<td>以字符串格式获取已用时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-7-Validator"><a href="#10-7-Validator" class="headerlink" title="10.7 Validator"></a>10.7 Validator</h3><p><code>dcase_util.utils.FieldValidator</code></p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FieldValidator</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>FieldValidator.process(field)</code></td>
+<td>测试字段</td>
+</tr>
+<tr>
+<td><code>FieldValidator.is_empty(field)</code></td>
+<td>测试空字段</td>
+</tr>
+<tr>
+<td><code>FieldValidator.is_number(field)</code></td>
+<td>测试数字字段</td>
+</tr>
+<tr>
+<td><code>FieldValidator.is_audiofile(field)</code></td>
+<td>测试音频字段</td>
+</tr>
+<tr>
+<td><code>FieldValidator.is_list(field)</code></td>
+<td>测试列表字段，有效分隔符[：;＃]</td>
+</tr>
+<tr>
+<td><code>FieldValidator.is_alpha(field[, length])</code></td>
+<td>测试长度为1的alpha字段</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-8-Example"><a href="#10-8-Example" class="headerlink" title="10.8 Example"></a>10.8 Example</h3><p>dcase_util.utils.Example</p>
+<p>一些示例数据，便于测试和辅导。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Example()</code></td>
+<td>教程示例文件</td>
+</tr>
+<tr>
+<td><code>Example.audio_filename()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.acoustic_scene_audio_filename()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.audio_container()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.event_metadata_container([filename])</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.scene_metadata_container([filename])</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.tag_metadata_container([filename])</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.feature_container([filename])</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Example.feature_repository([filename])</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/26/dcase_util(1)/" rel="next" title="dcase_util教程">
+                <i class="fa fa-chevron-left"></i> dcase_util教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/26/DNN、CNN、RNN、LSTM的区别/" rel="prev" title="DNN、CNN、RNN、LSTM的区别">
+                DNN、CNN、RNN、LSTM的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Container"><span class="nav-number">1.</span> <span class="nav-text">1. Container</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Basic-containers"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Basic containers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-DictContainer"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 DictContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2-ListContainer"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 ListContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-ListDictContainer"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3 ListDictContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-4-RepositoryContainer"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.4 RepositoryContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-5-TextContainer"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.1.5 TextContainer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Data-containers"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Data containers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-DataContainer"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 DataContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-DataArrayContainer"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 DataArrayContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-DataMatrix2DContainer"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 DataMatrix2DContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-4-DataMatrix3DContainer"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 DataMatrix3DContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-5-BinaryMatrix3DContainer"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.2.5 BinaryMatrix3DContainer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-4-DataRepository"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.2.4 DataRepository</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Audio-containers"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Audio containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Feature-containers"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 Feature containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Mapping-containers"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 Mapping containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-Metadata-containers"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 Metadata containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-Parameter-containers"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 Parameter containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-Probability-containers"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 Probability containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-MIxins"><span class="nav-number">1.9.</span> <span class="nav-text">1.9 MIxins</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Data"><span class="nav-number">2.</span> <span class="nav-text">2. Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Buffers"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Buffers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Encoders"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Encoders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Data-manipulators"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Data manipulators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Probability"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Probability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Eecisions"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 Eecisions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Datasets"><span class="nav-number">3.</span> <span class="nav-text">3. Datasets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Dataset"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-AcousticScenesDataset"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 AcousticScenesDataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-SoundEventDataset"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 SoundEventDataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-AudioTaggingDataset"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 AudioTaggingDataset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Decorators（修饰符）"><span class="nav-number">4.</span> <span class="nav-text">4. Decorators（修饰符）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RunOnce"><span class="nav-number">4.1.</span> <span class="nav-text">RunOnce</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Features"><span class="nav-number">5.</span> <span class="nav-text">5. Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Files"><span class="nav-number">6.</span> <span class="nav-text">6. Files</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-File"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-FileLock"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 FileLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-remotefile"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 remotefile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-RemotePackage"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 RemotePackage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-Serializer"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 Serializer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Keras-utilities"><span class="nav-number">7.</span> <span class="nav-text">7. Keras utilities</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Model"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Callbacks"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 Callbacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-Utils"><span class="nav-number">7.3.</span> <span class="nav-text">7.3 Utils</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Processors（数据处理器类）"><span class="nav-number">8.</span> <span class="nav-text">8. Processors（数据处理器类）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-Processing-chain"><span class="nav-number">8.1.</span> <span class="nav-text">8.1 Processing chain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-Audio"><span class="nav-number">8.2.</span> <span class="nav-text">8.2 Audio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-Data"><span class="nav-number">8.3.</span> <span class="nav-text">8.3 Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-Features"><span class="nav-number">8.4.</span> <span class="nav-text">8.4 Features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-Metadata"><span class="nav-number">8.5.</span> <span class="nav-text">8.5 Metadata</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-Mixin"><span class="nav-number">8.6.</span> <span class="nav-text">8.6 Mixin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-User-interfacing"><span class="nav-number">9.</span> <span class="nav-text">9. User interfacing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-FancyLogger"><span class="nav-number">9.1.</span> <span class="nav-text">9.1 FancyLogger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-FancyPrinter"><span class="nav-number">9.2.</span> <span class="nav-text">9.2 FancyPrinter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-FancyStringifier"><span class="nav-number">9.3.</span> <span class="nav-text">9.3 FancyStringifier</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Units（单元函数与类）"><span class="nav-number">10.</span> <span class="nav-text">10. Units（单元函数与类）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-General-function"><span class="nav-number">10.1.</span> <span class="nav-text">10.1 General function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-File"><span class="nav-number">10.2.</span> <span class="nav-text">10.2 File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-3-Hash"><span class="nav-number">10.3.</span> <span class="nav-text">10.3 Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-4-Logging"><span class="nav-number">10.4.</span> <span class="nav-text">10.4 Logging</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-5-Math"><span class="nav-number">10.5.</span> <span class="nav-text">10.5 Math</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-6-Timer"><span class="nav-number">10.6.</span> <span class="nav-text">10.6 Timer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-7-Validator"><span class="nav-number">10.7.</span> <span class="nav-text">10.7 Validator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-8-Example"><span class="nav-number">10.8.</span> <span class="nav-text">10.8 Example</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

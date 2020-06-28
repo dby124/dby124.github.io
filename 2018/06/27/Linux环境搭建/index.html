@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前对Linux的认知一直主要是做硬件开发用，后来接触了Web编程后了解到，由于成本、灵活性等原因，很多服务器采用的Linux系统，觉得既然以后想从事Web后端开发的方向，不会Linux有点说不过去，所以最近试着去学习Linux的知识，那首先就是要搭建一个Linux系统。 下面是在安装Linux系统的一下笔记，希望在以后的学习中，能够快速地完成。 Linux的环境搭建主要分为启动盘制作–&amp;gt;第">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux环境搭建">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/Linux环境搭建/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="之前对Linux的认知一直主要是做硬件开发用，后来接触了Web编程后了解到，由于成本、灵活性等原因，很多服务器采用的Linux系统，觉得既然以后想从事Web后端开发的方向，不会Linux有点说不过去，所以最近试着去学习Linux的知识，那首先就是要搭建一个Linux系统。 下面是在安装Linux系统的一下笔记，希望在以后的学习中，能够快速地完成。 Linux的环境搭建主要分为启动盘制作–&amp;gt;第">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/memory_manage.png">
+<meta property="og:updated_time" content="2018-06-27T14:59:18.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux环境搭建">
+<meta name="twitter:description" content="之前对Linux的认知一直主要是做硬件开发用，后来接触了Web编程后了解到，由于成本、灵活性等原因，很多服务器采用的Linux系统，觉得既然以后想从事Web后端开发的方向，不会Linux有点说不过去，所以最近试着去学习Linux的知识，那首先就是要搭建一个Linux系统。 下面是在安装Linux系统的一下笔记，希望在以后的学习中，能够快速地完成。 Linux的环境搭建主要分为启动盘制作–&amp;gt;第">
+<meta name="twitter:image" content="http://yoursite.com/images/memory_manage.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/Linux环境搭建/"/>
+
+
+
+
+
+  <title>Linux环境搭建 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/Linux环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T20:59:38+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前对Linux的认知一直主要是做硬件开发用，后来接触了Web编程后了解到，由于成本、灵活性等原因，很多服务器采用的Linux系统，觉得既然以后想从事Web后端开发的方向，不会Linux有点说不过去，所以最近试着去学习Linux的知识，那首先就是要搭建一个Linux系统。</p>
+<p>下面是在安装Linux系统的一下笔记，希望在以后的学习中，能够快速地完成。</p>
+<p>Linux的环境搭建主要分为<strong>启动盘制作</strong>–&gt;<strong>第一启动项设置</strong>–&gt;<strong>分区</strong>–&gt;<strong>系统安装</strong>–&gt;<strong>基础软件安装</strong></p>
+<h2 id="U启动盘制作及Linux磁盘空间划分"><a href="#U启动盘制作及Linux磁盘空间划分" class="headerlink" title="U启动盘制作及Linux磁盘空间划分"></a>U启动盘制作及Linux磁盘空间划分</h2><p><strong>1. U启动盘制作步骤</strong>：</p>
+<ul>
+<li>准备一个空的U盘；</li>
+<li>下载并安装老毛桃装机版，<a href="http://www.laomaotao.org/" target="_blank" rel="external">下载地址</a>;</li>
+<li>使用老毛桃软件制作U盘启动盘，<a href="http://www.laomaotao.org/jiaocheng/92/upqdzz.html" target="_blank" rel="external">详细教程</a>;</li>
+<li>写入系统镜像。<ul>
+<li>在ISO模式下，点击浏览选择下载好的Ubuntu操作系统镜像文件，然后点击一键制作。</li>
+<li>在弹出的“写入硬盘镜像”窗口中，在硬盘驱动器一栏选择你的U盘，选择便捷启动–&gt;写入新的硬盘主引导记录（MBR）–&gt;USB-HDD+或USB-ZIP+,其他选项默认，点击格式化，然后点击写入，等待写入完成即可。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>此时U盘启动盘制作成功，下面给Linux划分可用内存。</p>
+</blockquote>
+<p><strong>2. 磁盘空间划分</strong></p>
+<ul>
+<li><p>右击<code>此电脑/计算机</code>–&gt;管理–&gt;磁盘管理，弹出如下图界面;</p>
+<p>  <img src="/images/memory_manage.png" alt="memory_manage"></p>
+</li>
+<li><p>点击选择一尚有足够空闲空间的磁盘，右击压缩卷，弹出如下界面，在  “输入压缩空间量”一栏填写需要压缩的空间大小，建议大于40G。</p>
+</li>
+<li>等待压缩完成后出现如图是未分配空间，至此为止，保持磁盘未分配状态不要在做其他操作，，该压缩出来的未分配磁盘空间我们将用来安装Ubuntu。</li>
+</ul>
+<blockquote>
+<p>接下来需要重启电脑，设置电脑第一启动项，便于盘启动盘安装系统。</p>
+</blockquote>
+<h2 id="第一启动项设置"><a href="#第一启动项设置" class="headerlink" title="第一启动项设置"></a>第一启动项设置</h2><p>插入U盘重启电脑，进入BIOS界面选择你的U盘作为第一启动项。</p>
+<p>我的电脑是三星电脑，在开机时通过多次按F2键进入设置。不同品牌电脑进入BIOS的方式有所不同，常见方式有，出现开机logo后快速多次敲击F2、F12、DEL、enter或ESC建，有时具体按键会在开机logo的底部文字内显示。如果不清楚自己电脑按哪个键能进入设置目录，可以进入<a href="http://www.xiaobaixitong.com/网站查询。" target="_blank" rel="external">http://www.xiaobaixitong.com/网站查询。</a></p>
+<p><strong>设置第一启动项并启动U盘系统盘步骤</strong>：</p>
+<ul>
+<li>进入启动项设置目录。进入<code>Boot</code>–&gt;<code>Boot Device priority</code>。</li>
+<li>将电脑的第一启动项设置为U盘。通过F5/F6键将USB HDD移动到第一位，即将U盘设置为第一启动项，然后按F10保存，此时就会通过U盘系统盘启动系统。</li>
+</ul>
+<blockquote>
+<p>具体可参考：<a href="https://zhidao.baidu.com/question/1116806018292459139.html" target="_blank" rel="external">三星电脑怎样设置u盘第一启动装系统</a></p>
+<p>进入BIOS选择U盘作为第一启动项后按F10保存并退出，重启系统，进入如系统安装界面。</p>
+</blockquote>
+<h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><p>安装步骤：</p>
+<ul>
+<li><strong>开始安装</strong>。选择“中文（简体）”，在点击“安装Ubuntu”；</li>
+<li>然后单击“继续”，接下来会出现问你是否要连接网络，可选择“我现在不想连接wifi网络”或者连网输入密码也可以，然后点击“继续”。关于是否要选“安装第三方软件”，根据需要选择，对后面的安装没有特别大的影响（PS：我选了安装）；</li>
+<li>“安装类型”窗口，选择“其他选项”，“继续”；</li>
+<li>之后手动分盘符，找到其中标有“空闲”的盘符，这个盘符就是我们用于安装ubuntu的磁盘空间，选定“空闲”，然后，点击下方的“+”。注意不要碰别的盘符，小心弄得到时候win7不能用了，甚至品牌机自带的隐藏分区也会被破坏；</li>
+<li><p><strong>四次分区</strong>，每次都是从“空闲”中分出部分区域；</p>
+<ul>
+<li><strong>第一次分区</strong>，点击“+”，进行设置：<ul>
+<li>挂载点：“/”</li>
+<li>大小：22000MB（PS：20多个G，10-20G应该都可以）</li>
+<li>新分区的类型：主分区</li>
+<li>新分区的位置：空间起始位置</li>
+<li>用于：EXT4日志文件系统大小</li>
+</ul>
+</li>
+<li><strong>第二次分区</strong>：“空闲”处，继续点“+”，如下设置，<ul>
+<li>挂载点：（不设置）</li>
+<li>大小：2048MB（据说1-2G足够，网上认为是物理内存的2倍，如果可用磁盘容量大，可以设置大一点）</li>
+<li>新分区的类型：逻辑分区</li>
+<li>新分区的位置：空间起始位置</li>
+<li>用于：交换空间</li>
+</ul>
+</li>
+<li><strong>第三次分区</strong>：“空闲”处，继续点“+”，如下设置，<ul>
+<li>挂载点：/boot（网上有的说不需要设置这项，但双系统引导时需要）</li>
+<li>大小：200MB（笔者暂时设置为200MB）</li>
+<li>新分区的类型：逻辑分区</li>
+<li>新分区的位置：空间起始位置</li>
+<li>用于：EXT4日志文件系统</li>
+</ul>
+</li>
+<li><strong>第四次分区</strong>：“空闲”处，继续点“+”，如下设置，<ul>
+<li>挂载点：/home </li>
+<li>大小：（剩余全部空间，剩下显示多少，就多少）</li>
+<li>新分区的类型：逻辑分区</li>
+<li>新分区的位置：空间起始位置</li>
+<li>用于：EXT4日志文件系统</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安装启动引导器的设备。采用默认SDA</p>
+<blockquote>
+<p>注意：默认是sda，如果选择默认，则是ubuntu引导windows7，到时候卸载ubuntu时，可能会麻烦些，如果想用windows7引导ubuntu，请选择你/boot所在的盘符，之后还要在windows下安装引导类的软件，才能启动ubuntu，过程会复杂些。</p>
+</blockquote>
+</li>
+<li><p>EasyBCD引导Ubuntu</p>
+</li>
+</ul>
+<blockquote>
+<p><a href="https://jingyan.baidu.com/article/60ccbceb18624464cab197ea.html" target="_blank" rel="external">https://jingyan.baidu.com/article/60ccbceb18624464cab197ea.html</a></p>
+</blockquote>
+<h2 id="基本软件安装"><a href="#基本软件安装" class="headerlink" title="基本软件安装"></a>基本软件安装</h2><ul>
+<li>谷歌浏览器</li>
+<li>WPS</li>
+<li>翻墙软件<ul>
+<li><a href="http://www.360doc.com/content/16/1216/22/8335678_615377541.shtml" target="_blank" rel="external">蓝灯lantern</a>（轻便，但是有流量限制，约500M）</li>
+<li>shadowsocket（安装比较复杂）</li>
+</ul>
+</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="https://blog.csdn.net/chandoudeyuyi/article/details/59651406" target="_blank" rel="external">windows10系统下通过U盘安装Ubuntu16.04实现windows+Linux双系统</a></li>
+<li><a href="https://jingyan.baidu.com/article/60ccbceb18624464cab197ea.html" target="_blank" rel="external">win7+ubuntu 13.04双系统安装方法</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/21/机器学习标签编码/" rel="next" title="机器学习标签编码">
+                <i class="fa fa-chevron-left"></i> 机器学习标签编码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/01/数据结构与算法概述/" rel="prev" title="数据结构与算法概述">
+                数据结构与算法概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#U启动盘制作及Linux磁盘空间划分"><span class="nav-number">1.</span> <span class="nav-text">U启动盘制作及Linux磁盘空间划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一启动项设置"><span class="nav-number">2.</span> <span class="nav-text">第一启动项设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统安装"><span class="nav-number">3.</span> <span class="nav-text">系统安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本软件安装"><span class="nav-number">4.</span> <span class="nav-text">基本软件安装</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

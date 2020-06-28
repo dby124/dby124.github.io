@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据库," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="概述 关系型数据库——由表来存储相关的数据，MySQL，SQL Server，Oracle等都是关系型数据库； 元数据：用于集成并管理数据。 MySQL数据库  用户数据库：用户根据需求创建数据库 系统数据库 information_schema：主要存储系统中的一些数据库对象信息，如用户信息、列信息、权限信息、字符集信息和分区信息等 performance_schema：存储数据可以服务器性能参">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库设计笔记——MySQL基础知识（四）">
+<meta property="og:url" content="http://yoursite.com/2017/08/11/14MySQL基础知识/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="概述 关系型数据库——由表来存储相关的数据，MySQL，SQL Server，Oracle等都是关系型数据库； 元数据：用于集成并管理数据。 MySQL数据库  用户数据库：用户根据需求创建数据库 系统数据库 information_schema：主要存储系统中的一些数据库对象信息，如用户信息、列信息、权限信息、字符集信息和分区信息等 performance_schema：存储数据可以服务器性能参">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/创建触发器.jpg">
+<meta property="og:image" content="http://yoursite.com/images/多表数据记录查询1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/多表数据记录查询2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/多表数据记录查询3.jpg">
+<meta property="og:image" content="http://yoursite.com/images/多表数据记录查询4.jpg">
+<meta property="og:image" content="http://yoursite.com/images/按位运算符计算结果.png">
+<meta property="og:image" content="http://yoursite.com/images/MySQL常用函数1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/MySQL常用函数2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/MySQL常用函数3.jpg">
+<meta property="og:image" content="http://yoursite.com/images/MySQL常用函数4.jpg">
+<meta property="og:image" content="http://yoursite.com/images/MySQL常用函数5.jpg">
+<meta property="og:updated_time" content="2018-07-11T13:35:27.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库设计笔记——MySQL基础知识（四）">
+<meta name="twitter:description" content="概述 关系型数据库——由表来存储相关的数据，MySQL，SQL Server，Oracle等都是关系型数据库； 元数据：用于集成并管理数据。 MySQL数据库  用户数据库：用户根据需求创建数据库 系统数据库 information_schema：主要存储系统中的一些数据库对象信息，如用户信息、列信息、权限信息、字符集信息和分区信息等 performance_schema：存储数据可以服务器性能参">
+<meta name="twitter:image" content="http://yoursite.com/images/创建触发器.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/11/14MySQL基础知识/"/>
+
+
+
+
+
+  <title>数据库设计笔记——MySQL基础知识（四） | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/11/14MySQL基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库设计笔记——MySQL基础知识（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-11T10:35:12+08:00">
+                2017-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>关系型数据库——由表来存储相关的数据，MySQL，SQL Server，Oracle等都是关系型数据库；</li>
+<li><strong>元数据</strong>：用于集成并管理数据。</li>
+<li><p><strong>MySQL数据库</strong></p>
+<ul>
+<li>用户数据库：用户根据需求创建数据库</li>
+<li>系统数据库<ul>
+<li><strong>information_schema</strong>：主要存储系统中的一些数据库对象信息，如用户信息、列信息、权限信息、字符集信息和分区信息等</li>
+<li><strong>performance_schema</strong>：存储数据可以服务器性能参数</li>
+<li><strong>mysql</strong>：系统的用户权限信息<ul>
+<li><strong>test</strong> </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>MySQl的数据对象</strong></p>
+<ul>
+<li>表<ul>
+<li>栏位：该表的列（也叫属性或者字段）的名字和数据类型</li>
+<li>索引：根据指定的数据库表列建立起来的顺序，提供快速访问的路径且可以监督表的数据。</li>
+</ul>
+</li>
+<li>视图</li>
+<li>存储过程（手动调用，无返回值）</li>
+<li>函数（手动调用，必须有返回值）</li>
+<li>触发器（自动调用）</li>
+<li>事件</li>
+</ul>
+</li>
+<li><p><strong>数据库的命名规则</strong></p>
+<ul>
+<li>由字母、数字、下划线、@、#、$符号组成，首字母不能是数字和$符号，标识符不允许是MySQL的保留字，不允许有空格和特殊字符，长度小于128位。</li>
+</ul>
+</li>
+<li><p><strong>MySQL版本</strong></p>
+<ul>
+<li>MySQL Community Server（社区版）：完全免费，官方不提供技术支持</li>
+<li>MySQL Enterprise Server（企业版服务器）：他能够以很高性价比为企业提供数据仓库应用，支持ACID事务处理，提供完整的提交、回滚、崩溃恢复和行级锁定功能。但是该版本付费，官方提供电话支持。</li>
+</ul>
+</li>
+<li><p><strong>MySQL的优势</strong>：</p>
+<ul>
+<li><strong>速度</strong>：运行速度快。</li>
+<li><strong>价格</strong>：MySQL对大多数个人来说是免费的。</li>
+<li><strong>容易使用</strong>：与其他大型数据库的设置和管理相比，其复杂程度较低，易于学习。</li>
+<li><strong>可移植性</strong>：能够工作在众多不同的系统平台，例如：Windows、Linux、Unix、Mac OS。</li>
+<li><strong>丰富的接口</strong>：提供了用于C、C++、Eiffel、Java、Perl、PHP、Python、Ruby和Tcl等语言的API。</li>
+<li><strong>支持查询语言</strong>：MySQL可以利用标准SQL语法和支持ODBC的应用接口。</li>
+<li><strong>安全性和连接性</strong>：十分灵活和安全的权限和密码系统，允许基于主机的验证。连接到服务器时，所有的密码传输均采用加密形式，从而保证了密码安全。并且由于MySQL是网络化的，因此可以在因特网上的任何地方访问，提供数据共享的效率。</li>
+</ul>
+</li>
+</ul>
+<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><ul>
+<li>存储引擎决定数据库对象表的类型，即如何如何存储、索引数据、是否支持事务，也决定了表在计算机中的存储方式。</li>
+<li>数据类型，决定数据库对象表可以存储数据的类型。</li>
+<li>存储引擎类别(9)<ul>
+<li>InnoDB（默认）<blockquote>
+<p>支持事务，支持具有提交、回滚、崩溃恢复能力的事务安装，比MyISAM占磁盘空间大。</p>
+</blockquote>
+</li>
+<li>MyISAM<blockquote>
+<p>不支持事务，也不支持外检，访问速度较快</p>
+</blockquote>
+</li>
+<li>MEMORY<blockquote>
+<p>使用内存来存储数据，访问速度快，但安全上无保障</p>
+</blockquote>
+</li>
+<li>FEDERATED</li>
+<li>MRG_MYISAM：</li>
+<li>BLACKHOLE</li>
+<li>CSV</li>
+<li>ARCHIVE</li>
+<li>PEFORMANCE_SCHEMA</li>
+</ul>
+</li>
+<li><p>相关命令</p>
+<ul>
+<li><p>查看DBNS版本</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT version();</div></pre></td></tr></table></figure>
+</li>
+<li><p>查询默认存储引擎</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SHOW　VARIABLE LIKE <span class="string">'storage _engine%'</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>修改默认存储引擎通过修改<code>my.ini</code>文件中的<code>&quot;default_storage-engine&quot;</code>参数</p>
+</li>
+</ul>
+<h2 id="数据类型-每个字节8为"><a href="#数据类型-每个字节8为" class="headerlink" title="数据类型(每个字节8为)"></a>数据类型(每个字节8为)</h2><ul>
+<li>数值<ul>
+<li>整型<ul>
+<li>TINYINT（1字节）</li>
+<li>SMALLINT（2字节）</li>
+<li>MEDIUMINT（3字节）</li>
+<li>INT/INTEGER（4字节）</li>
+<li>BIGINT（8字节）</li>
+</ul>
+</li>
+<li>浮点型<ul>
+<li>FLOAT（4字节）</li>
+<li>DOUBLE（8字节）</li>
+</ul>
+</li>
+<li>定点型：DEC/DECIMAL(M/D)<blockquote>
+<p>其中M是小数点左右数字之和，D是右边数字个数，M&lt;=38</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>字符串型</p>
+<ul>
+<li>CHAR（0~255字节）     ：固定字长</li>
+<li>VARCHAR（0~65535字节）：可变长度</li>
+</ul>
+</li>
+<li><p>日期时间类型</p>
+<ul>
+<li>YEAR：年份，1字节</li>
+<li>TIME：时分秒，3个字节</li>
+<li>TIMESTAMP：经常插入或者更新日期为当前系统时间，4字节</li>
+<li>DATATIME：年月日时分秒，8字节</li>
+<li>DATE：年月日，4字节</li>
+</ul>
+</li>
+</ul>
+<h2 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h2><ul>
+<li><p>表的操作</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DESCRIBE table_name  //查看定义</div><div class="line">SHOW CREATE TABLE table_name;  //查看表详细定义</div></pre></td></tr></table></figure>
+</li>
+<li><p>操作表的约束</p>
+<ul>
+<li>通过表的约束来完成对表中所存储的数据是否合法、是否具有完整性，进行检查。</li>
+</ul>
+</li>
+<li><p>约束</p>
+<ul>
+<li>单列约束：每个约束只约束一列数据。</li>
+<li>多列约束：每个约束约束多列数据。</li>
+</ul>
+</li>
+<li><p>完整性约束</p>
+<ul>
+<li>NOT NULL ：非空</li>
+<li>DEFLAULT ：设置字段的默认值</li>
+<li>UNIQUE KEY：设置字段的值是唯一</li>
+<li>PRIMARY KEY（PK）：约束字段为表的主键，只作为表的唯一标识</li>
+<li>AUTO_INCREMENT ：约束字段自动增加</li>
+<li>FOREIGN KEY（FK）：约束字段为表的外键</li>
+</ul>
+</li>
+<li><p>注意</p>
+<ul>
+<li><strong>多字段主键</strong>：主键有多个字段组合而成。</li>
+<li><strong>字段自动增加</strong>（AUTO_INCREMENT）：MySQL唯一扩展的完整性约束，当为数据库表中插入新记录时，字段上的值会自动生成唯一的ID。一个数据表中只能有一个字段使用该约束，且字段数据类型一定是整型，由于其唯一的ID，该字段经常会设置为PK主键。</li>
+<li>设<strong>置外键约束（FK）</strong>：外键约束保证多个表（通常两个）之间参照完整性，即构建两个字段之间的参照关系。设置外键的两个表之间具有父子关系，即子表中某个字段的取值范围由父表所决定。如全年级的成绩表，以学号作为总表的主键，而班级作为另一个表的主键，则班级为总表的外键，也就是总表的子表。</li>
+</ul>
+</li>
+</ul>
+<h2 id="索引的操作"><a href="#索引的操作" class="headerlink" title="索引的操作"></a>索引的操作</h2><ul>
+<li><strong>表</strong>：包含数据库的所有数据的数据库对象，数据库对象表是存储和操作数据的<strong>逻辑结构</strong>。</li>
+<li><strong>索引</strong>：一种有效组合数据的方式。通过索引对象，可以快速查询到数据库对象表中的特殊记录，是一种提高性能的常用方式，一个索引会包含表中安排一定顺序排序的一列或多列字段。</li>
+<li>根据索引的存储类型，可分为：<ul>
+<li>B型树索引（BTREE）&lt;- InnoDB支持</li>
+<li>哈希索引（HASH）&lt;- MEMORY支持</li>
+</ul>
+</li>
+<li><p>索引作用</p>
+<ul>
+<li>提高查找数据的速度</li>
+<li>实现数据库对象表的完整性</li>
+</ul>
+</li>
+<li><p>MySQL支持6种索引</p>
+<ul>
+<li><strong>普通索引</strong>： 在创建索引时，不附加任何限制条件（如唯一、非空等），可创立在任何数据类型的字段上。</li>
+<li><strong>唯一索引</strong>：在创建索引时，限制索引的值必须是唯一的，可更快查询某记录。</li>
+<li><strong>全文索引</strong><ul>
+<li>主要是关联在数据类型为CHAR、VARCHAR、TEXT的字段上，以便能够更加快速地查询数据量较大的字符串类型字段。</li>
+<li>全文索引只能在存储引擎为<strong>MYISAM</strong>的数据表上创建。</li>
+</ul>
+</li>
+<li><strong>单列索引</strong></li>
+<li><strong>多列索引</strong></li>
+<li><strong>空间索引</strong></li>
+</ul>
+</li>
+<li><p>适用于创建索引的情况</p>
+<ul>
+<li>经常查询的字段，即在where子句中出现的字段。</li>
+<li>在分组的字段，即group By子句中出现的字段。</li>
+<li>存在依赖关系的子表和父表之间的联合查询，即关键/外键字段。</li>
+<li>设置唯一完整性约束的字段。</li>
+</ul>
+</li>
+<li><p>不适用于创建索引的情况</p>
+<ul>
+<li>在查询中很少被使用的字段</li>
+<li>拥有许多重复值的字段</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注意，过多的创建索引则会占据许多磁盘空间。</p>
+</blockquote>
+<h2 id="视图的操作"><a href="#视图的操作" class="headerlink" title="视图的操作"></a>视图的操作</h2><ul>
+<li><strong>视图</strong>：通过视图的操作不仅可以<strong>实现查询的简化</strong>，而且<strong>可以提高安全性</strong>。所谓的视图，本质上是一种<strong>虚拟表</strong>，其内容与真实表相似包含一系列带有名称的列和行数据，但是视图并不在数据库中以存储的数据值形式存在。行和列数据来自定义视图的查询所引用基本表，并且在<strong>具体引用视图时动态生成</strong>。</li>
+<li><p><strong>视图的特点</strong></p>
+<ul>
+<li>视图的列可以来自不同的表，是表的抽象和在逻辑意义上建立的新关系。</li>
+<li>视图时由基本表（实表）产生的虚表。</li>
+<li>视图的建立和删除不影响基本表。</li>
+<li>对视图内容的更新（添加、删除和修改）直接影响基本表。（相当于对基本表操作的工具）</li>
+<li>当视图来自多个基本表时，不允许添加和删除数据。</li>
+</ul>
+</li>
+<li><p>创建视图语法        </p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE <span class="string">'database_name'</span>.<span class="string">'VIWE_name'</span> AS (SELECT * FROM ...);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>database_name为当前的数据库名称，VIWE_name为新建视图名称，“*”处填写要查询的列，用“,”隔开，“…”处写表名称。</p>
+</blockquote>
+</li>
+<li><p>由于视图的功能实际上是<strong>封装查询语句</strong>，分为以下几类</p>
+<ul>
+<li><p>(1）封装实现<strong>查询常量</strong>语句的视图，即所谓的常量视图</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test1(新建视图的名称) AS SELECT 3.1415926;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>可将上面的语句输入到MySQL5.7 command line client 中。</p>
+</blockquote>
+</li>
+<li><p>(2)封装使用<strong>聚合函数</strong>(SUM、MIN、MAX、COUNT等)，查询语句的视图。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test2 AS SELECT COUNT(col_name) FROM table_name;</div></pre></td></tr></table></figure>
+</li>
+<li><p>(3)封装了实现<strong>排列功能</strong>（ORDER BY）查询语句的视图</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test3 AS SELECT col_name FROM table_name ORDER BY id DESC;   //排列方式</div></pre></td></tr></table></figure>
+</li>
+<li><p>(4)封装了实现<strong>表内连接</strong>查询语句的视图</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test4 AS SELECT col_name FROM table_name as s.t_group as g WHERE s.group_id=g.id AND g.id=2;</div></pre></td></tr></table></figure>
+</li>
+<li><p>(5)封装了实现<strong>表外连接</strong>（LEFT JOIN和RIGHT JION）查询语句的视图</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test5 AS SELECT col_name FROM table_name as s LEFT/RIGHT/ALL JION t_group as ON s.group=g.id WHERE g.id=2;</div></pre></td></tr></table></figure>
+</li>
+<li><p>(6)封装实现<strong>子查询相关</strong>查询语句的视图</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test6 AS SELECT col_name FROM table_name AS s WHERE s.group_id=g,id IN (SELECT id FROM t_group);</div></pre></td></tr></table></figure>
+</li>
+<li><p>(7)封装了实现<strong>记录联合</strong>（UNION和UNION ALL）查询语句的视图</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE VIWE view_test7 AS SELECT id,name FROM table_name UNION ALL SELECT id,name FROM　t_group;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>查看视图</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">USE database_name;</div><div class="line">SHOW TABLES;</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看视图详细信息</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SHOW TABLE STATUS [FROM db_name]|[LIKE <span class="string">'pattern'</span>]</div><div class="line">SHOW　TABLE STATUS FROM db_name \G</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看视图定义信息</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SHOW CREATE VIWE view_name;</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看视图设计信息</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DESCRIBE/DESC view_name;</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过系统表查看视图信息</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">USE infoemation_schema;</div><div class="line">SELECT * FROM views WHERE table_name=<span class="string">'view_selectproduct'</span> \G</div></pre></td></tr></table></figure>
+<blockquote>
+<p>SQLyog软件中直接“工具”—&gt;“信息”</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="触发器的操作"><a href="#触发器的操作" class="headerlink" title="触发器的操作"></a>触发器的操作</h2><ul>
+<li><p>触发器用来实现由一些<strong>表事件触发的某种操作</strong>，是与数据库对象表关联最紧密的数据库对象之一。在DBS中，当执事件间时，则会激活触发器，从而执行其包含的操作。触发器类似于编程语言中的函数。总的来说就<strong>是表发生更改时，自动进行一些处理</strong>。</p>
+</li>
+<li><p>MySQL的触发器语句（事件引导）：</p>
+<ul>
+<li>DELETE语句：删除</li>
+<li>INSERT语句：添加</li>
+<li>UPDATE语句：修改<blockquote>
+<p>其他SQL语句不会激发触发器，会经常使用触发器数据库对象，是由于该对象能够加强数据库表中数据的完整性约束和业务规则等。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>创建触发器</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">DELIMITER $  //固有格式，当有多个触发器语句时使用</div><div class="line">CREATE TRIGGER t_afterinsert_on_doorlog AFTER INSERT </div><div class="line">ON t_doorlog FOR EACH ROW </div><div class="line">BEGIN</div><div class="line">  DECLARE jobno VARCHAR(30);</div><div class="line">  DECLARE time1 VARCHAR(20);</div><div class="line">  SET jobno = (SELECT job_num FROM tb_park_user_base WHERE card_num = new.cardNo);</div><div class="line">  SET time1 = DATE_FORMAT(new.operateTime,<span class="string">'%Y%m%d%H%i%s'</span>);</div><div class="line">  INSERT INTO t_attendance (job_no, operateTime) </div><div class="line">  VALUES</div><div class="line">    (jobno,time1);</div><div class="line">END$</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/images/创建触发器.jpg" alt="创建触发器"></p>
+<blockquote>
+<ul>
+<li><p>DELIMITER $   意思是告诉mysql下文执行语句以“$”结束，如果没有这句，下面语句会出错，mysql无法判断哪句结束。</p>
+</li>
+<li><p>CREATE TRIGGER t_afterinsert_on_doorlog AFTER INSERT ON t_doorlog FOR EACH ROW   创建触发器的语法 其中<strong>AFTER</strong>同级关键字有<strong>BEFORE</strong>，而<strong> INSERT</strong>同级关键字还有<strong>DELETE</strong>，<strong>UPDATE</strong></p>
+</li>
+<li><p><code>BEGIN</code>和<code>END</code>之间的是触发器执行语句。DECLARE jobno VARCHAR(30)   意思是声明触发器SQL中的局部变量，SET jobno=….　　意思是给局部变量赋值，=右边可为查询语句或函数方法</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="单表数据记录查询"><a href="#单表数据记录查询" class="headerlink" title="单表数据记录查询"></a>单表数据记录查询</h2><ul>
+<li><p>四则运算：+(加)、-(减)、*(乘)、/(DIV除)、%(取余)。-&gt;字段间运算</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT ename(字段) sal*12 FROM table_name;  //查询年薪</div></pre></td></tr></table></figure>
+</li>
+<li><p>对运算结果/某字段修改字段名，使显示更直观</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SELECT ename(字段),sal*12 yearsalary FROM table_name;</div><div class="line">SELECT ename(字段),sal*12 AS yearsalary FROM table_name;</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置数据显示格式，以便用户浏览所查询到的数据. 在MySQL软件中提供函数CONCAT()来连接字符串，从而实现设置显示数据的格式，语句如下：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT CONCAT|ename ,<span class="string">'雇员的年薪为：'</span>, sal*12) yearsalary FROM table_name;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>结果：SMITH雇员的年薪为：9600.00</p>
+</blockquote>
+<h2 id="多表数据记录查询"><a href="#多表数据记录查询" class="headerlink" title="多表数据记录查询"></a>多表数据记录查询</h2><ul>
+<li><p>多表数据记录查询</p>
+<ul>
+<li><p>内连接查询：笛卡尔积内连接表后查询</p>
+</li>
+<li><p>外连接查询：笛卡尔积外连接表后查询</p>
+</li>
+<li><p>子查询</p>
+<blockquote>
+<p>进行连接查询中，首先要对两张或两张以上表进行连接操作。多表数据记录查询是关系数据操作中专门用于数据库操作的关系运算。有<strong>并、笛卡尔积、连接（UNION）</strong>。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>查询语法</p>
+</li>
+</ul>
+<p><img src="/images/多表数据记录查询1.jpg" alt="多表数据记录查询"></p>
+<p><img src="/images/多表数据记录查询2.jpg" alt="多表数据记录查询"></p>
+<p><img src="/images/多表数据记录查询3.jpg" alt="多表数据记录查询"></p>
+<p><img src="/images/多表数据记录查询4.jpg" alt="多表数据记录查询"></p>
+<h2 id="实现特殊功能比较运算符"><a href="#实现特殊功能比较运算符" class="headerlink" title="实现特殊功能比较运算符"></a>实现特殊功能比较运算符</h2><ul>
+<li><p>正则表达式匹配</p>
+<ul>
+<li><p><code>^</code>：匹配字符串<strong>开始</strong>部分，如<code>REGEXP &#39;^c&#39;</code></p>
+</li>
+<li><p><code>$</code>:匹配字符串<strong>结束</strong>部分，如<code>REGEXP &#39;g$&#39;</code></p>
+</li>
+<li><p><code>.</code>：匹配字符集合<strong>中</strong>任意一个字符，如<code>REGEXP &#39;^c···g$&#39;</code></p>
+</li>
+<li><p><code>[字符集合]</code>：匹配字符集合<strong>中</strong>任意一个字符，如<code>REGEXP &#39;[abc]&#39;</code></p>
+</li>
+<li><p><code>[^字符集合]</code>：匹配字符集合<strong>外</strong>任意一个字符，如<code>REGEXP &#39;^[abc]&#39;</code></p>
+</li>
+<li><p><code>str1|str2|str3</code>：匹配str1、str2、str3中任意一个字符</p>
+</li>
+<li><p><code>*</code>：匹配字符，包括0个或1个，如<code>REGEXP &#39;a*g&#39;</code></p>
+</li>
+<li><p><code>+</code>：匹配字符，包括1个，如<code>REGEXP &#39;a+g&#39;</code></p>
+</li>
+<li><p><code>字符串{N}</code>：字符串出现N次</p>
+</li>
+<li><p><code>字符串{M,N}</code>：字符串出现至少M次，至多N次</p>
+</li>
+</ul>
+</li>
+<li><p>位运算符</p>
+<ul>
+<li><p>&amp;：按位与</p>
+</li>
+<li><p>|：按位或</p>
+</li>
+<li><p>~：按位取反</p>
+</li>
+<li><p>^：按位异或</p>
+</li>
+<li><p>&lt;&lt;：按位左移</p>
+</li>
+<li><p>>&gt;：按位右移</p>
+</li>
+<li><p>例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SELECT 5&amp;6, BIN (5&amp;6) 二进制；</div><div class="line">SELECT 4&amp;5&amp;6, BIN (4&amp;5&amp;6) 二进制；</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>结果：
+</code></pre><p><img src="/images/按位运算符计算结果.png" alt="按位运算符计算结果"></p>
+<h2 id="MySQL常用函数"><a href="#MySQL常用函数" class="headerlink" title="MySQL常用函数"></a>MySQL常用函数</h2><p><img src="/images/MySQL常用函数1.jpg" alt="MySQL常用函数1"></p>
+<p><img src="/images/MySQL常用函数2.jpg" alt="MySQL常用函数2"></p>
+<p><img src="/images/MySQL常用函数3.jpg" alt="MySQL常用函数3"></p>
+<p><img src="/images/MySQL常用函数4.jpg" alt="MySQL常用函数4"></p>
+<p><img src="/images/MySQL常用函数5.jpg" alt="MySQL常用函数5"></p>
+<h2 id="存储过程和函数的操作"><a href="#存储过程和函数的操作" class="headerlink" title="存储过程和函数的操作"></a>存储过程和函数的操作</h2><h2 id="MySQL事务"><a href="#MySQL事务" class="headerlink" title="MySQL事务"></a>MySQL事务</h2><h2 id="MySQL安全性机制"><a href="#MySQL安全性机制" class="headerlink" title="MySQL安全性机制"></a>MySQL安全性机制</h2>
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/10/13关系型数据库基础知识/" rel="next" title="数据库设计笔记——关系型数据库基础知识（三）">
+                <i class="fa fa-chevron-left"></i> 数据库设计笔记——关系型数据库基础知识（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/13/15C++等级考试知识点总结/" rel="prev" title="C++等级考试知识点总结">
+                C++等级考试知识点总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储引擎"><span class="nav-number">2.</span> <span class="nav-text">存储引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型-每个字节8为"><span class="nav-number">3.</span> <span class="nav-text">数据类型(每个字节8为)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看表结构"><span class="nav-number">4.</span> <span class="nav-text">查看表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的操作"><span class="nav-number">5.</span> <span class="nav-text">索引的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图的操作"><span class="nav-number">6.</span> <span class="nav-text">视图的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发器的操作"><span class="nav-number">7.</span> <span class="nav-text">触发器的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单表数据记录查询"><span class="nav-number">8.</span> <span class="nav-text">单表数据记录查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多表数据记录查询"><span class="nav-number">9.</span> <span class="nav-text">多表数据记录查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现特殊功能比较运算符"><span class="nav-number">10.</span> <span class="nav-text">实现特殊功能比较运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL常用函数"><span class="nav-number">11.</span> <span class="nav-text">MySQL常用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程和函数的操作"><span class="nav-number">12.</span> <span class="nav-text">存储过程和函数的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL事务"><span class="nav-number">13.</span> <span class="nav-text">MySQL事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安全性机制"><span class="nav-number">14.</span> <span class="nav-text">MySQL安全性机制</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

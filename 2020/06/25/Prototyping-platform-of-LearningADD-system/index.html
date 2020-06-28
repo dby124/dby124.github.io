@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="project," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Acoustic-detectionMachine Learning based Acoustic Defect Detection in Factory Automation: Feature Extraction and Deployment Strategies BackgroundThe detection of invisible cracks in empty glass bottle">
+<meta name="keywords" content="project">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prototyping platform of LearningADD system">
+<meta property="og:url" content="http://yoursite.com/2020/06/25/Prototyping-platform-of-LearningADD-system/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="Acoustic-detectionMachine Learning based Acoustic Defect Detection in Factory Automation: Feature Extraction and Deployment Strategies BackgroundThe detection of invisible cracks in empty glass bottle">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/System_block_diagram.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/prototyping_platform.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/data_stream.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/workshop.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/glass_bottle.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/glass_bottles.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/Conveyor_belt.png">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/Positioning_equipment.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/Acoustic_collection2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/Acoustic_collection.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/Field_controller.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/dsk5416.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/waveform.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/waveform2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/Defect_indicator.jpg">
+<meta property="og:image" content="http://yoursite.com/images/LearningADD_images/rejection.jpg">
+<meta property="og:updated_time" content="2020-06-27T05:48:04.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Prototyping platform of LearningADD system">
+<meta name="twitter:description" content="Acoustic-detectionMachine Learning based Acoustic Defect Detection in Factory Automation: Feature Extraction and Deployment Strategies BackgroundThe detection of invisible cracks in empty glass bottle">
+<meta name="twitter:image" content="http://yoursite.com/images/LearningADD_images/System_block_diagram.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/25/Prototyping-platform-of-LearningADD-system/"/>
+
+
+
+
+
+  <title>Prototyping platform of LearningADD system | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/25/Prototyping-platform-of-LearningADD-system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Prototyping platform of LearningADD system</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-25T00:15:38+08:00">
+                2020-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Acoustic-detection"><a href="#Acoustic-detection" class="headerlink" title="Acoustic-detection"></a>Acoustic-detection</h1><p>Machine Learning based Acoustic Defect Detection in Factory Automation: Feature Extraction and Deployment Strategies</p>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>The detection of invisible cracks in empty glass bottles is an important process before the filling of liquor production. Light inspection is used to ensure the integrity of empty bottles before filling. However, in the actual production process, the compulsory light inspection by labor is long, high labor intensity, and large-employees, which increases Labor costs, management difficulties and other issues. Furthermore, with the liquor industry from the traditional manual work, manual tactics to mechanization, automation, information technology, intelligent production to march forward during the process, the detection of invisible cracks in empty bottles poses new challenges, such as fully automatic online detection and online automatic rejection, and therefore use machines instead of manual labor to reduce labor intensity, increase production efficiency and ensure product quality.</p>
+<h2 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h2><p>This paper sets glass bottles as experiment objects. The data set is collected from a prototyping platform. Firstly, we set 2000 percussion signals generated from 1000 defective and 1000 defect-free bottles as experiment data. Then, we divide all data into the training set with 1200 signals and the test set with 800 signals. Among training set and testing set, the defective and defect-free bottles have equal sample number.</p>
+<p>It is noted that there are two splitting method for dataset, which is respectively split randomly and by time.</p>
+<h2 id="Prototyping-platform-of-LearningADD-system"><a href="#Prototyping-platform-of-LearningADD-system" class="headerlink" title="Prototyping platform of LearningADD system"></a>Prototyping platform of LearningADD system</h2><p>The prototyping platform of LearningADD system is introduced as following.</p>
+<h3 id="1）System-block-diagram"><a href="#1）System-block-diagram" class="headerlink" title="1）System block diagram"></a>1）System block diagram</h3><p><strong>（1）System block diagram</strong>. The system mainly consists of Data Collection, Defect Detection, and Control Action. Here, the classifier is built after feature extraction. The decision output is used to control Defect Indicator and Rejection Equipment for defective bottle.</p>
+<p><img src="/images/LearningADD_images/System_block_diagram.png" alt="System_block_diagram"></p>
+<p><strong>（2）Prototyping system of LearningADD system</strong>.</p>
+<p>Prototyping system of LearningADD system collects acoustic signals and control related equipment. Firstly, Object under Detection(glass bottles) is conveyed to Positioning Equipment by Conveyor Belt. Here, Positioning Equipment ensures the correct distance between the bottle and Knocking Equipment (metal rod). Secondly, the bottle is sent to Object Detector (pair tube photoelectric) for checking its passing. Finally, acoustic signal is collected by an Acoustic Collection Module after knocking a bottle body by Knocking Equipment.</p>
+<p>After collecting the acoustic signal, the signal is transmitted to Field Controller including Industrial Personal Computer (IPC) and Digital Signal Processor dsk5416. Then, Defect Indicator will display the decision output. Finally, the defective bottles will be rejected by Rejection Equipment.</p>
+<p><img src="/images/LearningADD_images/prototyping_platform.png" alt="prototyping_platform"></p>
+<h3 id="2）Data-stream"><a href="#2）Data-stream" class="headerlink" title="2）Data stream"></a>2）Data stream</h3><p>The picture show that the data stream in device layer.</p>
+<p><img src="/images/LearningADD_images/data_stream.png" alt="data_stream"></p>
+<h3 id="3）Experimental-workshop"><a href="#3）Experimental-workshop" class="headerlink" title="3）Experimental workshop"></a>3）Experimental workshop</h3><p><img src="/images/LearningADD_images/workshop.png" alt="workshop"></p>
+<h3 id="4）Experimental-subject"><a href="#4）Experimental-subject" class="headerlink" title="4）Experimental subject"></a>4）Experimental subject</h3><p><img src="/images/LearningADD_images/glass_bottle.png" alt="glass_bottle"><br><img src="/images/LearningADD_images/glass_bottles.png" alt="glass_bottles"></p>
+<h3 id="5）Conveyor-belt"><a href="#5）Conveyor-belt" class="headerlink" title="5）Conveyor belt"></a>5）Conveyor belt</h3><p><img src="/images/LearningADD_images/Conveyor_belt.png" alt="Conveyor_belt"></p>
+<h3 id="6）Positioning-equipment"><a href="#6）Positioning-equipment" class="headerlink" title="6）Positioning equipment"></a>6）Positioning equipment</h3><p><img src="/images/LearningADD_images/Positioning_equipment.jpg" alt="Positioning_equipment"></p>
+<h3 id="7）Acoustic-collection-module"><a href="#7）Acoustic-collection-module" class="headerlink" title="7）Acoustic collection module"></a>7）Acoustic collection module</h3><p><img src="/images/LearningADD_images/Acoustic_collection2.jpg" alt="Acoustic_collection2"></p>
+<p><img src="/images/LearningADD_images/Acoustic_collection.jpg" alt="Acoustic_collection"></p>
+<h3 id="8）Field-Controller"><a href="#8）Field-Controller" class="headerlink" title="8）Field Controller"></a>8）Field Controller</h3><p>Field_controller:</p>
+<p><img src="/images/LearningADD_images/Field_controller.jpg" alt="Field_controller"></p>
+<p>dsk5416:<br><img src="/images/LearningADD_images/dsk5416.jpg" alt="dsk5416"></p>
+<h3 id="9）Waveform-display"><a href="#9）Waveform-display" class="headerlink" title="9）Waveform display"></a>9）Waveform display</h3><p><img src="/images/LearningADD_images/waveform.jpg" alt="waveform"></p>
+<p><img src="/images/LearningADD_images/waveform2.jpg" alt="waveform2"></p>
+<h3 id="10）Defect-Indicator"><a href="#10）Defect-Indicator" class="headerlink" title="10）Defect Indicator"></a>10）Defect Indicator</h3><p><img src="/images/LearningADD_images/Defect_indicator.jpg" alt="Defect_indicator"></p>
+<h3 id="11）Rejection-equipment"><a href="#11）Rejection-equipment" class="headerlink" title="11）Rejection equipment"></a>11）Rejection equipment</h3><p><img src="/images/LearningADD_images/rejection.jpg" alt="rejection"></p>
+<h3 id="12）vedios"><a href="#12）vedios" class="headerlink" title="12）vedios"></a>12）vedios</h3><iframe width="800" height="450" src="/images/LearningADD_vedios/device1.mp4" frameborder="0" allowfullscreen><br></iframe>
+
+
+<iframe width="800" height="450" src="/images/LearningADD_vedios/device2.mp4" frameborder="0" allowfullscreen><br></iframe>
+
+<iframe width="800" height="450" src="/images/LearningADD_vedios/waveform_display.mp4" frameborder="0" allowfullscreen><br></iframe>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/project/" rel="tag"># project</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/14/Laravel 的 Eloquent ORM学习/" rel="next" title="Laravel 的 Eloquent ORM学习">
+                <i class="fa fa-chevron-left"></i> Laravel 的 Eloquent ORM学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Acoustic-detection"><span class="nav-number">1.</span> <span class="nav-text">Acoustic-detection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dataset"><span class="nav-number">1.2.</span> <span class="nav-text">dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prototyping-platform-of-LearningADD-system"><span class="nav-number">1.3.</span> <span class="nav-text">Prototyping platform of LearningADD system</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）System-block-diagram"><span class="nav-number">1.3.1.</span> <span class="nav-text">1）System block diagram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）Data-stream"><span class="nav-number">1.3.2.</span> <span class="nav-text">2）Data stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）Experimental-workshop"><span class="nav-number">1.3.3.</span> <span class="nav-text">3）Experimental workshop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4）Experimental-subject"><span class="nav-number">1.3.4.</span> <span class="nav-text">4）Experimental subject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5）Conveyor-belt"><span class="nav-number">1.3.5.</span> <span class="nav-text">5）Conveyor belt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6）Positioning-equipment"><span class="nav-number">1.3.6.</span> <span class="nav-text">6）Positioning equipment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7）Acoustic-collection-module"><span class="nav-number">1.3.7.</span> <span class="nav-text">7）Acoustic collection module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8）Field-Controller"><span class="nav-number">1.3.8.</span> <span class="nav-text">8）Field Controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9）Waveform-display"><span class="nav-number">1.3.9.</span> <span class="nav-text">9）Waveform display</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10）Defect-Indicator"><span class="nav-number">1.3.10.</span> <span class="nav-text">10）Defect Indicator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11）Rejection-equipment"><span class="nav-number">1.3.11.</span> <span class="nav-text">11）Rejection equipment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12）vedios"><span class="nav-number">1.3.12.</span> <span class="nav-text">12）vedios</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

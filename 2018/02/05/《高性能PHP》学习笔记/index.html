@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP7," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文主要是阅读《高性能PHP》之后做的学习笔记，以便查阅。 简介《高性能PHP 7》从PHP所需环境讲起，涉及环境搭建与配置设置等内容，能够帮助有一定计算机基础的读者实现PHP运行环境的搭建及PHP周边软件的安装配置。《高性能PHP 7》亮点内容是介绍PHP 7特性的部分，同时也告诉读者哪些语法将会被废弃，对读者上手PHP 7有极大的帮助。除介绍PHP 7的新特性外，《高性能PHP 7》用大量章节">
+<meta name="keywords" content="PHP7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《高性能PHP》学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/02/05/《高性能PHP》学习笔记/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="本文主要是阅读《高性能PHP》之后做的学习笔记，以便查阅。 简介《高性能PHP 7》从PHP所需环境讲起，涉及环境搭建与配置设置等内容，能够帮助有一定计算机基础的读者实现PHP运行环境的搭建及PHP周边软件的安装配置。《高性能PHP 7》亮点内容是介绍PHP 7特性的部分，同时也告诉读者哪些语法将会被废弃，对读者上手PHP 7有极大的帮助。除介绍PHP 7的新特性外，《高性能PHP 7》用大量章节">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-25T03:32:12.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《高性能PHP》学习笔记">
+<meta name="twitter:description" content="本文主要是阅读《高性能PHP》之后做的学习笔记，以便查阅。 简介《高性能PHP 7》从PHP所需环境讲起，涉及环境搭建与配置设置等内容，能够帮助有一定计算机基础的读者实现PHP运行环境的搭建及PHP周边软件的安装配置。《高性能PHP 7》亮点内容是介绍PHP 7特性的部分，同时也告诉读者哪些语法将会被废弃，对读者上手PHP 7有极大的帮助。除介绍PHP 7的新特性外，《高性能PHP 7》用大量章节">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/05/《高性能PHP》学习笔记/"/>
+
+
+
+
+
+  <title>《高性能PHP》学习笔记 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/《高性能PHP》学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《高性能PHP》学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T11:32:53+08:00">
+                2018-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要是阅读《高性能PHP》之后做的学习笔记，以便查阅。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>《高性能PHP 7》从PHP所需环境讲起，涉及环境搭建与配置设置等内容，能够帮助有一定计算机基础的读者实现PHP运行环境的搭建及PHP周边软件的安装配置。《高性能PHP 7》亮点内容是介绍PHP 7特性的部分，同时也告诉读者哪些语法将会被废弃，对读者上手PHP 7有极大的帮助。除介绍PHP 7的新特性外，《高性能PHP 7》用大量章节介绍如何使用PHP 7及周边软件来构造高性能的Web应用程序，同时介绍了一些PHP开发的最佳实践，帮助读者更好地理解Web项目与PHP应用程序开发。附录部分为读者介绍了一些不错的工具，讲解了MVC与开发框架等周边知识，能够帮助读者更好地开发PHP项目。</p>
+<hr>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="PHP出现的背景"><a href="#PHP出现的背景" class="headerlink" title="PHP出现的背景"></a>PHP出现的背景</h2><p>由于PHP语言自身存在性能问题的瓶颈，面对大规模应用场景存在性能低下问题，即使是小型应用程序在面对大流量场景时，也存在这个问题。</p>
+<p>在此期间出现了很多缓存技术方案，例如APC缓存等，但它们只是治标不治本。所以，PHP社区迫切需要一款能够显著提升PHP应用性能的新版本，此时，PHPNG项目随之而来。</p>
+<p>PHPNG全称PHP Next Generation，是PHP的全新分支，主要目标是提升应用性能。一些人认为PHPNG属于即时编译(Just In Time，JIT)，但实际上，它是基于Zend Engine的依次重构，以针对性能问题的进行专项优化。PHPNG是PHP 7项目的基础，通过PHP官网的wiki可以看到PHPNG项目已被并入PHP 7的开发主干。</p>
+<h2 id="搭建windows环境"><a href="#搭建windows环境" class="headerlink" title="搭建windows环境"></a>搭建windows环境</h2><p>在Windows系统中，已经有很多PHP集成环境工具，这些工具打包了Apache、PHP、MySQL等PHP常用的软件，是的这些集成安装和使用非常的简单。这些工具大部分采用Apache搭配PHP 7作为WebServer，这样的集成环境有<strong>XAMPP、WAMPP、EasyPHP</strong>。其中，只有EasyPHP同样也可以采用Nginx搭配PHP 7使用的方式作为WebServer，并支持WebServer在Nginx、Apache之间的轻松转换。</p>
+<blockquote>
+<p>XAMPP软件还可以运行在Linux与MacOS上，而WAMPP与EasyPHP只能运行在Windows环境中，相比之下，更推荐支持Nginx的EasyPHP。关于WebServer软件，本文推荐使用Nginx。</p>
+<p>Nginx的Windows版本可以从<a href="http://nginx,org/en/download.html" target="_blank" rel="external">http://nginx,org/en/download.html</a> 下载，虽然用其他主线版本没有什么问题，但是更推荐使用稳定版本。PHP的Windows版本可以从<a href="http://windows.php.net/download/" target="_blank" rel="external">http://windows.php.net/download/</a>下载，下载与系统匹配的32位或者64位的非线程安全版本。</p>
+</blockquote>
+<p>我们可以根据自己的实际情况选择集成环境，但是我们应该更深入掌握WebServer的每一个细节，所以我们独立安装Nginx（或者Apache）、PHP 7、MySQL，并设置好他们之间的连接，手动将它们配置到一起。</p>
+<p><strong>此处以Nginx为例</strong>：</p>
+<ul>
+<li>根据上面提供的地址下载Nginx、PHP的二进制程序，复制Nginx到一个自定义的目录中,再将PHP复制到Nginx目录下，或是找一个固定的目录存放PHP。</li>
+<li>在PHP目录下，有两个<code>.ini</code>文件，分别是<code>php.ini-development</code>与<code>php.ini-production</code>，选择其中之一并改名为<code>php.ini</code>，之后PHP会以这个文件作为配置文件。</li>
+<li><p>按住<code>shift</code>键并用鼠标右击PHP目录，打开命令行窗口，输入以下命令：<code>php-cgi -b 127.0.0.1:9000</code></p>
+<blockquote>
+<p>此处参数<code>-b</code>用于告知PHP我们希望启动FastCGI服务，执行上述命令会将绑定PHP到127.0.0.1这个IP地址的9000端口上，至此PHP便运行起来了。</p>
+</blockquote>
+</li>
+<li><p>配置Nginx，打开<code>nginx_folder/conf/nginx.conf</code>文件，首先在配置文件的服务器配置信息中添加根目录和默认首页文件，具体如下：<code>server { root html; index index.php index.html index.htm;</code></p>
+</li>
+<li><p>现在配置Nginx，让它在启动时通过FastCGI模式与PHP通信。在<code>nginx.conf</code>中配置，去掉下面这块配置的注释即可启用：<code>location ~ \.php$ { fastcgi_pass 127.0.0.1:9000; fastcgi_param SCRIPT_FILENAME complete_path_webroot_folder$fastcgi_script_name;include fastcgi_params;</code></p>
+<blockquote>
+<p>注意：<code>complete_path_webroot_folder$fastcgi_script_name</code>路径的默认值是nginx目录下的一个HTML的目录。另外fastcgi_param配置中的符号“\”需要用符号“/”加以替换。</p>
+</blockquote>
+</li>
+<li><p>在Nginx目录下，通过以下命令重启Nginx：<code>nginx -s restart</code>，重启之后，打开浏览器，输入Windows服务器，输入Windows服务器、设备的IP地址或主机名，即可看到Nginx欢迎页面。</p>
+</li>
+<li>到这一步，就只需验证PHP的安装情况以及它与Nginx的工作情况，在Webroot目录下创建一个info.php文件，并且编辑代码，在浏览器其中访问对应的服务器，验证是否能够正确解析这个文件。</li>
+</ul>
+<hr>
+<h1 id="PHP-7新特性"><a href="#PHP-7新特性" class="headerlink" title="PHP 7新特性"></a>PHP 7新特性</h1><p>　　PHP 7具有很多编写高性能、高效代码的新特性，同时也移除了一些历史版本中过时的特性，这些过时特性如果在PHP 7中使用会触发一个Error错误。目前大多数的Fatal错误都可以异常捕获，所以PHP不再显示一些不标准的Fatal错误，取而代之的是抛出一个携带着很多可用信息的异常。PHP 7提供了一些OOP新特性。</p>
+<h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><p>老版的PHP在函数和类之间传递参数时不必声明变量类型，同样返回数据时也不必声明变量类型，任何数据都可以被传递。这样会造成PHP不清楚传递的是什么类型的变量，函数和方法接收的变量数据类型也是未知的。因为PHP 7引入形参和返回值的类型声明。</p>
+<blockquote>
+<p>自己的理解：其实最开始PHP不需要类型声明就是为了简化编程，那么处理过程就会更复杂，这可能就是一个性能与编程简便的一个权衡。类型声明是针对大规模应用场景的一个升级，这就是一个语言成长的必经之路吧。</p>
+</blockquote>
+<ul>
+<li><p>形参声明：PHP 7支持的形参类型声明的类型有整型、浮点型、字符串型、布尔类型，可用于函数形参及对象的方法形参上。例如：<code>public function age(int $age) { // 函数体}</code></p>
+</li>
+<li><p>返回值声明：类似于形参声明，注意类型也可以是某个类的对象,例如：<code>public function age(int $age) : string { // 函数体}</code></p>
+</li>
+</ul>
+<h2 id="命名空间与use关键字批量声明"><a href="#命名空间与use关键字批量声明" class="headerlink" title="命名空间与use关键字批量声明"></a>命名空间与use关键字批量声明</h2><p>当代码量规模变大时，很多类会放在命名空间下，这样方便维护和管理。然而当出现一个命名空间下有很多类且我们要一个性使用多个类的情况下，我们不得不直接将它们声明在代码的顶部。在命名空间下声明类如下所示：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$book</span> = new Publichers\Packt\Book();</div><div class="line"><span class="variable">$ebook</span> = new Publichers\Packt\Ebook();</div><div class="line"><span class="variable">$video</span> = new Publichers\Packt\Video();</div><div class="line"><span class="variable">$Presentation</span> = new Publichers\Packt\Presentation();</div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>加载类的方式</strong>有两种：</p>
+<ul>
+<li>通过<code>include</code>声明显示要加载的类。</li>
+<li>通过<code>_autoload</code>函数来加载所有的类文件。</li>
+</ul>
+</li>
+<li><p>PHP 7引入批量的<strong>use声明</strong>，用以增加代码的可读性，其中包括三种声明模式：</p>
+<ul>
+<li><p><strong>非混合模式的use声明</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">use Publichers\Packt\&#123; Book, Ebook, Video, Presentation &#125;;</div><div class="line">use <span class="keyword">function</span> Publichers\Packt\&#123; getBook ,savebook &#125;;</div><div class="line">use const Publichers\Packt\&#123; COUNT,KEY &#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>混合模式的use声明</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">use Publichers\Packt\&#123; </div><div class="line">	Book, </div><div class="line">	Ebook, </div><div class="line">	Video, </div><div class="line">	Presentation, </div><div class="line">	<span class="keyword">function</span> getBook;</div><div class="line">	<span class="keyword">function</span> saveBook;</div><div class="line">	const COUNT,</div><div class="line">	const KEY</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>复合模式的use声明</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">use Publichers\Packt\&#123; </div><div class="line">	Paper\Book, </div><div class="line">	Electronic\Ebook, </div><div class="line">	Media\Video, </div><div class="line">	Media\Presentation</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>匿名类</strong>的声明与使用同时进行，它具备其他类所具备的所有功能，差别在于匿名类没有类名。匿名类的一次性小任务代码流程对性能提升帮助很大，你不必将整个类写完后再使用它。匿名类的语法如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">new class(argument) &#123; definition &#125;;</div><div class="line">//示例如下</div><div class="line"><span class="variable">$name</span> = new <span class="function"><span class="title">class</span></span>() &#123;</div><div class="line">	public <span class="keyword">function</span> <span class="function"><span class="title">_construct</span></span>() &#123;	// 此处为构造函数</div><div class="line">		<span class="built_in">echo</span> <span class="string">'Altaf Huassain'</span>;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>虽然匿名类是没有命名的，但是PHP内部，会在内存的引用地址表中为其分配一个全局唯一的名称。匿名类在继承方面与命名类相同，一样可以继承父类及父类的方法和接口，方式与继承命名类相同。</p>
+<h2 id="老式构造函数的摒弃"><a href="#老式构造函数的摒弃" class="headerlink" title="老式构造函数的摒弃"></a>老式构造函数的摒弃</h2><p>从PHP 4开始，构造函数便可以通过命名保持与类名一致的方式来声明自己是构造函数，这种方式一种被沿用至PHP 5.6.大师在PHP 7中，这种构造函数的声明方式不推荐使用。</p>
+<p>老式构造方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Packt &#123;</div><div class="line">	protected <span class="variable">$number</span>;</div><div class="line">	public <span class="keyword">function</span> <span class="function"><span class="title">packt</span></span>() &#123;	// 此处为构造函数</div><div class="line">		<span class="built_in">echo</span> <span class="string">'Altaf Huassain'</span>;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>新的构造方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Packt &#123;</div><div class="line">	protected <span class="variable">$number</span>;</div><div class="line">	public <span class="keyword">function</span> <span class="function"><span class="title">_construct</span></span>() &#123;	// 此处为构造函数</div><div class="line">		<span class="built_in">echo</span> <span class="string">'Altaf Huassain'</span>;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：老式的构造函数声明方式在PHP 7中被使用，只是会产生不推荐的信息，但是一般这类不推荐的方式在接下来的版本中会被移除，所以不建议使用老版构造方法。在PHP 7中同时出现老版构造函数和新方法，新方法的构造函数会被调用，而老版构造函数不会被调用。</p>
+</blockquote>
+<h2 id="Throwable接口"><a href="#Throwable接口" class="headerlink" title="Throwable接口"></a>Throwable接口</h2><p>PHP 7提供一种全局的接口，使得所有的类都可以基于此使用<code>throw</code>关键字。在PHP 7之前异常可以被截获，但是错误不能被截获。从PHP 7之后，任何完整程序或者一部分中的Fatal错误可以被截获。为了更好地截获诸多的错误（大多数Fatal错误），<strong>PHP 7提供了<code>throwable接口</code>，异常与错误都继承这个接口</strong>。</p>
+<blockquote>
+<p>自定义的PHP类是不能继承throwable接口的，如果希望继承throwable接口，需要继承某个异常类。</p>
+</blockquote>
+<h2 id="太空飞船操作符（-lt-gt-）"><a href="#太空飞船操作符（-lt-gt-）" class="headerlink" title="太空飞船操作符（&lt;=&gt;）"></a>太空飞船操作符（&lt;=&gt;）</h2><p>太空飞船操作符在<strong>比较变量（包括字符串型、整型、浮点型、数组、对象等）</strong>时比较有用，太空飞船操作符将（&lt;、==、&gt;）</p>
+<p>具体的使用规则如下：</p>
+<ul>
+<li>当符号两边相等时返回0</li>
+<li>当符号右边大于符号左边时返回-1</li>
+<li>当符号右边小于符号左边时返回1</li>
+</ul>
+<h2 id="null合并运算符（-）"><a href="#null合并运算符（-）" class="headerlink" title="null合并运算符（??）"></a>null合并运算符（??）</h2><p>在PHP 7中推荐使用合并运算符，在第一操作数存在时可被直接返回第二操作数，具体使用方法如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$post</span> = <span class="variable">$_POST</span>[<span class="string">'title'</span>] ?? NULL;</div><div class="line">// 等效于老版的PHP的如下语句：</div><div class="line"><span class="variable">$post</span> = (<span class="variable">$_POST</span>[<span class="string">'title'</span>]) ? <span class="variable">$_POST</span>[<span class="string">'title'</span>] : NULL;</div></pre></td></tr></table></figure></p>
+<p>合并运算符<strong>可以连续使用</strong>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$post</span> = <span class="variable">$_POST</span>[<span class="string">'title'</span>] ?? <span class="variable">$_GET</span>[<span class="string">'title'</span>] ？？ <span class="string">'No POST or GET'</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="统一变量语法"><a href="#统一变量语法" class="headerlink" title="统一变量语法"></a>统一变量语法</h2><p>通过花括号来规定变量解析的优先级，针对以下情况：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$first</span> = [<span class="string">'name'</span> =&gt; <span class="string">'second'</span>];</div><div class="line"><span class="variable">$second</span> = <span class="string">'Howdy'</span>;</div><div class="line"><span class="built_in">echo</span> $<span class="variable">$first</span>[<span class="string">'name'</span>]; //PHP 5.X版本，这种方式与从左到右的变量解析的原则（$<span class="variable">$first</span>会优先被解析）产生不一致。这样的方法在PHP版本中会产生错误。</div><div class="line">// 统一变量语法：</div><div class="line"><span class="built_in">echo</span> <span class="variable">$&#123;$first['name']&#125;</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="其他特性与变更"><a href="#其他特性与变更" class="headerlink" title="其他特性与变更"></a>其他特性与变更</h2><p>PHP 7还更新了很多其他特性，例如常量数组、switch循环中的多个默认值、session_start中的选项数组等。</p>
+<ul>
+<li><p>常量数组：</p>
+<ul>
+<li><p>PHP 5.6开始，常量数组可以使用<code>const</code>关键字来声明，方法如下：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const STORES = [<span class="string">'en'</span>, <span class="string">'fr'</span>, <span class="string">'ar'</span> ];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 在PHP 7中，常量数组可以通过`define`函数初始化，如：
+
+    <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">'STORES'</span>, [<span class="string">'en'</span>, <span class="string">'fr'</span>, <span class="string">'ar'</span> ];</div></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>switch中的多个default默认值:PHP 7开始，<strong>switch循环语句中不允许出现多个default默认值</strong>，否则会出现Fatal错误：<code>Fatal error: Switch statements may only contain one default clause in ...</code></p>
+</li>
+<li><p>Session_start函数中的选项数组<br>  在PHP 7之前，使用session时，必须先调用session_start()函数，这个函数并没有参数要传递，所有session相关的配置都在php,ini文件中。从PHP 7开始，可以在调用函数时传递参数选项数组，这些设置信息将覆盖php.ini中的session配置，且实参部分传递的选项数组将优先于php.ini中的session配置而被使用，代码示例如下：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">session_start([</div><div class="line">	<span class="string">'cookie_lifetime'</span> =&gt; 3600,</div><div class="line">	<span class="string">'read_and_close'</span> =&gt; <span class="literal">true</span></div><div class="line">]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>Unserialize函数引入过滤器<br>  通常使用serialize和unserialize两个方法分别对对象进行序列化和反序列化。然而，unserialize()函数并不安全，因为没有任何过滤项，并且可以反序列化任何类型的对象。因此PHP 7引入过滤器，默认情况下允许反序列化所有类型的对象。使用方法如下：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$result</span> = unserilize(<span class="variable">$object</span>, [<span class="string">'allowed_classes'</span> =&gt; [<span class="string">'Packt'</span>, <span class="string">'Books'</span>, <span class="string">'Ebooks'</span>]]);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h1 id="PHP-7应用性能提升"><a href="#PHP-7应用性能提升" class="headerlink" title="PHP 7应用性能提升"></a>PHP 7应用性能提升</h1><p>　　为了提升性能，PHP 7已经完全基于PHPNG进行重写。不过依然有很多其他的方法可以用来进一步提升PHP 7的性能，譬如高性能的代码、采用最佳实践、WebServer调优、缓存等。</p>
+<h2 id="Nginx与Apache"><a href="#Nginx与Apache" class="headerlink" title="Nginx与Apache"></a>Nginx与Apache</h2><p>目前有很多HHTP Server软件可供使用，目前最流行的是Nginx与Apache。</p>
+<ul>
+<li><p>Apache<br>  Apache具有<strong>足够灵活、广泛支持、能力强化、以模块方式集成大多数语言</strong>（如PHP）的优点。因为Apache是在进程内部解析大多数脚本语言的，所以没有软件间通信的开销。Apache处理请求的模式有三种：prefork模式（线程创建进程）、worker模式（进程创建线程）、事件驱动模式（与worker模式相似，但这种模式会为连接保持创建专用线程，活动请求使用另外创建的线程），因此它能提供更高的灵活度。</p>
+<p>  由于每个请求都会由一个进程或者线程处理，所有Apache在处理请求时开销很大。当它应用于高并发场景时，其性能低下的问题就凸显出来了。</p>
+</li>
+<li><p>Nginx</p>
+<p>  Nginx提供的<strong>异步、事件驱动、非阻塞请求处理</strong>。Nginx不必等待每个请求完成，避免了锁住资源。Nginx创建许多工作进程，每个工作进程可以处理数千个链接，因此可以使用很少的进程来<strong>承载高并发流量</strong>。</p>
+<p>  Nginx没有内置任何解释性语言，这样Nginx就可以专注处理请求的接收和响应，而具体的解析脚本语言的进程则在Nginx之外。</p>
+<p>  通常认为Nginx快于Apache，但是在如静态资源（图片、css、js等文件）场景下，Apache有自己的优势。在构建高性能服务器时，Apache并不是问题所在PHP才是真正的瓶颈。</p>
+</li>
+</ul>
+<h2 id="HTTP服务器性能优化"><a href="#HTTP服务器性能优化" class="headerlink" title="HTTP服务器性能优化"></a>HTTP服务器性能优化</h2><p>每款HTTP Server程序提供的功能，都可以实现优化请求处理和服务内容。优化HTTP Server程序的性能和可扩展性的技术包括：</p>
+<ul>
+<li><p>缓存静态文件</p>
+<p>  将静态文件（如图片、css文件、js文件、字体文件等变更不频繁的文件）缓存在用户设备上。要实现这样的效果，Web Server程序需要添加特殊的响应头信息，以便让用户在浏览内容的同时将静态内容缓存到用户设备上。</p>
+</li>
+<li><p>HTTP持久链接（HTTP Keep-alive技术）</p>
+<p>  HTTP持久链接表示一条TCP/IP链接上承载着过多个上下行请求。相比于传统的单链接模式（一次请求需要创建一条单独的BS链接的模式）而言，HTTP Keep-alive技术有大幅度性能提升。优点如下：</p>
+<ul>
+<li>CPU和内存的负载会减轻。因为同一时刻的打开的TCP链接数变少了，后续请求和响应无需打开新链接，可以继续基于这些TCP链接发送上下行请求。</li>
+<li>当TCP链接建立后，请求的等待时间就会减少。</li>
+<li><p>网络阻塞情况减轻。因为在同一时刻，只会有少数的链接保持着。</p>
+<p>不足：许多服务器有并发数限制，当并发数上升到一定程度时，程序的性能将大大降低。为了解决这个问题，设置链接超时时间便非常必要。设置之后，<strong>超过设定时间的链接将会自动关闭</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>GZIP压缩</p>
+</li>
+</ul>
+<p>将网络中传输的内容进行压缩后再传递，可以有效减轻传输负担，从而提升HTTP请求的响应速度。Apache和Nginx都支持GZIP压缩，大部分的浏览器也都支持GZIP压缩数据的解析。</p>
+<ul>
+<li>PHP独立部署服务</li>
+</ul>
+<p>Apache是以mod_php模块的方式加载PHP的，在这种方式，PHP与Apache耦合的很紧，所有的请求都会由Apache模块处理，这会非常消耗机器的硬件资源。我们可以通过让PHP-FPM与Apache结合，它们都独立部署，通过FastCGI协议互相传递数据。这样Apache只需关注HTTP请求链接即可，PHP进程则由PHP-FPM创建与维护。</p>
+<p>Nginx本身就是与PHP相互独立的。</p>
+<p>当PHP独立服务时，Web服务器不必对动态内容进行处理，仅仅将请求转发给另外一个服务即可，这大大减轻Web服务器的负载能力。</p>
+<ul>
+<li><p>关闭不用的模块</p>
+<p>  Apache与逐个Nginx都有许多默认携带的模块，大多数情况下是用不到的，因此最好的方式是关闭不用的模块，方法：1）先将所有的模块禁用并重启服务器，然后逐个开启并检查应用程序是否运行正常；2）将所有模块默认全部开启。然后逐个关闭并检查应用程序是否运行正常，剔除不用的模块。通过这个方法可以做一个列表标识 启用或禁用的模块。</p>
+</li>
+<li><p>Web服务器资源</p>
+<p>  每个Web服务器都会默认一些全局配置以供使用，然而这些设置可能并没有完美匹配服务器硬件情况，最大的硬件方面的问题是RAM内存，内存越多，服务器可处理的请求就越多。</p>
+</li>
+</ul>
+<h2 id="内容分布网络（CDN）"><a href="#内容分布网络（CDN）" class="headerlink" title="内容分布网络（CDN）"></a>内容分布网络（CDN）</h2><p>CDN网络通常服务于媒体文件，例如图片文件、css文件、js文件和音视频文件，这些文件会被缓存在各地的服务器上，这些服务器在地域上足够分散，当收到请求时，CDN网络会选择最适合用户的最近节点，将内容下发给用户。</p>
+<p>CDN网络的特性：</p>
+<ul>
+<li>由于内容是静态的，不频繁更改，因此CDN会将他们缓存在内存中。当某个文件的请求到达时，CDN直接从缓存中发送文件，这比从磁盘中加载文件并将其发送到浏览器更快。</li>
+<li>CDN服务器位于不同的位置。</li>
+<li>每个浏览器都具有向域发送同时请求的限制。</li>
+<li>通常，存在对动态内容的少量请求和对静态内容的更多请求。</li>
+</ul>
+<p>CDN根据客户的位置决定了内容的地理可用性，缓存广泛，优化网络中的文件传输。</p>
+<h2 id="CSS与JavaScript优化"><a href="#CSS与JavaScript优化" class="headerlink" title="CSS与JavaScript优化"></a>CSS与JavaScript优化</h2><p>每个Web应用程序都会有CSS和JavaScript文件，现在大多数应用程序都包含很多css和js文件，用来增强应用的粘度和互动效果。css和js文件越大，浏览器需要发送的请求就越多，从而容易影响其性能。针对css和js文件的优化方法是：</p>
+<ul>
+<li>合并：将所有的css和js文件分别合并为一个文件。</li>
+<li>缩小：删除css和js文件中所有空行、注释和格外空格，这样能够减小文件迟勋，提高文件加载速度。<blockquote>
+<p>Minify是一组完全使用PHP编写的库，支持CSS与JavaScript文件的合并与压缩，代码完全面对对象和命名空间，可以将其嵌入开发框架中。<a href="https://github.com/matthiasmullie/minify" target="_blank" rel="external">下载地址</a>，注意minify依赖同一作者写的<a href="https://github.com/matthiasmullie/path-converter" target="_blank" rel="external">路径转换库</a>，</p>
+</blockquote>
+</li>
+</ul>
+<p>Grunt:是一个JavaScript任务运行器，它能够将某些重复的任务自动化，避免反复工作。注意Grunt的安装需要Node.js和npm。</p>
+<h2 id="全页缓存技术"><a href="#全页缓存技术" class="headerlink" title="全页缓存技术"></a>全页缓存技术</h2><p>网站的完整页面存储在缓存正，为下一次请求提供此缓存页面。如果网站的内容不经常更改，全页缓存的效果更好。</p>
+<h2 id="Varnish：开源Web应用程序加速器，在Web服务器软件之前运行，但是它必须配置在端口80上，这样才能使每个请求到达。"><a href="#Varnish：开源Web应用程序加速器，在Web服务器软件之前运行，但是它必须配置在端口80上，这样才能使每个请求到达。" class="headerlink" title="Varnish：开源Web应用程序加速器，在Web服务器软件之前运行，但是它必须配置在端口80上，这样才能使每个请求到达。"></a>Varnish：开源Web应用程序加速器，在Web服务器软件之前运行，但是它必须配置在端口80上，这样才能使每个请求到达。</h2><h2 id="基础设施："><a href="#基础设施：" class="headerlink" title="基础设施："></a>基础设施：</h2><p>在应用程序流量一次性增加到上千万的用户，若在单个服务器上运行，性能受到很大的影响。针对程序的可扩展性和可用性，可在多个服务器上部署程序。构成部分：</p>
+<ul>
+<li>负载均衡（LB）：根据每个Web服务器上的负载情况，将外网流量以一定的规则分发给Web服务器。</li>
+<li>Web服务器：可以根据需要尽可能多地部署Web服务器，它们可以很轻易地连接到LB。</li>
+<li>数据库服务器：用于安装数据库。</li>
+</ul>
+<h1 id="提升数据库性能"><a href="#提升数据库性能" class="headerlink" title="提升数据库性能"></a>提升数据库性能</h1><p>　　数据库在动态网站中扮演着一个关键的角色，所有流入流出数据杜辉与数据库进行交互。因此，如果PHP应用数据库没有进行较好的设计或优化，其性能将会受到非常大的影响。</p>
+<ul>
+<li><p>MySQL数据库</p>
+</li>
+<li><p>查询缓存（Query Caching）</p>
+</li>
+<li><p>存储引擎</p>
+<p>  存储引擎（又称表类型）是MySQL的核心部分，负责处理表的操作。MySQL提供9个存储引擎，使用最广泛的是MyISAM和InnoDB。</p>
+<ul>
+<li><p>MyISAM</p>
+<ul>
+<li>为速度而设计，和Select搭配起来使用更好</li>
+<li>如果表的数据偏向于<strong>静态</strong>，使用MyISAM最好。</li>
+<li>MyISAM支持<strong>表级锁</strong>。</li>
+<li>MyISAM支持全文搜索。</li>
+<li>MyISAM数据压缩、自我复制、查询缓存、数据加密。</li>
+<li>MyISAM不支持外键。</li>
+<li>MyISAM不支持事务。</li>
+<li>MyISAM支持集群数据库。</li>
+</ul>
+</li>
+<li><p>InnoDB(默认存储引擎)</p>
+<ul>
+<li>InnoDB是为高可靠性和高性能而设计的，适合处理大量数据。</li>
+<li>InnoDB支持行级锁。</li>
+<li>InnoDB支持外键。</li>
+<li>InnoDB支持事务。</li>
+<li>InnoDB数据压缩、自我复制、查询缓存、数据加密。</li>
+<li>InnoDB可以用在集群环境下，但是并没有完全支持，不过InnoDB表可以完全转换为NDB存储引擎，这样既可用于集群环境。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Percona数据库和Percona XtraDB存储引擎</p>
+<ul>
+<li>Percona是免费、开源的数据库，对于MySQL完全兼容且提供加强功能，可完全代替MySQL并能提供更好的文档、性能、扩展性。</li>
+<li>Percona由MySQL衍生，支持MySQL的所有特性，并在此基础上提供更多、更好的性能。Percona使用一种改进的存储引擎——XtraDB，它是InnoDB的加强版，有更多的特性和更快的速度，在现代硬件上有有着更好的扩展性，Percona XtraDB在高负载环境下使用内存的效率更高。<blockquote>
+<p>Percona只能在Linux系统上使用，目前不能在Windows系统上使用。具体安装可参考<a href="http://www.percona.com/doc/percona-server/5.5/installation.html" target="_blank" rel="external">Percona安装手册</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>MySQL性能监控数据：PHPMyAdmin的status展示MySQL服务器的相关信息和一些统计。</p>
+</li>
+<li><p>Redis键值缓存存储</p>
+</li>
+<li><p>Memcached键值缓存存储</p>
+</li>
+</ul>
+<h1 id="调试和分析"><a href="#调试和分析" class="headerlink" title="调试和分析"></a>调试和分析</h1><p>调试过程中，需要知道一个脚本程序消耗了多少资源，包括内存消耗、CPU以及执行时间。Xdebug是一种PHP扩展，为PHP脚本提供调试和分析信息，能够得到错误的    全部追踪信息。同时Xdebug提供与IDE的交互式调试脚本的能力。</p>
+<p>与Subline text 3，可安装Xdebug client插件</p>
+<h1 id="PHP编程最佳实践"><a href="#PHP编程最佳实践" class="headerlink" title="PHP编程最佳实践"></a>PHP编程最佳实践</h1><ul>
+<li><p>Composer：PHP依赖管理工具。</p>
+</li>
+<li><p>Git：代码托管和版本控制。</p>
+</li>
+<li><p>Grunt watch：JavaScript任务运行器。</p>
+</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li>源码<a href="http://www.broadview.com.cn/book/4912" target="_blank" rel="external">下载地址</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP7/" rel="tag"># PHP7</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/11/如何学习/" rel="next" title="如何学习">
+                <i class="fa fa-chevron-left"></i> 如何学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/28/2018年对PHP的新认知/" rel="prev" title="2018年对PHP的新认知">
+                2018年对PHP的新认知 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP出现的背景"><span class="nav-number">2.1.</span> <span class="nav-text">PHP出现的背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建windows环境"><span class="nav-number">2.2.</span> <span class="nav-text">搭建windows环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-7新特性"><span class="nav-number">3.</span> <span class="nav-text">PHP 7新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型声明"><span class="nav-number">3.1.</span> <span class="nav-text">类型声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间与use关键字批量声明"><span class="nav-number">3.2.</span> <span class="nav-text">命名空间与use关键字批量声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#老式构造函数的摒弃"><span class="nav-number">3.3.</span> <span class="nav-text">老式构造函数的摒弃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Throwable接口"><span class="nav-number">3.4.</span> <span class="nav-text">Throwable接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#太空飞船操作符（-lt-gt-）"><span class="nav-number">3.5.</span> <span class="nav-text">太空飞船操作符（<=>）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null合并运算符（-）"><span class="nav-number">3.6.</span> <span class="nav-text">null合并运算符（??）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一变量语法"><span class="nav-number">3.7.</span> <span class="nav-text">统一变量语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他特性与变更"><span class="nav-number">3.8.</span> <span class="nav-text">其他特性与变更</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-7应用性能提升"><span class="nav-number">4.</span> <span class="nav-text">PHP 7应用性能提升</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx与Apache"><span class="nav-number">4.1.</span> <span class="nav-text">Nginx与Apache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP服务器性能优化"><span class="nav-number">4.2.</span> <span class="nav-text">HTTP服务器性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容分布网络（CDN）"><span class="nav-number">4.3.</span> <span class="nav-text">内容分布网络（CDN）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS与JavaScript优化"><span class="nav-number">4.4.</span> <span class="nav-text">CSS与JavaScript优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全页缓存技术"><span class="nav-number">4.5.</span> <span class="nav-text">全页缓存技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Varnish：开源Web应用程序加速器，在Web服务器软件之前运行，但是它必须配置在端口80上，这样才能使每个请求到达。"><span class="nav-number">4.6.</span> <span class="nav-text">Varnish：开源Web应用程序加速器，在Web服务器软件之前运行，但是它必须配置在端口80上，这样才能使每个请求到达。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础设施："><span class="nav-number">4.7.</span> <span class="nav-text">基础设施：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提升数据库性能"><span class="nav-number">5.</span> <span class="nav-text">提升数据库性能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试和分析"><span class="nav-number">6.</span> <span class="nav-text">调试和分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP编程最佳实践"><span class="nav-number">7.</span> <span class="nav-text">PHP编程最佳实践</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

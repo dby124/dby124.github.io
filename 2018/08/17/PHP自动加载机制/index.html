@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="自动加载," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="概述首先，为什么PHP需要自动加载呢？ 在PHP面向对象(OO)编程中，为了方便管理，我们都会把一个类写在一个单独的文件中，那么如果想在A类中使用B类的功能，就需要把B类加载到A类。对于这样的需求在最原始的时候，我们是通过require 和 include 语法实现将文件加载到另一个文件中，include 和 require 是PHP中引入文件的两个基本方法。 在小规模开发中直接使用 includ">
+<meta name="keywords" content="自动加载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP自动加载机制">
+<meta property="og:url" content="http://yoursite.com/2018/08/17/PHP自动加载机制/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="概述首先，为什么PHP需要自动加载呢？ 在PHP面向对象(OO)编程中，为了方便管理，我们都会把一个类写在一个单独的文件中，那么如果想在A类中使用B类的功能，就需要把B类加载到A类。对于这样的需求在最原始的时候，我们是通过require 和 include 语法实现将文件加载到另一个文件中，include 和 require 是PHP中引入文件的两个基本方法。 在小规模开发中直接使用 includ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-20T04:26:11.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP自动加载机制">
+<meta name="twitter:description" content="概述首先，为什么PHP需要自动加载呢？ 在PHP面向对象(OO)编程中，为了方便管理，我们都会把一个类写在一个单独的文件中，那么如果想在A类中使用B类的功能，就需要把B类加载到A类。对于这样的需求在最原始的时候，我们是通过require 和 include 语法实现将文件加载到另一个文件中，include 和 require 是PHP中引入文件的两个基本方法。 在小规模开发中直接使用 includ">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/17/PHP自动加载机制/"/>
+
+
+
+
+
+  <title>PHP自动加载机制 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/PHP自动加载机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP自动加载机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-17T21:19:38+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>首先，为什么PHP需要自动加载呢？</p>
+<p>在PHP面向对象(OO)编程中，为了方便管理，我们都会把一个类写在一个单独的文件中，那么如果想在A类中使用B类的功能，就需要把B类加载到A类。对于这样的需求在最原始的时候，我们是通过require 和 include 语法实现将文件加载到另一个文件中，include 和 require 是PHP中引入文件的两个基本方法。</p>
+<p>在小规模开发中直接使用 include 和 require 不会有什么不妥，但在大型项目中会造<strong>成大量的 include 和 require 堆积</strong>。这样的代码既不优雅，执行效率也很低，而且维护起来也相当困难。</p>
+<p>PHP的自动加载功能，框架实现自动加载的包括<strong>PHP规范中的PSR0和PSR4原则，Composer的自动加载</strong>功能等等。</p>
+<p><strong>php加载文件方式</strong>：</p>
+<ol>
+<li><strong>常规加载</strong>：include,include_once,requice,requice_one</li>
+<li><strong>魔法方法</strong>：__autoload()</li>
+<li><strong>SPL 自动加载</strong>：spl_autoload_register()</li>
+</ol>
+<h2 id="include-与require"><a href="#include-与require" class="headerlink" title="include()与require()"></a>include()与require()</h2><p>简单的文件加载方法：</p>
+<ol>
+<li><p><strong>require()</strong></p>
+<p> 包含的意思，找不到文件时，会报warning的错误，然后程序继续往下执行。include语句只有在被执行时才会读入要包含的文件。在错误处理方便，使用include语句，如果发生包含错误，程序将跳过include语句，虽然会显示错误信息但是程序还是会继续执行！php处理器会在每次遇到include()语句时，对它进行重新处理，所以可以根据不同情况的，在条件控制语句和循环语句中使用include()来包含不同的文件。</p>
+</li>
+<li><p><strong>include()</strong></p>
+<p> 必须的意思，找不到文件时，会报fatal error（致命错误），程序停止往下执行。在php文件被执行之前，php解析器会用被引用的文件的全部内容替换require语句，然后与require语句之外的其他语句组成个新的php文件，最好后按新的php文件执行程序代码。</p>
+</li>
+<li><p><strong>require_once()</strong></p>
+<p> 类似于include()，系统会进行判断，如果已经包含，则不会再包含第二次。</p>
+</li>
+<li><p><strong>include_once()</strong></p>
+<p> 类似于require()，系统会进行判断，如果已经包含，则不会再包含第二次。</p>
+</li>
+</ol>
+<p>– <strong>共同点</strong>：能包含位于独立文件中的代码，可以减少代码的重复，实现代码结构的模块化，方便调用。</p>
+<ul>
+<li><p><strong>注意事项</strong>：</p>
+<ul>
+<li><p><strong>加载文件格式</strong></p>
+<p>  include/require 包含进来的文件必须要加<code>&lt;?php ?&gt;</code>因为在包含时,首先理解文件内容是普通字符串,碰到<code>&lt;?php ?&gt;</code>标签时,才去解释。</p>
+</li>
+<li><p><strong>路径要求</strong></p>
+<p>  可以用绝对路径，也可以用相对路径；windows下正反斜线都可以，linux下只认正斜线，所以最好用正斜线。</p>
+</li>
+<li><p><strong>如何选择</strong></p>
+<p>  比如是系统配置，缺少了，网站不让运行，自然用require，如果是某一段统计程序，少了，对网站只是少统计人数罢了，不是必须要的，可以用include而加不加once是效率上的区别，加上once，虽然系统帮你考虑了只加载一次，但系统的判断会是效率降低，因此，更应该在开发之初，就把目录结构调整好，尽量不要用_once的情况。</p>
+</li>
+<li><p><strong>特殊用法</strong></p>
+<p>  利用include/require返回被包含页面的返回值</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.php页面中: ..... return $value; </div><div class="line">b.php页面中:$v = include(&quot;a.php&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="autoload-自动加载"><a href="#autoload-自动加载" class="headerlink" title="__autoload()自动加载"></a>__autoload()自动加载</h2><ul>
+<li><p><strong>PHP5及之后的版本</strong>，使用尚未定义的类时会自动调用__autoload函数，所以我们可以通过编写__autoload函数来让php自动加载类，而不必写一个长长的包含文件列表。</p>
+<p>  需明确的是对于__autoload()函数，PHP在找不到类的时候会自动执行，但是PHP内部并没有定义这个函数。</p>
+<p>  <strong>这个函数需要开发者自定义，并且编写内部逻辑，PHP只负责在需要的时候自动调用执行</strong>。而且在调用的时候会自动传人要加载的类名作为参数。</p>
+</li>
+<li><p><strong>用法</strong>：首先需要在需要加载文件的代码中，定义__autoload()函数，并且编写内部逻辑。PHP在找不到类的时候会自动执行__autoload()函数。下面是A.php需要加载B.php的例子：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//文件 B.php 不做修改</div><div class="line">//文件 A.php</div><div class="line">&lt;?php</div><div class="line">class A&#123;</div><div class="line">    public function test()&#123;</div><div class="line">        $b_object = new B();</div><div class="line">        $b_object-&gt;echo_info();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">function __autoload($classname)&#123;</div><div class="line">    require $classname.&apos;.php&apos;;//include &apos;b.php&apos;;</div><div class="line">&#125;</div><div class="line">$a_object = new A();</div><div class="line">$a_oject-&gt;test();</div><div class="line">?&gt;</div><div class="line">命令行输入：#php a.php</div><div class="line">    输出： “我是class B中的方法执行结果“</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>缺陷</strong>：一个项目中仅能有一个这样的 __autoload() 函数，因为 PHP 不允许函数重名，也就是说你不能声明2个__autoload()函数文件，否则会报致命错误。</p>
+<p>  如果项目比较大，加载每个文件都使用同样的规则显然是不现实的，那么我们可能就需要在__autoload()中编写复杂的规则逻辑来满足加载不同文件的需求。</p>
+<p>  这同样会<strong>使得__autoload()函数变得复杂臃肿，难以维护管理</strong>。</p>
+</li>
+</ul>
+<h2 id="SPL-自动加载"><a href="#SPL-自动加载" class="headerlink" title="SPL 自动加载"></a>SPL 自动加载</h2><p>PHP在实例化一个对象时（实际上在实现接口，使用类常数或类中的静态变量，调用类中的静态方法时都会如此），首先会在系统中查找该类（或接口）是否存在，如果不存在的话就尝试使用autoload机制来加载该类。而autoload机制的主要执行过程为：</p>
+<ul>
+<li>检查执行器全局变量函数指针autoload_func是否是NULL；</li>
+<li>如果 autoload_func==NULL ,则查找系统是否定义 __autoload() 函数，如果定义了，则执行并返回加载结果。如果没有定义，则报错并退出；</li>
+<li>如果 autoload_func 不等于NULL，则直接执行 autoload_func 指向的函数加载类，此时并不检查 __autoload() 函数是否定义。</li>
+</ul>
+<blockquote>
+<p>通过上述PHP自动加载流程，可知PHP实际上提供了两种方法来实现自动装载机制：（1）使用用户定义的__autoload()函数，这通常在PHP源程序中来实现；（2）设计一个函数，将autoload_func指针指向它，这通常使用C语言在PHP扩展中实现，即 SPL autoload机制，即本节中的SPL自动加载。如果两种方式都实现了，也就是 autoload_func 不等于NULL，程序只会执行第二种方式，__autoload() 函数是不会被执行的。</p>
+</blockquote>
+<ul>
+<li><p>用法</p>
+<p>  通过<code>spl_autoload_register(&#39;my_autoload&#39;)</code>，实现了 当程序执行找不到类B时，会执行 自定义的 <code>my_autoload()</code>函数，加载B类。实际上 <code>spl_autoload_register(&#39;my_autoload&#39;)</code> 的作用就是 把autoload_func 指针指向 <code>my_autoload()</code>。</p>
+<p>  示例：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">B.php文件不变</div><div class="line">A.php</div><div class="line">&lt;?php</div><div class="line">class A&#123;</div><div class="line">    public function test()&#123;</div><div class="line">        $b_object = new B();</div><div class="line">        $b_object-&gt;echo_info();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function __autoload($classname)&#123;</div><div class="line">    require $classname.&apos;.php&apos;;//include &apos;b.php&apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function my_autoload($classname)&#123;</div><div class="line">    require $classname.&apos;.php&apos;;//include &apos;b.php&apos;;</div><div class="line">    echo &apos;my_autoload   &apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">spl_autoload_register(&apos;my_autoload&apos;);</div><div class="line">$a_object = new A();</div><div class="line">$a_object-&gt;test();</div><div class="line"></div><div class="line">结果：my_autoload  我是class B中的方法执行结果</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>SPL 自动加载整个过程</strong></p>
+<p>  针对上述的示例，假如把<code>spl_autoload_register(&#39;my_autoload&#39;)</code>改成 <code>spl_autoload_register()</code>不添加任何参数，B类也能被加载。 </p>
+<p>  为什么呢？</p>
+<p>  因为SPL扩展内部自己定义了一个自动加载函数 <code>spl_autoload()</code>,实现了自动加载的功能，如果我们不定义自己的自动加载函数，并且程序里写了<code>spl_autoload_register()</code>（如果不传参数，必须是第一次执行才会有效）或者 <code>spl_autoload_register(&#39;spl_autoload&#39;)</code>，那么autoload_func 指针就会指向内部函数 <code>spl_autoload()</code>。程序执行的时候如果找不到相应类就会执行该自动加载函数。</p>
+<p>  <strong>SPL 是怎么实现autoload_func 指针指向不同的函数呢？</strong></p>
+<p>  在SPL内部定义了 一个函数 <code>spl_autoload_call()</code> 和 一个全局变量<code>autoload_functions</code>。<code>autoload_functions</code>本质上是一个HashTable，不过我们可以将其简单的看作一个链表，链表中的每一个元素都是一个函数指针,指向一个具有自动加载类功能的函数。</p>
+<p>  <code>spl_autoload_call()</code>的作用就是按顺序遍历 <code>autoload_functions</code>，使得autoload_func指向每个自动加载函数，如果加载成功就停止，如果不成功就继续遍历下个自动加载函数，直到加载成功或者遍历完所有的函数。</p>
+<p>  <strong>autoload_functions 这个列表是谁来维护的呢？</strong></p>
+<p>  由<code>spl_autoload_register()</code> 这个函数维护。我们说的自动加载函数的注册，其实就是通过·spl_autoload_register()·把自动加载函数加入到<code>autoload_functions</code> 列表。</p>
+<p>  <strong>相关SPL自动加载函数</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spl_autoload_functions() //打印autoload_functions列表</div><div class="line">  spl_autoload_unregister() //注销自动加载函数</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="https://blog.csdn.net/weixin_37356656/article/details/78642520" target="_blank" rel="external">PHP-自动加载原理分析</a></li>
+<li><a href="https://m.jb51.net/article/81905.htm" target="_blank" rel="external">php自动加载方式集合</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/自动加载/" rel="tag"># 自动加载</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/10/mysql中as用法/" rel="next" title="mysql中as用法">
+                <i class="fa fa-chevron-left"></i> mysql中as用法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/19/http请求流程/" rel="prev" title="http请求流程">
+                http请求流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include-与require"><span class="nav-number">2.</span> <span class="nav-text">include()与require()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#autoload-自动加载"><span class="nav-number">3.</span> <span class="nav-text">__autoload()自动加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPL-自动加载"><span class="nav-number">4.</span> <span class="nav-text">SPL 自动加载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

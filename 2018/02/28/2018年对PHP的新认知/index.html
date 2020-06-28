@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="春节的时候一直在担心论文和找工作的事情，由于导师不允许实习，就想着利用在家里的时间，补充一些相关的知识。通过公众号，看了一些PHP求职相关的文章，下面是一些对于PHP的新认知。这篇文章主要来自于《十年程序员用眼告诉你 2018 PHP 不一样》这篇文章。 PHP的简介PHP，缩写：Hypertext Preprocessor，中文名：超文本预处理器。 PHP语言之所以能有今天的地位，得益于PHP语">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018年对PHP的新认知">
+<meta property="og:url" content="http://yoursite.com/2018/02/28/2018年对PHP的新认知/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="春节的时候一直在担心论文和找工作的事情，由于导师不允许实习，就想着利用在家里的时间，补充一些相关的知识。通过公众号，看了一些PHP求职相关的文章，下面是一些对于PHP的新认知。这篇文章主要来自于《十年程序员用眼告诉你 2018 PHP 不一样》这篇文章。 PHP的简介PHP，缩写：Hypertext Preprocessor，中文名：超文本预处理器。 PHP语言之所以能有今天的地位，得益于PHP语">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-04T14:56:56.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018年对PHP的新认知">
+<meta name="twitter:description" content="春节的时候一直在担心论文和找工作的事情，由于导师不允许实习，就想着利用在家里的时间，补充一些相关的知识。通过公众号，看了一些PHP求职相关的文章，下面是一些对于PHP的新认知。这篇文章主要来自于《十年程序员用眼告诉你 2018 PHP 不一样》这篇文章。 PHP的简介PHP，缩写：Hypertext Preprocessor，中文名：超文本预处理器。 PHP语言之所以能有今天的地位，得益于PHP语">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/28/2018年对PHP的新认知/"/>
+
+
+
+
+
+  <title>2018年对PHP的新认知 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/28/2018年对PHP的新认知/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2018年对PHP的新认知</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T11:58:38+08:00">
+                2018-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>春节的时候一直在担心论文和找工作的事情，由于导师不允许实习，就想着利用在家里的时间，补充一些相关的知识。通过公众号，看了一些PHP求职相关的文章，下面是一些对于PHP的新认知。这篇文章主要来自于《<a href="https://www.jianshu.com/p/522238279fe7" target="_blank" rel="external">十年程序员用眼告诉你 2018 PHP 不一样</a>》这篇文章。</p>
+<h2 id="PHP的简介"><a href="#PHP的简介" class="headerlink" title="PHP的简介"></a>PHP的简介</h2><p>PHP，缩写：Hypertext Preprocessor，中文名：超文本预处理器。</p>
+<p>PHP语言之所以能有今天的地位，得益于PHP语言设计者一直遵从实用主义，将技术的复杂性隐藏在底层。</p>
+<ul>
+<li><strong>PHP语言具有如下优点</strong>：<ul>
+<li><strong>入门简单，容易掌握</strong></li>
+<li><strong>开源代码，可扩展性，面向对象编程，数据库连接</strong></li>
+<li><strong>程序健壮性好</strong>，不容易出现像Java 、 C++ 等其他语言那样复杂的问题，如内存泄漏和 Crash，跟踪调试相对轻松很多。</li>
+<li><strong>PHP官方提供的标准库非常强大</strong>，各种功能函数都能在官方的标准库中找到，包括MySQL、Memcache、Redis、GD图形库、CURL、XML、JSON等等，免除了开发者到处找库的烦恼。</li>
+<li><strong>PHP 的文档非常全面详细</strong>，每个函数都有详细的说明和使用示例。</li>
+<li><strong>第三方类库和工具、代码、项目也很丰富。</strong>开发者可以快速、高效地使用PHP编写开发各类软件。</li>
+</ul>
+</li>
+</ul>
+<p>下面介绍在技术上，PHP程序未来需要掌握的。</p>
+<h2 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h2><p>第一点就要提Composer，自从Composer出现后，<strong>PHP的依赖管理</strong>可以变得非常简单。程序内依赖一些类库和框架，直接使用Composer引入即可，通过使用composer update安装依赖的包。解决了过去加载外部库的各种难题。</p>
+<p>Composer也有国内镜像，速度非常快。现在绝大部分PHP开源的项目都提供了Composer的支持，建议大家在项目中使 Composer来解决PHP代码包管理的问题，不要再使用下载源码、手工include的原始方法。</p>
+<h2 id="PHP7"><a href="#PHP7" class="headerlink" title="PHP7"></a>PHP7</h2><p>PHP7版本对<strong>Zend引擎做了大量修改，大幅提升了PHP语言的性能</strong>，使用PHP7可以使你的程序性能瞬间翻倍。即使是WordPress这样重量级的软件运行在PHP7都能有上千QPS，相当于一台服务器每天就能处理8000万次请求。</p>
+<p><strong>使用PHP7，做好MySQL优化，使用Memcache和Redis进行加速</strong>，这套技术架构完全可以应对相当大规模的系统。除了某些亿级用户的平台之外，一般规模的系统完全没有压力。</p>
+<h2 id="PSR"><a href="#PSR" class="headerlink" title="PSR"></a>PSR</h2><p>PSR是PHPFramework Interop Group 组织制定的PHP语言开发规范，约定了很多方面的规则，如<strong>命名空间、类名规范、编码风格标准、Autoload、公共接口</strong>等。现在已经成为PHP技术社区事实上的标准了。很多知名的PHP框架和类库都遵守了PSR规范。PHP开发者应当学习掌握PSR规范，在开发程序时应当尽量遵循PSR规范。</p>
+<h2 id="Swoole"><a href="#Swoole" class="headerlink" title="Swoole"></a>Swoole</h2><p>2017年PHP还局限于做Web网站吗？No，如果你还不知道Swoole，赶快去了解一下吧。<strong>Swoole的口号是重新定义PHP语言，Swoole是一个异步并行的通信引擎，作为PHP的扩展来运行</strong>。Node.js的异步回调Swoole有，Go语言的协程Swoole也有，这完全颠覆了对PHP的认知。使用Swoole PHP 可以实现常驻内存的Server程序，可以实现TCP、UDP异步网络通信的编程开发。</p>
+<p>过去PHP只能做一个Web网站，现在使用Swoole可以做Java 、C++才能实现的通信服务，比如WebSocket即使通信、聊天、推送服务器、RPC远程调用服务、网关、代理、游戏服务器等。如果你想用PHP做点Web系统之外的东西，Swoole是最好的选择。</p>
+<h2 id="Laravel"><a href="#Laravel" class="headerlink" title="Laravel"></a>Laravel</h2><p>最近几年最火热的PHP框架，官网号称是为Web艺术家设计的框架，可见这套框架有多优雅。Laravel提供的功能模块丰富，API设计简洁，表达力强。而且它的社区非常活跃，代码贡献者众多，第三方的插件非常多，生态系统相当繁荣。</p>
+<p>Laravel底层使用了很多symfony2组件，通过composer实现了依赖管理。如果还在纠结使用什么PHP框架，不如选择 Laravel。Laravel提供的命令行工具基于symfony.console实现，功能强大，集成了各种项目管理、自动生成代码的功能。</p>
+<h2 id="Phar"><a href="#Phar" class="headerlink" title="Phar"></a>Phar</h2><p>PHP5.3之后支持了类似Java的jar包，名为phar。<strong>用来将多个PHP文件打包为一个文件</strong>。这个特性使得PHP也可以像Java一样方便地实现应用程序打包和组件化。一个应用程序可以打成一个Phar包，直接放到PHP-FPM中运行。</p>
+<p>配合Swoole，可以在命令行下执行php server.phar 一键启动服务器。PHP的代码包可以用Phar打包成组件，放到Swoole的服务器容器中去加载执行。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>除了上面提到的一些，因为一般PHP与MySQL组合使用，在很多有PHP的地方都会有MySQL，而这有涉及到<strong>MySQL相关的知识，如MySQL索引、缓存等技术</strong>。除此关于<strong>Linux方面的知识</strong>也是必要的。</p>
+<p>如果想要长期在PHP方向发展，个人觉得，对于<strong>PHP内核</strong>相关的知识也是需要补充的。另外就是程序员关于<strong>设计模式</strong>方面的掌握。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] <a href="https://www.jianshu.com/p/522238279fe7" target="_blank" rel="external">开源中国：十年程序员用眼告诉你 2018 PHP 不一样</a></p>
+<p>[2] <a href="http://dingby.site/2018/04/14/PHP%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" target="_blank" rel="external">PHP（一）——概述及服务器配置</a></p>
+<p>[3] <a href="http://www.runoob.com/w3cnote/15-php-mind-mapping.html" target="_blank" rel="external">15 张思维导图来快速学习 PHP 语言基础</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/05/《高性能PHP》学习笔记/" rel="next" title="《高性能PHP》学习笔记">
+                <i class="fa fa-chevron-left"></i> 《高性能PHP》学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/28/机器学习笔记/" rel="prev" title="机器学习笔记">
+                机器学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP的简介"><span class="nav-number">1.</span> <span class="nav-text">PHP的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composer"><span class="nav-number">2.</span> <span class="nav-text">Composer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP7"><span class="nav-number">3.</span> <span class="nav-text">PHP7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PSR"><span class="nav-number">4.</span> <span class="nav-text">PSR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swoole"><span class="nav-number">5.</span> <span class="nav-text">Swoole</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel"><span class="nav-number">6.</span> <span class="nav-text">Laravel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phar"><span class="nav-number">7.</span> <span class="nav-text">Phar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">8.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

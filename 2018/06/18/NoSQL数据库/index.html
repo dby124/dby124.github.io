@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NoSQL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引言NoSQL（Not Only Sql），泛指非关系型的数据库。 背景：随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模，超大流量以及高并发的时候得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。 NoSQL与关系型数">
+<meta name="keywords" content="NoSQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NoSQL数据库">
+<meta property="og:url" content="http://yoursite.com/2018/06/18/NoSQL数据库/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="引言NoSQL（Not Only Sql），泛指非关系型的数据库。 背景：随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模，超大流量以及高并发的时候得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。 NoSQL与关系型数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-05T08:23:11.505Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NoSQL数据库">
+<meta name="twitter:description" content="引言NoSQL（Not Only Sql），泛指非关系型的数据库。 背景：随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模，超大流量以及高并发的时候得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。 NoSQL与关系型数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/18/NoSQL数据库/"/>
+
+
+
+
+
+  <title>NoSQL数据库 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/NoSQL数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NoSQL数据库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T09:08:38+08:00">
+                2018-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>NoSQL（Not Only Sql），泛指非关系型的数据库。</p>
+<p><strong>背景</strong>：随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是<strong>超大规模，超大流量以及高并发</strong>的时候得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。<strong>NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。</strong></p>
+<h1 id="NoSQL与关系型数据库的比较"><a href="#NoSQL与关系型数据库的比较" class="headerlink" title="NoSQL与关系型数据库的比较"></a>NoSQL与关系型数据库的比较</h1><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>关系型数据库</th>
+<th>NoSQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储方式</td>
+<td>表格式（行和列），便于关联协作存储和数据提取</td>
+<td>存储在数据集，如文档、键值对或者图结构</td>
+</tr>
+<tr>
+<td>存储结构</td>
+<td>预定义了结构（列的定义：确定数据的形式和内容），具有可靠性和稳定性但是难以修改</td>
+<td>动态结构，易于适应数据类型和结构的变化</td>
+</tr>
+<tr>
+<td>存储规范</td>
+<td>高规范性，分割细化数据到关系表，以避免重复和获得精简的空间，数据管理逻辑清晰但是操作麻烦</td>
+<td>存储成了一个整体，数据存储可能重复，但整块数据更加便于读写</td>
+</tr>
+<tr>
+<td>存储扩展</td>
+<td>纵向扩展（想要提高处理能力，要使用速度更快的计算机）</td>
+<td>横向扩展（存储是分布式的，可以通过给资源池添加更多的普通数据库服务器来分担负载）</td>
+</tr>
+<tr>
+<td>查询方式</td>
+<td>结构化查询语言来操作数据库（SQL：CURD），预定义优化方式（如索引）加快查询</td>
+<td>以块为单元操作数据非结构化查询语言（UnQl），无标准，基于更简单更精确的数据访问模式优化查询</td>
+</tr>
+<tr>
+<td>事务</td>
+<td>ACID规则（原子性(Atomicity)、一致性(Consistency)、隔离性(Isolation)、持久性(Durability)）<strong>，对事务支持性更强</strong></td>
+<td>BASE原则（基本可用（Basically Availble）、软/柔性事务（Soft-state ）、最终一致性（Eventual Consistency））</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>数据一致性强，读写性能比较差。高并发读写性能非常差，海量数据处理效率非常低</td>
+<td>无需sql的解析，提高了读写性能。</td>
+</tr>
+<tr>
+<td>常用数据库</td>
+<td>SQL Server，Mysql，Oracle</td>
+<td>redis，memcache，MongoDb</td>
+</tr>
+<tr>
+<td>授权方式</td>
+<td>大部分付费</td>
+<td>大部分开源</td>
+</tr>
+</tbody>
+</table>
+<p>总的来说，Nosql相比于传统的关系性数据库来说，具有高效集群、不使用关系模型、开源、易扩展和灵活的数据模型等优点。</p>
+<p>Compose.io 的开发者 DJ Walker-Morgan 也说过：“NoSQL 就像我购买营养食品去减肥一样，负责的是控制，必须有严格的纪律和谨慎的管理才适用”。</p>
+<p>所以说关系型数据库还是主流，Nosql目前来说主要是作为超大规模，超大流量以及高并发情景下的解决方案。也许不久的将来，Nosql会越来越完善，向事务支持和大规模高并发两极发展，而关系型数据库也将在保证稳定性安全性的同时针对大规模和高并发找到一些更有效的解决方案。可以说Nosql的高速发展，促进了数据库行业的高效快速发展。（就目前所持认知的想法，不知道理解的对不对）</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>Nosql可以分为键值(Key-Value)存储数据库、列存储数据库和图形(Graph)数据库四种数据库。</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>例子</th>
+<th>典型应用场景</th>
+<th>数据模型</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>键值存储数据库</td>
+<td>Tokyo Cabinet/Tyrant, <strong>Redis</strong>, Voldemort, Oracle BDB</td>
+<td>内容缓存，主要用于处理大量数据的高访问负载，也用于一些日志系统等等。</td>
+<td>Key 指向 Value 的键值对，通常用hash table来实现</td>
+<td>查找速度快</td>
+<td>数据无结构化，通常只被当作字符串或者二进制数据</td>
+</tr>
+<tr>
+<td>列存储数据库</td>
+<td>Cassandra, HBase, Riak</td>
+<td>分布式的文件系统</td>
+<td>以列簇式存储，将同一列数据存在一起</td>
+<td>查找速度快，可扩展性强，更容易进行分布式扩展</td>
+<td>功能相对局限</td>
+</tr>
+<tr>
+<td>文档型数据库</td>
+<td>CouchDB, <strong>MongoDb</strong></td>
+<td>Web应用（与Key-Value类似，Value是结构化的，不同的是数据库能够了解Value的内容）</td>
+<td>Key-Value对应的键值对，Value为结构化数据</td>
+<td>数据结构要求不严格，表结构可变，不需要像关系型数据库一样需要预先定义表结构</td>
+<td>查询性能不高，而且缺乏统一的查询语法。</td>
+</tr>
+<tr>
+<td>图形数据库</td>
+<td>Neo4J, InfoGrid, Infinite Graph</td>
+<td>社交网络，推荐系统等。专注于构建关系图谱</td>
+<td>图结构</td>
+<td>利用图结构相关算法。比如最短路径寻址，N度关系查找等</td>
+<td>很多时候需要对整个图做计算才能得出需要的信息，而且这种结构不太好做分布式的集群方案。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="键值-Key-Value-存储数据库"><a href="#键值-Key-Value-存储数据库" class="headerlink" title="键值(Key-Value)存储数据库"></a>键值(Key-Value)存储数据库</h2><p>这一类数据库主要会使用到一个哈希表，这个表中有一个特定的键和一个指针指向特定的数据。Key/value模型对于IT系统来说的优势在于简单、易部署。但是如果DBA只对部分值进行查询或更新的时候，Key/value就显得效率低下了。举例如：Tokyo Cabinet/Tyrant, Redis, Voldemort, Oracle BDB.</p>
+<h2 id="列存储数据库。"><a href="#列存储数据库。" class="headerlink" title="列存储数据库。"></a>列存储数据库。</h2><p>这部分数据库通常是用来应对分布式存储的海量数据。键仍然存在，但是它们的特点是指向了多个列。这些列是由列家族来安排的。如：Cassandra, HBase, Riak.</p>
+<h2 id="文档型数据库"><a href="#文档型数据库" class="headerlink" title="文档型数据库"></a>文档型数据库</h2><p>文档型数据库的灵感是来自于Lotus Notes办公软件的，而且它同第一种键值存储相类似。该类型的数据模型是版本化的文档，半结构化的文档以特定的格式存储，比如JSON。文档型数据库可 以看作是键值数据库的升级版，允许之间嵌套键值。而且文档型数据库比键值数据库的查询效率更高。如：CouchDB, MongoDb. 国内也有文档型数据库SequoiaDB，已经开源。</p>
+<h2 id="图形-Graph-数据库"><a href="#图形-Graph-数据库" class="headerlink" title="图形(Graph)数据库"></a>图形(Graph)数据库</h2><p>图形结构的数据库同其他行列以及刚性结构的SQL数据库不同，它是使用灵活的图形模型，并且能够扩展到多个服务器上。NoSQL数据库没有标准的查询语言(SQL)，因此进行数据库查询需要制定数据模型。许多NoSQL数据库都有REST式的数据接口或者查询API。如：Neo4J, InfoGrid, Infinite Graph.<br>因此，我们总结NoSQL数据库在以下的这几种情况下比较适用：1、数据模型比较简单；2、需要灵活性更强的IT系统；3、对数据库性能要求较高；4、不需要高度的数据一致性；5、对于给定key，比较容易映射复杂值的环境。</p>
+<p>参考：</p>
+<ol>
+<li><a href="https://www.cnblogs.com/lina520/p/7919551.html" target="_blank" rel="external">Nosql简介 Redis，Memchche,MongoDb的区别</a></li>
+<li><a href="https://baike.baidu.com/item/NoSQL/8828247?fr=aladdin" target="_blank" rel="external">Nosql百度百科</a></li>
+<li><a href="http://www.runoob.com/mongodb/nosql.html" target="_blank" rel="external">NoSQL 简介</a></li>
+<li><a href="https://www.cnblogs.com/beilin/p/5981870.html" target="_blank" rel="external">关系型数据库与NoSQL的对比</a></li>
+<li><a href="https://blog.csdn.net/u014374173/article/details/53284374" target="_blank" rel="external">Nosql 理解篇+实战篇 一 了解nosql</a></li>
+<li><a href="https://www.oschina.net/news/84809/nosql-no-problem-why-mysql-is-still-king" target="_blank" rel="external">NoSQL 没毛病，为什么 MySQL 还是“王”？</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NoSQL/" rel="tag"># NoSQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/08/高斯混合模型(GMM)/" rel="next" title="高斯混合模型(GMM)">
+                <i class="fa fa-chevron-left"></i> 高斯混合模型(GMM)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/19/memcache、Redis与MongoDB的学习/" rel="prev" title="memcache、Redis与MongoDB的学习">
+                memcache、Redis与MongoDB的学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL与关系型数据库的比较"><span class="nav-number">2.</span> <span class="nav-text">NoSQL与关系型数据库的比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">3.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#键值-Key-Value-存储数据库"><span class="nav-number">3.1.</span> <span class="nav-text">键值(Key-Value)存储数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列存储数据库。"><span class="nav-number">3.2.</span> <span class="nav-text">列存储数据库。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档型数据库"><span class="nav-number">3.3.</span> <span class="nav-text">文档型数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图形-Graph-数据库"><span class="nav-number">3.4.</span> <span class="nav-text">图形(Graph)数据库</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

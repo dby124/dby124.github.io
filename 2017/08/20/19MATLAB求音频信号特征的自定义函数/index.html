@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MATLAB," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="分帧和分窗处理： 对信号x加窗分帧处理   1234567wlen=50;      % 帧长                      inc=18;            % 帧移                      win=hanning(wlen);  % 窗函数                     fn=floor(((N-wlen)/inc))+1;   % 计算帧数">
+<meta name="keywords" content="MATLAB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MATLAB求音频信号特征的自定义函数.md">
+<meta property="og:url" content="http://yoursite.com/2017/08/20/19MATLAB求音频信号特征的自定义函数/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="分帧和分窗处理： 对信号x加窗分帧处理   1234567wlen=50;      % 帧长                      inc=18;            % 帧移                      win=hanning(wlen);  % 窗函数                     fn=floor(((N-wlen)/inc))+1;   % 计算帧数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T08:07:11.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MATLAB求音频信号特征的自定义函数.md">
+<meta name="twitter:description" content="分帧和分窗处理： 对信号x加窗分帧处理   1234567wlen=50;      % 帧长                      inc=18;            % 帧移                      win=hanning(wlen);  % 窗函数                     fn=floor(((N-wlen)/inc))+1;   % 计算帧数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/20/19MATLAB求音频信号特征的自定义函数/"/>
+
+
+
+
+
+  <title>MATLAB求音频信号特征的自定义函数.md | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/20/19MATLAB求音频信号特征的自定义函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MATLAB求音频信号特征的自定义函数.md</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T16:37:06+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分帧和分窗处理："><a href="#分帧和分窗处理：" class="headerlink" title="分帧和分窗处理："></a>分帧和分窗处理：</h1><ul>
+<li><p>对信号x加窗分帧处理</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">wlen=50;      % 帧长                      </div><div class="line">inc=18;            % 帧移                      </div><div class="line">win=hanning(wlen);  % 窗函数                     </div><div class="line">fn=floor(((N-wlen)/inc))+1;   % 计算帧数                 </div><div class="line">time=(0:N-1)/Fs;                        </div><div class="line">frameTime=(((1:fn)-1)*inc+wlen/2)/Fs;    </div><div class="line">X=enframe(x,win,inc)<span class="string">';     %分窗处理</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="时域特征："><a href="#时域特征：" class="headerlink" title="时域特征："></a>时域特征：</h1><ul>
+<li><p>求信号signal的时域特征</p>
+<ul>
+<li><p>时域函数    </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ rms,peak,factor] = timechara(signal)</div><div class="line">% timechara:作用，求输入信号的自相关序列的相关参数函数</div><div class="line">% 输入：signal：一帧信号的序列</div><div class="line">% 输出：rms：每帧信号的有效值（对时间的均值）</div><div class="line">%       peak：每帧信号的峰值</div><div class="line">%       factor(1):峰值因子，反映波形的形状特征</div><div class="line">%       factor(2)：脉冲因子</div><div class="line">%       factor(3)：裕度因子</div><div class="line">%       factor(4)：波形因子</div><div class="line">%       factor(5)：K因子</div><div class="line">%       kurtosis:峭度</div><div class="line">    wlen = length(signal(:,1));     % 每帧信号的采样点个数</div><div class="line">    s_ave = mean(signal);      % 每帧信号的均值</div><div class="line">    rms = sqrt(sum((signal-s_ave).^2)/wlen); % 每帧信号的自相关序列的有效值（对时间的均值）</div><div class="line">    peak = (max(signal)-min(signal))/2;     % 每帧信号的峰值</div><div class="line">    factor(1) = peak/rms;         % crestfactor：每帧信号的峰值因子，反映波形的形状特征;</div><div class="line">    factor(2) =  peak/(sum(abs(signal))/wlen);      % impulsefactor:每帧信号的脉冲因子</div><div class="line">    factor(3) = peak/((sum(sqrt(abs(signal)))/wlen).^2);     % marginfactor:每帧信号的裕度因子</div><div class="line">    factor(4) = rms/(sum(abs(signal))/wlen);      % shapefactor:每帧信号的波形因子</div><div class="line">    factor(5) = peak*rms;     % Kfactor:每帧信号的K因子</div><div class="line">    factor(6) = kurtosis(signal); % kurtosis:峭度</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+<li><p>例子</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">x=0:0.1:2*pi;</div><div class="line">y=sin(x); %信号</div><div class="line">ma = max(y); %最大值</div><div class="line">mi = min(y); %最小值</div><div class="line">me = mean(y); %平均值</div><div class="line">pk = ma-mi; %峰-峰值</div><div class="line">av = mean(abs(y)) %绝对值的平均值(整流平均值)</div><div class="line">va = var(y); %方差</div><div class="line">st = std(y); %标准差</div><div class="line">ku = kurtosis(y); %峭度</div><div class="line">rm = rms(y); %均方根</div><div class="line">S = rm/av %波形因子</div><div class="line">C = pk/rm; %峰值因子</div><div class="line">Kr = sum(y.^4)/sqrt(sum(y.^2)) %峭度因子</div><div class="line">I = pk/av %脉冲因子</div><div class="line">xr = mean(sqrt(abs(y)))^2;</div><div class="line">L = pk/xr; %裕度因子</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>求信号的短时平均能量的函数。</p>
+<pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ E ] = energy( frame )</div><div class="line">% energy:对于一帧信号，求出短时能量</div><div class="line">% 输入参数：frame:一帧信号</div><div class="line">% 输出参数：E:信号的短时能量</div><div class="line">    u=frame;</div><div class="line">    u2=u.*u;    </div><div class="line">    E=sum(u2);  %幅度的平方和</div><div class="line">end</div></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>短时平均过零率 </p>
+<pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ zcr ] = zcr( frame )</div><div class="line">% zcr:求一帧信号的短时平均过零数</div><div class="line">% 输入参数：</div><div class="line">   zcr = 0;</div><div class="line">   wlen = length(frame);</div><div class="line">   frame = frame-mean(frame);             % 消除直流分量,但是此处处理后与在整个信号出消除直流分量求得的zrc有差距</div><div class="line">   <span class="keyword">for</span> i=1: (wlen-1)     % 在一帧内寻找过零点</div><div class="line">       %<span class="keyword">if</span>条件处可加门限</div><div class="line">       <span class="keyword">if</span> frame(i)* frame(i+1)&lt; 0     % 判断是否为过零点</div><div class="line">           zcr = zcr+1;         % 是过零点，记录1次</div><div class="line">       end</div><div class="line">   end</div><div class="line">end</div></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>求输入信号的自相关序列的相关参数函数</p>
+<pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ rms,peak,crestfactor] = fcorr(signal)</div><div class="line">% fcorr:作用，求输入信号的自相关序列的相关参数函数</div><div class="line">% 输入：signal一个信号的序列</div><div class="line">% 输出：rms：每个信号的自相关序列的有效值（对时间的均值）</div><div class="line">%       peak：自相关函数序列的峰值</div><div class="line">%       crestfactor：自相关函数序列的峰值因子，反映波形的形状特征</div><div class="line">    wlen = length(signal(:,1));</div><div class="line">    ss = xcorr(signal);</div><div class="line">    ss = ss(1:wlen,:);      % 因为相关函数是对称的，取前一半</div><div class="line">    ss_ave = mean(ss);      % 自相关函数序列的均值</div><div class="line">%     rms = sqrt(sum((signal-ss_ave).^2)/wlen); % 这是rms的错误求法，但是测试的训练效果较好</div><div class="line">    rms = sqrt(sum((ss-ss_ave).^2)/wlen); % 每个信号的自相关序列的有效值（对时间的均值）</div><div class="line">    peak = (max(ss)-min(ss))/2;     % 峰值</div><div class="line">    crestfactor = peak/rms;         % 峰值因子，反映波形的形状特征;</div><div class="line">end</div></pre></td></tr></table></figure>
+</code></pre></li>
+</ul>
+<h1 id="时频域特征"><a href="#时频域特征" class="headerlink" title="时频域特征"></a>时频域特征</h1><ul>
+<li><p>求信号的小波的特性</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ energy,sqr ] = wave( frame )</div><div class="line">% 输入参数：frame:一帧信号</div><div class="line">% 输出参数：</div><div class="line">%---------energy:小波系数的能量</div><div class="line">%---------sqr:小波系数的均方差</div><div class="line">	T = wpdec(frame,2,<span class="string">'db2'</span>);       %db8小波做两层分解</div><div class="line">    %重构第二层的所有节点</div><div class="line">    <span class="keyword">for</span> i = 1:4</div><div class="line">        y = wprcoef(T,[2,i-1]);</div><div class="line">        energy(:,i) = sum(y.*y);     %重构信号的能量</div><div class="line">        sqr(:,i) = var(y);          %重构信号的均方差</div><div class="line">    end</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+<li><p>小波变换的改进函数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ energy,sqr] = wave( frame,N )</div><div class="line">% wave:求信号的小波的特性</div><div class="line">% 输入参数：frame:一帧信号</div><div class="line">% 输出参数：energy:小波系数的能量；sqr:小波系数的均方差;coef:波峰系数</div><div class="line">    T = wpdec(frame,N,<span class="string">'db8'</span>);       %db8小波做N层分解</div><div class="line">    %重构第N层的指定节点</div><div class="line">    <span class="keyword">for</span> i = 1:(2^N)</div><div class="line">        y = wprcoef(T,[N,i-1]);</div><div class="line">        % y = wprcoef(T,[N,mum(i)]);</div><div class="line">        energy(:,i) = sum(y.*y);     %重构信号的能量</div><div class="line">        sqr(:,i) = var(y);          %重构信号的均方差</div><div class="line">        % coef(:,i) = max(y)/mean(y);  %重构信号的波峰系数，效果不好</div><div class="line">    end</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+<li><p>HHT变换的相关特征求取函数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">% 对一个信号做HHT变换，求得相关的特征</div><div class="line"><span class="keyword">function</span> [peaks,bjpvar,aveA,mseA,rmsA,msize,ratio1,msee] = infreqfeature(x,fs)</div><div class="line">% 输入：x 是一个信号，是一个列向量</div><div class="line">% 输出： </div><div class="line">%        peaks 边际谱的前4个峰值</div><div class="line">%        bjpvar 边际谱的方差</div><div class="line">%        aveA  各分量瞬时幅度的均值</div><div class="line">%        rmsA  各分量瞬时幅度的有效值</div><div class="line">%        mseeA 各分量瞬时幅度的方差和</div><div class="line">%        msize(1)、msize(2)、msize(3)、msize(4):瞬时频率第三个分量的极大值、极小值点数和第四个分量的极大值、极小值点的个数</div><div class="line">%        ratio 各分量瞬时频率的方差贡献率</div><div class="line">%        </div><div class="line">%        </div><div class="line">% 调用的函数：</div><div class="line">% hht工具箱函数：      emd()、hhspectrum()、toimage()</div><div class="line">% 自定义函数：         findmainfreq()</div><div class="line">    N = length(x);</div><div class="line">    imp=emd(x);                  % 对信号进行EMD分解</div><div class="line">    [m,n]=size(imp);             % 求取EMD分解成几个分量</div><div class="line">    % 对IMF分量求取瞬时频率与振幅：A：是每个IMF的振幅向量,f:每个IMF对应的归一化瞬时频率，t：时间序列号</div><div class="line">    [A,f,t] = hhspectrum(imp);</div><div class="line">    % 求瞬时频率</div><div class="line">    infreq = fs * f;</div><div class="line">    %求信号的边界谱bjp，E：对应的振幅值</div><div class="line">    [E,tt1]=toimage(A,f,t,length(t));</div><div class="line">    enery = E;</div><div class="line">    E=flipud(E);</div><div class="line">    <span class="keyword">for</span> k=1:size(E,1)</div><div class="line">        bjp(k)=sum(E(k,:))*1/fs;</div><div class="line">    end</div><div class="line">    % 求边界谱的峰值和对应的采样点的位置</div><div class="line">    % peaks表示前5个峰值，如果需要求这些峰值对应的位置，直接在peaks参数后面加一个参数即可，详见该函数的定义</div><div class="line">    [peaks] = findmainfreq(bjp);   </div><div class="line">    bjpvar =  var(bjp);      %边际谱的方差</div><div class="line">    % 瞬时频率第三个和第四个分量的极值点的个数</div><div class="line">    [indmin3, indmax3, indzer] = extr(infreq(3,:),1/fs);</div><div class="line">    msize(1) = length(indmin3);       % 第三个分量极大值点数</div><div class="line">    msize(2) = length(indmax3);       % 第三个分量极小值点数</div><div class="line">    [indmin4, indmax4, indzer] = extr(infreq(4,:),1/fs);</div><div class="line">    msize(3) = length(indmin4);       % 第四个分量极大值点数</div><div class="line">    msize(4) = length(indmax4);       % 第四个分量极大值点数</div><div class="line">	% 非有效特征，瞬时频率的均值、方差和有效值的特征对于好坏瓶子的区分性很差，所以不需要使用</div><div class="line">    % 所有分量瞬时频率的均值、方差和有效值</div><div class="line">    <span class="keyword">for</span> k = 1:m-1</div><div class="line">	% ave(k) = mean(infreq(k,:));     % 瞬时频率的均值</div><div class="line">        mse(k) = var(infreq(k,:));      % 各分量的瞬时频率的方差</div><div class="line">	% rms(k) = sqrt(sum((infreq(k,:) - ave(k)).^2)/N);% 各分量的瞬时频率的有效值</div><div class="line">    end</div><div class="line">    % 所有分量瞬时幅度的均值、方差和有效值</div><div class="line">    <span class="keyword">for</span> k = 1:m-1</div><div class="line">        aveA(k) = mean(A(k,:));     % 瞬时幅度的均值</div><div class="line">        mseA(k) = var(A(k,:));      % 各分量的瞬时幅度的方差</div><div class="line">        rmsA(k) = sqrt(sum((A(k,:) - aveA(k)).^2)/N); % 各分量的瞬时幅度的有效值</div><div class="line">    end</div><div class="line">    % 所有分量的方差和</div><div class="line">    msee = sum(mse);</div><div class="line">    % 各分量的方差贡献率,此处只求前6个分量的方差贡献率</div><div class="line">    <span class="keyword">for</span> j = 1:6</div><div class="line">        ratio(j) = (100*mse(j))/msee;       %获取瞬时频率的方差贡献率</div><div class="line">    end</div><div class="line">    ratio1 = (100*mse(1))/msee;     % 第一个分量的瞬时频率方差贡献率</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="频域特征"><a href="#频域特征" class="headerlink" title="频域特征"></a>频域特征</h1><ul>
+<li><p>求出信号的频域特征参数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ area,peaks,loc ] = spectrum( frame )</div><div class="line">% spectrum:对一帧信号取频谱特征</div><div class="line">% 输入参数：frame:一帧信号，长度为256</div><div class="line">% 输出参数：area:频谱面积；peaks：频谱曲线峰值系数(最大5个)：col:最大5个峰值系数对应的位置</div><div class="line">    N = length(frame);</div><div class="line">   [f amp] = FFT(frame,N);</div><div class="line">   temp = amp(1:N/2)<span class="string">';</span></div><div class="line"><span class="string">   area = polyarea(1:N/2,temp);       %求频谱面积</span></div><div class="line"><span class="string">   [K,V] = findpeaks(temp);         %找出频谱峰值</span></div><div class="line"><span class="string">   peaks = sort(K,'</span>descend<span class="string">');       %降序排列峰值</span></div><div class="line"><span class="string">   peaks = peaks(1:5);      %取出前5大的峰值</span></div><div class="line"><span class="string">   for i = 1:5</span></div><div class="line"><span class="string">       mark = find(K == peaks(i));</span></div><div class="line"><span class="string">       loc(i) = V(mark);</span></div><div class="line"><span class="string">   end</span></div><div class="line"><span class="string">end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>直接求频域特征</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> [ FC,MSF,VF,RMSF,RVF ] = frequency( frame )</div><div class="line">% frequency:求出一帧信号的频域特征参数</div><div class="line">% 输入参数：frame:一帧信号</div><div class="line">% 输出参数： FC:重心频率</div><div class="line">%           MSF:均方频率</div><div class="line">%           VF:频率方差</div><div class="line">%           RMSF:均方根频率</div><div class="line">%           RVF:频率标准差</div><div class="line">    delta = 1/48000;     % 采样间隔</div><div class="line">    N = length(frame(:,1)); % 每帧信号的点数</div><div class="line">    <span class="keyword">for</span> i=2:N</div><div class="line">        s(i,:) = (frame(i,:)-frame(i-1,:))/delta;</div><div class="line">    end</div><div class="line">    FC = sum(s(2:N,:).*frame(2:N,:))/(2*pi*sum(frame(:,:).^2));</div><div class="line">    MSF = sum(s(2:N,:).^2)/(4*(pi^2)*sum(frame(:,:).^2));</div><div class="line">    VF = MSF-(FC^2);</div><div class="line">    RMSF = sqrt(MSF);</div><div class="line">    RVF = sqrt(VF);</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：<a href="https://www.cnblogs.com/xingshansi/p/6815217.html" target="_blank" rel="external">音频特征提取——常用音频特征</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MATLAB/" rel="tag"># MATLAB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/20/18MATLAB学习笔记/" rel="next" title="MATLAB工具常用函数">
+                <i class="fa fa-chevron-left"></i> MATLAB工具常用函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/21/20特征选择方法/" rel="prev" title="特征选择方法">
+                特征选择方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分帧和分窗处理："><span class="nav-number">1.</span> <span class="nav-text">分帧和分窗处理：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时域特征："><span class="nav-number">2.</span> <span class="nav-text">时域特征：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时频域特征"><span class="nav-number">3.</span> <span class="nav-text">时频域特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#频域特征"><span class="nav-number">4.</span> <span class="nav-text">频域特征</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

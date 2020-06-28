@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="GMM,分类," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文主要针对初次接触GMM的人，简单的给出了一些自己初识的一些理解，比较浅显。 引言初次真正意义上接触高斯混合模型（Gaussian Mixed Model，GMM），是因为要用它来进行音频分类，以音频信号特征为输入，通过GMM来建模，完成最终的分类。 有一个说法是GMM是多个高斯分布函数的线性组合。理论上GMM可以拟合出任意类型的分布，我们知道在实际生活中，很少有数据严格遵循高斯分布的，而对于同">
+<meta name="keywords" content="GMM,分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高斯混合模型(GMM)">
+<meta property="og:url" content="http://yoursite.com/2018/06/08/高斯混合模型(GMM)/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="本文主要针对初次接触GMM的人，简单的给出了一些自己初识的一些理解，比较浅显。 引言初次真正意义上接触高斯混合模型（Gaussian Mixed Model，GMM），是因为要用它来进行音频分类，以音频信号特征为输入，通过GMM来建模，完成最终的分类。 有一个说法是GMM是多个高斯分布函数的线性组合。理论上GMM可以拟合出任意类型的分布，我们知道在实际生活中，很少有数据严格遵循高斯分布的，而对于同">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/machine_learning/gsm.jpg">
+<meta property="og:updated_time" content="2018-06-12T02:57:55.906Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高斯混合模型(GMM)">
+<meta name="twitter:description" content="本文主要针对初次接触GMM的人，简单的给出了一些自己初识的一些理解，比较浅显。 引言初次真正意义上接触高斯混合模型（Gaussian Mixed Model，GMM），是因为要用它来进行音频分类，以音频信号特征为输入，通过GMM来建模，完成最终的分类。 有一个说法是GMM是多个高斯分布函数的线性组合。理论上GMM可以拟合出任意类型的分布，我们知道在实际生活中，很少有数据严格遵循高斯分布的，而对于同">
+<meta name="twitter:image" content="http://yoursite.com/images/machine_learning/gsm.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/08/高斯混合模型(GMM)/"/>
+
+
+
+
+
+  <title>高斯混合模型(GMM) | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/高斯混合模型(GMM)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高斯混合模型(GMM)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T11:04:20+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要针对初次接触GMM的人，简单的给出了一些自己初识的一些理解，比较浅显。</p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>初次真正意义上接触高斯混合模型（Gaussian Mixed Model，GMM），是因为要用它来进行音频分类，以音频信号特征为输入，通过GMM来建模，完成最终的分类。</p>
+<p>有一个说法是<strong>GMM是多个高斯分布函数的线性组合</strong>。理论上GMM可以拟合出任意类型的分布，我们知道在实际生活中，很少有数据严格遵循高斯分布的，而对于同一个集合下的数据，可能存在多种不同的分布，可以通过采用不同的高斯分布函数来模拟各个分布，最后将这些高斯模型线性组合起来，最终建立整个数据的模型，称这个模型为GMM。具体文章最后<a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" rel="external">参考资料1</a>中的论述，讲得很清晰形象。</p>
+<h1 id="高斯混合模型简介"><a href="#高斯混合模型简介" class="headerlink" title="高斯混合模型简介"></a>高斯混合模型简介</h1><h2 id="高斯模型"><a href="#高斯模型" class="headerlink" title="高斯模型"></a>高斯模型</h2><p>单个高斯分布模型（或称正态分布模型，GSM）反映了自然界普遍存在的有关变量的一种统计规律，例如身高，考试成绩等；而且有很好的数学性质，具有各阶导数，变量频数分布由 μ、σ 完全决定等等，在许多领域得到广泛应用。在这里简单介绍下高斯分布的概率密度分布函数:</p>
+<p><img src="/images/machine_learning/gsm.jpg" alt="GSM"></p>
+<h2 id="GMM"><a href="#GMM" class="headerlink" title="GMM"></a>GMM</h2><p>GMM是一种是概率模型，在音频处理的语音识别、音频分类等方面具有广泛的应用。GMM的训练模型形式是P(Y|X)，输入是X，输出是Y，训练后模型得到的输出是一系列的概率值，对于分类任务输入X对应于各个不同Y（类）的概率，其中概率最大的那个类就是判决结果。</p>
+<p><strong>前提</strong>：假设样本分布是几个高斯分布的加权和。</p>
+<p><a href="https://www.cnblogs.com/mindpuzzle/p/3730534.html" target="_blank" rel="external">参考资料2</a>中，将GMM与K-means算法进行的类比讲述，还详细的列出了与k-means算法的异同点。</p>
+<h1 id="GMM的原理与算法步骤"><a href="#GMM的原理与算法步骤" class="headerlink" title="GMM的原理与算法步骤"></a>GMM的原理与算法步骤</h1><p>GMM建模使用<a href="(http://www.cnblogs.com/xingshansi/p/6557665.html">期望值最大（Expectation Maximization，EM）算法</a>)迭代计算GMM的参数，实现参数估计。</p>
+<p>EM算法分两步，第一步先求出要估计参数的粗略值，第二步使用第一步的值最大化似然函数。</p>
+<p><strong>EM算法估计GMM参数的大致思想是</strong>：</p>
+<ul>
+<li>（1）我们先指定GMM参数a，μ和Ʃ的初始值；</li>
+<li>（2）将当前a，μ和Ʃ代入第n个信号点为第k个分量的后验概率公式中计算出后验概率；</li>
+<li>（3）将（2）中计算结果将代入a，μ和Ʃ的最大似然概率公式中，求得新的a，μ和Ʃ；</li>
+</ul>
+<p>重复步骤（2）和（3），直到算法收敛，得到最后的GMM参数a，μ和Ʃ，此时建模完成。</p>
+<blockquote>
+<p>详细推导过程及代码实现：见<a href="https://www.cnblogs.com/xingshansi/p/6584555.html" target="_blank" rel="external">参考资料4</a>。</p>
+</blockquote>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>针对任务的类型，GMM可用于分类、拟合和聚类。</p>
+<p>针对实际的应用背景，GMM可用于图像处理的图像分割、对象识别、视频分析等方面。除此GMM在音频处理的语音识别、音频分类等方面也具有广泛的应用。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" rel="external">高斯混合模型（GMM）及其EM算法的理解</a></li>
+<li><a href="https://www.cnblogs.com/mindpuzzle/p/3730534.html" target="_blank" rel="external">高斯混合模型(GMM)</a></li>
+<li><a href="http://www.cnblogs.com/CBDoctor/archive/2011/11/06/2236286.html" target="_blank" rel="external">混合高斯模型算法</a></li>
+<li><a href="https://www.cnblogs.com/xingshansi/p/6584555.html" target="_blank" rel="external">混合高斯模型（GMM）推导及实现</a></li>
+<li><a href="https://blog.csdn.net/imfengyitong/article/details/69562324" target="_blank" rel="external">高斯混合模型GMM（Gaussian Mixture Model）</a></li>
+<li><a href="https://blog.csdn.net/u012151283/article/details/77649924" target="_blank" rel="external">高斯混合模型GMM</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_69e75efd0102wylw.html" target="_blank" rel="external">混合高斯模型Gaussian Mixture Model(GMM)</a></li>
+<li><a href="http://www.cnblogs.com/xingshansi/p/6557665.html" target="_blank" rel="external">EM算法</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GMM/" rel="tag"># GMM</a>
+          
+            <a href="/tags/分类/" rel="tag"># 分类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/06/技术人的核心竞争力/" rel="next" title="技术人的核心竞争力">
+                <i class="fa fa-chevron-left"></i> 技术人的核心竞争力
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/18/NoSQL数据库/" rel="prev" title="NoSQL数据库">
+                NoSQL数据库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高斯混合模型简介"><span class="nav-number">2.</span> <span class="nav-text">高斯混合模型简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯模型"><span class="nav-number">2.1.</span> <span class="nav-text">高斯模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GMM"><span class="nav-number">2.2.</span> <span class="nav-text">GMM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GMM的原理与算法步骤"><span class="nav-number">3.</span> <span class="nav-text">GMM的原理与算法步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用"><span class="nav-number">4.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="信号处理," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="根据《现代语音信号处理》（胡航版）总大概列出前六章的内容，有些会有一些自己的理解和总结。 第一章 绪论 发展史和主要研究内容及发展。  第二章 语音信号处理的基础知识： 语音信号处理的基础知识  语音的产生过程  语音信号的特性：音质、音调、音强、音长  汉语的特点（21个声母、39个韵母）  语音信号的统计特性    语音产生的线性模型    语音产生的非线性模型    FM-AM模型  Tea">
+<meta name="keywords" content="信号处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《现代语音信号处理》(胡航著)第1-6章简介">
+<meta property="og:url" content="http://yoursite.com/2017/08/30/23《现代语音信号处理》-胡航著-第1-6章简介/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="根据《现代语音信号处理》（胡航版）总大概列出前六章的内容，有些会有一些自己的理解和总结。 第一章 绪论 发展史和主要研究内容及发展。  第二章 语音信号处理的基础知识： 语音信号处理的基础知识  语音的产生过程  语音信号的特性：音质、音调、音强、音长  汉语的特点（21个声母、39个韵母）  语音信号的统计特性    语音产生的线性模型    语音产生的非线性模型    FM-AM模型  Tea">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-15T05:48:35.208Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《现代语音信号处理》(胡航著)第1-6章简介">
+<meta name="twitter:description" content="根据《现代语音信号处理》（胡航版）总大概列出前六章的内容，有些会有一些自己的理解和总结。 第一章 绪论 发展史和主要研究内容及发展。  第二章 语音信号处理的基础知识： 语音信号处理的基础知识  语音的产生过程  语音信号的特性：音质、音调、音强、音长  汉语的特点（21个声母、39个韵母）  语音信号的统计特性    语音产生的线性模型    语音产生的非线性模型    FM-AM模型  Tea">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/30/23《现代语音信号处理》-胡航著-第1-6章简介/"/>
+
+
+
+
+
+  <title>《现代语音信号处理》(胡航著)第1-6章简介 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/30/23《现代语音信号处理》-胡航著-第1-6章简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《现代语音信号处理》(胡航著)第1-6章简介</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T11:09:46+08:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>根据《现代语音信号处理》（胡航版）总大概列出前六章的内容，有些会有一些自己的理解和总结。</p>
+<h1 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h1><ul>
+<li>发展史和主要研究内容及发展。</li>
+</ul>
+<h1 id="第二章-语音信号处理的基础知识："><a href="#第二章-语音信号处理的基础知识：" class="headerlink" title="第二章 语音信号处理的基础知识："></a>第二章 语音信号处理的基础知识：</h1><ul>
+<li><p>语音信号处理的基础知识</p>
+</li>
+<li><p>语音的产生过程</p>
+<ul>
+<li><p>语音信号的特性：音质、音调、音强、音长</p>
+</li>
+<li><p>汉语的特点（21个声母、39个韵母）</p>
+</li>
+<li><p>语音信号的统计特性</p>
+</li>
+</ul>
+</li>
+<li><p>语音产生的线性模型  </p>
+</li>
+<li><p>语音产生的非线性模型  </p>
+<ul>
+<li><p>FM-AM模型</p>
+</li>
+<li><p>Teager能量算子</p>
+</li>
+<li><p>能量分离算法</p>
+</li>
+<li><p>FM-AM模型应用</p>
+</li>
+</ul>
+</li>
+<li><p>语音感知</p>
+<ul>
+<li><p>听觉系统（内耳、中耳、外耳；人可感知的频率范围：20-20KHZ，强度范围：-5-130dB）</p>
+</li>
+<li><p>神经系统</p>
+</li>
+<li><p>语音感知（人类能够感知语音的四要素：响度、音调、音色、听觉掩蔽效应）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第三章-时域分析"><a href="#第三章-时域分析" class="headerlink" title="第三章 时域分析"></a>第三章 时域分析</h1><ul>
+<li><p>简介</p>
+<ul>
+<li><p>语音信号非平稳、事变、离散性大，且其中蕴含着说话内容以及说话人特征等，处理难度大。</p>
+</li>
+<li><p>时域分析具有简单、运算量小、物理意义明确等优点。</p>
+</li>
+</ul>
+</li>
+<li><p>数字化和预处理</p>
+<ul>
+<li><p>取样率和量化字长选择</p>
+</li>
+<li><p>预处理（数字化、放大及增益控制、反混叠滤波、预加重）</p>
+</li>
+</ul>
+</li>
+<li><p>短时能量分析（En表示为语音信号一个短时间段内的能量，短时平均能量能反映语音能量随时间变化的特性，用于区分清/浊音等）</p>
+</li>
+<li><p>短时过零分析（短时平均过零数能用于度量信号的频率，粗略地描述了信号频谱特性，可用于区别清/浊音 ；高频率意味高平均过零数，低频率意味着低平均过零数）</p>
+</li>
+<li><p>短时相关分析</p>
+<ul>
+<li><p>分为互相关函数、自相关函数；主要是自相关，用于研究信号本省，如波形同步性和周期性</p>
+</li>
+<li><p>短时自相关函数</p>
+</li>
+<li><p>修正短时自相关函数（解决基音周期宽，是窗和预期的基音周期相适应）</p>
+</li>
+<li><p>短时平均复查函数（避免乘法，简化运算，与自相关函数有类似的作用）</p>
+</li>
+</ul>
+</li>
+<li><p>语音端点检测（用于有/无声或是浊/清/无声判定）</p>
+<ul>
+<li><p>双门限前端检测（存在较大时延）</p>
+</li>
+<li><p>多门限过零率前端检测（解决方法1的缺陷）</p>
+</li>
+<li><p>基于FM-AM模型的端点检测（利用算子输出能量进行端点检测，相比常规的基于短时能量的端点检测方法有较好的效果）</p>
+</li>
+</ul>
+</li>
+<li><p>基于高阶累积量的语音端点检测</p>
+<ul>
+<li><p>噪声环境下的端点检测（目前提出的方法只适用于不同适用环境）</p>
+</li>
+<li><p>高阶累积量和高阶谱</p>
+</li>
+<li><p>基于高阶累积量的端点检测（广泛应用于非高斯及非循环平稳信号中 ；核心：任何类型的高斯信号，其三阶以上的高阶累积量均为0 ）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第四章-短时傅里叶变换"><a href="#第四章-短时傅里叶变换" class="headerlink" title="第四章 短时傅里叶变换"></a>第四章 短时傅里叶变换</h1><ul>
+<li><p>短时傅里叶变换（短时傅里叶变换是窗选语音信号的傅里叶变换，Xn(ejw)  ）</p>
+</li>
+<li><p>短时傅里叶变换的取样率（针对避免混叠；三种取样率：时间取样率、频域取样率、综合取样率）</p>
+</li>
+<li><p>语音信号的短时综合（用于由Xn(ejw)恢复x(n)的问题；两种方法，滤波器组求和法与FFT求和法 存在对偶性）</p>
+<ul>
+<li>滤波器组求和法（与频率取样有关；性能较好，因为其对噪声敏感性较小）</li>
+<li>FFT求和法（与时间取样有关）</li>
+</ul>
+</li>
+<li><p>语谱图（显示大量与语句特性相关的信息，综合了频谱图与时域波形的优点，直观显示语音频谱随时间变化的情况，是一种动态的频谱）</p>
+</li>
+</ul>
+<h1 id="第五章-倒谱分析和同态滤波"><a href="#第五章-倒谱分析和同态滤波" class="headerlink" title="第五章 倒谱分析和同态滤波"></a>第五章 倒谱分析和同态滤波</h1><ul>
+<li><p>同态信号处理（可实现将卷积关系变成求和关系的分离处理，以达到解卷的效果；用于非加性组合信号，其中有包括乘性和卷积性组合信号）</p>
+</li>
+<li><p>同态信号处理的基本原理，分三步</p>
+<ul>
+<li><p>特征系统（将卷积信号转化为加性信号；一分三步：Z变换，对数运算，逆Z变换）</p>
+</li>
+<li><p>线型系统</p>
+</li>
+<li><p>逆特征系统（将加性信号转化为卷积信号；一分三步：Z变换，指数运算，逆Z变换 ）</p>
+</li>
+</ul>
+</li>
+<li><p>复倒谱和倒谱</p>
+<ul>
+<li><p>复倒谱（输入信号进行特征系统后得到的时域信号，成为输入信号的复倒谱，对应倒谱域）</p>
+</li>
+<li><p>倒谱（相对于复倒谱来说，取对数阶段，只取幅度的对数，除去相位的信息；倒谱运算相对简单，由于不含相位信息，不能恢复原始性）</p>
+</li>
+</ul>
+</li>
+<li><p>语音信号两个卷积分量复倒谱的性质</p>
+<ul>
+<li><p>声门激励信号（较重要的性质：可用高复倒谱窗在复倒谱域中提取浊音激励信号的特性）</p>
+</li>
+<li><p>声道冲激响应序列（较重要的性质：可用低复倒谱窗在复倒谱域中提取声道冲激响应）</p>
+</li>
+</ul>
+</li>
+<li><p>避免相位卷绕的算法</p>
+<ul>
+<li><p>相位卷绕：复倒谱取对数是进行的是复对数运算，此时存在相位多只问题，称其为相位卷绕。</p>
+</li>
+<li><p>避免的方法（微分法(不适用，会产生频谱混叠)，最小相位信号法，递推法(x(0)不能过小)）</p>
+</li>
+</ul>
+</li>
+<li><p>语音信号复倒谱分析实例</p>
+</li>
+<li><p>Mel频率倒谱系数（MFCC；应用于语音识别和说话人识别 ）</p>
+<ul>
+<li><p>Mel频率滤波器组（基于人耳在1KHZ以下为频率的线性尺度，1KHZ以上为对数尺度，是人二对低频信号比高频信号更敏感的特点）</p>
+</li>
+<li><p>MFCC（重要特点：对频率轴不均匀的划分；该参数常用于语音识别中，可进行端点检测）</p>
+</li>
+<li><p>计算过程：</p>
+<ul>
+<li><p>对信号分帧，预加重，hamming窗处理，STFT 得到频谱</p>
+</li>
+<li><p>使信号的线性幅度谱通过L个通道的Mel滤波器组并对输出累加</p>
+</li>
+<li><p>对滤波器输出取对数，在进行DCT（离散余弦变换），得到MFCC</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第六章-线性预测分析"><a href="#第六章-线性预测分析" class="headerlink" title="第六章 线性预测分析"></a>第六章 线性预测分析</h1><ul>
+<li><p>LPC的基本思想：一个语音的取样可用过去若干语音取样的线性组合来逼近。通过使实际语音取样与LPC取样间差值的平方和，即进行LMS（最小均方误差）逼近，可决定唯一的一组预测系数，而它们就是线性组合中的加权系数。</p>
+</li>
+<li><p>线性预测的基本原理（基于AR模型，用一个模型表示被分析信号）</p>
+</li>
+<li><p>线性预测方程的建立（因为信号模型的建立是有信号估计模型参数的过程，信号是客观存在由一个有限数目参数的模型进行表示的，不可能完全准确，总会存在误差，因而求解LPC系数是一个逼近的过程，采用逆滤波器法来逼近）</p>
+</li>
+<li><p>线性预测分析的解法（1）——经典解法</p>
+<ul>
+<li><p>自相关法（这种解法在整个时间范围内使误差最小；加窗处理；高效求解、精度低、会引入误差，能保证解的稳定性，适合硬件实现）</p>
+</li>
+<li><p>协方差法（这种解法可使信号N个样本上的误差最小；不加窗处理；精度高、不能保证解的稳定性 ，适用于平稳信号，存在对中间量比例运算的困难）</p>
+</li>
+</ul>
+</li>
+<li><p>线性预测分析的解法（2）——格型法（解决自相关与协方差法的精度与稳定性存在矛盾的问题），求解方法：</p>
+<ul>
+<li><p>正向格型法（逼近原则：正向均方差；不能保证解的稳定性）</p>
+</li>
+<li><p>反向格型法（逼近原则：正向均方差；不能保证解的稳定性 ）</p>
+</li>
+<li><p>几何平均法（非逼近法；通过正向格型法Ki与反向格型法Ki 的几何平均求解；能保证解的稳定性 ）</p>
+</li>
+<li><p>Burg法（非逼近法；通过正向和反向均方误差纸盒的最小求解；能保证解的稳定性 ）</p>
+</li>
+<li><p>协方差格型法（非逼近法； 针对原格型法减小其运算量，改写B\C\E的表达式改进格型法求解；保持格型法的灵活性、解的稳定性和精度，运算量与自相关法相近）</p>
+</li>
+</ul>
+</li>
+<li><p>线性预测应用——LPC谱估计和LPC倒谱</p>
+<ul>
+<li><p>谱估计</p>
+</li>
+<li><p>LPC复倒谱</p>
+</li>
+<li><p>LPC估计与其他谱分析方法的比较     </p>
+</li>
+</ul>
+</li>
+<li><p>线谱对（LSP）分析（频域参数；既有良好的量化和插值特性；以AR模型为基础）</p>
+</li>
+<li><p>极零点模型（为了获取更精确的解且节省运算量；存在解法困难，难以保证收敛于最佳值，且难以确定模型阶数）</p>
+</li>
+</ul>
+<h1 id="第七章-语音信号的非线性分析"><a href="#第七章-语音信号的非线性分析" class="headerlink" title="第七章 语音信号的非线性分析"></a>第七章 语音信号的非线性分析</h1><ul>
+<li>小波变换</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/信号处理/" rel="tag"># 信号处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/29/22信号分析中一些特征量/" rel="next" title="信号分析中一些特征量">
+                <i class="fa fa-chevron-left"></i> 信号分析中一些特征量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/01/24DCASE2013挑战赛介绍/" rel="prev" title="DCASE2013挑战赛介绍">
+                DCASE2013挑战赛介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-绪论"><span class="nav-number">1.</span> <span class="nav-text">第一章 绪论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-语音信号处理的基础知识："><span class="nav-number">2.</span> <span class="nav-text">第二章 语音信号处理的基础知识：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-时域分析"><span class="nav-number">3.</span> <span class="nav-text">第三章 时域分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-短时傅里叶变换"><span class="nav-number">4.</span> <span class="nav-text">第四章 短时傅里叶变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章-倒谱分析和同态滤波"><span class="nav-number">5.</span> <span class="nav-text">第五章 倒谱分析和同态滤波</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六章-线性预测分析"><span class="nav-number">6.</span> <span class="nav-text">第六章 线性预测分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第七章-语音信号的非线性分析"><span class="nav-number">7.</span> <span class="nav-text">第七章 语音信号的非线性分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

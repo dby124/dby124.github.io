@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="车联网," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="来源：来自新加坡南阳理工大学电气与电子信息工程学院的陆亿泷教授，研究领域包括雷达、天线、微波工程、阵列信号处理、电磁计算、复杂问题的遗传算法优化等。会议时间：2017年8月9日 恩智浦 恩智浦 半导体(NASDAQ:NXPI)致力于通过安全连接及基础设施解决方案为人们更智慧、便捷的生活保驾护航。作为全球领先的嵌入式应用安全连接技术领导者，恩智浦不断推动着互联汽车、物联终端等智能安全互联应用市场的创">
+<meta name="keywords" content="车联网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="毫米波雷达和车联网在未来无人驾驶中的应用和比较">
+<meta property="og:url" content="http://yoursite.com/2017/08/09/10毫米波雷达和车联网在未来无人驾驶中的应用和比较/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="来源：来自新加坡南阳理工大学电气与电子信息工程学院的陆亿泷教授，研究领域包括雷达、天线、微波工程、阵列信号处理、电磁计算、复杂问题的遗传算法优化等。会议时间：2017年8月9日 恩智浦 恩智浦 半导体(NASDAQ:NXPI)致力于通过安全连接及基础设施解决方案为人们更智慧、便捷的生活保驾护航。作为全球领先的嵌入式应用安全连接技术领导者，恩智浦不断推动着互联汽车、物联终端等智能安全互联应用市场的创">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-15T05:34:17.166Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="毫米波雷达和车联网在未来无人驾驶中的应用和比较">
+<meta name="twitter:description" content="来源：来自新加坡南阳理工大学电气与电子信息工程学院的陆亿泷教授，研究领域包括雷达、天线、微波工程、阵列信号处理、电磁计算、复杂问题的遗传算法优化等。会议时间：2017年8月9日 恩智浦 恩智浦 半导体(NASDAQ:NXPI)致力于通过安全连接及基础设施解决方案为人们更智慧、便捷的生活保驾护航。作为全球领先的嵌入式应用安全连接技术领导者，恩智浦不断推动着互联汽车、物联终端等智能安全互联应用市场的创">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/09/10毫米波雷达和车联网在未来无人驾驶中的应用和比较/"/>
+
+
+
+
+
+  <title>毫米波雷达和车联网在未来无人驾驶中的应用和比较 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/10毫米波雷达和车联网在未来无人驾驶中的应用和比较/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">毫米波雷达和车联网在未来无人驾驶中的应用和比较</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T18:00:24+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识扩展/" itemprop="url" rel="index">
+                    <span itemprop="name">知识扩展</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>来源：来自新加坡南阳理工大学电气与电子信息工程学院的<strong>陆亿泷</strong>教授，研究领域包括雷达、天线、微波工程、阵列信号处理、电磁计算、复杂问题的遗传算法优化等。<br>会议时间：2017年8月9日</p>
+<h2 id="恩智浦"><a href="#恩智浦" class="headerlink" title="恩智浦"></a>恩智浦</h2><ul>
+<li><p>恩智浦 半导体(NASDAQ:NXPI)致力于通过安全连接及基础设施解决方案为人们更智慧、便捷的生活保驾护航。作为全球领先的嵌入式应用安全连接技术领导者，恩智浦不断推动着互联汽车、物联终端等智能安全互联应用市场的创新。  </p>
+</li>
+<li><p>汽车的概念已经变成了一个安全互联、自驾机器人，能够自动感知环境、思考和行动。</p>
+</li>
+<li><p><strong>高级驾驶员辅助系统</strong>(ADAS)是汽车日益自动驾驶的基础。恩智浦掌握了“自动驾驶机器人”技术的整个复杂性。我们的解决方案有助于确保每一段旅程都是安全和愉快的。</p>
+</li>
+</ul>
+<h2 id="自动驾驶"><a href="#自动驾驶" class="headerlink" title="自动驾驶"></a>自动驾驶</h2><h3 id="车辆如何探测前方道路"><a href="#车辆如何探测前方道路" class="headerlink" title="车辆如何探测前方道路"></a>车辆如何探测前方道路</h3><ul>
+<li>安置于前脸隔栅上的长距离雷达，能够保证和前方车辆保持统一的行车距离。其次，多个搭载机器视觉软件的摄像头，能够读取道路标线，识别周边物体。这些数据会及时发送回后座的行车电脑上，从而电子化控制方向，确保车辆在车道中心。另外，为了增强车辆的全局意识，该系统还配备了短距离雷达、额外的超声波传感器和激光雷达。</li>
+</ul>
+<h3 id="汽车自动驾驶计划"><a href="#汽车自动驾驶计划" class="headerlink" title="汽车自动驾驶计划"></a>汽车自动驾驶计划</h3><ul>
+<li><p>通用汽车计划2020年之前推出全自动汽车，行驶在洲际公路等有出入控制的道路。</p>
+</li>
+<li><p>日本日产汽车宣布将在日本通过Leaf车型测试 一款高级的驾车辅助系统。</p>
+</li>
+<li><p>互联网巨头谷歌也欲从中分一杯羹。2012年5月，谷歌自动驾驶汽车拿到了美国首个自动驾驶车辆许可证，其无人驾驶汽车早已在加 利福尼亚州、内华达州和佛罗里达州的道路上行驶了数十万英里。GoogleCEO、联合创始人佩奇此前表示，将在确保安全的情况下，令无人驾驶汽车逐渐进 入公共道路，预计10年内可以完成。</p>
+</li>
+</ul>
+<h3 id="自动驾驶分级"><a href="#自动驾驶分级" class="headerlink" title="自动驾驶分级"></a>自动驾驶分级</h3><p>在区分自动驾驶和无人驾驶上面,美国国家公路交通安全管理局(简称NHTSA)给出了更为详细的注释,其将自动驾驶功能分为5个级别,0-4级。</p>
+<ul>
+<li><p>0级:<strong>无自动化</strong></p>
+<blockquote>
+<p>没有任何自动驾驶功能、技术,司机对汽车所有功能拥有绝对控制权;</p>
+</blockquote>
+</li>
+<li><p>1级:<strong>驾驶支援</strong></p>
+<blockquote>
+<p>向司机提供基本的技术性帮助,例如自适应巡航控制系统、自动紧急制动,司机占据主导位置,不过可以放弃部分控制权给系统管理。</p>
+</blockquote>
+</li>
+<li><p>2级:<strong>部分自动化</strong></p>
+<blockquote>
+<p>实现数种功能的自动控制,例如自动巡航控制或车道保持功能,司机和汽车来分享控制权,不过,司机必须随时待命,在系统退出的时候随时接上;</p>
+</blockquote>
+</li>
+<li><p>3级:<strong>有条件自动化</strong></p>
+<blockquote>
+<p>在有限情况下实现自动控制,系统在某些条件下可以完全负责整个车辆的操控,但是当遇到紧急情况,还是需要司机对车辆进行接管;</p>
+</blockquote>
+</li>
+<li><p>4级:<strong>完全自动化</strong>(无人驾驶)</p>
+<blockquote>
+<p>无需司机或乘客的干预,在无需人协助的情况下由出发地驶向目的地。</p>
+</blockquote>
+</li>
+</ul>
+<p>目前大部分传统车企都停留在自动驾驶1级、2级、2.5级水平。</p>
+<h2 id="车联网"><a href="#车联网" class="headerlink" title="车联网"></a>车联网</h2><ul>
+<li><p><strong>车联网</strong>（Internet of Vehicles）是由车辆位置、速度和路线等信息构成的巨大交互网络。通过GPS、RFID、传感器、摄像头图像处理等装置，车辆可以完成自身环境和状态信息的采集；通过互联网技术，所有的车辆可以将自身的各种信息传输汇聚到中央处理器；通过计算机技术，这些大量车辆的信息可以被分析和处理，从而计算出不同车辆的最佳路线、及时汇报路况和安排信号灯周期。</p>
+</li>
+<li><p>车联万物(<strong>V2X</strong>)技术支持汽车与周围环境通信，使驾驶更安全、更高效。V2X能使无形变有形，因而可警告驾驶员道路危险，从而帮助减少交通伤害和死亡。除了提高安全性，V2X还有助于优化交通流量，减少交通拥堵，减少交通对环境的影响。</p>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.zhihu.com/question/19602664" target="_blank" rel="external">「车联网」的前景是什么？你所期待的车联网世界是怎样的？</a></li>
+</ul>
+<h2 id="雷达"><a href="#雷达" class="headerlink" title="雷达"></a>雷达</h2><p>雷达用于辅助自动驾驶，目前还不能完全用于驾驶。</p>
+<ul>
+<li><p>雷达（RADAR），英文「Radio Detection and Ranging」</p>
+</li>
+<li><p>按工作波长分类</p>
+<blockquote>
+<p>米波雷达、分米波雷达、厘米波雷达、毫米波雷达、激光/红外雷达……</p>
+<ul>
+<li><p><strong>普通的雷达</strong>存在角度和距离精度低的问题</p>
+</li>
+<li><p><strong>激光雷达</strong>达到纳米精度，但是成本高、受天气（如雨雪、雾霾等）影响较大</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="雷达的频段"><a href="#雷达的频段" class="headerlink" title="雷达的频段"></a>雷达的频段</h3><ul>
+<li><p><strong>SRR</strong>（<code>Short Range Radar</code>）：<strong>24-24.25GHZ</strong>，带宽0.25GHZ，误差：0.6m</p>
+</li>
+<li><p><strong>SRR</strong>，<strong>LRR</strong>（<code>Long Range Radar</code>）：<strong>76-77GHZ</strong>，带宽1GHZ，误差：0.15m</p>
+</li>
+<li><p><strong>未来</strong>（LRR，SRR）：<strong>77-81GHZ</strong>，带宽4GHZ，误差：0.0375m</p>
+</li>
+</ul>
+<blockquote>
+<p>老师分析：随着雷达带宽的增加，变成原来的四倍，雷达检测的距离变长，精度变高；另外目前摄像头速率增加（目前已研制出是当前最快的1000倍速率的摄像头，且存储小，通过视频帧差来存储），两者结合完全能够超越激光雷达的效果，且成本低于激光雷达。所以说激光雷达的前景可能不太好。</p>
+</blockquote>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><ul>
+<li><p>目前他们相关的项目是：“智能交通测试平台”，2014-2018，其成果可能会在新加坡2019年的“世界智能交流大会”上展示</p>
+</li>
+<li><p>有人将人工智能分为：<strong>深度学习</strong>和<strong>超限学习机</strong>。</p>
+</li>
+<li><p><a href="http://www.useit.com.cn/thread-14270-1-1.html" target="_blank" rel="external">IAIS 2016 黄广斌：超限学习机(ELM)和图像处理</a></p>
+<blockquote>
+<ul>
+<li><p>2004年南洋理工大学黄广斌副教授提出一套全新的学习理论和方法：Extreme Learning Machines （<strong>ELM，超限学习机</strong>）。</p>
+</li>
+<li><p>ELM突破了前30年流行的前馈神经网络以及近20年广泛应用的支撑向量机（SVM）的理论和技术瓶颈。和ELM相比，支撑向量机及其演伸方法只是提供次优学习方案。</p>
+</li>
+<li><p>ELM和SVM/LS-SVM， Deep Learning（深度学习）相比，<strong>准确率高，简单易用，学习速度可以快几千到几万倍</strong>。</p>
+</li>
+<li><p>ELM理论最近也得到了生物和脑神经学的直接生物验证，弥补了机器学习和脑学习机制之间的空白，解决了计算机之父冯·诺依曼（John von Neumann）60年前的关于人脑和计算机结构和能力的困惑。</p>
+</li>
+<li><p>超限学习机(ELM)和深度学习(DL)的有机结合是个新的机器学习趋势。超限学习机和广泛流行的学习技术（比如传统的人工神经网络，支持向量机）相比，<strong>速度快</strong>（可以达到几百到几万倍）并且准<strong>确率高</strong>。</p>
+</li>
+<li><p>初步研究显示在某些应用中(比如<em>手写体识别，手语识别，交通路牌识别，3D图形分析</em>等)，ELM与DL相比可进一步提高准确率,并且大幅度降低训练时间（相比较深度学习基于GPU的1-2天训练时间，ELM在普通计算机上的训练时间缩短到几分钟或更少）。</p>
+</li>
+<li><p>ELM理论可以给深度学习中广泛应用的局部吸收(Local Receptive Fields)提供理论支持。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="ELM对未来机器学习的发展趋势和影响"><a href="#ELM对未来机器学习的发展趋势和影响" class="headerlink" title="ELM对未来机器学习的发展趋势和影响:"></a>ELM对未来机器学习的发展趋势和影响:</h3><ul>
+<li><p>从机器学习工程到机器学习科学的转折点; </p>
+</li>
+<li><p>机器学习和生物学习机制的汇合趋势; </p>
+</li>
+<li><p>从人（和其他生命体）的智能到机器智能;</p>
+</li>
+<li><p>从物联网（IoT）到智能物的联网（Internet of Intelligent Things）以及有别于人类社会的智能体社会（Society of Intelligent Things）; </p>
+</li>
+<li><p>在智能制造的应用 (比如3D快速打印上的开拓性应用) 。</p>
+</li>
+</ul>
+<p>提出布局普适学习和普适智能。</p>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/车联网/" rel="tag"># 车联网</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/09/9师兄师就业分享会/" rel="next" title="师兄师姐就业分享会">
+                <i class="fa fa-chevron-left"></i> 师兄师姐就业分享会
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/10/11数据库设计笔记/" rel="prev" title="数据库设计笔记——概述（一）">
+                数据库设计笔记——概述（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#恩智浦"><span class="nav-number">1.</span> <span class="nav-text">恩智浦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动驾驶"><span class="nav-number">2.</span> <span class="nav-text">自动驾驶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#车辆如何探测前方道路"><span class="nav-number">2.1.</span> <span class="nav-text">车辆如何探测前方道路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汽车自动驾驶计划"><span class="nav-number">2.2.</span> <span class="nav-text">汽车自动驾驶计划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动驾驶分级"><span class="nav-number">2.3.</span> <span class="nav-text">自动驾驶分级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#车联网"><span class="nav-number">3.</span> <span class="nav-text">车联网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#雷达"><span class="nav-number">4.</span> <span class="nav-text">雷达</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#雷达的频段"><span class="nav-number">4.1.</span> <span class="nav-text">雷达的频段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">5.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ELM对未来机器学习的发展趋势和影响"><span class="nav-number">5.1.</span> <span class="nav-text">ELM对未来机器学习的发展趋势和影响:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

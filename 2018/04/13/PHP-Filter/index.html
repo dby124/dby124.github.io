@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cookie&session," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="简介PHP 过滤器用于验证和过滤来自非安全来源的数据。验证和过滤用户输入或自定义数据是任何 Web 应用程序的重要组成部分。设计 PHP 的过滤器扩展的目的是使数据过滤更轻松快捷。 由于大部分Web应用程序都依赖于外部数据的输入，这些数据的来源包括：  来自表单的输入数据 Cookies 服务器变量 数据库查询结果   通过使用过滤器，您能够确保应有程序获得正确的输入类型。  过滤函数对于需要过滤">
+<meta name="keywords" content="cookie&amp;session">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP 过滤器（Filter）">
+<meta property="og:url" content="http://yoursite.com/2018/04/13/PHP-Filter/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="简介PHP 过滤器用于验证和过滤来自非安全来源的数据。验证和过滤用户输入或自定义数据是任何 Web 应用程序的重要组成部分。设计 PHP 的过滤器扩展的目的是使数据过滤更轻松快捷。 由于大部分Web应用程序都依赖于外部数据的输入，这些数据的来源包括：  来自表单的输入数据 Cookies 服务器变量 数据库查询结果   通过使用过滤器，您能够确保应有程序获得正确的输入类型。  过滤函数对于需要过滤">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-13T14:39:08.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP 过滤器（Filter）">
+<meta name="twitter:description" content="简介PHP 过滤器用于验证和过滤来自非安全来源的数据。验证和过滤用户输入或自定义数据是任何 Web 应用程序的重要组成部分。设计 PHP 的过滤器扩展的目的是使数据过滤更轻松快捷。 由于大部分Web应用程序都依赖于外部数据的输入，这些数据的来源包括：  来自表单的输入数据 Cookies 服务器变量 数据库查询结果   通过使用过滤器，您能够确保应有程序获得正确的输入类型。  过滤函数对于需要过滤">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/13/PHP-Filter/"/>
+
+
+
+
+
+  <title>PHP 过滤器（Filter） | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/13/PHP-Filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP 过滤器（Filter）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-13T22:14:38+08:00">
+                2018-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>PHP 过滤器用于<strong>验证和过滤来自非安全来源的数据</strong>。验证和过滤用户输入或自定义数据是任何 Web 应用程序的重要组成部分。设计 PHP 的过滤器扩展的目的是使数据过滤更轻松快捷。</p>
+<p>由于大部分Web应用程序都依赖于外部数据的输入，这些数据的来源包括：</p>
+<ul>
+<li>来自表单的输入数据</li>
+<li>Cookies</li>
+<li>服务器变量</li>
+<li>数据库查询结果</li>
+</ul>
+<blockquote>
+<p>通过使用过滤器，您能够确保应有程序获得正确的输入类型。</p>
+</blockquote>
+<h2 id="过滤函数"><a href="#过滤函数" class="headerlink" title="过滤函数"></a>过滤函数</h2><p>对于需要过滤的变量，使用下列函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+<th>PHP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filter_has_var()</td>
+<td>检查是否存在指定输入类型的变量。</td>
+<td>5</td>
+</tr>
+<tr>
+<td>filter_id()</td>
+<td>返回指定过滤器的 ID 号。</td>
+<td>5</td>
+</tr>
+<tr>
+<td>filter_input()</td>
+<td>从脚本外部获取输入，并进行过滤。</td>
+<td>5</td>
+</tr>
+<tr>
+<td>filter_input_array()</td>
+<td>从脚本外部获取多项输入，并进行过滤。</td>
+<td>5</td>
+</tr>
+<tr>
+<td>filter_list()</td>
+<td>返回包含所有得到支持的过滤器的一个数组。</td>
+<td>5</td>
+</tr>
+<tr>
+<td>filter_var_array()</td>
+<td>获取多项变量，并进行过滤。</td>
+<td>5</td>
+</tr>
+<tr>
+<td>filter_var()</td>
+<td>获取一个变量，并进行过滤。</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>PHP：指示支持该函数的最早的 PHP 版本。</p>
+</blockquote>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><h3 id="FILTER-CALLBACK"><a href="#FILTER-CALLBACK" class="headerlink" title="FILTER_CALLBACK"></a>FILTER_CALLBACK</h3><p>调用用户自定义函数来过滤数据。把自定义的函数作为一个过滤器来使用。这样，就拥有了数据过滤的完全控制权。指定的函数必须存入名为 “options” 的关联数组中。</p>
+<blockquote>
+<p>注意：既可以创建自己的自定义函数，也可以使用已有的 PHP 函数。规定准备用到过滤器函数的方法，与规定选项的方法相同。</p>
+</blockquote>
+<p>在下面的例子中，使用了一个自定义的函数把所有 “_“ 转换为空格：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">function convertSpace($string) &#123;</div><div class="line">	return str_replace(&quot;_&quot;, &quot; &quot;, $string);</div><div class="line">&#125;</div><div class="line">$string = &quot;Peter_is_a_great_guy!&quot;;</div><div class="line">echo filter_var($string, FILTER_CALLBACK, array(&quot;options&quot;=&gt;&quot;convertSpace&quot;));</div><div class="line">?&gt;</div><div class="line">// 结果：Peter is a great guy!</div></pre></td></tr></table></figure>
+<h3 id="validating过滤器"><a href="#validating过滤器" class="headerlink" title="validating过滤器"></a>validating过滤器</h3><ul>
+<li><p><strong>作用</strong>：</p>
+<ol>
+<li>用于验证用户输入。 </li>
+<li>严格的格式规则。（比如 URL 或 E-Mail 验证） </li>
+<li>如果成功则返回预期的类型，失败则返回 false。 </li>
+</ol>
+</li>
+<li><p><strong>效果</strong>：Validation 用于<strong>校验数据</strong>。例如，在filter_var($variable)中传入FILTER_VALIDATE_EMAIL，会校验$variable是否为合法的email地址。</p>
+</li>
+<li><p><strong>返回结果</strong>：校验通过返回数据，校验失败返回false。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$var=300;</div><div class="line"></div><div class="line">$int_options = array(&quot;options&quot;=&gt;</div><div class="line">array(&quot;min_range&quot;=&gt;0, &quot;max_range&quot;=&gt;256));</div><div class="line"></div><div class="line">var_dump(filter_var($var, FILTER_VALIDATE_INT, $int_options));</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<h2 id="sanitizing过滤器"><a href="#sanitizing过滤器" class="headerlink" title="sanitizing过滤器"></a>sanitizing过滤器</h2><ul>
+<li><p><strong>作用</strong>：</p>
+<ol>
+<li>用于允许或禁止字符串中指定的字符。 </li>
+<li>无数据格式规则。 </li>
+<li>始终返回字符串。</li>
+</ol>
+</li>
+<li><p><strong>效果</strong>：Sanitization 用于<strong>修正数据，不校验数据</strong>。例如，在filter_var($variable)中传入FILTER_SANITIZE_EMAIL，$variable变量中不符合email地址规则的字符将会被修剪。</p>
+</li>
+<li><p><strong>返回结果</strong>：返回修正后的数据，无论修正是否起作用。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$url=&quot;http://www.w3school.com.cn&quot;;</div><div class="line">var_dump(filter_var($url,FILTER_SANITIZE_ENCODED));</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cookie-session/" rel="tag"># cookie&session</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/10/PHP会话管理——Cookie和Session/" rel="next" title="PHP会话管理——Session和Cookie">
+                <i class="fa fa-chevron-left"></i> PHP会话管理——Session和Cookie
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/14/PHP（一）——概述及服务器配置/" rel="prev" title="PHP（一）——概述及服务器配置">
+                PHP（一）——概述及服务器配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤函数"><span class="nav-number">2.</span> <span class="nav-text">过滤函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器"><span class="nav-number">3.</span> <span class="nav-text">过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FILTER-CALLBACK"><span class="nav-number">3.1.</span> <span class="nav-text">FILTER_CALLBACK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#validating过滤器"><span class="nav-number">3.2.</span> <span class="nav-text">validating过滤器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sanitizing过滤器"><span class="nav-number">4.</span> <span class="nav-text">sanitizing过滤器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

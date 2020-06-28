@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章是根据之前完成的“数字信号处理器”这门课的作业 运行环境及建工程步骤 创建工程项目：   Visual Studio（VS）后，点击菜单栏第一个键，文件 -&amp;gt; 新建-&amp;gt; 项目-&amp;gt; 设置项目名称以及存储位置-&amp;gt; 选择Win32控制台应用程序-&amp;gt; 勾选“为解决方案创建目录”-&amp;gt; 下一步-&amp;gt; 下一步-&amp;gt; 勾选“空项目”-&amp;gt; 完成。  更新VS">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++初始编程及相关的问题总结">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/C++初始编程及相关的问题总结/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="这篇文章是根据之前完成的“数字信号处理器”这门课的作业 运行环境及建工程步骤 创建工程项目：   Visual Studio（VS）后，点击菜单栏第一个键，文件 -&amp;gt; 新建-&amp;gt; 项目-&amp;gt; 设置项目名称以及存储位置-&amp;gt; 选择Win32控制台应用程序-&amp;gt; 勾选“为解决方案创建目录”-&amp;gt; 下一步-&amp;gt; 下一步-&amp;gt; 勾选“空项目”-&amp;gt; 完成。  更新VS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-04T03:42:42.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++初始编程及相关的问题总结">
+<meta name="twitter:description" content="这篇文章是根据之前完成的“数字信号处理器”这门课的作业 运行环境及建工程步骤 创建工程项目：   Visual Studio（VS）后，点击菜单栏第一个键，文件 -&amp;gt; 新建-&amp;gt; 项目-&amp;gt; 设置项目名称以及存储位置-&amp;gt; 选择Win32控制台应用程序-&amp;gt; 勾选“为解决方案创建目录”-&amp;gt; 下一步-&amp;gt; 下一步-&amp;gt; 勾选“空项目”-&amp;gt; 完成。  更新VS">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/27/C++初始编程及相关的问题总结/"/>
+
+
+
+
+
+  <title>C++初始编程及相关的问题总结 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/27/C++初始编程及相关的问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++初始编程及相关的问题总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T09:16:53+08:00">
+                2017-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章是根据之前完成的“数字信号处理器”这门课的作业</p>
+<h2 id="运行环境及建工程步骤"><a href="#运行环境及建工程步骤" class="headerlink" title="运行环境及建工程步骤"></a>运行环境及建工程步骤</h2><ul>
+<li><p>创建工程项目：</p>
+<p>  Visual Studio（VS）后，点击菜单栏第一个键，<code>文件</code> -&gt; <code>新建</code>-&gt; <code>项目</code>-&gt; <code>设置项目名称以及存储位置</code>-&gt; <code>选择Win32控制台应用程序</code>-&gt; 勾选“<code>为解决方案创建目录</code>”-&gt; <code>下一步</code>-&gt; <code>下一步</code>-&gt; 勾选“<code>空项目</code>”-&gt; <code>完成</code>。</p>
+</li>
+<li><p>更新VS2010，或者卸载VS2012安装2010后，建立Win32 Console Project/MFC项目时会出现”LINK : fatal error LNK1123: 转换到 COFF 期间失败: 文件无效或损坏”的错误。<br>解决方案：</p>
+<p>  （1）：将 <code>项目</code>——<code>项目属性</code>——<code>配置属性</code>——<code>连接器</code>——<code>清单文件</code>——<code>嵌入清单</code> “<code>是</code>”改为“<code>否</code>”。若还不能解决问题进入第二步。</p>
+<p>  （2）：查看计算机是否为64bit操作系统，如是，继续如下操作。<br>  查找是否有两个cvtres.exe。<br>  C:\Program Files(x86)\Microsoft Visual Studio 10.0\vc\bin\cvtres.exe<br>  C:\Windows\Microsoft.NET\Framework\v4.0.30319\cvtres.exe<br>  右键<code>属性</code>—<code>详细信息</code>， 查看两者版本号，删除/重命名较旧的版本，或者重新设置Path变量。<br>  治本的办法是第二步，删除旧版本的<code>cvtres.exe</code>后，就不需要每次都设置配置了。</p>
+</li>
+<li><p><code>#include&lt;***.h&gt;</code>和<code>#include&quot;***.h&quot;</code>的区别</p>
+<ul>
+<li><code>#include&lt;***.h&gt;</code>，用于<strong>系统头文件</strong>，直接从编译器自带的函数库中寻找文件。在#include指令里，系统头文件的文件名要放在尖括号里给出，这是告诉编译器：应该到“标准的”地点寻找这个文件：#include <stdio.h></stdio.h></li>
+<li><p><code>#include&quot;***.h&quot;</code>，用于<strong>自定义头文件</strong>，是先从自定义的文件中找，如果找不到在从函数库中寻找文件。</p>
+<blockquote>
+<p>头文件是一些以.h作为扩展名的标准文本文件。一般情况下，都应该把自定义的头文件和其余的程序文件放在同一个子目录里，或者在主程序目录下专门创建一个子文件夹来集中存放它们。参考：<a href="http://blog.csdn.net/duan19920101/article/details/50991794" target="_blank" rel="external">C++中“头文件”的定义和使用</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>自定义头文件</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">\<span class="comment">#ifndef CIRCLE_H</span></div><div class="line">\<span class="comment">#define CIRCLE_H</span></div><div class="line">//你的代码写在这里</div><div class="line">\<span class="comment">#endif</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>CIRCLE_H这个名字实际上是无所谓的，命名为什么都行，只要符合规范都行。原则上来说，建议把它写成这种形式，因为比较容易和头文件的名字对应。</p>
+</blockquote>
+<p> 源文件（.cpp）：主要写实现头文件中已经声明的那些函数的具体代码。需要注意的是，开头必须#include一下实现的头文件，以及要用到的头文件。那么当你需要用到自己写的头文件中的类时，只需要#include进来就行了。<strong>工程中只能有一个main()函数，是应用程序的入口</strong>。</p>
+<blockquote>
+<p>虽说头文件可以用来保存任意代码片段，但典型的做法是只用它们来保存函数声明、用户自定义类型数据（结构和类）、模板和全局性的常量。</p>
+</blockquote>
+<p>  如果你有一个程序需要多次调用一个或一组函数，或是你有一个或一组函数需要在多个程序里调用，就应该把它们的声明拿出来放到一个头文件里。</p>
+<p>  头文件应该只包含最必要的代码，比如只声明一个类或只包含一组彼此相关的函数。把接口（函数的原型）和实现（函数体的定义）分开是对代码进行模块化的基本原则之一。</p>
+</li>
+</ul>
+<h2 id="C-编程中遇到的一些问题"><a href="#C-编程中遇到的一些问题" class="headerlink" title="C++编程中遇到的一些问题"></a>C++编程中遇到的一些问题</h2><ul>
+<li><p>menset()：char型初始化函数</p>
+<ul>
+<li>所在头文件<code>&lt;string.h&gt;</code>或 <code>&lt;memory.h&gt;</code>，有人通过测试，发现使用memset似乎不需要使用额外的头文件。。</li>
+<li>函数原型：<code>void *memset(void *s , int ch , size_t  n )</code></li>
+<li>函数解释：将s中的前n个字节用ch替换并且返回s。</li>
+<li><p>函数作用：在一段内存块中填充某一个给定的值，常用于较大的对结构体和数组的清零操作。</p>
+<blockquote>
+<p>参考：<a href="http://blog.csdn.net/qq_22122811/article/details/52738029" target="_blank" rel="external">C++中memset函数的用法</a>一般用于清零。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>在<float.h>中定义了浮点类型的范围：</float.h></p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define DBL_MAX 1.7976931348623158e+308 /* max value */</span></div><div class="line"><span class="comment">#define DBL_MIN 2.2250738585072014e-308 /* min positive value */</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>给C++的一维数组赋初值，只有在定义的时候可以整体初始化，<br>错误的赋值方法:</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int *temp = new int[2];</div><div class="line">temp[0] = arr1[0];</div><div class="line">temp[1] = arr1[2];</div></pre></td></tr></table></figure>
+<p>  应该为：</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int temp[2];</div><div class="line">temp[0] = arr1[0];</div><div class="line">temp[1] = arr1[2];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>对于new创建的数组，之间使用创建时的大小。new数组只能用无参的构造函数或者所有参数都有默认值的构造函数。</p>
+<ul>
+<li><p><strong>函数调用的三种参数传递方式</strong>：</p>
+<ul>
+<li><p>（1）传值调用：实参被拷贝了一份，然后在函数体内使用，函数体内修改参数变量时修改的只是实参的一份拷贝，而实参本身没有改变，所以如果想要在调用的函数中修改实参的值，使用值传递不能达到其目的，这时只能使用引用或者指针传递。</p>
+</li>
+<li><p>（2）传址调用（即是传指针）:传递的是一个地址值,如果改变被调函数中的指针地址，它将应用不到主调函数的相关变量。指针可以改变其指向的对象（指针变量中的值可以改）。</p>
+</li>
+<li><p>（3）传引用：任何对于引用参数的处理都会通过一个间接寻址的方式操作到主调函数中的相关变量，引用对象不能修改。。</p>
+<blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/CheeseZH/p/5163200.html" target="_blank" rel="external">C++中引用传递与指针传递的区别</a></li>
+<li><a href="http://blog.csdn.net/kevinhg/article/details/45390809" target="_blank" rel="external">C语言中memset函数详解</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>指针的使用</strong>：如果使用下面的方法对一个数组做初始化，<code>double** q = Pxy;</code>，此处直接使用Pxy构建一个二维数组,但是在此之后的语句，对数组q操作，Pxy的值也会相应地改变。</p>
+</li>
+<li><p>计算静态数组的长度函数</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">template&lt;typename T&gt;</div><div class="line">int count(T&amp; x)</div><div class="line">&#123;</div><div class="line">       int s1 = sizeof(x);</div><div class="line">       int s2 = sizeof(x[0]);</div><div class="line">       int result = s1 / s2;</div><div class="line">       <span class="built_in">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>对于动态数组，上面的函数不能得到二维数组的长度，sizeof(动态数组)结果是单个元素的大小，相当远<code>sizeof(x[0])</code>。</p>
+</blockquote>
+<ul>
+<li><p>随机数的产生<br>  （1） c语言中rand()函数的用法笔记：<a href="http://blog.csdn.net/chikey/article/details/66970397" target="_blank" rel="external">http://blog.csdn.net/chikey/article/details/66970397</a><br>  （2）C++中rand()函数的用法，可根据这个来产生随机数</p>
+<p>  （3）示例，使用下面的语句，产生的是一个0-1的随机数，且精度为1/32767，<code>rand() / (double)RAND_MAX</code>;</p>
+</li>
+<li><p>C++动态内存分配：</p>
+<p>  <code>delete[] mi;</code>// 由于mi是静态存储分配，不需要手动释放内存，如果加这两句可能会陷入程序不运行的状态。</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// 使用new构建并初始化二维数组</div><div class="line"><span class="built_in">float</span>**  create_array(int row, int col)&#123;</div><div class="line">       <span class="built_in">float</span>** p = new <span class="built_in">float</span>*[row];</div><div class="line">       <span class="keyword">for</span> (int i = 0; i &lt; row; ++i) &#123;</div><div class="line">              p[i] = new <span class="built_in">float</span>[col];</div><div class="line">              <span class="keyword">for</span> (int j = 0; j &lt; col; ++j) &#123;</div><div class="line">                     p[i][j] = 0;</div><div class="line">              &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="built_in">return</span> p;</div><div class="line">&#125;</div><div class="line">// 初始化二维数组</div><div class="line">template&lt;typename T&gt;</div><div class="line">void init_array(T&amp;&amp; arr, int row, int col)&#123;</div><div class="line">       <span class="keyword">for</span> (int i = 0; i &lt; row; ++i) &#123;</div><div class="line">              <span class="keyword">for</span> (int j = 0; j &lt; col; ++j) &#123;</div><div class="line">                     arr[i][j] = 0;</div><div class="line">              &#125;</div><div class="line">       &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>参考：（1）<a href="http://www.cnblogs.com/findumars/p/5272691.html" target="_blank" rel="external">C++ 动态内存分配（6种情况，好几个例子）</a>（2）<a href="https://blog.csdn.net/feidongyizhong/article/details/6325779" target="_blank" rel="external">C++ 内存分配秘籍—new，malloc，GlobalAlloc详解</a>（分析详细易懂）</p>
+</blockquote>
+<ul>
+<li><p>调试<br>（1）数据类型与输入或输出的类型不匹配<br><code>fscanf_s(fp, &quot;%lf,&quot;, &amp;temp);   //此处temp定义的是float类型，但是输入确实double型</code><br>报错如下：<br><code>Run-Time Check Failure #2 - Stack around the variable &#39;temp&#39; was corrupted</code>.</p>
+</li>
+<li><p>将变量加入到字符数组中：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sprintf_s(t, <span class="string">"result/FJ_%d_%d_%d_%d.txt"</span>, FEATURE_NUM, FEATURE_SUB_NUM,1,5);</div></pre></td></tr></table></figure>
+</li>
+<li><p>输入字符串，转化为数组，并统计字符个数：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;string&gt;</div><div class="line">using namespace std;</div><div class="line">int main() &#123;</div><div class="line">	// 输入数据</div><div class="line">	string s1;</div><div class="line">	char temp;</div><div class="line">	while((temp=cin.get())!=&apos;\n&apos;) &#123;</div><div class="line">		s1 +=temp;</div><div class="line">	&#125;</div><div class="line">	const int LEN =s1.length();</div><div class="line">	char* s = new char[LEN];//根据输入字符串的长度，创建字符数组 </div><div class="line">	for(int i = 0;i&lt;LEN;i++)&#123;  //将字符串保存到字符数组中 </div><div class="line">		s[i]=s1[i];</div><div class="line">	&#125;</div><div class="line">    cout&lt;&lt;LEN&lt;&lt;endl;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/27/Python环境搭建/" rel="next" title="Python环境搭建">
+                <i class="fa fa-chevron-left"></i> Python环境搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/17/机器学习之正则化/" rel="prev" title="机器学习之正则化">
+                机器学习之正则化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行环境及建工程步骤"><span class="nav-number">1.</span> <span class="nav-text">运行环境及建工程步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-编程中遇到的一些问题"><span class="nav-number">2.</span> <span class="nav-text">C++编程中遇到的一些问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="优化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前做特征选择，实现过基于群智能算法进行最优化的搜索，看过一些群智能优化算法的论文，在此做一下总结。 最优化问题　　在生活或者工作中存在各种各样的最优化问题，比如每个企业和个人都要考虑的一个问题“在一定成本下，如何使利润最大化”等。最优化方法是一种数学方法，它是研究在给定约束之下如何寻求某些因素(的量)，以使某一(或某些)指标达到最优的一些学科的总称。 　　工程设计中最优化问题（optimaliz">
+<meta name="keywords" content="优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最优化算法——常见优化算法分类及总结">
+<meta property="og:url" content="http://yoursite.com/2018/04/07/最优化算法——常见优化算法分类及总结/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="之前做特征选择，实现过基于群智能算法进行最优化的搜索，看过一些群智能优化算法的论文，在此做一下总结。 最优化问题　　在生活或者工作中存在各种各样的最优化问题，比如每个企业和个人都要考虑的一个问题“在一定成本下，如何使利润最大化”等。最优化方法是一种数学方法，它是研究在给定约束之下如何寻求某些因素(的量)，以使某一(或某些)指标达到最优的一些学科的总称。 　　工程设计中最优化问题（optimaliz">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/algorithm/optimalization.png">
+<meta property="og:image" content="http://yoursite.com/images/algorithm/优化算法.jpg">
+<meta property="og:updated_time" content="2018-06-05T08:23:26.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最优化算法——常见优化算法分类及总结">
+<meta name="twitter:description" content="之前做特征选择，实现过基于群智能算法进行最优化的搜索，看过一些群智能优化算法的论文，在此做一下总结。 最优化问题　　在生活或者工作中存在各种各样的最优化问题，比如每个企业和个人都要考虑的一个问题“在一定成本下，如何使利润最大化”等。最优化方法是一种数学方法，它是研究在给定约束之下如何寻求某些因素(的量)，以使某一(或某些)指标达到最优的一些学科的总称。 　　工程设计中最优化问题（optimaliz">
+<meta name="twitter:image" content="http://yoursite.com/images/algorithm/optimalization.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/07/最优化算法——常见优化算法分类及总结/"/>
+
+
+
+
+
+  <title>最优化算法——常见优化算法分类及总结 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/07/最优化算法——常见优化算法分类及总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">最优化算法——常见优化算法分类及总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-07T22:40:38+08:00">
+                2018-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前做特征选择，实现过基于群智能算法进行最优化的搜索，看过一些群智能优化算法的论文，在此做一下总结。</p>
+<h1 id="最优化问题"><a href="#最优化问题" class="headerlink" title="最优化问题"></a>最优化问题</h1><p>　　在生活或者工作中存在各种各样的最优化问题，比如每个企业和个人都要考虑的一个问题“在一定成本下，如何使利润最大化”等。最优化方法是一种数学方法，它是研究在给定约束之下如何寻求某些因素(的量)，以使某一(或某些)指标达到最优的一些学科的总称。</p>
+<p>　　工程设计中最优化问题（optimalization problem）的一般提法是要选择一组参数（变量），在满足一系列有关的限制条件（约束）下，使设计指标（目标）达到最优值。因此，最优化问题通常可以表示为数学规划形式的问题。进行工程优化设计时，应将工程设计问题用上述形式表示成数学问题，再用最优化的方法求解。这项工作就是建立优化设计的数学模型。 </p>
+<p><img src="/images/algorithm/optimalization.png" alt="optimalization"></p>
+<p>　　<br>　　最优化问题分为函数优化问题和组合优化问题两大类，其中函数优化的对象是一定区间的<strong>连续变量</strong>，而组合优化的对象则是解空间中的<strong>离散状态</strong>。其中典型的组合优化问题有旅行商(Traveling salesman problem,TSP)问题、加工调度问题(Scheduling problem,如Flow-shop,Job-shop)、0-1背包问题(Knapsack problem)、装箱问题(Bin packing problem)、图着色问题(Graph coloring problem)、聚类问题(Clustering problem)等。</p>
+<h1 id="最优化算法"><a href="#最优化算法" class="headerlink" title="最优化算法"></a>最优化算法</h1><p>根据自己对最优化的理解，采用最优化算法解决实际问题主要分为下列两步：</p>
+<ul>
+<li>建立数学模型。对可行方案进行编码（变量），约束条件以及目标函数的构造。</li>
+<li>最优值的搜索策略。在可行解（约束条件下）搜索最优解的方法，有穷举、随机和启发式搜索方法。</li>
+</ul>
+<p>最优化算法有三要素：<strong>变量（Decision Variable）、约束条件（Constraints）和目标函数（Objective function）</strong>。最优化算法，其实就是一种搜索过程或规则，它是基于某种思想和机制，通过一定的途径或规则来得到满足用户要求的问题的解。 </p>
+<p>优化问题相关算法有如下分类： </p>
+<p><img src="/images/algorithm/优化算法.jpg" alt="优化算法"></p>
+<h2 id="精确算法-绝对最优解"><a href="#精确算法-绝对最优解" class="headerlink" title="精确算法(绝对最优解)"></a>精确算法(绝对最优解)</h2><p>精确算法包括线性规划、动态规划、整数规划和分支定界法等运筹学中的传统算法，其算法计算复杂性一般很大，只适合于<strong>求解小规模问题</strong>，在工程中往往不实用。 </p>
+<h2 id="启发式算法（近似算法）"><a href="#启发式算法（近似算法）" class="headerlink" title="启发式算法（近似算法）"></a>启发式算法（近似算法）</h2><p>　　启发式方法指人在解决问题时所采取的一种根据经验规则进行发现的方法。其特点是在解决问题时,利用过去的经验,选择已经行之有效的方法，而不是系统地、以确定的步骤去寻求答案。</p>
+<p>领域搜索算法。从任一解出发，对其领域的不断搜索和当前解的替换来实现优化。根据搜索行为，它又可分为局部搜索法和指导性搜索法。</p>
+<ul>
+<li><p>局部领域搜索法（也称爬山法）。以局部优化策略在当前解的领域中贪婪搜索，如只接受优于当前解的状态作为下一当前解的爬山法；接受当前邻域中的最好解作为下一当前解的最陡下降法等。</p>
+</li>
+<li><p>指导性搜索法。利用一些指导规则来指导整个解空间中优良解的探索，如SA、GA、EP、ES和TS等.</p>
+</li>
+</ul>
+<h3 id="个体启发（寻找相对最优）"><a href="#个体启发（寻找相对最优）" class="headerlink" title="个体启发（寻找相对最优）"></a>个体启发（寻找相对最优）</h3><p>特点：每次输出的是相同的。从一个解开始，寻找最优，易陷入局部最优。</p>
+<h4 id="爬山算法"><a href="#爬山算法" class="headerlink" title="爬山算法"></a>爬山算法</h4><p>算法思想：从当前的节点开始，和周围的邻居节点的值进行比较。如果当前节点是最大的，那么返回当前节点，作为最大值(即山峰最高点)；反之就用最高的邻居节点替换当前节点，从而实现向山峰的高处攀爬的目的。</p>
+<blockquote>
+<p>其实就是，在初始值的附近，找到最大的一个。</p>
+</blockquote>
+<ul>
+<li><p>优点</p>
+<ul>
+<li>容易理解，容易实现，具有较强的通用性；</li>
+<li>局部开发能力强，收敛速度很快</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>全局开发能力弱，只能搜索到局部最优解；</li>
+<li>搜索结果完全依赖于初始解和邻域的映射关系。</li>
+</ul>
+</li>
+</ul>
+<h4 id="禁忌算法-Tabu-Search，TS"><a href="#禁忌算法-Tabu-Search，TS" class="headerlink" title="禁忌算法(Tabu Search，TS)"></a>禁忌算法(Tabu Search，TS)</h4><p>基本思想：基于爬山算法的改进，标记已经解得的局部最优解或求解过程，并在进一步的迭代中避开这些局部最优解或求解过程。局部搜索的缺点在于，太过于对某一局部区域以及其邻域的搜索，导致一叶障目。为了找到全局最优解，禁忌搜索就是对于找到的一部分局部最优解，有意识地避开它，从而或得更多的搜索区域</p>
+<ul>
+<li><p>特点：</p>
+<ul>
+<li>避免在搜索过程中的循环</li>
+<li>只进不退的原则,通过禁忌表实现    </li>
+<li>不以局部最优作为停止准则   </li>
+<li>邻域选优的规则模拟了人类的记忆功能</li>
+</ul>
+</li>
+<li><p>禁忌表：用于防止搜索出现循环</p>
+<ul>
+<li>记录前若干步走过的点、方向或目标值，禁止返回</li>
+<li>表是动态更新的</li>
+<li>表的长度称为Tabu-Size</li>
+</ul>
+</li>
+<li><p>禁忌表的主要指标（两项指标）</p>
+<ul>
+<li>禁忌对象：禁忌表中被禁的那些变化元素</li>
+<li>禁忌长度：禁忌的步数</li>
+</ul>
+</li>
+<li><p>禁忌对象（三种变化）</p>
+<ul>
+<li>以状态本身或者状态的变化作为禁忌对象</li>
+<li>以状态分量以及分量的变化作为禁忌对象</li>
+<li>采用类似的等高线做法，以目标值变化作为禁忌对象</li>
+</ul>
+</li>
+<li><p>禁忌长度:可以是一个固定的常数(T=c),也可以是动态变化的，可按照某种规则或公式在区间内变化。</p>
+<ul>
+<li>禁忌长度过短，一旦陷入局部最优点，出现循环无法跳出；</li>
+<li>禁忌长度过长，候选解全部被禁忌，造成计算时间较大，也可能造成计算无法继续下去。</li>
+</ul>
+</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="https://blog.csdn.net/zuochao_2013/article/details/72292466" target="_blank" rel="external">禁忌搜索算法(Tabu Search)</a></li>
+<li><a href="https://blog.csdn.net/tyhj_sf/article/details/54235550" target="_blank" rel="external">禁忌搜索算法详解</a></li>
+</ol>
+<h4 id="贪婪算法"><a href="#贪婪算法" class="headerlink" title="贪婪算法"></a>贪婪算法</h4><p>从问题的某一个初始解出发逐步逼近给定的目标，以尽可能快的地求得更好的解。当达到算法中的某一步不能再继续前进时，算法停止。 </p>
+<blockquote>
+<p>基本都要先排序，从排序的开始那个依次判断，符合就留下不符合就去掉。</p>
+</blockquote>
+<h4 id="模拟退火-simulated-annealing，SA"><a href="#模拟退火-simulated-annealing，SA" class="headerlink" title="模拟退火(simulated annealing，SA)"></a>模拟退火(simulated annealing，SA)</h4><p>模拟退火算法作为局部搜索算法的扩展，在每一次修改模型的过程中，随机产生一个新的状态模型，然后以一定的概率选择邻域中能量值大的状态．这种接受新模型的方式使其成为一种全局最优算法，并得到理论证明和实际应用的验证．SA虽然在寻优能力上不容置疑，但它是以严密的退火计划为保证的，具体地讲，就是足够高的初始温度、缓慢的退火速度、大量的迭代次数及同一温度下足够的扰动次数。</p>
+<blockquote>
+<p>用兔子的故事来说：兔子喝醉了。他随机地跳了很长时间。这期间，它可能走向高处，也可能踏入平地。但是，他渐渐清醒了并朝他踏过的最高方向跳去。这就是模拟退火。</p>
+<p>其实就是，先用初始值进行随机更新，记录每次更新的值，最后取历史记录中最大的值。</p>
+</blockquote>
+<p>参考：<a href="https://www.cnblogs.com/ranjiewen/p/6084052.html" target="_blank" rel="external">模拟退火算法</a></p>
+<h3 id="群体智能（全局最优）"><a href="#群体智能（全局最优）" class="headerlink" title="群体智能（全局最优）"></a>群体智能（全局最优）</h3><p>类别：</p>
+<ul>
+<li>粒子群算法(PSO)</li>
+<li>蚁群算法(ACO)</li>
+<li>人工蜂群算法(ABC)</li>
+<li>人工鱼群算法(AFSA)</li>
+<li>混洗蛙跳算法(SFLA)</li>
+<li>烟花算法(FWA)</li>
+<li>细菌觅食优化(BFO)</li>
+<li>萤火虫算法(FA)</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>全局寻优</li>
+<li>每次的解都不同</li>
+<li>时间较长</li>
+</ul>
+<p>智能计算包括：</p>
+<ul>
+<li>进化算法（EC），如遗传算法。</li>
+<li>模糊逻辑</li>
+<li>群智能(SI)算法</li>
+<li>人工免疫系统(AIS)</li>
+<li>人工神经网络(ANN)</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="https://blog.csdn.net/yangfeng1126/article/details/50733900" target="_blank" rel="external">最优化问题及其分类</a></li>
+<li><a href="http://blog.csdn.net/b2b160/article/details/4680853/" target="_blank" rel="external">遗传算法</a></li>
+<li><a href="http://www.ilovematlab.cn/thread-173194-1-1.html" target="_blank" rel="external">《MATLAB神经网络30个案例分析》的13个案例中的GA优化SVM参数 </a></li>
+<li><a href="http://blog.csdn.net/alvine008/article/details/9097105" target="_blank" rel="external">手把手教你实现SVM算法（一）</a></li>
+<li><a href="http://www.cnblogs.com/legend1130/archive/2016/03/29/5333087.html" target="_blank" rel="external">遗传算法学习笔记（一）：常用的选择策略</a></li>
+<li><a href="http://www.cnblogs.com/bigdatafly/p/4998807.html" target="_blank" rel="external">粒子群算法介绍</a>（讲解的很清晰，将PSO的算法原理、算法特点以及参数的设置）</li>
+<li><a href="https://wenku.baidu.com/view/f2b8a937a32d7375a417809f.html" target="_blank" rel="external">群体智能简介ppt</a>（粒子群和人工蚁群优化）</li>
+<li><a href="/file/优化算法分类.pdf">优化算法分类</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/优化/" rel="tag"># 优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/27/职业相关课程学习笔记/" rel="next" title="职业相关课程学习笔记">
+                <i class="fa fa-chevron-left"></i> 职业相关课程学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/10/PHP会话管理——Cookie和Session/" rel="prev" title="PHP会话管理——Session和Cookie">
+                PHP会话管理——Session和Cookie <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最优化问题"><span class="nav-number">1.</span> <span class="nav-text">最优化问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最优化算法"><span class="nav-number">2.</span> <span class="nav-text">最优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#精确算法-绝对最优解"><span class="nav-number">2.1.</span> <span class="nav-text">精确算法(绝对最优解)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启发式算法（近似算法）"><span class="nav-number">2.2.</span> <span class="nav-text">启发式算法（近似算法）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#个体启发（寻找相对最优）"><span class="nav-number">2.2.1.</span> <span class="nav-text">个体启发（寻找相对最优）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#爬山算法"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">爬山算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁忌算法-Tabu-Search，TS"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">禁忌算法(Tabu Search，TS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#贪婪算法"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">贪婪算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模拟退火-simulated-annealing，SA"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">模拟退火(simulated annealing，SA)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#群体智能（全局最优）"><span class="nav-number">2.2.2.</span> <span class="nav-text">群体智能（全局最优）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

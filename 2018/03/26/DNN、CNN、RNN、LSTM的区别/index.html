@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="神经网络," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="昨天听室友问起DNN与CNN的区别，感觉自己不太了解，所在在网上搜了一些资料，这篇博客主要是根据知乎上的回答，加上自己的理解整理出来的。 广义上来说，NN（或是DNN）确实可以认为包含了CNN、RNN这些具体的变种形式。在实际应用中，所谓的深度神经网络DNN，往往融合了多种已知的结构，包括卷积层或是LSTM单元。但是从狭义上来说，单独的DNN、CNN、RNN及LSTM也可以对比。 DNN(深度神经">
+<meta name="keywords" content="神经网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNN、CNN、RNN、LSTM的区别">
+<meta property="og:url" content="http://yoursite.com/2018/03/26/DNN、CNN、RNN、LSTM的区别/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="昨天听室友问起DNN与CNN的区别，感觉自己不太了解，所在在网上搜了一些资料，这篇博客主要是根据知乎上的回答，加上自己的理解整理出来的。 广义上来说，NN（或是DNN）确实可以认为包含了CNN、RNN这些具体的变种形式。在实际应用中，所谓的深度神经网络DNN，往往融合了多种已知的结构，包括卷积层或是LSTM单元。但是从狭义上来说，单独的DNN、CNN、RNN及LSTM也可以对比。 DNN(深度神经">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-10T08:19:19.363Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DNN、CNN、RNN、LSTM的区别">
+<meta name="twitter:description" content="昨天听室友问起DNN与CNN的区别，感觉自己不太了解，所在在网上搜了一些资料，这篇博客主要是根据知乎上的回答，加上自己的理解整理出来的。 广义上来说，NN（或是DNN）确实可以认为包含了CNN、RNN这些具体的变种形式。在实际应用中，所谓的深度神经网络DNN，往往融合了多种已知的结构，包括卷积层或是LSTM单元。但是从狭义上来说，单独的DNN、CNN、RNN及LSTM也可以对比。 DNN(深度神经">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/26/DNN、CNN、RNN、LSTM的区别/"/>
+
+
+
+
+
+  <title>DNN、CNN、RNN、LSTM的区别 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/26/DNN、CNN、RNN、LSTM的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DNN、CNN、RNN、LSTM的区别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T18:42:00+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>昨天听室友问起DNN与CNN的区别，感觉自己不太了解，所在在网上搜了一些资料，这篇博客主要是根据知乎上的回答，加上自己的理解整理出来的。</p>
+<p>广义上来说，NN（或是DNN）确实可以认为包含了CNN、RNN这些具体的变种形式。在实际应用中，所谓的深度神经网络DNN，往往融合了多种已知的结构，包括卷积层或是LSTM单元。但是从狭义上来说，单独的DNN、CNN、RNN及LSTM也可以对比。</p>
+<h2 id="DNN-深度神经网络"><a href="#DNN-深度神经网络" class="headerlink" title="DNN(深度神经网络)"></a>DNN(深度神经网络)</h2><p>神经网络是基于感知机的扩展，而DNN可以理解为有很多隐藏层的神经网络。多层神经网络和深度神经网络DNN其实也是指的一个东西，DNN有时也叫做多层感知机（Multi-Layer perceptron,MLP）。</p>
+<h3 id="DNN存在的局限："><a href="#DNN存在的局限：" class="headerlink" title="DNN存在的局限："></a>DNN存在的局限：</h3><ul>
+<li><p><strong>参数数量膨胀</strong>。由于DNN采用的是全连接的形式，结构中的连接带来了数量级的权值参数，这不仅容易导致过拟合，也容易造成陷入局部最优。</p>
+</li>
+<li><p><strong>局部最优</strong>。随着神经网络的加深，优化函数更容易陷入局部最优，且偏离真正的全局最优，对于有限的训练数据，性能甚至不如浅层网络。</p>
+</li>
+<li><p><strong>梯度消失</strong>。使用sigmoid激活函数（传递函数），在BP反向传播梯度时，梯度会衰减，随着神经网络层数的增加，衰减累积下，到底层时梯度基本为0。</p>
+</li>
+<li><p><strong>无法对时间序列上的变化进行建模</strong>。对于样本的时间顺序对于自然语言处理、语音识别、手写体识别等应用非常重要。</p>
+</li>
+</ul>
+<blockquote>
+<p>DNN的基本介绍可参考：</p>
+<ol>
+<li><a href="https://www.cnblogs.com/pinard/p/6418668.html" target="_blank" rel="external">深度神经网络（DNN）模型与前向传播算法</a></li>
+<li>神经网络入门：<a href="https://zhuanlan.zhihu.com/p/22888385" target="_blank" rel="external">深层学习为何要“Deep”（上）</a></li>
+<li>前馈神经网络引入的先验知识：并行、迭代；<a href="https://zhuanlan.zhihu.com/p/24245040" target="_blank" rel="external">深层学习为何要“Deep”（下）</a>较难懂，建议先看完公开课再看该篇文章。</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="CNN-卷积神经网络"><a href="#CNN-卷积神经网络" class="headerlink" title="CNN(卷积神经网络)"></a>CNN(卷积神经网络)</h2><p>主要针对DNN存在的<strong>参数数量膨胀</strong>问题，对于CNN，并不是所有的上下层神经元都能直接相连，而是通过“卷积核”作为中介。同一个卷积核在多有图像内是共享的，图像通过卷积操作仍能保留原先的位置关系。</p>
+<p>CNN之所以适合图像识别，正式因为CNN模型限制参数个数并挖掘局部结构的这个特点。</p>
+<blockquote>
+<p>CNN相关知识可参考：</p>
+<ol>
+<li><a href="http://dingby.site/2018/03/21/CNN%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_blank" rel="external">CNN相关知识总结</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27642620" target="_blank" rel="external">YJango的卷积神经网络——介绍</a></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="RNN-循环神经网络"><a href="#RNN-循环神经网络" class="headerlink" title="RNN(循环神经网络)"></a>RNN(循环神经网络)</h2><p>针对CNN中<strong>无法对时间序列上的变化进行建模</strong>的局限，为了适应对时序数据的处理，出现了RNN。</p>
+<p>在普通的全连接网络或者CNN中，每层神经元的信号只能向上一层传播，样本的处理在各个时刻独立（这种就是前馈神经网络）。而在RNN中，神经元的输出可以在下一个时间戳直接作用到自身。</p>
+<p>（t+1）时刻网络的最终结果O(t+1)是该时刻输入和所有历史共同作用的结果，这就达到了对时间序列建模的目的。</p>
+<p><strong>存在的问题</strong>：RNN可以看成一个在时间上传递的神经网络，它的深度是时间的长度，而梯度消失的现象出现时间轴上。</p>
+<blockquote>
+<p>RNN相关知识可参考：</p>
+<ol>
+<li><a href="https://www.cnblogs.com/pinard/p/6509630.html" target="_blank" rel="external">循环神经网络(RNN)模型与前向反向传播算法</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/24720659" target="_blank" rel="external">YJango的循环神经网络——介绍</a></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="LSTM-长短时记忆单元"><a href="#LSTM-长短时记忆单元" class="headerlink" title="LSTM(长短时记忆单元)"></a>LSTM(长短时记忆单元)</h2><p>为了解决RNN中时间上的梯度消失，机器学习领域发展出了<strong>长短时记忆单元LSTM</strong>，通过门的开关实现时间上记忆功能，并防止梯度消失。</p>
+<blockquote>
+<p>参考：</p>
+<ol>
+<li><a href="https://www.cnblogs.com/wangduo/p/6773601.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">[译] 理解 LSTM(Long Short-Term Memory, LSTM) 网络</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27345523" target="_blank" rel="external">探索LSTM：基本概念到内部结构</a></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>深度神经网络中的梯度不稳定性，前面层中的梯度或会消失，或会爆炸。前面层上的梯度是来自于后面层上梯度的乘乘积。当存在过多的层次时，就出现了内在本质上的不稳定场景，如梯度消失和梯度爆炸。</p>
+<ul>
+<li><p><strong>梯度爆炸</strong>（exploding gradient）：梯度爆炸就是由于初始化权值过大，前面层会比后面层变化的更快，就会导致权值越来越大，梯度爆炸的现象就发生了。</p>
+<p>  在深层网络或循环神经网络中，误差梯度可在更新中累积，变成非常大的梯度，然后导致网络权重的大幅更新，并因此使网络变得不稳定。在极端情况下，权重的值变得非常大，以至于溢出，导致 NaN 值。</p>
+<p>  网络层之间的梯度（值大于 1.0）重复相乘导致的指数级增长会产生梯度爆炸。</p>
+<blockquote>
+<p>解决梯度爆炸的方法参考：<a href="https://www.cnblogs.com/DLlearning/p/8177273.html" target="_blank" rel="external">详解梯度爆炸和梯度消失</a></p>
+</blockquote>
+</li>
+<li><p><strong>梯度消失</strong>（vanishing gradient）：前面的层比后面的层梯度变化更小，故变化更慢，从而引起了梯度消失问题。</p>
+<p>  因为通常神经网络所用的激活函数是sigmoid函数，这个函数有个特点，就是能将负无穷到正无穷的数映射到0和1之间，并且对这个函数求导的结果是f′(x)=f(x)(1−f(x))。因此两个0到1之间的数相乘，得到的结果就会变得很小了。神经网络的反向传播是逐层对函数偏导相乘，因此当神经网络层数非常深的时候，最后一层产生的偏差就因为乘了很多的小于1的数而越来越小，最终就会变为0，从而导致层数比较浅的权重没有更新，这就是梯度消失。</p>
+</li>
+</ul>
+<blockquote>
+<p>因为sigmoid导数最大为1/4，故只有当abs(w)&gt;4时梯度爆炸才可能出现。深度学习中最普遍发生的是梯度消失问题。</p>
+</blockquote>
+<p><strong>解决方法</strong>：使用<strong>ReLU,maxout</strong>等替代sigmoid。</p>
+<p><strong>ReLU与sigmoid的区别</strong>：（1）sigmoid函数值在[0,1],ReLU函数值在[0,+无穷]，所以sigmoid函数可以描述概率，ReLU适合用来描述实数；（2）sigmoid函数的梯度随着x的增大或减小和消失，而ReLU不会。</p>
+<hr>
+<p>参考：</p>
+<ol>
+<li><a href="https://www.zhihu.com/question/34681168" target="_blank" rel="external">CNN(卷积神经网络)、RNN(循环神经网络)、DNN(深度神经网络)…</a></li>
+<li><a href="https://blog.csdn.net/cppjava_/article/details/68941436" target="_blank" rel="external">机器学习总结（九）：梯度消失（vanishing gradient）与梯度爆炸（exploding gradient）问题</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/26/dcase_util(2)/" rel="next" title="dcase_util教程（二）——各单元介绍">
+                <i class="fa fa-chevron-left"></i> dcase_util教程（二）——各单元介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/27/Python学习笔记/" rel="prev" title="Python学习笔记">
+                Python学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNN-深度神经网络"><span class="nav-number">1.</span> <span class="nav-text">DNN(深度神经网络)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNN存在的局限："><span class="nav-number">1.1.</span> <span class="nav-text">DNN存在的局限：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN-卷积神经网络"><span class="nav-number">2.</span> <span class="nav-text">CNN(卷积神经网络)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-循环神经网络"><span class="nav-number">3.</span> <span class="nav-text">RNN(循环神经网络)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM-长短时记忆单元"><span class="nav-number">4.</span> <span class="nav-text">LSTM(长短时记忆单元)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">5.</span> <span class="nav-text">扩展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="markdown," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="beatrice's blogs" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="分割线 三个或更多-_*，必须单独一行，可含空格，如---、 ***、 ___。  效果如下：       如果上面的符号是紧挨着上文的文字，就是细线，否则就是上面显示的粗线。  图片链接 ![图片的名称](图片的本地连接或网络连接)，如：![markdown_fontcolor](/images/markdown_fontcolor.png)  设置字体、字号和颜色　　Markdown是一种可以">
+<meta name="keywords" content="markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MarkDown编辑器常用语法">
+<meta property="og:url" content="http://yoursite.com/2017/09/05/28MarkDown编辑器常用语法/index.html">
+<meta property="og:site_name" content="beatrice&#39;s blogs">
+<meta property="og:description" content="分割线 三个或更多-_*，必须单独一行，可含空格，如---、 ***、 ___。  效果如下：       如果上面的符号是紧挨着上文的文字，就是细线，否则就是上面显示的粗线。  图片链接 ![图片的名称](图片的本地连接或网络连接)，如：![markdown_fontcolor](/images/markdown_fontcolor.png)  设置字体、字号和颜色　　Markdown是一种可以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-25T01:52:01.983Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MarkDown编辑器常用语法">
+<meta name="twitter:description" content="分割线 三个或更多-_*，必须单独一行，可含空格，如---、 ***、 ___。  效果如下：       如果上面的符号是紧挨着上文的文字，就是细线，否则就是上面显示的粗线。  图片链接 ![图片的名称](图片的本地连接或网络连接)，如：![markdown_fontcolor](/images/markdown_fontcolor.png)  设置字体、字号和颜色　　Markdown是一种可以">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/05/28MarkDown编辑器常用语法/"/>
+
+
+
+
+
+  <title>MarkDown编辑器常用语法 | beatrice's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">beatrice's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">开启程序员之旅，坚持学习和思考，想知道最后的自己能做到哪一步，拭目以待吧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/28MarkDown编辑器常用语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="beatrice">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/beatrice.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="beatrice's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MarkDown编辑器常用语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T22:21:17+08:00">
+                2017-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识扩展/" itemprop="url" rel="index">
+                    <span itemprop="name">知识扩展</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h1><ul>
+<li><p>三个或更多-_*，必须单独一行，可含空格，如<code>---</code>、 <code>***</code>、 <code>___</code>。</p>
+</li>
+<li><p>效果如下：</p>
+</li>
+</ul>
+<hr>
+<hr>
+<hr>
+<blockquote>
+<p>如果上面的符号是紧挨着上文的文字，就是细线，否则就是上面显示的粗线。</p>
+</blockquote>
+<h1 id="图片链接"><a href="#图片链接" class="headerlink" title="图片链接"></a>图片链接</h1><ul>
+<li><code>![图片的名称](图片的本地连接或网络连接)</code>，如：<code>![markdown_fontcolor](/images/markdown_fontcolor.png)</code></li>
+</ul>
+<h1 id="设置字体、字号和颜色"><a href="#设置字体、字号和颜色" class="headerlink" title="设置字体、字号和颜色"></a>设置字体、字号和颜色</h1><p>　　Markdown是一种可以使用普通文本编辑器编写的标记语言，通过类似HTML的标记语法，它可以使普通文本内容具有一定的格式。但是它本身是不支持修改字体、字号与颜色等功能的！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;font face=<span class="string">"黑体"</span>&gt;我是黑体字&lt;/font&gt;</div><div class="line">&lt;font face=<span class="string">"微软雅黑"</span>&gt;我是微软雅黑&lt;/font&gt;</div><div class="line">&lt;font face=<span class="string">"STCAIYUN"</span>&gt;我是华文彩云&lt;/font&gt;</div><div class="line">&lt;font color=<span class="comment">#0099ff size=12 face="黑体"&gt;黑体&lt;/font&gt;</span></div><div class="line">&lt;font color=<span class="comment">#00ffff size=3&gt;null&lt;/font&gt;</span></div><div class="line">&lt;font color=gray size=5&gt;gray&lt;/font&gt;</div></pre></td></tr></table></figure>
+<p>　　Size：规定文本的尺寸大小。可能的值：从 1 到 7 的数字。浏览器默认值是 3。</p>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><pre><code><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| Tables        | Are           | Cool  |</div><div class="line">| ------------- |:-------------:| -----:|</div><div class="line">| col 3 is      | right-aligned | <span class="variable">$1600</span> |</div><div class="line">| col 2 is      | centered      |   <span class="variable">$12</span> |</div><div class="line">| zebra stripes | are neat      |    <span class="variable">$1</span> |</div></pre></td></tr></table></figure>
+
+项目     | 价格
+-------- | ---
+Computer | $1600
+Phone    | $12
+Pipe     | $1
+</code></pre><h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p><code>&lt;!-- 注释 --&gt;</code>,加上HTML的注释符号，其中的内容在网页中不会显示。</p>
+<h1 id="实现文件下载"><a href="#实现文件下载" class="headerlink" title="实现文件下载"></a>实现文件下载</h1><p>在网上HEXO如何实现文件下载功能，但是一直没有找到比较简便的方法，大部分都是，先把文件上传到网盘或其他云平台上，再给出文件链接，提供下载。</p>
+<p>想着在显示图片的时候可以直接用<code>![]()</code>的形式加载图片，用<code>[]()</code>加载相关的网页链接，就尝试是否也可与图片加载的形式，显示文件。</p>
+<p>方法：先在<code>yourblog_name\source</code>目录下新建名为<code>files</code>的文件夹，将文件存放到文件夹中，在MarkDown编辑器中<code>[显示的文件名](/files/文件名.扩展名)</code>，如<code>[设计模式培训.pdf](/files/设计模式培训.pdf)</code>，此时将内容部署后，访问这个链接，就可以下载文件。</p>
+<blockquote>
+<p>yourblog_name是对应博客存放的文件夹名。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/05/27Detection-and-Classification-of-Acoustic-Scenes-and-Events-DCASE2013详细介绍/" rel="next" title="Detection and Classification of Acoustic Scenes and Events(DCASE2013详细介绍)">
+                <i class="fa fa-chevron-left"></i> Detection and Classification of Acoustic Scenes and Events(DCASE2013详细介绍)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/07/29基于智能计算的降维技术研究与应用/" rel="prev" title="基于智能计算的降维技术研究与应用">
+                基于智能计算的降维技术研究与应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/beatrice.jpg"
+               alt="beatrice" />
+          <p class="site-author-name" itemprop="name">beatrice</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分割线"><span class="nav-number">1.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片链接"><span class="nav-number">2.</span> <span class="nav-text">图片链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置字体、字号和颜色"><span class="nav-number">3.</span> <span class="nav-text">设置字体、字号和颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表格"><span class="nav-number">4.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注释"><span class="nav-number">5.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现文件下载"><span class="nav-number">6.</span> <span class="nav-text">实现文件下载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-/uploads/avatar.jpg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beatrice</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
